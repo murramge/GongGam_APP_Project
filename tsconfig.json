@@ -1,0 +1,16 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@icons/*":["./src/assets/icon/*"],
+      "@images/*":["./src/assets/images/*"],
+      "@lotties/*":["./src/assets/lotties/*"],
+      "@components/*":["./src/components/*"],
+      "@libs/*":["./src/libs/*"],
+      "@utils/*":["./src/utils/*"],
+      "@styles/*":["./src/styles/*"],
+      "@pages/*":["./src/pages/*"],
+      "@apis/*":["./src/apis/*"],
+    }
+  }
+}
