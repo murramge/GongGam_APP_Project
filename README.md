@@ -124,3 +124,4 @@ source ~/.zshrc
 - env 파일 세팅
   - .env, .env.development, .env.production 파일 다운로드 
   - .env, .env.development, .env.production 파일을 프로젝트 루트 폴더에 위치시킴
+- git clone 후 npm install 실행
