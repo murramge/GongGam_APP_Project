@@ -1,4 +1,4 @@
-import {getShowDetail, getShowList} from '@apis/kopis';
+import {getBoxOffice, getShowDetail, getShowList} from '@apis/kopis';
 
 test('공연 목록 조회', async () => {
   const size = 10;
@@ -17,4 +17,12 @@ test('공연 상세 조회', async () => {
   });
   console.log(data);
   expect(data?.genrenm).toBe('복합');
+});
+
+test('박스오피스조회', async () => {
+  const data = await getBoxOffice({
+    date: '20240423',
+    stsType: 'day',
+  });
+  console.log(data);
 });

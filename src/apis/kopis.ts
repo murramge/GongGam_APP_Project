@@ -8,6 +8,7 @@ export const getShowList = async ({
   endDate,
   page,
   size,
+  showName,
   genreCode,
   performanceStateCode,
   signguCode,
@@ -17,6 +18,7 @@ export const getShowList = async ({
   endDate: string;
   page: number;
   size: number;
+  showName?: string;
   genreCode?: keyof typeof Genre;
   performanceStateCode?: keyof typeof PerformanceState;
   signguCode?: string;
@@ -28,6 +30,7 @@ export const getShowList = async ({
       eddate: string;
       cpage: number;
       rows: number;
+      shprfnm?: string;
       shcate?: keyof typeof Genre;
       prfstate?: keyof typeof PerformanceState;
       signgucode?: string;
@@ -39,6 +42,9 @@ export const getShowList = async ({
       rows: size,
     };
 
+    if (showName) {
+      params.shprfnm = showName;
+    }
     if (genreCode) {
       params.shcate = genreCode;
     }
@@ -65,11 +71,51 @@ export const getShowList = async ({
 
 export const getShowDetail = async ({showId}: {showId: string}) => {
   try {
-    const res = await kopisInstance.get(`/pblprfr/${showId}`, {});
+    const res = await kopisInstance.get(`/pblprfr/${showId}`);
 
     return parser.parse(res.data).dbs.db as PerformanceDetailInfo;
   } catch (e) {
     console.error('Error in getShowDetail:', e);
+    throw e;
+  }
+};
+
+export const getBoxOffice = async ({
+  date,
+  stsType,
+  categoryCode,
+  area,
+}: {
+  date: string;
+  stsType: (typeof StsType)[keyof typeof StsType];
+  categoryCode?: keyof typeof Category;
+  area?: string;
+}) => {
+  try {
+    const params: {
+      ststype: (typeof StsType)[keyof typeof StsType];
+      date: string;
+      catecode?: keyof typeof Category;
+      area?: string;
+    } = {
+      date,
+      ststype: stsType,
+    };
+
+    if (categoryCode) {
+      params.catecode = categoryCode;
+    }
+    if (area) {
+      params.area = area;
+    }
+
+    const res = await kopisInstance.get('/boxoffice', {
+      params: params,
+    });
+
+    return parser.parse(res.data).boxofs.boxof as BoxOffice;
+  } catch (e) {
+    console.error('Error in getBoxOffice:', e);
     throw e;
   }
 };
@@ -89,6 +135,24 @@ const PerformanceState = {
   '01': '공연예정',
   '02': '공연중',
   '03': '공연완료',
+} as const;
+const StsType = {
+  월별: 'month',
+  주별: 'week',
+  일별: 'day',
+} as const;
+const Category = {
+  AAAA: '연극',
+  GGGA: '뮤지컬',
+  CCCA: '클래식',
+  CCCC: '국악',
+  CCCD: '대중음악',
+  BBBC: '무용(서양/한국무용)',
+  BBBR: '대중무용',
+  EEEB: '서커스/마술',
+  EEEA: '복합',
+  KID: '아동',
+  OPEN: '오픈런',
 } as const;
 
 type PerformanceDetailInfo = {
@@ -136,4 +200,16 @@ type PerformanceInfo = {
   genrenm: (typeof Genre)[keyof typeof Genre];
   openrun: string;
   prfstate: (typeof PerformanceState)[keyof typeof PerformanceState];
+};
+type BoxOffice = {
+  area: string;
+  prfdtcnt: number;
+  prfpd: string;
+  cate: string;
+  prfplcnm: string;
+  prfnm: string;
+  rnum: number;
+  seatcnt: number;
+  poster: string;
+  mt20id: string;
 };
