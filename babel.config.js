@@ -15,6 +15,7 @@ module.exports = {
           '@styles': './src/styles',
           '@pages': './src/pages',
           '@apis': './src/apis',
+          '@interfaces': './src/interfaces',
         },
       },
     ],
