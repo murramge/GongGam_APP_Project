@@ -4,7 +4,7 @@ export interface PerformanceState {
   '03': '공연완료';
 }
 
-export interface Category {
+export interface PerformanceCategory {
   AAAA: '연극';
   GGGA: '뮤지컬';
   CCCA: '클래식';
@@ -18,7 +18,7 @@ export interface Category {
   OPEN: '오픈런';
 }
 
-export interface Genre {
+export interface PerformanceGenre {
   AAAA: '연극';
   BBBB: '무용';
   BBBE: '대중무용';
@@ -42,7 +42,7 @@ export interface PerformanceDetailInfo {
   entrpsnmS: string;
   fcltynm: string;
   festival: string;
-  genrenm: Genre[keyof Genre];
+  genrenm: PerformanceGenre[keyof PerformanceGenre];
   mt10id: string;
   mt20id: string;
   musicalcreate: string;
@@ -73,12 +73,12 @@ export interface PerformanceInfo {
   prfpdto: string;
   fcltynm: string;
   poster: string;
-  genrenm: Genre[keyof Genre];
+  genrenm: PerformanceGenre[keyof PerformanceGenre];
   openrun: string;
   prfstate: PerformanceState[keyof PerformanceState];
 }
 
-export interface BoxOffice {
+export interface PerformanceBoxOffice {
   area: string;
   prfdtcnt: number;
   prfpd: string;
@@ -90,7 +90,7 @@ export interface BoxOffice {
   poster: string;
   mt20id: string;
 }
-export interface StsType {
+export interface PerformanceStsType {
   월별: 'month';
   주별: 'week';
   일별: 'day';

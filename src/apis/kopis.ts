@@ -1,59 +1,59 @@
 import {XMLParser} from 'fast-xml-parser';
 import {kopisInstance} from '@apis/axios';
 import {
-  BoxOffice,
-  Category,
-  Genre,
+  PerformanceBoxOffice,
+  PerformanceCategory,
+  PerformanceGenre,
   PerformanceDetailInfo,
   PerformanceInfo,
   PerformanceState,
-  StsType,
+  PerformanceStsType,
 } from '@interfaces/kopis.interface';
 
 const parser = new XMLParser();
 
-interface getShowListProps {
+interface getPerformanceListProps {
   startDate: string;
   endDate: string;
   page: number;
   size: number;
-  showName?: string;
-  genreCode?: keyof Genre;
+  performanceName?: string;
+  genreCode?: keyof PerformanceGenre;
   performanceStateCode?: keyof PerformanceState;
   signguCode?: string;
   signguCodeSub?: string;
 }
 
-interface getShowListApiParams {
+interface getPerformanceListApiParams {
   stdate: string;
   eddate: string;
   cpage: number;
   rows: number;
   shprfnm?: string;
-  shcate?: keyof Genre;
+  shcate?: keyof PerformanceGenre;
   prfstate?: keyof PerformanceState;
   signgucode?: string;
   signgucodesub?: string;
 }
 
-export const getShowList = async ({
+export const getPerformanceList = async ({
   startDate,
   endDate,
   page,
   size,
-  showName,
+  performanceName,
   genreCode,
   performanceStateCode,
   signguCode,
   signguCodeSub,
-}: getShowListProps): Promise<PerformanceInfo[]> => {
+}: getPerformanceListProps): Promise<PerformanceInfo[]> => {
   try {
-    const params: getShowListApiParams = {
+    const params: getPerformanceListApiParams = {
       stdate: startDate,
       eddate: endDate,
       cpage: page,
       rows: size,
-      shprfnm: showName,
+      shprfnm: performanceName,
       shcate: genreCode,
       prfstate: performanceStateCode,
       signgucode: signguCode,
@@ -66,37 +66,39 @@ export const getShowList = async ({
 
     return parser.parse(res.data).dbs.db as PerformanceInfo[];
   } catch (e) {
-    console.error('Error in getShowList:', e);
+    console.error('Error in getPerformanceList:', e);
     throw e;
   }
 };
 
-interface getShowDetailProps {
-  showId: string;
+interface getPerformanceDetailProps {
+  performanceId: string;
 }
 
-export const getShowDetail = async ({showId}: getShowDetailProps) => {
+export const getPerformanceDetail = async ({
+  performanceId,
+}: getPerformanceDetailProps) => {
   try {
-    const res = await kopisInstance.get(`/pblprfr/${showId}`);
+    const res = await kopisInstance.get(`/pblprfr/${performanceId}`);
 
     return parser.parse(res.data).dbs.db as PerformanceDetailInfo;
   } catch (e) {
-    console.error('Error in getShowDetail:', e);
+    console.error('Error in getPerformanceDetail:', e);
     throw e;
   }
 };
 
-interface getBoxOfficeProps {
+interface getPerformanceBoxOfficeProps {
   date: string;
-  stsType: StsType[keyof StsType];
-  categoryCode?: keyof Category;
+  stsType: PerformanceStsType[keyof PerformanceStsType];
+  categoryCode?: keyof PerformanceCategory;
   area?: string;
 }
 
-interface getBoxOfficeApiParams {
-  ststype: StsType[keyof StsType];
+interface getPerformanceApiParams {
+  ststype: PerformanceStsType[keyof PerformanceStsType];
   date: string;
-  catecode?: keyof Category;
+  catecode?: keyof PerformanceCategory;
   area?: string;
 }
 
@@ -105,9 +107,9 @@ export const getBoxOffice = async ({
   stsType,
   categoryCode,
   area,
-}: getBoxOfficeProps) => {
+}: getPerformanceBoxOfficeProps) => {
   try {
-    const params: getBoxOfficeApiParams = {
+    const params: getPerformanceApiParams = {
       date,
       ststype: stsType,
       catecode: categoryCode,
@@ -118,7 +120,7 @@ export const getBoxOffice = async ({
       params: params,
     });
 
-    return parser.parse(res.data).boxofs.boxof as BoxOffice;
+    return parser.parse(res.data).boxofs.boxof as PerformanceBoxOffice;
   } catch (e) {
     console.error('Error in getBoxOffice:', e);
     throw e;
