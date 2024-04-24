@@ -24,6 +24,18 @@ interface getShowListProps {
   signguCodeSub?: string;
 }
 
+interface getShowListApiParams {
+  stdate: string;
+  eddate: string;
+  cpage: number;
+  rows: number;
+  shprfnm?: string;
+  shcate?: keyof Genre;
+  prfstate?: keyof PerformanceState;
+  signgucode?: string;
+  signgucodesub?: string;
+}
+
 export const getShowList = async ({
   startDate,
   endDate,
@@ -36,17 +48,7 @@ export const getShowList = async ({
   signguCodeSub,
 }: getShowListProps): Promise<PerformanceInfo[]> => {
   try {
-    const params: {
-      stdate: string;
-      eddate: string;
-      cpage: number;
-      rows: number;
-      shprfnm?: string;
-      shcate?: keyof Genre;
-      prfstate?: keyof PerformanceState;
-      signgucode?: string;
-      signgucodesub?: string;
-    } = {
+    const params: getShowListApiParams = {
       stdate: startDate,
       eddate: endDate,
       cpage: page,
@@ -91,6 +93,13 @@ interface getBoxOfficeProps {
   area?: string;
 }
 
+interface getBoxOfficeApiParams {
+  ststype: StsType[keyof StsType];
+  date: string;
+  catecode?: keyof Category;
+  area?: string;
+}
+
 export const getBoxOffice = async ({
   date,
   stsType,
@@ -98,12 +107,7 @@ export const getBoxOffice = async ({
   area,
 }: getBoxOfficeProps) => {
   try {
-    const params: {
-      ststype: StsType[keyof StsType];
-      date: string;
-      catecode?: keyof Category;
-      area?: string;
-    } = {
+    const params: getBoxOfficeApiParams = {
       date,
       ststype: stsType,
       catecode: categoryCode,
