@@ -40,23 +40,12 @@ export const getShowList = async ({
       eddate: endDate,
       cpage: page,
       rows: size,
+      shprfnm: showName,
+      shcate: genreCode,
+      prfstate: performanceStateCode,
+      signgucode: signguCode,
+      signgucodesub: signguCodeSub,
     };
-
-    if (showName) {
-      params.shprfnm = showName;
-    }
-    if (genreCode) {
-      params.shcate = genreCode;
-    }
-    if (performanceStateCode) {
-      params.prfstate = performanceStateCode;
-    }
-    if (signguCode) {
-      params.signgucode = signguCode;
-    }
-    if (signguCodeSub) {
-      params.signgucodesub = signguCodeSub;
-    }
 
     const res = await kopisInstance.get('/pblprfr', {
       params: params,
@@ -100,14 +89,9 @@ export const getBoxOffice = async ({
     } = {
       date,
       ststype: stsType,
+      catecode: categoryCode,
+      area,
     };
-
-    if (categoryCode) {
-      params.catecode = categoryCode;
-    }
-    if (area) {
-      params.area = area;
-    }
 
     const res = await kopisInstance.get('/boxoffice', {
       params: params,
