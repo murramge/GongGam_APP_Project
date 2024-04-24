@@ -1,5 +1,5 @@
 import {
-  getBoxOffice,
+  getPerformanceBoxOffice,
   getPerformanceDetail,
   getPerformanceList,
 } from '@apis/kopis';
@@ -24,7 +24,7 @@ test('공연 상세 조회', async () => {
 });
 
 test('박스오피스조회', async () => {
-  const data = await getBoxOffice({
+  const data = await getPerformanceBoxOffice({
     date: '20240423',
     stsType: 'day',
   });

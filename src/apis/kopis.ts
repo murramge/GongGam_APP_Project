@@ -102,7 +102,7 @@ interface getPerformanceApiParams {
   area?: string;
 }
 
-export const getBoxOffice = async ({
+export const getPerformanceBoxOffice = async ({
   date,
   stsType,
   categoryCode,
