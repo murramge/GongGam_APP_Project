@@ -1,12 +1,12 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
-import Config from 'react-native-config';
+import {NavigationContainer} from '@react-navigation/native';
+import Router from './src/router';
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView>
-      <Text>ENV:{Config.ENV}</Text>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Router />
+    </NavigationContainer>
   );
 }
 
