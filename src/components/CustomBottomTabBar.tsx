@@ -1,6 +1,12 @@
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import 'react-native-get-random-values';
 import {v4} from 'uuid';
@@ -21,7 +27,7 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
     onPress: () => void;
   }) => {
     return (
-      <TouchableOpacity
+      <Pressable
         key={v4()}
         hitSlop={{
           bottom: 16,
@@ -37,7 +43,7 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
         ]}
         onPress={onPress}>
         <Icon name={name} size={28} color={isFocused ? '#3544C4' : '#aaa'} />
-      </TouchableOpacity>
+      </Pressable>
     );
   };
 
