@@ -3,11 +3,11 @@ apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 // react-native-config
 project.ext.envConfigFiles = [
-    productiondebug: "env/.env.production",
-    productionrelease: "env/.env.production",
-    developmentrelease: "env/.env.development",
-    developmentdebug: "env/.env.development",
-    anothercustombuild: "env/.env",
+    productiondebug: ".env.production",
+    productionrelease: ".env.production",
+    developmentrelease: ".env.development",
+    developmentdebug: ".env.development",
+    anothercustombuild: ".env",
 ]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
