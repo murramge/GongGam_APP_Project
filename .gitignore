@@ -2,7 +2,7 @@
 .env
 .env.development
 .env.production
-
+__mocks__/react-native-config.ts
 # OSX
 #
 .DS_Store
