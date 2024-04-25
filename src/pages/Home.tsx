@@ -1,17 +1,7 @@
+import HomeTemplates from '../template/home/HomeTemplates';
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import CommonButton from '../atoms/buttons/CommonButton';
-import SignInput from '@components/inputs/SignInput';
-import SearchInput from '@components/inputs/SearchInput';
 const Home = () => {
-  return (
-    <View>
-      <CommonButton></CommonButton>
-      <SignInput></SignInput>
-      <SearchInput></SearchInput>
-    </View>
-  );
+  return <HomeTemplates></HomeTemplates>;
 };
-const styles = StyleSheet.create({});
 
 export default Home;

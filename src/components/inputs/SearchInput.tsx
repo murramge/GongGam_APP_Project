@@ -21,7 +21,6 @@ const SearchInput = ({}: SearchInputProps) => {
 const styles = StyleSheet.create({
   SearchInput: {
     backgroundColor: 'white',
-    padding: 10,
     margin: 10,
     borderRadius: 10,
     paddingHorizontal: 20,
