@@ -1,11 +1,6 @@
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
-import React, {useRef, useState} from 'react';
-import {
-  Animated,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import React, {useState} from 'react';
+import {TouchableOpacity, View, useWindowDimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import 'react-native-get-random-values';
 import {v4} from 'uuid';
@@ -13,55 +8,39 @@ import {v4} from 'uuid';
 interface CustomBottomTabBarProps extends BottomTabBarProps {}
 
 const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
-  const tab1Value = useRef(new Animated.Value(0)).current;
-  const tab2Value = useRef(new Animated.Value(0)).current;
-  const tab3Value = useRef(new Animated.Value(0)).current;
-  const tab4Value = useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
   const {width} = useWindowDimensions();
 
-  const valuesOf = [tab1Value, tab2Value, tab3Value, tab4Value];
-  const a = 1;
-
-  const renderTabButton = (name: string, index: number) => {
-    const isFocused = currentIndex === index;
-    const onPress = () => {
-      setCurrentIndex(index);
-      Animated.timing(valuesOf[index], {
-        useNativeDriver: true,
-        toValue: 1,
-        duration: 1000,
-      }).start();
-    };
+  const renderTabButton = ({
+    name,
+    isFocused,
+    onPress,
+  }: {
+    name: string;
+    isFocused: boolean;
+    onPress: () => void;
+  }) => {
     return (
-      <Animated.View
+      <TouchableOpacity
         key={v4()}
+        hitSlop={{
+          bottom: 16,
+          top: 16,
+          left: 16,
+          right: 16,
+        }}
         style={{
           width: 52,
           height: 52,
+          elevation: isFocused ? 4 : 0,
           borderRadius: 100,
+          backgroundColor: '#FFF',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#FFF',
-          elevation: valuesOf[index],
-        }}>
-        <TouchableOpacity
-          style={{
-            width: '100%',
-            height: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          hitSlop={{
-            bottom: 10,
-            top: 10,
-            left: 16,
-            right: 16,
-          }}
-          onPress={onPress}>
-          <Icon name={name} size={28} color={isFocused ? '#3544C4' : '#aaa'} />
-        </TouchableOpacity>
-      </Animated.View>
+        }}
+        onPress={onPress}>
+        <Icon name={name} size={28} color={isFocused ? '#3544C4' : '#aaa'} />
+      </TouchableOpacity>
     );
   };
 
@@ -89,7 +68,13 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
             alignItems: 'center',
             flexDirection: 'row',
           }}>
-          {routeNames.map(renderTabButton)}
+          {routeNames.map((routeName, index) =>
+            renderTabButton({
+              name: routeName,
+              isFocused: index === currentIndex,
+              onPress: () => setCurrentIndex(index),
+            }),
+          )}
         </View>
       </View>
     </View>
