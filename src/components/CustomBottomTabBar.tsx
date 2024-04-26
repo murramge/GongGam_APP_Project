@@ -1,13 +1,9 @@
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {
-  Dimensions,
-  Pressable,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {Dimensions, Pressable, StyleSheet, View} from 'react-native';
+import IonIcon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import 'react-native-get-random-values';
 import {v4} from 'uuid';
 
@@ -18,10 +14,12 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
   const currentRouteName = routeNames[state.index];
 
   const renderTabButton = ({
+    type,
     name,
     isFocused,
     onPress,
   }: {
+    type: IconType;
     name: string;
     isFocused: boolean;
     onPress: () => void;
@@ -42,7 +40,27 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
           },
         ]}
         onPress={onPress}>
-        <Icon name={name} size={28} color={isFocused ? '#3544C4' : '#aaa'} />
+        {type === 'fontisto' ? (
+          <FontistoIcon
+            name={name}
+            size={28}
+            color={isFocused ? '#3544C4' : '#aaa'}
+          />
+        ) : type === 'ion' ? (
+          <IonIcon
+            name={name}
+            size={28}
+            color={isFocused ? '#3544C4' : '#aaa'}
+          />
+        ) : type === 'material' ? (
+          <MaterialIcon
+            name={name}
+            size={28}
+            color={isFocused ? '#3544C4' : '#aaa'}
+          />
+        ) : (
+          <></>
+        )}
       </Pressable>
     );
   };
@@ -53,7 +71,8 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
         <View style={styles.tabBar}>
           {routeNames.map(routeName =>
             renderTabButton({
-              name: routeInfo[routeName].iconName,
+              type: routeInfo[routeName]?.iconType ?? 'fontisto',
+              name: routeInfo[routeName]?.iconName ?? 'film',
               isFocused: currentRouteName === routeName,
               onPress: () => navigation.navigate(routeName),
             }),
@@ -66,13 +85,25 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
 
 const routeInfo: {
   [key: string]: {
+    iconType: IconType;
     iconName: string;
   };
 } = {
-  Home: {
-    iconName: 'film-outline',
+  Performance: {
+    iconType: 'fontisto',
+    iconName: 'film',
+  },
+  Community: {
+    iconType: 'material',
+    iconName: 'account-group',
+  },
+  Profile: {
+    iconType: 'ion',
+    iconName: 'person',
   },
 };
+
+type IconType = 'fontisto' | 'material' | 'ion';
 
 const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
