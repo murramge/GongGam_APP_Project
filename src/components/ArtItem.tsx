@@ -1,6 +1,7 @@
 import {colors} from '@styles/color';
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import Config from 'react-native-config';
 
 interface ArtItemProps {
   photoUrl?: string;
@@ -13,10 +14,17 @@ const ArtItem = ({photoUrl, title, period, place}: ArtItemProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.photo}>
-        {photoUrl && <Image style={styles.photo} source={{uri: photoUrl}} />}
+        {photoUrl && (
+          <Image
+            style={styles.photo}
+            source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${photoUrl}`}}
+          />
+        )}
       </View>
       <View style={styles.bottom}>
-        <Text style={styles.nameText}>{title}</Text>
+        <Text style={styles.nameText} numberOfLines={2}>
+          {title}
+        </Text>
         <Text style={styles.descriptionText}>{period}</Text>
         <Text style={styles.descriptionText}>{place}</Text>
       </View>
@@ -29,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.WHITE,
     borderRadius: 12,
     overflow: 'hidden',
-    width: 135,
+    width: 150,
     borderWidth: 1,
     margin: 5,
     borderColor: colors.GRAY_200,
