@@ -9,7 +9,7 @@ import CustomBottomTabBar from '@components/CustomBottomTabBar';
 import DetailPage from './template/home/DetailPage';
 import {RouteProp} from '@react-navigation/native';
 
-type RootStackParamList = {
+export type RootStackParamList = {
   MainTab: undefined;
   Detail: {
     photoUrl?: string;
@@ -17,6 +17,10 @@ type RootStackParamList = {
     period: string;
     place: string;
     id: string;
+    // prfruntime: string;
+    // prfage: string;
+    // prfcast: string;
+    // prfcrew: string;
   };
 };
 

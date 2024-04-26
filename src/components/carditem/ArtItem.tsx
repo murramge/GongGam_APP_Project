@@ -4,6 +4,7 @@ import {colors} from '@styles/color';
 import React, {useCallback} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Config from 'react-native-config';
+import {RootStackParamList} from '../../router';
 
 interface ArtItemProps {
   photoUrl?: string;
@@ -15,13 +16,11 @@ interface ArtItemProps {
 
 const ArtItem = ({photoUrl, title, period, place, id}: ArtItemProps) => {
   const {navigate} =
-    useNavigation<
-      NativeStackNavigationProp<{MainTab: undefined; Detail: {id: string}}>
-    >();
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const onPress = useCallback(() => {
-    navigate('Detail', {id});
-  }, [id, navigate]);
+    navigate('Detail', {id, photoUrl, title, period, place});
+  }, [id, photoUrl, title, period, place, navigate]);
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
