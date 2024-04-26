@@ -1,23 +1,13 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {atom, useAtom} from 'jotai';
+import {PerformanceGenre} from '@utils/category';
 interface MainCategoriesProps {}
 
-const PerformanceGenre = {
-  AAAA: '연극',
-  GGGA: '뮤지컬',
-  CCCA: '클래식',
-  CCCC: '국악',
-  CCCD: '대중음악',
-  BBBC: '무용',
-  BBBR: '대중무용',
-  EEEB: '서커스/마술',
-  EEEA: '복합',
-  KID: '아동',
-  OPEN: '오픈런',
-};
+export const selectAtom = atom('All');
 
 const MainCategories = ({}: MainCategoriesProps) => {
-  const [selectItem, setSelectItem] = useState('All');
+  const [selectItem, setSelectItem] = useAtom(selectAtom);
 
   const onCategoriesRender = ({item}) => (
     <TouchableOpacity onPress={() => setSelectItem(item)}>
