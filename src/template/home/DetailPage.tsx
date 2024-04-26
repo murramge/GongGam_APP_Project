@@ -1,5 +1,6 @@
 import BackHeader from '@components/header/BackHeader';
 import {RouteProp} from '@react-navigation/native';
+import {colors} from '@styles/color';
 import React from 'react';
 import {BackHandler, Image} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
@@ -25,11 +26,12 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
     <View>
       <View style={styles.detailHeader}>
         <BackHeader
-          label="공연상세"
+          label={title}
           Color={{labelColor: 'white'}}
           rightIcon="arrow-forward-ios"
         />
       </View>
+      <View style={styles.dim}></View>
       <View>
         {photoUrl && (
           <Image
@@ -49,6 +51,15 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     zIndex: 10,
+  },
+  dim: {
+    position: 'absolute',
+    width: '100%',
+    height: 440,
+    left: 0,
+    top: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    zIndex: 2,
   },
   photo: {
     width: '100%',

@@ -20,7 +20,7 @@ const BackHeader = ({
     labelColor: 'black',
   },
   label,
-  rightIcon = 'arrow-back-ios',
+  rightIcon = 'arrow-forward-ios',
 }: BackHeaderProps) => {
   return (
     <SafeAreaView
