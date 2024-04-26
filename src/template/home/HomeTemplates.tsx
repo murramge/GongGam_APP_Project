@@ -8,6 +8,7 @@ import MainCategories from '@components/categories/MainCategories';
 import SearchHeader from '@components/header/SearchHeader';
 import React from 'react';
 import {View} from 'react-native';
+import BackHeader from '@components/header/BackHeader';
 interface HomeProps {
   date: string;
   stsType: PerformanceStsType[keyof PerformanceStsType];

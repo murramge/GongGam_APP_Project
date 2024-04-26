@@ -3,9 +3,25 @@ import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-interface BackHeaderProps {}
+interface BackHeaderProps {
+  Color?: {
+    leftIconsColor?: string;
+    rightIconsColor?: string;
+    labelColor?: string;
+  };
+  label: string;
+  rightIcon?: string;
+}
 
-const BackHeader = ({}: BackHeaderProps) => {
+const BackHeader = ({
+  Color = {
+    leftIconsColor: 'black',
+    rightIconsColor: 'black',
+    labelColor: 'black',
+  },
+  label = '샘플입니다.',
+  rightIcon = 'arrow-back-ios',
+}: BackHeaderProps) => {
   return (
     <SafeAreaView
       style={{
@@ -16,22 +32,25 @@ const BackHeader = ({}: BackHeaderProps) => {
         alignItems: 'center',
       }}>
       <TouchableOpacity>
-        <Icon name="arrow-back-ios" color="black" size={24}></Icon>
+        <Icon
+          name="arrow-back-ios"
+          color={Color.leftIconsColor}
+          size={24}></Icon>
       </TouchableOpacity>
       <View style={{justifyContent: 'center'}}>
         <Text
           style={{
             fontSize: 16,
             lineHeight: 32,
-            color: 'black',
+            color: Color.labelColor,
             fontWeight: '500',
             textAlign: 'center',
           }}>
-          샘플입니다.
+          {label}
         </Text>
       </View>
       <TouchableOpacity>
-        <Text>Right</Text>
+        <Icon name={rightIcon} color={Color.rightIconsColor} size={24}></Icon>
       </TouchableOpacity>
     </SafeAreaView>
   );
