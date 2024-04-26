@@ -21,9 +21,9 @@
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "@supabase/supabase-js": "^2.42.5",
+    "@types/react-native-vector-icons": "^6.4.18",
     "@types/react-native-snap-carousel": "^3.8.11",
     "@types/react-native-vector-icons": "^6.4.18",
-
     "axios": "^1.6.8",
     "fast-xml-parser": "^4.3.6",
     "install": "^0.13.0",

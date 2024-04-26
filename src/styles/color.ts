@@ -1,3 +1,11 @@
-export const MAIN_COLOR = '#3544C4';
-export const GRAY_TEXT_COLOR = '#92929D';
-export const GRAY_BUTTON_COLOR = '#C4C4C4';
+const colors = {
+  WHITE: '#FFF',
+  MAIN_COLOR: '#3544C4',
+  TITLE_COLOR: '#272F4B',
+  GRAY_200: '#E0E0E0',
+  GRAY_300: '#92929D',
+  GRAY_500: '#100F13',
+  Black: '#000',
+};
+
+export {colors};
