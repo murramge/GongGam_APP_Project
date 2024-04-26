@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import CommonInput from '../../atoms/inputs/CommonInput';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface SearchInputProps {}
 
@@ -21,7 +21,6 @@ const SearchInput = ({}: SearchInputProps) => {
 const styles = StyleSheet.create({
   SearchInput: {
     backgroundColor: 'white',
-    padding: 10,
     margin: 10,
     borderRadius: 10,
     paddingHorizontal: 20,

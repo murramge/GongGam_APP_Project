@@ -1,7 +1,7 @@
 import {colors} from '@styles/color';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import ArtItem from './ArtItem';
+import ArtItem from '../carditem/ArtItem';
 import {getPerformanceBoxOffice, getPerformanceList} from '@apis/kopis';
 import {
   PerformanceBoxOffice,

@@ -13,7 +13,7 @@ import {
   getPerformanceList,
 } from '@apis/kopis';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import MainUpperCard from './MainUpperCard';
+import MainUpperCard from '../carditem/MainUpperCard';
 interface Item {
   image: any;
 }
