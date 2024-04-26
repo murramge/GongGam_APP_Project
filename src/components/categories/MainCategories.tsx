@@ -54,6 +54,38 @@ const MainCategories = ({}: MainCategoriesProps) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+  header: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'black',
+  },
+  list: {
+    backgroundColor: '#E8E8EA',
+    marginVertical: 15,
+    borderRadius: 12,
+  },
+  categoryButton: {
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 5,
+    paddingHorizontal: 27,
+    paddingVertical: 8,
+  },
+  categoryText: {
+    color: 'black',
+  },
+  selected: {
+    backgroundColor: '#3544C4',
+    borderRadius: 8,
+  },
+  selectedText: {
+    color: '#EBEDFF',
+  },
+});
 
 export default MainCategories;

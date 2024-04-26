@@ -28,7 +28,7 @@ const HomeTemplates = () => {
   );
 
   return (
-    <View style={{flex: 1, backgroundColor: 'white', paddingBottom: 100}}>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <SearchHeader></SearchHeader>
       <MainUpperCardBar></MainUpperCardBar>
       <MainCategories></MainCategories>
