@@ -1,28 +1,62 @@
 import {colors} from '@styles/color';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import ArtItem from './ArtItem';
+import {getPerformanceBoxOffice, getPerformanceList} from '@apis/kopis';
+import {
+  PerformanceBoxOffice,
+  PerformanceCategory,
+  PerformanceInfo,
+  PerformanceStsType,
+} from '@interfaces/kopis.interface';
 
-interface ArtListProps {}
+export interface ArtListProps {
+  date: string;
+  stsType: PerformanceStsType[keyof PerformanceStsType];
+  categoryCode?: keyof PerformanceCategory;
+  area?: string;
+}
 
-const ArtList = ({}: ArtListProps) => {
+const ArtList = ({date, stsType, categoryCode, area}: ArtListProps) => {
+  const [performances, setPerformances] = useState<PerformanceBoxOffice[]>([]);
+
+  console.log(performances);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getPerformanceBoxOffice({
+          date,
+          stsType,
+          categoryCode,
+          area,
+        });
+        data && setPerformances(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [date, stsType, categoryCode, area]);
+
   return (
-    <View style={styles.container}>
+    <View style={styles.boxOfficeContainer}>
       <Text style={styles.titleText}>인기</Text>
       <View>
         <FlatList
           horizontal
-          data={dummy_feed}
+          data={performances}
           renderItem={({item: art}) => {
             return (
               <ArtItem
                 photoUrl={art.poster ?? undefined}
                 title={art.prfnm}
                 period={art.prfpd}
-                place={art.prfplcnm}
+                place={art.area}
               />
             );
           }}
+          keyExtractor={item => item?.mt20id ?? 'defaultKey'}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           showsHorizontalScrollIndicator={false}
         />
@@ -32,7 +66,7 @@ const ArtList = ({}: ArtListProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  boxOfficeContainer: {
     marginLeft: 12,
   },
   titleText: {

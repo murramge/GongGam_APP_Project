@@ -88,7 +88,7 @@ export const getPerformanceDetail = async ({
   }
 };
 
-interface getPerformanceBoxOfficeProps {
+export interface getPerformanceBoxOfficeProps {
   date: string;
   stsType: PerformanceStsType[keyof PerformanceStsType];
   categoryCode?: keyof PerformanceCategory;
@@ -107,7 +107,7 @@ export const getPerformanceBoxOffice = async ({
   stsType,
   categoryCode,
   area,
-}: getPerformanceBoxOfficeProps) => {
+}: getPerformanceBoxOfficeProps): Promise<PerformanceBoxOffice[]> => {
   try {
     const params: getPerformanceApiParams = {
       date,
@@ -120,7 +120,9 @@ export const getPerformanceBoxOffice = async ({
       params: params,
     });
 
-    return parser.parse(res.data).boxofs.boxof as PerformanceBoxOffice;
+    console.log('res.data', res.data);
+
+    return parser.parse(res.data).boxofs.boxof as PerformanceBoxOffice[];
   } catch (e) {
     console.error('Error in getBoxOffice:', e);
     throw e;
