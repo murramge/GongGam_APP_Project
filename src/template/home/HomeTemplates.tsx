@@ -7,8 +7,17 @@ import MainCategories, {
 import SearchHeader from '@components/header/SearchHeader';
 import React from 'react';
 import {View} from 'react-native';
+
 import {useAtomValue} from 'jotai';
 import {PerformanceGenre} from '@utils/category';
+
+import BackHeader from '@components/header/BackHeader';
+interface HomeProps {
+  date: string;
+  stsType: PerformanceStsType[keyof PerformanceStsType];
+  categoryCode?: keyof PerformanceCategory;
+  area?: string;
+}
 
 const HomeTemplates = () => {
   const selectCategory = useAtomValue(selectAtom);
