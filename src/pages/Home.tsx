@@ -13,17 +13,12 @@ interface HomeProps {
   area?: string;
 }
 
-const Home = ({date, stsType, categoryCode, area}: HomeProps) => {
+const Home = ({}: HomeProps) => {
   return (
     <View>
       <Text>home</Text>
       <View>
-        <ArtList
-          date={date}
-          stsType={stsType}
-          categoryCode={categoryCode}
-          area={area}
-        />
+        <ArtList date="20240425" stsType="day" />
       </View>
     </View>
   );
