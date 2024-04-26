@@ -20,7 +20,6 @@ export interface ArtListProps {
 const ArtList = ({date, stsType, categoryCode, area}: ArtListProps) => {
   const [performances, setPerformances] = useState<PerformanceBoxOffice[]>([]);
 
-  console.log(performances);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,6 +52,7 @@ const ArtList = ({date, stsType, categoryCode, area}: ArtListProps) => {
                 title={art.prfnm}
                 period={art.prfpd}
                 place={art.area}
+                id={art.mt20id}
               />
             );
           }}

@@ -19,7 +19,7 @@ const BackHeader = ({
     rightIconsColor: 'black',
     labelColor: 'black',
   },
-  label = '샘플입니다.',
+  label,
   rightIcon = 'arrow-back-ios',
 }: BackHeaderProps) => {
   return (

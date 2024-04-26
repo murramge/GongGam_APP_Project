@@ -120,8 +120,6 @@ export const getPerformanceBoxOffice = async ({
       params: params,
     });
 
-    console.log('res.data', res.data);
-
     return parser.parse(res.data).boxofs.boxof as PerformanceBoxOffice[];
   } catch (e) {
     console.error('Error in getBoxOffice:', e);

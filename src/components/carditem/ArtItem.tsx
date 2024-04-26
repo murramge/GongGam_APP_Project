@@ -1,6 +1,8 @@
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';
-import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React, {useCallback} from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Config from 'react-native-config';
 
 interface ArtItemProps {
@@ -8,11 +10,21 @@ interface ArtItemProps {
   title: string;
   period: string;
   place: string;
+  id: string;
 }
 
-const ArtItem = ({photoUrl, title, period, place}: ArtItemProps) => {
+const ArtItem = ({photoUrl, title, period, place, id}: ArtItemProps) => {
+  const {navigate} =
+    useNavigation<
+      NativeStackNavigationProp<{MainTab: undefined; Detail: {id: string}}>
+    >();
+
+  const onPress = useCallback(() => {
+    navigate('Detail', {id});
+  }, [id, navigate]);
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.photo}>
         {photoUrl && (
           <Image
@@ -28,7 +40,7 @@ const ArtItem = ({photoUrl, title, period, place}: ArtItemProps) => {
         <Text style={styles.descriptionText}>{period}</Text>
         <Text style={styles.descriptionText}>{place}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
