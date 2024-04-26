@@ -19,7 +19,7 @@ test('공연 상세 조회', async () => {
   const data = await getPerformanceDetail({
     performanceId: 'PF239796',
   });
-  console.log(data);
+
   expect(data?.genrenm).toBe('복합');
 });
 
@@ -28,5 +28,4 @@ test('박스오피스조회', async () => {
     date: '20240423',
     stsType: 'day',
   });
-  console.log(data);
 });
