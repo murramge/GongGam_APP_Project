@@ -1,14 +1,21 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from './pages/Home.tsx';
+import {
+  BottomTabBarProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
+import Home from '@pages/Home';
+import CustomBottomTabBar from '@components/CustomBottomTabBar';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const MainTab = () => {
+  const renderTabBar = (props: BottomTabBarProps) => (
+    <CustomBottomTabBar {...props} />
+  );
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Home" component={Home}></Tab.Screen>
     </Tab.Navigator>
   );
@@ -17,7 +24,7 @@ const MainTab = () => {
 function Router() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="MainTab" component={MainTab}></Stack.Screen>
+      <Stack.Screen name="MainTab" component={MainTab} />
     </Stack.Navigator>
   );
 }
