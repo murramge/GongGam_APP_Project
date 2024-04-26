@@ -1,5 +1,5 @@
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Dimensions, Pressable, StyleSheet, View} from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,57 +13,60 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
   const {routeNames} = state;
   const currentRouteName = routeNames[state.index];
 
-  const renderTabButton = ({
-    type,
-    name,
-    isFocused,
-    onPress,
-  }: {
-    type: IconType;
-    name: string;
-    isFocused: boolean;
-    onPress: () => void;
-  }) => {
-    return (
-      <Pressable
-        key={v4()}
-        hitSlop={{
-          bottom: 16,
-          top: 16,
-          left: 16,
-          right: 16,
-        }}
-        style={[
-          styles.tabButton,
-          {
-            elevation: isFocused ? 4 : 0,
-          },
-        ]}
-        onPress={onPress}>
-        {type === 'fontisto' ? (
-          <FontistoIcon
-            name={name}
-            size={28}
-            color={isFocused ? '#3544C4' : '#aaa'}
-          />
-        ) : type === 'ion' ? (
-          <IonIcon
-            name={name}
-            size={28}
-            color={isFocused ? '#3544C4' : '#aaa'}
-          />
-        ) : type === 'material' ? (
-          <MaterialIcon
-            name={name}
-            size={28}
-            color={isFocused ? '#3544C4' : '#aaa'}
-          />
-        ) : (
-          <></>
-        )}
-      </Pressable>
-    );
-  };
+  const renderTabButton = useCallback(
+    ({
+      type,
+      name,
+      isFocused,
+      onPress,
+    }: {
+      type: IconType;
+      name: string;
+      isFocused: boolean;
+      onPress: () => void;
+    }) => {
+      return (
+        <Pressable
+          key={v4()}
+          hitSlop={{
+            bottom: 16,
+            top: 16,
+            left: 16,
+            right: 16,
+          }}
+          style={[
+            styles.tabButton,
+            {
+              elevation: isFocused ? 4 : 0,
+            },
+          ]}
+          onPress={onPress}>
+          {type === 'fontisto' ? (
+            <FontistoIcon
+              name={name}
+              size={28}
+              color={isFocused ? '#3544C4' : '#aaa'}
+            />
+          ) : type === 'ion' ? (
+            <IonIcon
+              name={name}
+              size={28}
+              color={isFocused ? '#3544C4' : '#aaa'}
+            />
+          ) : type === 'material' ? (
+            <MaterialIcon
+              name={name}
+              size={28}
+              color={isFocused ? '#3544C4' : '#aaa'}
+            />
+          ) : (
+            <></>
+          )}
+        </Pressable>
+      );
+    },
+    [],
+  );
 
   return (
     <View>
@@ -71,8 +74,8 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
         <View style={styles.tabBar}>
           {routeNames.map(routeName =>
             renderTabButton({
-              type: routeInfo[routeName]?.iconType ?? 'fontisto',
-              name: routeInfo[routeName]?.iconName ?? 'film',
+              type: routeInfo[routeName]?.iconType ?? 'ion',
+              name: routeInfo[routeName]?.iconName ?? 'alert-circle',
               isFocused: currentRouteName === routeName,
               onPress: () => navigation.navigate(routeName),
             }),
