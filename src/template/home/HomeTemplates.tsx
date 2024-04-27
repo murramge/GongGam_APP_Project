@@ -32,7 +32,7 @@ const HomeTemplates = () => {
       <SearchHeader></SearchHeader>
       <MainUpperCardBar></MainUpperCardBar>
       <MainCategories></MainCategories>
-      <ArtList date="20240425" stsType="day"></ArtList>
+      <ArtList date="20240425" stsType="day" categoryCode={code}></ArtList>
     </View>
   );
 };

@@ -91,14 +91,14 @@ export const getPerformanceDetail = async ({
 export interface getPerformanceBoxOfficeProps {
   date: string;
   stsType: PerformanceStsType[keyof PerformanceStsType];
-  categoryCode?: keyof PerformanceCategory;
+  categoryCode?: keyof PerformanceCategory | string;
   area?: string;
 }
 
 interface getPerformanceApiParams {
   ststype: PerformanceStsType[keyof PerformanceStsType];
   date: string;
-  catecode?: keyof PerformanceCategory;
+  catecode?: keyof PerformanceCategory | string;
   area?: string;
 }
 

@@ -13,7 +13,7 @@ import {
 export interface ArtListProps {
   date: string;
   stsType: PerformanceStsType[keyof PerformanceStsType];
-  categoryCode?: keyof PerformanceCategory;
+  categoryCode?: keyof PerformanceCategory | string;
   area?: string;
 }
 
