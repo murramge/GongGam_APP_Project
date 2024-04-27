@@ -113,7 +113,14 @@ const TextButton = ({
           height: 48,
         },
       ]}>
-      <Text numberOfLines={1}>{text}</Text>
+      <Text
+        style={{
+          fontWeight: 'bold',
+          color: isSelected ? '#fff' : '#35405A',
+        }}
+        numberOfLines={1}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
