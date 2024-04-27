@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  ScrollView,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import {View, Text, Image, Dimensions, Platform} from 'react-native';
 
-const MainUpperCard = ({item}) => {
+interface Item {
+  image: any;
+}
+const MainUpperCard = ({item}: {item: Item}) => {
   const {width: viewportWidth, height: viewportHeight} =
     Dimensions.get('window');
   const cardWidth = viewportWidth - 60;
@@ -24,7 +19,7 @@ const MainUpperCard = ({item}) => {
   return (
     <View
       style={{
-        width: cardWidth, //
+        width: cardWidth,
         height: 154,
         ...shadowStyle, // 그림자 스타일
       }}>
