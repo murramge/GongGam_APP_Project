@@ -9,7 +9,7 @@ interface BackHeaderProps {
     rightIconsColor?: string;
     labelColor?: string;
   };
-  label: string;
+  label: string | undefined;
   rightIcon?: string;
 }
 

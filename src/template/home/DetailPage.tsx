@@ -1,22 +1,15 @@
+import {getPerformanceDetail} from '@apis/kopis';
 import BackHeader from '@components/header/BackHeader';
+import {PerformanceDetailInfo} from '@interfaces/kopis.interface';
 import {RouteProp} from '@react-navigation/native';
 import {colors} from '@styles/color';
-import React from 'react';
-import {BackHandler, Image} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, Image} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
-import Config from 'react-native-config';
 
 type DetailPageRouteParams = {
   Detail: {
-    photoUrl?: string;
-    title: string;
-    period: string;
-    place: string;
     id: string;
-    // prfruntime: string;
-    // prfage: string;
-    // prfcast: string;
-    // prfcrew:string
   };
 };
 
@@ -25,30 +18,59 @@ interface DetailPageProps {
 }
 
 const DetailPage: React.FC<DetailPageProps> = ({route}) => {
-  const {photoUrl, title, period, place, id} = route.params;
+  const {id} = route.params;
+  const [detailInfo, setDetailInfo] = useState<PerformanceDetailInfo | null>(
+    null,
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchDetail = async () => {
+      try {
+        const data = await getPerformanceDetail({performanceId: id});
+        setDetailInfo(data);
+      } catch (e) {
+        console.error(e);
+        setError('상세 정보를 불러오는 중 에러가 발생했습니다.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDetail();
+  }, [id]);
+
+  if (loading) return <ActivityIndicator />;
+  if (error) return <Text>{error}</Text>;
+
   return (
     <View>
       <View style={styles.detailHeader}>
         <BackHeader
-          label={title}
+          label={detailInfo?.prfnm}
           Color={{labelColor: 'white'}}
           rightIcon="arrow-forward-ios"
         />
       </View>
       <View style={styles.dim}></View>
       <View>
-        {photoUrl && (
+        {detailInfo?.poster && (
           <Image
             style={styles.photo}
-            source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${photoUrl}`}}
+            source={{
+              uri: detailInfo?.poster,
+            }}
           />
         )}
       </View>
       <View style={styles.photoContainer}>
-        {photoUrl && (
+        {detailInfo?.poster && (
           <Image
             style={styles.photoView}
-            source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${photoUrl}`}}
+            source={{
+              uri: detailInfo?.poster,
+            }}
           />
         )}
       </View>
@@ -57,23 +79,19 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
       <View style={styles.detailContainer}>
         <View style={styles.detailItemList}>
           <Text style={styles.itemTitle}>런타임</Text>
-          <Text style={styles.itemText}>prfruntime: '2시간'</Text>
+          <Text style={styles.itemText}>{detailInfo?.prfruntime}</Text>
         </View>
         <View style={styles.detailItemList}>
           <Text style={styles.itemTitle}>관람연령</Text>
-          <Text style={styles.itemText}> prfage: '만 7세 이상'</Text>
+          <Text style={styles.itemText}>{detailInfo?.prfage}</Text>
         </View>
         <View style={styles.detailItemList}>
           <Text style={styles.itemTitle}>출연진</Text>
-          <Text style={styles.itemText}>
-            prfcast: '이중현, 박경주, 이호철, 이다혜, 안창현, 정다연, 문예주 등'
-          </Text>
+          <Text style={styles.itemText}>{detailInfo?.prfcast}</Text>
         </View>
         <View style={styles.detailItemList}>
           <Text style={styles.itemTitle}>제작진</Text>
-          <Text style={styles.itemText}>
-            prfcrew: '정승호, 유미양, 채송화 등'
-          </Text>
+          <Text style={styles.itemText}>{detailInfo?.prfcrew}</Text>
         </View>
       </View>
     </View>
@@ -89,7 +107,7 @@ const styles = StyleSheet.create({
   },
   photoContainer: {
     position: 'absolute',
-    top: 108,
+    top: 88,
     left: 88,
     width: 214,
     height: 287,
