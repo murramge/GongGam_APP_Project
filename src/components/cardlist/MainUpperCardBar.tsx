@@ -25,6 +25,49 @@ const MainUpperCardBar = () => {
   ];
 
   const _renderItem = ({item}: {item: Item}) => {
+    return (
+      //TODO: 컴포넌트 분리중
+      //<MainUpperCard />
+      <View
+        style={{
+          width: cardWidth, //
+          height: 185,
+          ...shadowStyle, // 그림자 스타일
+        }}>
+        <Image
+          source={item.image}
+          style={{
+            flex: 1,
+            width: '100%',
+            height: '100%',
+            resizeMode: 'cover',
+            borderRadius: 16,
+          }}
+        />
+        <Text
+          style={{
+            position: 'absolute',
+            bottom: 55,
+            left: 38,
+            color: 'white',
+            fontSize: 16,
+            fontWeight: '600',
+          }}>
+          셜록홈즈 (울산)
+        </Text>
+        <Text
+          style={{
+            position: 'absolute',
+            bottom: 37,
+            left: 38,
+            color: 'white',
+            fontSize: 11,
+            letterSpacing: 0.12,
+          }}>
+          2024.04.24-2024.04.30
+        </Text>
+      </View>
+    );
     return <MainUpperCard item={item} />;
   };
 
@@ -62,6 +105,9 @@ const MainUpperCardBar = () => {
           marginHorizontal: 8,
         }}
       />
+      <View style={{marginTop: -45}}>
+        <Pagination dotsLength={data.length} activeDotIndex={1} />
+      </View>
     </View>
   );
 };

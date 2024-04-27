@@ -7,18 +7,19 @@ import MainCategories, {
 import SearchHeader from '@components/header/SearchHeader';
 import React from 'react';
 import {View} from 'react-native';
-
-import {useAtomValue} from 'jotai';
-import {PerformanceGenre} from '@utils/category';
-
 import BackHeader from '@components/header/BackHeader';
+import {
+  PerformanceCategory,
+  PerformanceStsType,
+} from '@interfaces/kopis.interface';
+import {PerformanceGenre} from '@utils/category';
+import {useAtomValue} from 'jotai';
 interface HomeProps {
   date: string;
   stsType: PerformanceStsType[keyof PerformanceStsType];
   categoryCode?: keyof PerformanceCategory;
   area?: string;
 }
-
 const HomeTemplates = () => {
   const selectCategory = useAtomValue(selectAtom);
   const code = Object.keys(PerformanceGenre).find(

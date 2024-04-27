@@ -13,7 +13,7 @@ import {
 export interface ArtListProps {
   date: string;
   stsType: PerformanceStsType[keyof PerformanceStsType];
-  categoryCode?: keyof PerformanceCategory | undefined | string;
+  categoryCode?: keyof PerformanceCategory | string;
   area?: string;
 }
 
@@ -52,6 +52,7 @@ const ArtList = ({date, stsType, categoryCode, area}: ArtListProps) => {
                 title={art.prfnm}
                 period={art.prfpd}
                 place={art.area}
+                id={art.mt20id}
               />
             );
           }}
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     color: colors.GRAY_500,
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 11,
+    marginBottom: 3,
     marginLeft: 5,
   },
   separator: {

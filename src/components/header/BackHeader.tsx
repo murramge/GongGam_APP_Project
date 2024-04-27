@@ -9,7 +9,7 @@ interface BackHeaderProps {
     rightIconsColor?: string;
     labelColor?: string;
   };
-  label: string;
+  label: string | undefined;
   rightIcon?: string;
 }
 
@@ -19,8 +19,8 @@ const BackHeader = ({
     rightIconsColor: 'black',
     labelColor: 'black',
   },
-  label = '샘플입니다.',
-  rightIcon = 'arrow-back-ios',
+  label,
+  rightIcon = 'arrow-forward-ios',
 }: BackHeaderProps) => {
   return (
     <SafeAreaView
@@ -31,15 +31,18 @@ const BackHeader = ({
         paddingVertical: 10,
         alignItems: 'center',
       }}>
-      <TouchableOpacity>
-        <Icon
-          name="arrow-back-ios"
-          color={Color.leftIconsColor}
-          size={24}></Icon>
-      </TouchableOpacity>
-      <View style={{justifyContent: 'center'}}>
+      <View style={{width: '5%'}}>
+        <TouchableOpacity>
+          <Icon
+            name="arrow-back-ios"
+            color={Color.leftIconsColor}
+            size={24}></Icon>
+        </TouchableOpacity>
+      </View>
+      <View style={{justifyContent: 'center', width: '90%'}}>
         <Text
           style={{
+            flex: 1,
             fontSize: 16,
             lineHeight: 32,
             color: Color.labelColor,
@@ -49,9 +52,11 @@ const BackHeader = ({
           {label}
         </Text>
       </View>
-      <TouchableOpacity>
-        <Icon name={rightIcon} color={Color.rightIconsColor} size={24}></Icon>
-      </TouchableOpacity>
+      <View style={{width: '5%'}}>
+        <TouchableOpacity>
+          <Icon name={rightIcon} color={Color.rightIconsColor} size={24}></Icon>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
