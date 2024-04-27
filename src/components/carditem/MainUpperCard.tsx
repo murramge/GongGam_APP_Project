@@ -1,21 +1,19 @@
 import React from 'react';
 import {View, Text, Image, Dimensions, Platform} from 'react-native';
-
+import Config from 'react-native-config';
 interface Item {
   image: any;
 }
-const MainUpperCard = ({item}: {item: Item}) => {
+const MainUpperCard = ({item}: any) => {
   const {width: viewportWidth, height: viewportHeight} =
     Dimensions.get('window');
   const cardWidth = viewportWidth - 60;
-
   const shadowStyle = Platform.select({
     ios: {},
     android: {
       elevation: 8, // Android에서 그림자 효과지정
     },
   });
-
   return (
     <View
       style={{
@@ -24,7 +22,7 @@ const MainUpperCard = ({item}: {item: Item}) => {
         ...shadowStyle, // 그림자 스타일
       }}>
       <Image
-        source={item.image}
+        source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${item.poster}`}}
         style={{
           flex: 1,
           width: '100%',
@@ -42,7 +40,7 @@ const MainUpperCard = ({item}: {item: Item}) => {
           fontSize: 16,
           fontWeight: '600',
         }}>
-        셜록홈즈 (울산)
+        {item.prfnm}
       </Text>
       <Text
         style={{
@@ -52,10 +50,9 @@ const MainUpperCard = ({item}: {item: Item}) => {
           color: 'white',
           letterSpacing: 0.12,
         }}>
-        2024.04.24-2024.04.30
+        {item.prfpd}
       </Text>
     </View>
   );
 };
-
 export default MainUpperCard;

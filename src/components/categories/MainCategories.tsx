@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {atom, useAtom} from 'jotai';
 import {PerformanceGenre} from '@utils/category';
+import {PerformanceCategory} from '@interfaces/kopis.interface';
 interface MainCategoriesProps {}
 
 export const selectAtom = atom('All');
@@ -9,7 +10,7 @@ export const selectAtom = atom('All');
 const MainCategories = ({}: MainCategoriesProps) => {
   const [selectItem, setSelectItem] = useAtom(selectAtom);
 
-  const onCategoriesRender = ({item}) => (
+  const onCategoriesRender = ({item}: any) => (
     <TouchableOpacity onPress={() => setSelectItem(item)}>
       <Text
         style={[
