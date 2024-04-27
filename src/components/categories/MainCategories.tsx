@@ -24,7 +24,7 @@ const MainCategories = ({}: MainCategoriesProps) => {
             alignItems: 'center',
             margin: 5,
             paddingHorizontal: 27,
-            paddingVertical: 8,
+            paddingBottom: 8,
           },
         ]}>
         {item}
@@ -33,7 +33,7 @@ const MainCategories = ({}: MainCategoriesProps) => {
   );
 
   return (
-    <View style={{padding: 10}}>
+    <View style={{paddingHorizontal: 10, marginHorizontal: 7, marginTop: -17}}>
       <Text style={{fontSize: 16, fontWeight: '600', color: 'black'}}>
         Categories
       </Text>
@@ -44,7 +44,7 @@ const MainCategories = ({}: MainCategoriesProps) => {
           renderItem={onCategoriesRender}
           style={{
             backgroundColor: '#E8E8EA',
-            marginVertical: 15,
+            marginVertical: 8,
             borderRadius: 12,
           }}
           showsHorizontalScrollIndicator={false}></FlatList>

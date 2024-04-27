@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     color: colors.GRAY_500,
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 11,
+    marginBottom: 3,
     marginLeft: 5,
   },
   separator: {

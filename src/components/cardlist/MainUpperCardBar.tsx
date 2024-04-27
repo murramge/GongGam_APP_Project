@@ -42,7 +42,7 @@ const MainUpperCardBar = () => {
       <View
         style={{
           width: cardWidth, //
-          height: 154,
+          height: 185,
           ...shadowStyle, // 그림자 스타일
         }}>
         <Image
@@ -58,8 +58,8 @@ const MainUpperCardBar = () => {
         <Text
           style={{
             position: 'absolute',
-            bottom: 30,
-            left: 18,
+            bottom: 55,
+            left: 38,
             color: 'white',
             fontSize: 16,
             fontWeight: '600',
@@ -69,9 +69,10 @@ const MainUpperCardBar = () => {
         <Text
           style={{
             position: 'absolute',
-            bottom: 13,
-            left: 18,
+            bottom: 37,
+            left: 38,
             color: 'white',
+            fontSize: 11,
             letterSpacing: 0.12,
           }}>
           2024.04.24-2024.04.30
@@ -110,7 +111,9 @@ const MainUpperCardBar = () => {
         autoplay={false}
         inactiveSlideScale={0.8}
       />
-      <Pagination dotsLength={data.length} activeDotIndex={1} />
+      <View style={{marginTop: -45}}>
+        <Pagination dotsLength={data.length} activeDotIndex={1} />
+      </View>
     </View>
   );
 };
