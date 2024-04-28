@@ -1,8 +1,9 @@
-import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import React, {useCallback} from 'react';
 import {Dimensions, Pressable, StyleSheet, View} from 'react-native';
+import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import 'react-native-get-random-values';
 import {v4} from 'uuid';
@@ -25,6 +26,8 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
       isFocused: boolean;
       onPress: () => void;
     }) => {
+      const color = isFocused ? '#3544C4' : '#aaa';
+
       return (
         <Pressable
           key={v4()}
@@ -42,23 +45,13 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
           ]}
           onPress={onPress}>
           {type === 'fontisto' ? (
-            <FontistoIcon
-              name={name}
-              size={28}
-              color={isFocused ? '#3544C4' : '#aaa'}
-            />
+            <FontistoIcon name={name} size={28} color={color} />
           ) : type === 'ion' ? (
-            <IonIcon
-              name={name}
-              size={28}
-              color={isFocused ? '#3544C4' : '#aaa'}
-            />
+            <IonIcon name={name} size={28} color={color} />
           ) : type === 'material' ? (
-            <MaterialIcon
-              name={name}
-              size={28}
-              color={isFocused ? '#3544C4' : '#aaa'}
-            />
+            <MaterialIcon name={name} size={28} color={color} />
+          ) : type === 'materialCommunity' ? (
+            <MaterialCommunityIcon name={name} size={28} color={color} />
           ) : (
             <></>
           )}
@@ -97,8 +90,12 @@ const routeInfo: {
     iconName: 'film',
   },
   Community: {
-    iconType: 'material',
+    iconType: 'materialCommunity',
     iconName: 'account-group',
+  },
+  Calendar: {
+    iconType: 'material',
+    iconName: 'edit-calendar',
   },
   Profile: {
     iconType: 'ion',
@@ -106,7 +103,7 @@ const routeInfo: {
   },
 };
 
-type IconType = 'fontisto' | 'material' | 'ion';
+type IconType = 'fontisto' | 'materialCommunity' | 'ion' | 'material';
 
 const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
