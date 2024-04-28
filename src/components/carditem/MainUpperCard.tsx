@@ -1,23 +1,13 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  ScrollView,
-  Dimensions,
-  Platform,
-} from 'react-native';
-
-interface MainUpperCardProps {
-  item: any;
+import {View, Text, Image, Dimensions, Platform} from 'react-native';
+import Config from 'react-native-config';
+interface Item {
+  image: any;
 }
-
-const MainUpperCard = ({item}: MainUpperCardProps) => {
+const MainUpperCard = ({item}: any) => {
   const {width: viewportWidth, height: viewportHeight} =
     Dimensions.get('window');
-  const cardWidth = viewportWidth - 40;
-
+  const cardWidth = viewportWidth - 60;
   const shadowStyle = Platform.select({
     ios: {},
     android: {
