@@ -1,6 +1,6 @@
 import {XMLParser} from 'fast-xml-parser';
 import {kopisInstance} from '@apis/axios';
-import {
+import type {
   PerformanceBoxOffice,
   PerformanceCategory,
   PerformanceGenre,
@@ -8,7 +8,8 @@ import {
   PerformanceInfo,
   PerformanceState,
   PerformanceStsType,
-} from '@interfaces/kopis.interface';
+  PerformanceFacilityDetail,
+} from './kopis.d';
 
 const parser = new XMLParser();
 
@@ -121,6 +122,17 @@ export const getPerformanceBoxOffice = async ({
     });
 
     return parser.parse(res.data).boxofs.boxof as PerformanceBoxOffice[];
+  } catch (e) {
+    console.error('Error in getBoxOffice:', e);
+    throw e;
+  }
+};
+
+export const getPerformanceFacilityDetail = async (id: string) => {
+  try {
+    const res = await kopisInstance.get(`/prfplc/${id}`);
+
+    return parser.parse(res.data).dbs.db as PerformanceFacilityDetail;
   } catch (e) {
     console.error('Error in getBoxOffice:', e);
     throw e;
