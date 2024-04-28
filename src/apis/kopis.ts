@@ -82,7 +82,12 @@ export const getPerformanceDetail = async ({
   try {
     const res = await kopisInstance.get(`/pblprfr/${performanceId}`);
 
-    return parser.parse(res.data).dbs.db as PerformanceDetailInfo;
+    const data = parser.parse(res.data).dbs.db;
+    if (typeof data.styurls.styurl === 'string') {
+      data.styurls.styurl = [data.styurls.styurl];
+    }
+
+    return data as PerformanceDetailInfo;
   } catch (e) {
     console.error('Error in getPerformanceDetail:', e);
     throw e;
