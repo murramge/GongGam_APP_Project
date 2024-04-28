@@ -8,6 +8,7 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
+import Config from 'react-native-config';
 
 interface MainUpperCardProps {
   item: any;
