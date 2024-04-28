@@ -60,7 +60,7 @@ export interface PerformanceDetailInfo {
   prfstate: PerformanceState[keyof PerformanceState];
   sty: string;
   styurls: {
-    styurl: string;
+    styurl: string[];
   };
   updatedate: string;
   visit: string;
