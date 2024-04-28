@@ -4,7 +4,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import MainUpperCard from '@components/carditem/MainUpperCard';
 import {colors} from '@styles/color';
 import {getPerformanceBoxOffice} from '@apis/kopis';
-import {PerformanceBoxOffice} from '@interfaces/kopis.interface';
+import {PerformanceBoxOffice} from '@apis/kopis.d';
 interface Item {
   image: any;
 }
