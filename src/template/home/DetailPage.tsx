@@ -6,7 +6,7 @@ import {colors} from '@styles/color';
 import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Image} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
-
+import MainDetailsContent from '@components/details/MainDetailsContent';
 type DetailPageRouteParams = {
   Detail: {
     id: string;
@@ -94,6 +94,7 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
           <Text style={styles.itemText}>{detailInfo?.prfcrew}</Text>
         </View>
       </View>
+      <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls.styurl} />
     </View>
   );
 };
