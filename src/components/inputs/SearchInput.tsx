@@ -9,7 +9,7 @@ const SearchInput = ({}: SearchInputProps) => {
   return (
     <View style={styles.SearchInput}>
       <View>
-        <CommonInput></CommonInput>
+        <CommonInput label="검색어를 입력해주세요"></CommonInput>
       </View>
       <TouchableOpacity style={styles.IconsCenter}>
         <Icon name="search" size={15} color="black"></Icon>

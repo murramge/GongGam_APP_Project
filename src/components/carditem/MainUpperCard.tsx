@@ -13,12 +13,10 @@ import Config from 'react-native-config';
 interface MainUpperCardProps {
   item: any;
 }
-
-const MainUpperCard = ({item}: MainUpperCardProps) => {
+const MainUpperCard = ({item}: any) => {
   const {width: viewportWidth, height: viewportHeight} =
     Dimensions.get('window');
-  const cardWidth = viewportWidth - 40;
-
+  const cardWidth = viewportWidth - 60;
   const shadowStyle = Platform.select({
     ios: {},
     android: {

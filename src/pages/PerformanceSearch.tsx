@@ -7,6 +7,9 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import CommonButton from '../atoms/buttons/CommonButton';
+import SearchInputBack from '@components/inputs/SearchInputBack';
+import {colors} from '@styles/color';
+import CancelButton from '../atoms/buttons/CancelButton';
 
 interface PerformanceSearchProps {}
 
@@ -16,12 +19,19 @@ const PerformanceSearch = ({}: PerformanceSearchProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={{margin: 16, gap: 16}}>
-        <Text>공연일 선택</Text>
+      <SearchInputBack></SearchInputBack>
+      <View>
+        <Text style={styles.searchTitle}>최근 검색어</Text>
+        <View style={styles.recentArea}>
+          <CancelButton label="검색어" />
+        </View>
+      </View>
+      <View>
+        <Text style={styles.searchTitle}>공연일 선택</Text>
         <CommonButton label="날짜 선택" />
       </View>
-      <View style={{margin: 16, gap: 16}}>
-        <Text>장르 선택</Text>
+      <View style={{margin: 16}}>
+        <Text style={styles.searchTitle2}>장르 선택</Text>
         <Grid
           margin={16}
           numColumns={4}
@@ -36,8 +46,8 @@ const PerformanceSearch = ({}: PerformanceSearchProps) => {
           )}
         />
       </View>
-      <View style={{margin: 16, gap: 16}}>
-        <Text>지역 선택</Text>
+      <View style={{margin: 16}}>
+        <Text style={styles.searchTitle2}>지역 선택</Text>
         <Grid
           margin={16}
           numColumns={4}
@@ -167,6 +177,25 @@ type GenreCodeKey = keyof typeof GenreCode;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'white', paddingBottom: 100},
+  searchTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.GRAY_500,
+    marginTop: 23,
+    marginLeft: 16,
+  },
+  searchTitle2: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.GRAY_500,
+    marginBottom: 9,
+  },
+  recentArea: {
+    flexDirection: 'row',
+    marginHorizontal: 30,
+    marginTop: 10,
+    gap: 11,
+  },
 });
 
 const gridStyles = StyleSheet.create({

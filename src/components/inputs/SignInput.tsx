@@ -7,7 +7,7 @@ interface SignInputProps {}
 const SignInput = ({}: SignInputProps) => {
   return (
     <View style={styles.SignInput}>
-      <CommonInput></CommonInput>
+      <CommonInput label="아이디를 입력해주세요"></CommonInput>
     </View>
   );
 };
