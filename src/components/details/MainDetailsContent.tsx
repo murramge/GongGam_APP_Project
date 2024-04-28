@@ -10,7 +10,7 @@ import {
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {colors} from '@styles/color';
 interface ImageUrl {
-  styurl: string;
+  styurl: string[];
 }
 
 interface MainDetailsContentProps {
@@ -24,7 +24,13 @@ const MainDetailsContent = ({
 }: MainDetailsContentProps) => {
   const windowWidth = Dimensions.get('window').width;
   console.log(detailImgUrls);
+  console.log(detailImgUrls.styurl.length);
 
+  const scrollImages =(detailImgUrl:ImageUrl[]) =>{
+    detailImgUrl.styurls.map((item)=>{
+      <Image source={{uri:item}} style={{paddingBottom:12}}/>
+    })
+  }
   return (
     <View>
       <ScrollView
@@ -44,33 +50,21 @@ const MainDetailsContent = ({
           공연내용
         </Text>
 
-        {detailImgUrls.length === 0 && <Text>상세이미지가 없습니다.</Text>}
-        {/* {detailImgUrls.length === 1 && (
-          <View style={{alignItems: 'center'}}>
-            <Image source={{uri: styurl}} />
-          </View>
-        )} */}
-        {detailImgUrls.length >= 1 && (
-          <View>
-            <FlatList
-              data={detailImgUrls}
-              renderItem={({item}) => <Image source={{uri: item.styurl}} />}
-              keyExtractor={(item, index) => index.toString()}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
+        {detailImgUrls.styurl.length === 0 && (
+          <Text>상세이미지가 없습니다.</Text>
         )}
+        {detailImgUrls.styurl.length >= 1 && 
+          //map
+        }
       </ScrollView>
       <View
         style={{
           backgroundColor: 'transparent',
+          //position: 'absolute',
           width: windowWidth,
-
-          position: 'absolute',
           left: 0,
           bottom: 0,
-          padding: 16,
+          // padding: 16,
         }}>
         <CommonButton label="예매하기" />
         <CommonButton label="같이 볼 사람 모집하기" />

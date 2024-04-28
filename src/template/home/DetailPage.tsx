@@ -4,7 +4,7 @@ import {PerformanceDetailInfo} from '@interfaces/kopis.interface';
 import {RouteProp} from '@react-navigation/native';
 import {colors} from '@styles/color';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Image} from 'react-native';
+import {ActivityIndicator, Image, ScrollView} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import MainDetailsContent from '@components/details/MainDetailsContent';
 type DetailPageRouteParams = {
@@ -93,8 +93,10 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
           <Text style={styles.itemTitle}>제작진</Text>
           <Text style={styles.itemText}>{detailInfo?.prfcrew}</Text>
         </View>
+        <ScrollView>
+          <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls} />
+        </ScrollView>
       </View>
-      <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls.styurl} />
     </View>
   );
 };
@@ -142,13 +144,13 @@ const styles = StyleSheet.create({
     left: 0,
     width: '100%',
     paddingVertical: 17,
-    paddingHorizontal: 28,
     borderBottomWidth: 1,
     borderBottomColor: colors.GRAY_200,
   },
   detailItemList: {
     flexDirection: 'row',
     marginBottom: 15,
+    paddingHorizontal: 28,
   },
   itemTitle: {
     width: 50,
