@@ -1,4 +1,4 @@
-import {PerformanceCategory} from '@interfaces/kopis.interface';
+import {PerformanceCategory} from '@apis/kopis.d';
 
 export const PerformanceGenre: PerformanceCategory = {
   AAAA: '연극',
