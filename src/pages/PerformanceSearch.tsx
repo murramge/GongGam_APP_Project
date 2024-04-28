@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {Text, TouchableOpacity, View, useWindowDimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import CommonButton from '../atoms/buttons/CommonButton';
 
 interface PerformanceSearchProps {}
@@ -9,7 +15,7 @@ const PerformanceSearch = ({}: PerformanceSearchProps) => {
   const [selectedArea, setSelectedArea] = useState<AreaCodeKey | null>(null);
 
   return (
-    <View style={{flex: 1, backgroundColor: 'white', paddingBottom: 100}}>
+    <View style={styles.container}>
       <View style={{margin: 16, gap: 16}}>
         <Text>공연일 선택</Text>
         <CommonButton label="날짜 선택" />
@@ -50,13 +56,7 @@ const PerformanceSearch = ({}: PerformanceSearchProps) => {
   );
 };
 
-const Grid = <ItemT,>({
-  gap,
-  margin,
-  numColumns,
-  data,
-  renderItem,
-}: {
+interface GridProps<ItemT> {
   gap: number;
   margin: number;
   numColumns: number;
@@ -68,21 +68,31 @@ const Grid = <ItemT,>({
     item: ItemT;
     index: number;
   }) => React.JSX.Element;
-}) => {
+}
+
+const Grid = <ItemT,>({
+  gap,
+  margin,
+  numColumns,
+  data,
+  renderItem,
+}: GridProps<ItemT>) => {
   const {width} = useWindowDimensions();
   const cellWidth = (width - margin * 2 - gap * (numColumns - 1)) / numColumns;
   return (
     <View
-      style={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: gap,
-      }}>
+      style={[
+        gridStyles.container,
+        {
+          gap: gap,
+        },
+      ]}>
       {data.map((item, index) => (
         <View
+          key={index}
           style={{
             width: cellWidth,
-            height: cellWidth / 1.5,
+            height: cellWidth / 2,
           }}>
           {renderItem({item, index})}
         </View>
@@ -91,33 +101,29 @@ const Grid = <ItemT,>({
   );
 };
 
-const TextButton = ({
-  text,
-  isSelected,
-  onPress,
-}: {
+interface TextButtonProps {
   text: string;
   isSelected: boolean;
   onPress: () => void;
-}) => {
+}
+
+const TextButton = ({text, isSelected, onPress}: TextButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[
+        textButtonStyles.button,
         {
-          borderRadius: 8,
-          flex: 1,
           backgroundColor: isSelected ? '#3544C4' : '#F1F6FF',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: 48,
         },
       ]}>
       <Text
-        style={{
-          fontWeight: 'bold',
-          color: isSelected ? '#fff' : '#35405A',
-        }}
+        style={[
+          textButtonStyles.text,
+          {
+            color: isSelected ? '#fff' : '#35405A',
+          },
+        ]}
         numberOfLines={1}>
         {text}
       </Text>
@@ -158,5 +164,29 @@ const GenreCode = {
   복합: 'EEEA',
 } as const;
 type GenreCodeKey = keyof typeof GenreCode;
+
+const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: 'white', paddingBottom: 100},
+});
+
+const gridStyles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+});
+
+const textButtonStyles = StyleSheet.create({
+  text: {
+    fontWeight: 'bold',
+  },
+  button: {
+    borderRadius: 8,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 48,
+  },
+});
 
 export default PerformanceSearch;
