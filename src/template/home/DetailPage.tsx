@@ -45,7 +45,7 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
   if (error) return <Text>{error}</Text>;
 
   return (
-    <View>
+    <ScrollView style={{flex: 1}}>
       <View style={styles.detailHeader}>
         <BackHeader
           label={detailInfo?.prfnm}
@@ -93,11 +93,11 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
           <Text style={styles.itemTitle}>제작진</Text>
           <Text style={styles.itemText}>{detailInfo?.prfcrew}</Text>
         </View>
-        <ScrollView>
-          <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls} />
-        </ScrollView>
       </View>
-    </View>
+      <View>
+        <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls} />
+      </View>
+    </ScrollView>
   );
 };
 

@@ -61,7 +61,7 @@ const MainDetailsContent = ({
         //map
         <View style={{backgroundColor: '#000'}}>
           <Text>사진이 있습니다.</Text>
-          {detailImgUrls.styurl.map((item: string, index: number) => (
+          {detailImgUrls?.styurl.map((item: string, index: number) => (
             <View key={index}>
               <Text>{item}</Text>
               <Image source={{uri: item}} style={{width: 300, height: 300}} />
