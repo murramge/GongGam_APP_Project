@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import CommonInput from '../../atoms/inputs/CommonInput';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {colors} from '@styles/color';
 
 interface SearchInputBackProps {}
 
@@ -28,8 +29,8 @@ const SearchInputBack = ({}: SearchInputBackProps) => {
 const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
-    marginTop: 10,
-    marginBottom: 20,
+    paddingTop: 10,
+    backgroundColor: colors.SEARCH_BG,
   },
   searchBackIcon: {
     width: '10%',
