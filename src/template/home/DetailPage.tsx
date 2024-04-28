@@ -95,6 +95,7 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
             margin={0}></CommonButton>
         </View>
       </View>
+      <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls.styurl} />
     </View>
   );
 };
