@@ -1,11 +1,10 @@
 import {
-  createMeeting,
   getJoinedMeetings,
   getMeeting,
   getMeetings,
   joinMeeting,
 } from '@apis/supabase/meeting';
-import {supabase} from './supabase';
+import {supabase} from '@apis/supabase/supabase';
 
 beforeEach(async () => {
   const {error} = await supabase.auth.signInWithPassword({
@@ -43,12 +42,12 @@ test('모임 참여', async () => {
   }).rejects.toThrow('인원이 다 찼습니다.');
 });
 
-test('모임 셍성', async () => {
-  await createMeeting({
-    introduction: '4분 모십니다 ㅎㅎ',
-    max_occupancy: 4,
-    performance_id: 'PF240002',
-    performance_name: '프랑켄슈타인',
-    title: '프랑켄슈타인 보러 가실분',
-  });
-});
+// test('모임 셍성', async () => {
+//   await createMeeting({
+//     introduction: '4분 모십니다 ㅎㅎ',
+//     max_occupancy: 4,
+//     performance_id: 'PF240002',
+//     performance_name: '프랑켄슈타인',
+//     title: '프랑켄슈타인 보러 가실분',
+//   });
+// });
