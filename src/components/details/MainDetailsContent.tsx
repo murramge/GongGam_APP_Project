@@ -25,7 +25,6 @@ const MainDetailsContent = ({
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
   //const imageHeight = (windowWidth / imageSize.width) * imageSize.height;
-  const [imageHeightList, setImageHeightList] = useState<number[]>([]);
 
   return (
     <ScrollView
