@@ -94,7 +94,7 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
           <Text style={styles.itemText}>{detailInfo?.prfcrew}</Text>
         </View>
       </View>
-      <View>
+      <View style={{flex: 1}}>
         <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls} />
       </View>
     </ScrollView>
@@ -139,8 +139,6 @@ const styles = StyleSheet.create({
     height: 440,
   },
   detailContainer: {
-    position: 'absolute',
-    top: 440,
     left: 0,
     width: '100%',
     paddingVertical: 17,
