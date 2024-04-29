@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     paddingLeft: 11,
-    paddingVertical: 10,
+    paddingVertical: 5,
   },
   recentBtn: {
     flexDirection: 'row',

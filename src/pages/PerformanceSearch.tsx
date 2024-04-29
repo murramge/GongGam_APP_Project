@@ -12,6 +12,7 @@ import SearchInputBack from '@components/inputs/SearchInputBack';
 import {colors} from '@styles/color';
 import CancelButton from '../atoms/buttons/CancelButton';
 import CalendarButton from '../atoms/buttons/CalendarButton';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 interface PerformanceSearchProps {}
 
@@ -33,7 +34,7 @@ const PerformanceSearch = ({}: PerformanceSearchProps) => {
           <Text style={styles.searchTitle}>공연일 선택</Text>
           <CalendarButton label="날짜 선택" />
         </View>
-        <View style={{margin: 16}}>
+        <View style={{marginHorizontal: 16}}>
           <Text style={styles.searchTitle2}>장르 선택</Text>
           <Grid
             margin={16}
@@ -49,7 +50,7 @@ const PerformanceSearch = ({}: PerformanceSearchProps) => {
             )}
           />
         </View>
-        <View style={{margin: 16}}>
+        <View style={{marginHorizontal: 16, marginTop: 10}}>
           <Text style={styles.searchTitle2}>지역 선택</Text>
           <Grid
             margin={16}
@@ -64,6 +65,15 @@ const PerformanceSearch = ({}: PerformanceSearchProps) => {
               />
             )}
           />
+        </View>
+        <View style={styles.searchBtnContainer}>
+          <TouchableOpacity style={styles.resetArea}>
+            <Icon name="redo" size={15} color={colors.GRAY_300}></Icon>
+            <Text style={styles.resetText}>선택 초기화</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.searchBtn}>
+            <CommonButton label="검색조건 적용" />
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -185,7 +195,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: colors.GRAY_500,
-    marginTop: 23,
+    marginTop: 13,
     marginLeft: 16,
   },
   searchTitle2: {
@@ -197,8 +207,28 @@ const styles = StyleSheet.create({
   recentArea: {
     flexDirection: 'row',
     marginHorizontal: 30,
-    marginTop: 10,
+    marginTop: 5,
     gap: 11,
+  },
+  searchBtnContainer: {
+    flexDirection: 'row',
+    marginTop: 22,
+    marginHorizontal: 16,
+    alignItems: 'center',
+  },
+  resetArea: {
+    flexDirection: 'row',
+    width: '30%',
+    alignItems: 'center',
+  },
+  resetText: {
+    color: colors.GRAY_500,
+    fontSize: 16,
+    fontWeight: '500',
+    marginLeft: 10,
+  },
+  searchBtn: {
+    width: '70%',
   },
 });
 
@@ -218,7 +248,7 @@ const textButtonStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 48,
+    height: 38,
   },
 });
 
