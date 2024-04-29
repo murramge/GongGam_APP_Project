@@ -22,7 +22,7 @@ export const getMeetingComments = async (meetingId: number) => {
     if (error) {
       throw new Error(error.message);
     }
-    return data as Comment[];
+    return data as Comment[]; // Type 오류나는데 정상작동, profile 배열이 아니라 객체로 들어옴
   } catch (e) {
     console.error(e);
     throw e;
