@@ -25,7 +25,6 @@ const MainDetailsContent = ({
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
   //const imageHeight = (windowWidth / imageSize.width) * imageSize.height;
-  const [imageHeightList, setImageHeightList] = useState<number[]>([]);
 
   return (
     <ScrollView
@@ -49,36 +48,43 @@ const MainDetailsContent = ({
 
       {detailImgUrls.styurl.length >= 1 && (
         <View>
-          {detailImgUrls?.styurl.map((item: string, index: number) => (
-            <View key={index} style={{flex: 1, alignItems: 'center'}}>
-              <Image
-                onLoad={event => {
-                  const {width, height} = event.nativeEvent.source;
-                  const scaleFactor = width / windowWidth;
-                  const imageHeight = height / scaleFactor;
-                  setImageHeightList(prevState => {
-                    const newImageHeightList = [...prevState];
-                    newImageHeightList[index] = imageHeight;
-                    return newImageHeightList;
-                  });
-                }}
-                source={{uri: item}}
-              />
-              {imageHeightList[index] && (
-                <FastImage
-                  resizeMode={FastImage.resizeMode.stretch}
-                  source={{uri: item}}
-                  style={{
-                    width: windowWidth,
-                    height: imageHeightList[index],
-                  }}
-                />
-              )}
-            </View>
+          {detailImgUrls?.styurl.map((item: string) => (
+            <ResizedImage key={item} uri={item} width={windowWidth} />
           ))}
         </View>
       )}
     </ScrollView>
+  );
+};
+
+interface ResizedImageProps {
+  width: number;
+  uri: string;
+}
+
+const ResizedImage = ({width, uri}: ResizedImageProps) => {
+  const [imageHeight, setImageHeight] = useState<number>();
+
+  return imageHeight ? (
+    <FastImage
+      resizeMode={FastImage.resizeMode.stretch}
+      source={{uri}}
+      style={{
+        width,
+        height: imageHeight,
+      }}
+    />
+  ) : (
+    <Image
+      onLoad={event => {
+        const {width: sourceWidth, height: sourceHeight} =
+          event.nativeEvent.source;
+        const scaleFactor = sourceWidth / width;
+        const scaledImageHeight = sourceHeight / scaleFactor;
+        setImageHeight(scaledImageHeight);
+      }}
+      source={{uri}}
+    />
   );
 };
 
