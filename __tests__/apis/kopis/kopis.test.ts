@@ -19,7 +19,7 @@ test('공연 목록 조회', async () => {
 
 test('공연 상세 조회', async () => {
   const data = await getPerformanceDetail({
-    performanceId: 'PF239796',
+    performanceId: 'PF266447',
   });
 
   expect(data?.genrenm).toBe('복합');
