@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -10,6 +11,7 @@ import CommonButton from '../atoms/buttons/CommonButton';
 import SearchInputBack from '@components/inputs/SearchInputBack';
 import {colors} from '@styles/color';
 import CancelButton from '../atoms/buttons/CancelButton';
+import CalendarButton from '../atoms/buttons/CalendarButton';
 
 interface PerformanceSearchProps {}
 
@@ -20,48 +22,50 @@ const PerformanceSearch = ({}: PerformanceSearchProps) => {
   return (
     <View style={styles.container}>
       <SearchInputBack></SearchInputBack>
-      <View>
-        <Text style={styles.searchTitle}>최근 검색어</Text>
-        <View style={styles.recentArea}>
-          <CancelButton label="검색어" />
+      <ScrollView>
+        <View>
+          <Text style={styles.searchTitle}>최근 검색어</Text>
+          <View style={styles.recentArea}>
+            <CancelButton label="검색어" />
+          </View>
         </View>
-      </View>
-      <View>
-        <Text style={styles.searchTitle}>공연일 선택</Text>
-        <CommonButton label="날짜 선택" />
-      </View>
-      <View style={{margin: 16}}>
-        <Text style={styles.searchTitle2}>장르 선택</Text>
-        <Grid
-          margin={16}
-          numColumns={4}
-          gap={10}
-          data={Object.keys(GenreCode) as GenreCodeKey[]}
-          renderItem={({item}) => (
-            <TextButton
-              text={item}
-              onPress={() => setSelectedGenre(item)}
-              isSelected={item === selectedGenre}
-            />
-          )}
-        />
-      </View>
-      <View style={{margin: 16}}>
-        <Text style={styles.searchTitle2}>지역 선택</Text>
-        <Grid
-          margin={16}
-          numColumns={4}
-          gap={10}
-          data={Object.keys(AreaCode) as AreaCodeKey[]}
-          renderItem={({item}) => (
-            <TextButton
-              text={item}
-              onPress={() => setSelectedArea(item)}
-              isSelected={item === selectedArea}
-            />
-          )}
-        />
-      </View>
+        <View>
+          <Text style={styles.searchTitle}>공연일 선택</Text>
+          <CalendarButton label="날짜 선택" />
+        </View>
+        <View style={{margin: 16}}>
+          <Text style={styles.searchTitle2}>장르 선택</Text>
+          <Grid
+            margin={16}
+            numColumns={4}
+            gap={10}
+            data={Object.keys(GenreCode) as GenreCodeKey[]}
+            renderItem={({item}) => (
+              <TextButton
+                text={item}
+                onPress={() => setSelectedGenre(item)}
+                isSelected={item === selectedGenre}
+              />
+            )}
+          />
+        </View>
+        <View style={{margin: 16}}>
+          <Text style={styles.searchTitle2}>지역 선택</Text>
+          <Grid
+            margin={16}
+            numColumns={4}
+            gap={10}
+            data={Object.keys(AreaCode) as AreaCodeKey[]}
+            renderItem={({item}) => (
+              <TextButton
+                text={item}
+                onPress={() => setSelectedArea(item)}
+                isSelected={item === selectedArea}
+              />
+            )}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
