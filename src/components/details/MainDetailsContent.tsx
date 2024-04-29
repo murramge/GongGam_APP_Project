@@ -7,7 +7,7 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
-import CommonButton from '../../atoms/buttons/CommonButton';
+import React, {useEffect, useState} from 'react';
 import {colors} from '@styles/color';
 interface ImageUrl {
   styurl: string[];
@@ -23,18 +23,8 @@ const MainDetailsContent = ({
   detailImgUrls = [],
 }: MainDetailsContentProps) => {
   const windowWidth = Dimensions.get('window').width;
-  console.log(detailImgUrls);
-  console.log(detailImgUrls.styurl.length);
-  console.log(detailImgUrls.styurl[0]);
-  console.log(detailImgUrls.styurl);
-  const urls: [string] = [...detailImgUrls.styurl];
-
-  {
-    detailImgUrls.styurl.map((item: string, index: number) => {
-      console.log('url=', item);
-    });
-  }
-  console.log('urls=', urls);
+  const windowHeight = Dimensions.get('window').height;
+  //const imageHeight = (windowWidth / imageSize.width) * imageSize.height;
 
   return (
     <ScrollView
@@ -42,7 +32,6 @@ const MainDetailsContent = ({
         flex: 1,
         width: windowWidth,
         paddingTop: 8,
-        backgroundColor: colors.MAIN_COLOR, //영역 확인 위해 임시로 설정함
       }}>
       <Text
         style={{
@@ -57,24 +46,21 @@ const MainDetailsContent = ({
 
       {detailImgUrls.styurl.length === 0 && <Text>상세이미지가 없습니다.</Text>}
 
-      {urls.length > 1 && (
-        //map
-        <View style={{backgroundColor: '#000'}}>
-          <Text>사진이 있습니다.</Text>
+      {detailImgUrls.styurl.length >= 1 && (
+        <View>
           {detailImgUrls?.styurl.map((item: string, index: number) => (
-            <View key={index}>
-              <Text>{item}</Text>
-              <Image source={{uri: item}} style={{width: 300, height: 300}} />
+            <View
+              key={index}
+              style={{flex: 1, paddingBottom: 16, alignItems: 'center'}}>
+              <Image
+                source={{uri: item}}
+                style={{
+                  width: windowWidth - 40,
+                  aspectRatio: 1 / 1,
+                }}
+              />
             </View>
           ))}
-          {/* <FlatList
-              data={detailImgUrls.styurl}
-              renderItem={({item}) => (
-                <Image source={{uri: item}} style={{width: 300, height: 300}} />
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              showsHorizontalScrollIndicator={false}
-            /> */}
         </View>
       )}
     </ScrollView>
