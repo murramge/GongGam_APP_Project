@@ -7,6 +7,7 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Image, ScrollView} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import MainDetailsContent from '@components/details/MainDetailsContent';
+import MainDetailsMap from '@components/details/MainDetailsMap';
 type DetailPageRouteParams = {
   Detail: {
     id: string;
@@ -96,6 +97,7 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
       </View>
       <View style={{flex: 1}}>
         <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls} />
+        <MainDetailsMap></MainDetailsMap>
       </View>
     </ScrollView>
   );

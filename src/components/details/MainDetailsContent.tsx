@@ -43,8 +43,10 @@ const MainDetailsContent = ({
         }}>
         공연내용
       </Text>
-
-      {detailImgUrls.styurl.length === 0 && <Text>상세이미지가 없습니다.</Text>}
+      <View style={{padding: 10}}>
+        {detailImgUrls.styurl.length === 0 && (
+          <Text>상세이미지가 없습니다.</Text>
+        )}
 
       {detailImgUrls.styurl.length >= 1 && (
         <View>
