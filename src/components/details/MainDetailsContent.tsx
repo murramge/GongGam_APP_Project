@@ -1,14 +1,14 @@
 import {
   ScrollView,
-  FlatList,
   StyleSheet,
   Text,
   View,
   Dimensions,
   Image,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {colors} from '@styles/color';
+import FastImage from 'react-native-fast-image';
 interface ImageUrl {
   styurl: string[];
 }
@@ -25,6 +25,7 @@ const MainDetailsContent = ({
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
   //const imageHeight = (windowWidth / imageSize.width) * imageSize.height;
+  const [imageHeightList, setImageHeightList] = useState<number[]>([]);
 
   return (
     <ScrollView
@@ -49,16 +50,30 @@ const MainDetailsContent = ({
       {detailImgUrls.styurl.length >= 1 && (
         <View>
           {detailImgUrls?.styurl.map((item: string, index: number) => (
-            <View
-              key={index}
-              style={{flex: 1, paddingBottom: 16, alignItems: 'center'}}>
+            <View key={index} style={{flex: 1, alignItems: 'center'}}>
               <Image
-                source={{uri: item}}
-                style={{
-                  width: windowWidth - 40,
-                  aspectRatio: 1 / 1,
+                onLoad={event => {
+                  const {width, height} = event.nativeEvent.source;
+                  const scaleFactor = width / windowWidth;
+                  const imageHeight = height / scaleFactor;
+                  setImageHeightList(prevState => {
+                    const newImageHeightList = [...prevState];
+                    newImageHeightList[index] = imageHeight;
+                    return newImageHeightList;
+                  });
                 }}
+                source={{uri: item}}
               />
+              {imageHeightList[index] && (
+                <FastImage
+                  resizeMode={FastImage.resizeMode.stretch}
+                  source={{uri: item}}
+                  style={{
+                    width: windowWidth,
+                    height: imageHeightList[index],
+                  }}
+                />
+              )}
             </View>
           ))}
         </View>
