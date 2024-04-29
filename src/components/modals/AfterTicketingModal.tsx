@@ -4,7 +4,7 @@ import {View, Text, Modal, StyleSheet, Pressable} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
 import CommonButton from '../../atoms/buttons/CommonButton';
-import {atom, useAtom, useSetAtom} from 'jotai';
+import {atom, useAtom} from 'jotai';
 export const modalVisibleAtom = atom(false); //초기화
 
 const AfterTicketingModal = () => {
@@ -25,7 +25,7 @@ const AfterTicketingModal = () => {
               style={{
                 fontSize: 22,
                 fontWeight: '700',
-                color: colors.Black,
+                color: colors.BLACK,
                 textAlign: 'center',
                 paddingBottom: 24,
               }}>
