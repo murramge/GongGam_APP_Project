@@ -17,7 +17,6 @@ interface ArtItemProps {
 const ArtItem = ({photoUrl, title, period, place, id}: ArtItemProps) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
   const onPress = useCallback(() => {
     navigate('Detail', {id, photoUrl, title, period, place});
   }, [id, photoUrl, title, period, place, navigate]);
