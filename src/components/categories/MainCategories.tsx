@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {atom, useAtom} from 'jotai';
 import {PerformanceGenre} from '@utils/category';
-import {PerformanceCategory} from '@interfaces/kopis.interface';
+import {PerformanceCategory} from '@apis/kopis.d';
 interface MainCategoriesProps {}
 
 export const selectAtom = atom('All');

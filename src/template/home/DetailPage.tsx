@@ -1,12 +1,12 @@
 import {getPerformanceDetail} from '@apis/kopis';
 import BackHeader from '@components/header/BackHeader';
-import {PerformanceDetailInfo} from '@interfaces/kopis.interface';
+import {PerformanceDetailInfo} from '@apis/kopis.d';
 import {RouteProp} from '@react-navigation/native';
 import {colors} from '@styles/color';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Image} from 'react-native';
+import {ActivityIndicator, Image, ScrollView} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
-
+import MainDetailsContent from '@components/details/MainDetailsContent';
 type DetailPageRouteParams = {
   Detail: {
     id: string;
@@ -45,7 +45,7 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
   if (error) return <Text>{error}</Text>;
 
   return (
-    <View>
+    <ScrollView style={{flex: 1}}>
       <View style={styles.detailHeader}>
         <BackHeader
           label={detailInfo?.prfnm}
@@ -94,7 +94,10 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
           <Text style={styles.itemText}>{detailInfo?.prfcrew}</Text>
         </View>
       </View>
-    </View>
+      <View style={{flex: 1}}>
+        <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls} />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -136,18 +139,16 @@ const styles = StyleSheet.create({
     height: 360,
   },
   detailContainer: {
-    position: 'absolute',
-    top: 360,
     left: 0,
     width: '100%',
-    paddingVertical: 10,
-    paddingHorizontal: 28,
+    paddingVertical: 17,
     borderBottomWidth: 1,
     borderBottomColor: colors.GRAY_200,
   },
   detailItemList: {
     flexDirection: 'row',
-    marginBottom: 5,
+    marginBottom: 15,
+    paddingHorizontal: 28,
   },
   itemTitle: {
     width: 70,

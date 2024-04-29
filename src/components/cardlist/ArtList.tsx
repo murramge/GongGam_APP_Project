@@ -8,7 +8,7 @@ import {
   PerformanceCategory,
   PerformanceInfo,
   PerformanceStsType,
-} from '@interfaces/kopis.interface';
+} from '@apis/kopis.d';
 
 export interface ArtListProps {
   date: string;
