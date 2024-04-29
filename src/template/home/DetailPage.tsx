@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   photoContainer: {
     position: 'absolute',
-    top: 88,
+    top: 50,
     left: 88,
     width: 214,
     height: 287,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   dim: {
     position: 'absolute',
     width: '100%',
-    height: 440,
+    height: 360,
     left: 0,
     top: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   photo: {
     width: '100%',
-    height: 440,
+    height: 360,
   },
   detailContainer: {
     left: 0,
@@ -151,16 +151,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 28,
   },
   itemTitle: {
-    width: 50,
+    width: 70,
     color: colors.GRAY_500,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 'bold',
     marginRight: 30,
   },
   itemText: {
     width: 200,
     color: colors.GRAY_500,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '500',
   },
 });

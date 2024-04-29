@@ -13,7 +13,7 @@ const CancelButton = ({label}: CancelButtonProps) => {
       <Icon
         name="close"
         size={15}
-        color={colors.SEARCH_BG}
+        color={colors.GRAY_300}
         style={styles.recentIcon}></Icon>
     </TouchableOpacity>
   );
@@ -22,7 +22,7 @@ const CancelButton = ({label}: CancelButtonProps) => {
 const styles = StyleSheet.create({
   recentText: {
     color: colors.Black,
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '400',
     paddingLeft: 11,
     paddingVertical: 10,
