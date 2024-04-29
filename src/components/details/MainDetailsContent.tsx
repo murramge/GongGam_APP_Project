@@ -49,36 +49,44 @@ const MainDetailsContent = ({
 
       {detailImgUrls.styurl.length >= 1 && (
         <View>
-          {detailImgUrls?.styurl.map((item: string, index: number) => (
-            <View key={index} style={{flex: 1, alignItems: 'center'}}>
-              <Image
-                onLoad={event => {
-                  const {width, height} = event.nativeEvent.source;
-                  const scaleFactor = width / windowWidth;
-                  const imageHeight = height / scaleFactor;
-                  setImageHeightList(prevState => {
-                    const newImageHeightList = [...prevState];
-                    newImageHeightList[index] = imageHeight;
-                    return newImageHeightList;
-                  });
-                }}
-                source={{uri: item}}
-              />
-              {imageHeightList[index] && (
-                <FastImage
-                  resizeMode={FastImage.resizeMode.stretch}
-                  source={{uri: item}}
-                  style={{
-                    width: windowWidth,
-                    height: imageHeightList[index],
-                  }}
-                />
-              )}
-            </View>
+          {detailImgUrls?.styurl.map((item: string) => (
+            <FixedImage key={item} uri={item} width={windowWidth} />
           ))}
         </View>
       )}
     </ScrollView>
+  );
+};
+
+interface FixedImageProps {
+  width: number;
+  uri: string;
+}
+
+const FixedImage = ({width, uri}: FixedImageProps) => {
+  const [imageHeight, setImageHeight] = useState<number>();
+
+  return imageHeight ? (
+    <FastImage
+      resizeMode={FastImage.resizeMode.stretch}
+      source={{uri}}
+      style={{
+        width,
+        height: imageHeight,
+      }}
+    />
+  ) : (
+    <Image
+      onLoad={event => {
+        const {width: sourceWidth, height: sourceHeight} =
+          event.nativeEvent.source;
+        console.log(sourceWidth, sourceHeight);
+        const scaleFactor = sourceWidth / width;
+        const scaledImageHeight = sourceHeight / scaleFactor;
+        setImageHeight(scaledImageHeight);
+      }}
+      source={{uri}}
+    />
   );
 };
 
