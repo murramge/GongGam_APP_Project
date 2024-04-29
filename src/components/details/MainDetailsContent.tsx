@@ -79,7 +79,6 @@ const FixedImage = ({width, uri}: FixedImageProps) => {
       onLoad={event => {
         const {width: sourceWidth, height: sourceHeight} =
           event.nativeEvent.source;
-        console.log(sourceWidth, sourceHeight);
         const scaleFactor = sourceWidth / width;
         const scaledImageHeight = sourceHeight / scaleFactor;
         setImageHeight(scaledImageHeight);
