@@ -1,17 +1,8 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  ScrollView,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import {View, Text, Image, Dimensions, Platform} from 'react-native';
 import Config from 'react-native-config';
-
-interface MainUpperCardProps {
-  item: any;
+interface Item {
+  image: any;
 }
 const MainUpperCard = ({item}: any) => {
   const {width: viewportWidth, height: viewportHeight} =

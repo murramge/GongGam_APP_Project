@@ -1,18 +1,50 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {colors} from '@styles/color';
-interface MainDetailsMapProps {}
+import {getPerformanceFacilityDetail} from '@apis/kopis';
+import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 
-const MainDetailsMap = ({}: MainDetailsMapProps) => {
+const theaterPin = require('@icons/theater.png');
+
+interface MainDetailsMapProps {
+  id: string | undefined;
+}
+interface LocationProps {
+  lat: Float | null;
+  lng: Float | null;
+  theater: string | null;
+  address: string | null;
+}
+
+const MainDetailsMap = ({id}: MainDetailsMapProps) => {
+  const [location, setLocation] = useState<LocationProps>({
+    lat: null,
+    lng: null,
+    theater: null,
+    address: null,
+  });
+  useEffect(() => {
+    const getMapLocationData = async () => {
+      const data = await getPerformanceFacilityDetail(id);
+      data &&
+        setLocation({
+          lat: data.la,
+          lng: data.lo,
+          theater: data.fcltynm,
+          address: data.adres,
+        });
+    };
+    getMapLocationData();
+  });
+
   return (
     <>
       <View style={{flex: 1}}>
         <View>
           <Text
             style={{
-              paddingLeft: 18,
-              paddingBottom: 8,
+              padding: 10,
               fontWeight: '600',
               fontSize: 16,
               color: colors.Black,
@@ -20,21 +52,31 @@ const MainDetailsMap = ({}: MainDetailsMapProps) => {
             지도
           </Text>
         </View>
-        <MapView
-          style={{width: '100%', height: 300}}
-          provider={PROVIDER_GOOGLE}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        />
+        {location.lat && location.lng && (
+          <MapView
+            style={{width: '100%', height: 300}}
+            provider={PROVIDER_GOOGLE}
+            initialRegion={{
+              latitude: location.lat,
+              longitude: location.lng,
+              latitudeDelta: 0.001,
+              longitudeDelta: 0.001,
+            }}>
+            {location.theater && location.address && (
+              <Marker
+                coordinate={{
+                  latitude: location.lat,
+                  longitude: location.lng,
+                }}
+                image={theaterPin}
+                title={location.theater}
+                description={location.address}></Marker>
+            )}
+          </MapView>
+        )}
       </View>
     </>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default MainDetailsMap;
