@@ -4,11 +4,12 @@ import {colors} from '@styles/color';
 
 interface MainButtonProps {
   label: string;
+  onPress: () => void;
 }
 
-const CommonButton = ({label = '기본버튼'}: MainButtonProps) => {
+const CommonButton = ({label = '기본버튼', onPress}: MainButtonProps) => {
   return (
-    <TouchableOpacity style={styles.CommonButton}>
+    <TouchableOpacity style={styles.CommonButton} onPress={onPress}>
       <Text style={styles.CommonButtonText}>{label}</Text>
     </TouchableOpacity>
   );
