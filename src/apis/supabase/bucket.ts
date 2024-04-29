@@ -1,5 +1,7 @@
 import {supabase} from './supabase';
 import {v4 as uuid} from 'uuid';
+import FileSystem from 'react-native-fs';
+import {decode} from 'base64-arraybuffer';
 
 type SaveLocation = 'profile' | 'meeting';
 
