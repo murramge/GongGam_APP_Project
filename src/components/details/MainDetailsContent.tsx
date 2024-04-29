@@ -49,7 +49,7 @@ const MainDetailsContent = ({
       {detailImgUrls.styurl.length >= 1 && (
         <View>
           {detailImgUrls?.styurl.map((item: string) => (
-            <FixedImage key={item} uri={item} width={windowWidth} />
+            <ResizedImage key={item} uri={item} width={windowWidth} />
           ))}
         </View>
       )}
@@ -57,12 +57,12 @@ const MainDetailsContent = ({
   );
 };
 
-interface FixedImageProps {
+interface ResizedImageProps {
   width: number;
   uri: string;
 }
 
-const FixedImage = ({width, uri}: FixedImageProps) => {
+const ResizedImage = ({width, uri}: ResizedImageProps) => {
   const [imageHeight, setImageHeight] = useState<number>();
 
   return imageHeight ? (
