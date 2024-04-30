@@ -12,6 +12,8 @@ import PerformanceSearch from '@pages/PerformanceSearch';
 import TicketingPage from './template/home/TicketingPage';
 
 import Search from '@pages/Search';
+import PerformanceSearch from '@pages/PerformanceSearch';
+import SearchResultPage from './template/home/SearchResultPage';
 
 
 export type RootStackParamList = {
@@ -39,7 +41,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={Search} />
+      <Tab.Screen name="Community" component={SearchResultPage} />
       <Tab.Screen name="Calendar" component={Home} />
       <Tab.Screen name="Profile" component={Home} />
     </Tab.Navigator>

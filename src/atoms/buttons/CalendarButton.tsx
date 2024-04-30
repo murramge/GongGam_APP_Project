@@ -17,7 +17,7 @@ const CalendarButton = ({label = '기본버튼'}: CalendarButtonProps) => {
 const styles = StyleSheet.create({
   CommonButton: {
     paddingHorizontal: 24,
-    paddingVertical: 18,
+    paddingVertical: 10,
     borderRadius: 32,
     margin: 10,
     borderWidth: 1,
