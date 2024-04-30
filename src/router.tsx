@@ -8,6 +8,7 @@ import Home from '@pages/Home';
 import CustomBottomTabBar from '@components/CustomBottomTabBar';
 import DetailPage from './template/home/DetailPage';
 import PerformanceSearch from '@pages/PerformanceSearch';
+import SearchResultPage from './template/home/SearchResultPage';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -33,7 +34,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={PerformanceSearch} />
+      <Tab.Screen name="Community" component={SearchResultPage} />
       <Tab.Screen name="Calendar" component={Home} />
       <Tab.Screen name="Profile" component={Home} />
     </Tab.Navigator>

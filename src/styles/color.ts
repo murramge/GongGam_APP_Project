@@ -8,6 +8,7 @@ const colors = {
   GRAY_300: '#92929D',
   GRAY_500: '#100F13',
   Black: '#000',
+  LINE_COLOR: '#DEE2EE',
 };
 
 export {colors};
