@@ -17,6 +17,7 @@ import SearchResultPage from './template/home/SearchResultPage';
 import SignUpTemplate from './template/Sign/SignUpTemplate';
 import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
 
+import PerformanceSearch from '@pages/PerformanceSearch';
 
 export type RootStackParamList = {
   MainTab: undefined;

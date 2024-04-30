@@ -74,9 +74,26 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
           <MainDetailsMap id={detailInfo?.mt10id}></MainDetailsMap>
         </View>
       </ScrollView>
-      <View>
-        <CommonButton label="예매하기" onPress={gotoTicketing} />
-        <CommonButton label="같이 볼 사람 모집하기"></CommonButton>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          backgroundColor: 'transparent',
+        }}>
+        <View style={{width: '40%', marginRight: 1}}>
+          <CommonButton
+            label="예매하기"
+            borderRadius={0}
+            margin={0}
+            onPress={gotoTicketing}
+          />
+        </View>
+        <View style={{width: '60%'}}>
+          <CommonButton
+            label="같이 볼 사람 모집하기"
+            borderRadius={0}
+            margin={0}></CommonButton>
+        </View>
       </View>
     </View>
   );
