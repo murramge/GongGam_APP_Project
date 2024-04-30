@@ -7,7 +7,8 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Image, ScrollView, Linking} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
-
+import AfterTicketingModal from '@components/modals/AfterTicketingModal';
+import LottieViewAfter from 'lottie-react-native';
 type TicketingPageRouteParams = {
   Ticketing: {
     id: string;
@@ -25,7 +26,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
+  const [showModal, setShowModal] = useState(false); // 모달 상태 추가
   useEffect(() => {
     const fetchDetail = async () => {
       try {
@@ -98,11 +99,13 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
             )}${encodeURIComponent(detailInfo?.prfnm || '')}티켓`;
             const url = `https://search.shopping.naver.com/search/all?query=${searchQuery}`;
             await Linking.openURL(url);
+            setShowModal(true);
           }}
         />
       </View>
     );
   };
+
   return (
     <ScrollView style={{flex: 1}}>
       <View style={styles.detailHeader}>
@@ -155,6 +158,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
         <Text>예매에 관련하여 어떠한 책임이 없습니다.</Text>
         <Text>목록의 공연장을 포함, 조건을 꼭! 확인해주세요.</Text>
       </View>
+      {showModal && <AfterTicketingModal />}
     </ScrollView>
   );
 };
