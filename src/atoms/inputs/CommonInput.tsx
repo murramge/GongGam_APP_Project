@@ -3,12 +3,17 @@ import {StyleSheet, TextInput, View} from 'react-native';
 
 interface CommonInputProps {
   label: string | undefined;
+  onChangeText: (text: string) => void;
 }
 
-const CommonInput = ({label}: CommonInputProps) => {
+const CommonInput = ({label, onChangeText}: CommonInputProps) => {
   return (
     <View>
-      <TextInput placeholderTextColor="#92929D" placeholder={label}></TextInput>
+      <TextInput
+        placeholderTextColor="#92929D"
+        placeholder={label}
+        onChangeText={onChangeText}
+      />
     </View>
   );
 };
