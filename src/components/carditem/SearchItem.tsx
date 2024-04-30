@@ -52,7 +52,6 @@ const SearchItem = ({
           </View>
         </View>
       </TouchableOpacity>
-      {/* <View style={styles.line} /> */}
     </View>
   );
 };
