@@ -7,11 +7,17 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Image, ScrollView} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import MainDetailsContent from '@components/details/MainDetailsContent';
+import CommonButton from '../../atoms/buttons/CommonButton';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../router';
+
 import MainDetailsMap from '@components/details/MainDetailsMap';
 import {atom, useAtom} from 'jotai';
 import ThumbnailHeader from '@components/header/ThumbnailHeader';
 import MainDetailsInfo from '@components/details/MainDetailsInfo';
 import CommonButton from '../../atoms/buttons/CommonButton';
+
 type DetailPageRouteParams = {
   Detail: {
     id: string;
@@ -51,6 +57,13 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
   if (loading) return <ActivityIndicator />;
   if (error) return <Text>{error}</Text>;
 
+  //임시 추가
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const gotoTicketing = () => {
+    console.log('예매하기');
+    navigate('Ticketing', {id});
+  };
   return (
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
       <ScrollView style={{flex: 1}}>
@@ -66,7 +79,13 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
         <CommonButton label="예매하기"></CommonButton>
         <CommonButton label="같이 볼 사람 모집하기"></CommonButton>
       </View>
+
+
+      <CommonButton label="예매하기" onPress={gotoTicketing} />
+    </ScrollView>
+
     </View>
+
   );
 };
 
