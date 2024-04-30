@@ -29,3 +29,13 @@ export const Signschema = z
   });
 
 export type SignType = z.infer<typeof Signschema>;
+
+export const Loginschema = z.object({
+  email: z
+    .string()
+    .min(1, {message: '이메일을 입력해주세요!'})
+    .email({message: '이메일 형식을 지켜주세요!'}),
+  password: z.string().regex(PASSWORD_REGEX, '비밀번호 형식을 지켜주세요!'),
+});
+
+export type LoginType = z.infer<typeof Loginschema>;
