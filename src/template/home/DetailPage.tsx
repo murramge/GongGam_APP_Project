@@ -7,6 +7,10 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Image, ScrollView} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import MainDetailsContent from '@components/details/MainDetailsContent';
+import CommonButton from '../../atoms/buttons/CommonButton';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../router';
 type DetailPageRouteParams = {
   Detail: {
     id: string;
@@ -44,6 +48,13 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
   if (loading) return <ActivityIndicator />;
   if (error) return <Text>{error}</Text>;
 
+  //임시 추가
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const gotoTicketing = () => {
+    console.log('예매하기');
+    navigate('Ticketing', {id});
+  };
   return (
     <ScrollView style={{flex: 1}}>
       <View style={styles.detailHeader}>
@@ -97,6 +108,8 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
       <View style={{flex: 1}}>
         <MainDetailsContent id={id} detailImgUrls={detailInfo?.styurls} />
       </View>
+
+      <CommonButton label="예매하기" onPress={gotoTicketing} />
     </ScrollView>
   );
 };
