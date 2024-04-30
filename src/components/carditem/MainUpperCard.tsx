@@ -1,19 +1,25 @@
-import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React, {useCallback} from 'react';
 import {
   View,
-  StyleSheet,
   Text,
   Image,
-  ScrollView,
   Dimensions,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import Config from 'react-native-config';
-
-interface MainUpperCardProps {
-  item: any;
+import {RootStackParamList} from '../../router';
+interface ArtItemProps {
+  photoUrl?: string;
+  title: string;
+  period: string;
+  place: string;
+  id: string;
 }
-const MainUpperCard = ({item}: any) => {
+
+const MainUpperCard = ({photoUrl, title, period, place, id}: ArtItemProps) => {
   const {width: viewportWidth, height: viewportHeight} =
     Dimensions.get('window');
   const cardWidth = viewportWidth - 60;
@@ -23,15 +29,24 @@ const MainUpperCard = ({item}: any) => {
       elevation: 8, // Android에서 그림자 효과지정
     },
   });
+
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const onPress = useCallback(() => {
+    navigate('Detail', {id, photoUrl, title, period, place});
+  }, [id, photoUrl, title, period, place, navigate]);
+
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={{
         width: cardWidth,
         height: 154,
         ...shadowStyle, // 그림자 스타일
       }}>
       <Image
-        source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${item.poster}`}}
+        source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${photoUrl}`}}
         style={{
           flex: 1,
           width: '100%',
@@ -49,7 +64,7 @@ const MainUpperCard = ({item}: any) => {
           fontSize: 16,
           fontWeight: '600',
         }}>
-        {item.prfnm}
+        {title}
       </Text>
       <Text
         style={{
@@ -59,9 +74,9 @@ const MainUpperCard = ({item}: any) => {
           color: 'white',
           letterSpacing: 0.12,
         }}>
-        {item.prfpd}
+        {period}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 export default MainUpperCard;

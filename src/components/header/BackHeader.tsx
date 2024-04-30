@@ -1,7 +1,10 @@
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
 import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {RootStackParamList} from '../../router';
 
 interface BackHeaderProps {
   Color?: {
@@ -20,8 +23,10 @@ const BackHeader = ({
     labelColor: 'black',
   },
   label,
-  rightIcon = 'arrow-forward-ios',
+  rightIcon = '',
 }: BackHeaderProps) => {
+  const navigate =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <SafeAreaView
       style={{
@@ -32,7 +37,7 @@ const BackHeader = ({
         alignItems: 'center',
       }}>
       <View style={{width: '5%'}}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigate.goBack()}>
           <Icon
             name="arrow-back-ios"
             color={Color.leftIconsColor}

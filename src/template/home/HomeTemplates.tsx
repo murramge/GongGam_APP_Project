@@ -11,6 +11,7 @@ import BackHeader from '@components/header/BackHeader';
 import {PerformanceCategory, PerformanceStsType} from '@apis/kopis.d';
 import {PerformanceGenre} from '@utils/category';
 import {useAtomValue} from 'jotai';
+import SearchHeaderButton from '../../atoms/buttons/SearchHeaderButton';
 interface HomeProps {
   date: string;
   stsType: PerformanceStsType[keyof PerformanceStsType];
@@ -26,7 +27,7 @@ const HomeTemplates = () => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <SearchHeader></SearchHeader>
+      <SearchHeaderButton></SearchHeaderButton>
       <MainUpperCardBar></MainUpperCardBar>
       <MainCategories></MainCategories>
       <ArtList date="20240425" stsType="day" categoryCode={code}></ArtList>
