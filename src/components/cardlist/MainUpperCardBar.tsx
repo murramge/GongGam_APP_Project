@@ -37,8 +37,16 @@ const MainUpperCardBar = () => {
   const {width: viewportWidth, height: viewportHeight} =
     Dimensions.get('window');
 
-  const _renderItem = ({item}: any) => {
-    return <MainUpperCard item={item} />;
+  const _renderItem = ({item: art}) => {
+    return (
+      <MainUpperCard
+        photoUrl={art.poster ?? undefined}
+        title={art.prfnm}
+        period={art.prfpd}
+        place={art.area}
+        id={art.mt20id}
+      />
+    );
   };
 
   //dot indicator 구현하기 위해

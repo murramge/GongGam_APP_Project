@@ -7,6 +7,7 @@ import {
 import Home from '@pages/Home';
 import CustomBottomTabBar from '@components/CustomBottomTabBar';
 import DetailPage from './template/home/DetailPage';
+import Search from '@pages/Search';
 import PerformanceSearch from '@pages/PerformanceSearch';
 import SearchResultPage from './template/home/SearchResultPage';
 
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   Detail: {
     id: string;
   };
+  Search: undefined;
 };
 
 export type MainBottomTabParamList = {
@@ -46,6 +48,7 @@ function Router() {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
+      <Stack.Screen name="Search" component={Search} />
     </Stack.Navigator>
   );
 }

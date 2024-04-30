@@ -1,10 +1,10 @@
-import SearchInputBack from '@components/inputs/SearchInputBack';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import RecentButton from '../../atoms/buttons/RecentButton';
 import {colors} from '@styles/color';
 import CancelButton from '../../atoms/buttons/CancelButton';
 import SearchList from '@components/cardlist/SearchList';
+import SearchHeaderButton from '../../atoms/buttons/SearchHeaderButton';
 
 interface SearchResultPageProps {}
 
@@ -12,7 +12,7 @@ const SearchResultPage = ({}: SearchResultPageProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchInputArea}>
-        <SearchInputBack></SearchInputBack>
+        <SearchHeaderButton></SearchHeaderButton>
         <View style={styles.recentWordArea}>
           <RecentButton label="검색어" />
         </View>
