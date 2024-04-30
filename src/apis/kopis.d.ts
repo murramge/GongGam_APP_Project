@@ -3,14 +3,33 @@ export interface PerformanceState {
   '02': '공연중';
   '03': '공연완료';
 }
+export const GenreCode = {
+  연극: 'AAAA',
+  뮤지컬: 'GGGA',
+  클래식: 'CCCA',
+  국악: 'CCCC',
+  대중음악: 'CCCD',
+  무용: 'BBBC',
+  대중무용: 'BBBR',
+  '서커스/마술': 'EEEB',
+  복합: 'EEEA',
+  아동: 'KID',
+  오픈런: 'OPEN',
+} as const;
 
+export type PerformanceGenreKey = Exclude<
+  keyof typeof GenreCode,
+  '아동' | '오픈런'
+>;
+export type PerformanceGenreValue = (typeof GenreCode)[keyof typeof GenreCode];
+export type BoxOfficeGenreKey = keyof typeof GenreCode;
 export interface PerformanceCategory {
   AAAA: '연극';
   GGGA: '뮤지컬';
   CCCA: '클래식';
   CCCC: '국악';
   CCCD: '대중음악';
-  BBBC: '무용(서양/한국무용)';
+  BBBC: '무용';
   BBBR: '대중무용';
   EEEB: '서커스/마술';
   EEEA: '복합';
@@ -140,3 +159,26 @@ export interface PerformanceFacilityDetail {
   // 주차지설
   parkinglot: 'Y' | 'N'; // Y
 }
+
+export const AreaCode = {
+  서울: 11,
+  인천: 28,
+  대전: 30,
+  대구: 27,
+  광주: 29,
+  부산: 26,
+  울산: 31,
+  세종: 36,
+  경기: 41,
+  충북: 43,
+  충남: 44,
+  경북: 47,
+  경남: 48,
+  전북: 45,
+  전남: 46,
+  강원: 51,
+  제주: 50,
+  대학로: 'UNI',
+} as const;
+export type AreaCodeKey = keyof typeof AreaCode;
+export type AreaCodeValue = (typeof AreaCode)[keyof typeof AreaCode];

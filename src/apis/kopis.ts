@@ -3,12 +3,13 @@ import {kopisInstance} from '@apis/axios';
 import type {
   PerformanceBoxOffice,
   PerformanceCategory,
-  PerformanceGenre,
   PerformanceDetailInfo,
   PerformanceInfo,
   PerformanceState,
   PerformanceStsType,
   PerformanceFacilityDetail,
+  PerformanceGenreValue,
+  AreaCodeValue,
 } from './kopis.d';
 
 const parser = new XMLParser();
@@ -19,9 +20,9 @@ interface getPerformanceListProps {
   page: number;
   size: number;
   performanceName?: string;
-  genreCode?: keyof PerformanceGenre;
+  genreCode?: PerformanceGenreValue;
   performanceStateCode?: keyof PerformanceState;
-  signguCode?: string;
+  signguCode?: AreaCodeValue;
   signguCodeSub?: string;
 }
 
@@ -31,9 +32,9 @@ interface getPerformanceListApiParams {
   cpage: number;
   rows: number;
   shprfnm?: string;
-  shcate?: keyof PerformanceGenre;
+  shcate?: PerformanceGenreValue;
   prfstate?: keyof PerformanceState;
-  signgucode?: string;
+  signgucode?: AreaCodeValue;
   signgucodesub?: string;
 }
 
@@ -64,8 +65,15 @@ export const getPerformanceList = async ({
     const res = await kopisInstance.get('/pblprfr', {
       params: params,
     });
+    const data = parser.parse(res.data)?.dbs?.db;
 
-    return parser.parse(res.data).dbs.db as PerformanceInfo[];
+    if (!data) {
+      return [];
+    }
+    if (Array.isArray(data)) {
+      return data as PerformanceInfo[];
+    }
+    return [data];
   } catch (e) {
     console.error('Error in getPerformanceList:', e);
     throw e;
