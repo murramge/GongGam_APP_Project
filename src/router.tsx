@@ -13,6 +13,7 @@ import TicketingPage from './template/home/TicketingPage';
 import Search from '@pages/Search';
 
 import SearchResultPage from './template/home/SearchResultPage';
+import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -20,6 +21,12 @@ export type RootStackParamList = {
     id: string;
   };
   Search: undefined;
+  PerformanceSearchResult: {
+    date: string;
+    performanceName?: string;
+    genreCode?: PerformanceGenreKey;
+    signguCode?: AreaCodeKey;
+  };
 };
 
 export type MainBottomTabParamList = {
@@ -53,6 +60,10 @@ function Router() {
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
       <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen
+        name="PerformanceSearchResult"
+        component={SearchResultPage}
+      />
     </Stack.Navigator>
   );
 }

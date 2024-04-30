@@ -8,9 +8,17 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../router';
 interface SearchInputProps {
   type?: string;
+  value?: string;
+  onPressSearch: () => void;
+  onChangeText: (text: string) => void;
 }
 
-const SearchInput = ({type}: SearchInputProps) => {
+const SearchInput = ({
+  type,
+  value,
+  onPressSearch,
+  onChangeText,
+}: SearchInputProps) => {
   const navigate =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
@@ -18,16 +26,20 @@ const SearchInput = ({type}: SearchInputProps) => {
       <View style={styles.searchBackIcon}>
         {type == 'back' && (
           <TouchableOpacity onPress={() => navigate.goBack()}>
-            <Icon name="arrow-back" size={24} color="black"></Icon>
+            <Icon name="arrow-back" size={24} color="black" />
           </TouchableOpacity>
         )}
       </View>
       <View style={styles.SearchInput}>
         <View>
-          <CommonInput label="검색어를 입력해주세요"></CommonInput>
+          <CommonInput
+            value={value}
+            label="검색어를 입력해주세요"
+            onChangeText={onChangeText}
+          />
         </View>
-        <TouchableOpacity style={styles.IconsCenter}>
-          <Icon name="search" size={20} color="black"></Icon>
+        <TouchableOpacity style={styles.IconsCenter} onPress={onPressSearch}>
+          <Icon name="search" size={20} color="black" />
         </TouchableOpacity>
       </View>
     </View>
