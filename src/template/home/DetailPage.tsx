@@ -16,7 +16,6 @@ import MainDetailsMap from '@components/details/MainDetailsMap';
 import {atom, useAtom} from 'jotai';
 import ThumbnailHeader from '@components/header/ThumbnailHeader';
 import MainDetailsInfo from '@components/details/MainDetailsInfo';
-import CommonButton from '../../atoms/buttons/CommonButton';
 
 type DetailPageRouteParams = {
   Detail: {
@@ -76,16 +75,10 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
         </View>
       </ScrollView>
       <View>
-        <CommonButton label="예매하기"></CommonButton>
+        <CommonButton label="예매하기" onPress={gotoTicketing} />
         <CommonButton label="같이 볼 사람 모집하기"></CommonButton>
       </View>
-
-
-      <CommonButton label="예매하기" onPress={gotoTicketing} />
-    </ScrollView>
-
     </View>
-
   );
 };
 

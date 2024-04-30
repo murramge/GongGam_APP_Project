@@ -4,7 +4,7 @@ import {colors} from '@styles/color';
 
 interface MainButtonProps {
   label: string;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 const CommonButton = ({label = '기본버튼', onPress}: MainButtonProps) => {
