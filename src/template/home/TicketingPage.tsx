@@ -85,7 +85,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
             alignItems: 'center',
             fontSize: 16,
             fontWeight: '600',
-            color: colors.Black,
+            color: colors.BLACK,
           }}>
           {price}
         </Text>
@@ -134,7 +134,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
         )}
       </View>
       <View style={{flexDirection: 'row', padding: 20}}>
-        <Text style={{fontSize: 16, fontWeight: '600', color: colors.Black}}>
+        <Text style={{fontSize: 16, fontWeight: '600', color: colors.BLACK}}>
           예매정보
         </Text>
         <Text>({priceArray?.length})건</Text>
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     width: 214,
     height: 287,
     zIndex: 7,
-    backgroundColor: colors.Black,
+    backgroundColor: colors.BLACK,
   },
   photoView: {
     position: 'absolute',

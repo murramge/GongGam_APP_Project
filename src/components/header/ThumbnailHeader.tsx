@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     width: 214,
     height: 287,
     zIndex: 7,
-    backgroundColor: colors.Black,
+    backgroundColor: colors.BLACK,
   },
   photoView: {
     position: 'absolute',
