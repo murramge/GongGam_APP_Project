@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const useRecentSearch = (type: keyof typeof SearchTarget) => {
+const useRecentSearch = (type: keyof typeof SearchTarget) => {
   const [recentSearchList, setRecentSearchList] = useState<string[]>([]);
 
   const MAX_RECENT_SEARCHES = 5;
@@ -92,3 +92,5 @@ const SearchTarget = {
   Performance: 'Performance',
   Meeting: 'Meeting',
 } as const;
+
+export default useRecentSearch;
