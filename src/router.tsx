@@ -8,13 +8,11 @@ import Home from '@pages/Home';
 import CustomBottomTabBar from '@components/CustomBottomTabBar';
 import DetailPage from './template/home/DetailPage';
 
-import PerformanceSearch from '@pages/PerformanceSearch';
 import TicketingPage from './template/home/TicketingPage';
 
 import Search from '@pages/Search';
-import PerformanceSearch from '@pages/PerformanceSearch';
-import SearchResultPage from './template/home/SearchResultPage';
 
+import SearchResultPage from './template/home/SearchResultPage';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -53,11 +51,8 @@ function Router() {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
-
       <Stack.Screen name="Ticketing" component={TicketingPage} />
-
       <Stack.Screen name="Search" component={Search} />
-
     </Stack.Navigator>
   );
 }
