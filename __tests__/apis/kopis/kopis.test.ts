@@ -19,10 +19,10 @@ test('공연 목록 조회', async () => {
 
 test('공연 상세 조회', async () => {
   const data = await getPerformanceDetail({
-    performanceId: 'PF239796',
+    performanceId: 'PF238007',
   });
 
-  expect(data?.genrenm).toBe('복합');
+  expect(data?.genrenm).toBe('뮤지컬');
 });
 
 test('박스오피스조회', async () => {

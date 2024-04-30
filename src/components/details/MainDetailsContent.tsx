@@ -32,7 +32,7 @@ const MainDetailsContent = ({detailImgUrls = []}: MainDetailsContentProps) => {
           padding: 10,
           fontWeight: '600',
           fontSize: 16,
-          color: colors.Black,
+          color: colors.BLACK,
         }}>
         공연내용
       </Text>

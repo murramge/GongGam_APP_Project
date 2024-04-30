@@ -47,7 +47,7 @@ const MainDetailsMap = ({id}: MainDetailsMapProps) => {
               padding: 10,
               fontWeight: '600',
               fontSize: 16,
-              color: colors.Black,
+              color: colors.BLACK,
             }}>
             지도
           </Text>

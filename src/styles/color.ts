@@ -6,9 +6,11 @@ const colors = {
   RECENT_BG: '#F3F3F3',
   GRAY_200: '#E0E0E0',
   GRAY_300: '#92929D',
+  GRAY_400: '#838383',
   GRAY_500: '#100F13',
-  Black: '#000',
+  BLACK: '#000',
   LINE_COLOR: '#DEE2EE',
+  RED_500: '#FF5F5F',
 };
 
 export {colors};

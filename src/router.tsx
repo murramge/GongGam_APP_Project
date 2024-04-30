@@ -14,12 +14,26 @@ import Search from '@pages/Search';
 
 import SearchResultPage from './template/home/SearchResultPage';
 
+import SignUpTemplate from './template/Sign/SignUpTemplate';
+import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
+
+import PerformanceSearch from '@pages/PerformanceSearch';
+
 export type RootStackParamList = {
   MainTab: undefined;
   Detail: {
     id: string;
   };
   Search: undefined;
+
+  Ticketing: undefined;
+
+  PerformanceSearchResult: {
+    date: string;
+    performanceName?: string;
+    genreCode?: PerformanceGenreKey;
+    signguCode?: AreaCodeKey;
+  };
 };
 
 export type MainBottomTabParamList = {
@@ -39,7 +53,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={SearchResultPage} />
+      <Tab.Screen name="Community" component={SignUpTemplate} />
       <Tab.Screen name="Calendar" component={Home} />
       <Tab.Screen name="Profile" component={Home} />
     </Tab.Navigator>
@@ -53,6 +67,10 @@ function Router() {
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
       <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen
+        name="PerformanceSearchResult"
+        component={SearchResultPage}
+      />
     </Stack.Navigator>
   );
 }

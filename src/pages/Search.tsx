@@ -1,55 +1,154 @@
 import React, {useState} from 'react';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   useWindowDimensions,
 } from 'react-native';
-
+import Modal from 'react-native-modal';
+import {Calendar, DateData} from 'react-native-calendars';
 import {colors} from '@styles/color';
 import CancelButton from '../atoms/buttons/CancelButton';
 import CalendarButton from '../atoms/buttons/CalendarButton';
 import SearchInput from '@components/inputs/SearchInput';
+import useRecentSearch from '../hooks/useRecentSearch';
+import moment, {Moment} from 'moment';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../router';
+import {
+  AreaCode,
+  AreaCodeKey,
+  GenreCode,
+  PerformanceGenreKey,
+} from '@apis/kopis.d';
 
-interface PerformanceSearchProps {}
+interface PerformanceSearchProps
+  extends NativeStackScreenProps<RootStackParamList, 'Search'> {}
 
-const PerformanceSearch = ({}: PerformanceSearchProps) => {
-  const [selectedGenre, setSelectedGenre] = useState<GenreCodeKey | null>(null);
-  const [selectedArea, setSelectedArea] = useState<AreaCodeKey | null>(null);
+const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
+  const {
+    recentSearchList,
+    saveRecentSearch,
+    fetchRecentSearches,
+    removeRecentSearch,
+  } = useRecentSearch('Performance');
+  const [isDateSelectModalVisible, setIsDateSelectModalVisible] =
+    useState(false);
+  const [query, setQuery] = useState<string>('');
+  const [date, setDate] = useState<Moment>();
+  const [selectedGenre, setSelectedGenre] = useState<PerformanceGenreKey>();
+  const [selectedArea, setSelectedArea] = useState<AreaCodeKey>();
+
+  const onPressSearch = async () => {
+    if (!date) {
+      return;
+    }
+
+    if (query) {
+      await saveRecentSearch(query);
+      fetchRecentSearches();
+    }
+
+    navigation.navigate('PerformanceSearchResult', {
+      date: date.format('YYYYMMDD'),
+      performanceName: query,
+      genreCode: selectedGenre,
+      signguCode: selectedArea,
+    });
+
+    if (!selectedArea || !selectedGenre) return;
+  };
+
+  const onPressCancelButtonQueryHistory = async (queryString: string) => {
+    await removeRecentSearch(queryString);
+    await fetchRecentSearches();
+  };
+
+  const onPressTextSearchQueryHistory = (text: string) => setQuery(text);
+  const onPressAreaButton = (area: AreaCodeKey) => {
+    if (area === selectedArea) {
+      setSelectedArea(undefined);
+    } else {
+      setSelectedArea(area);
+    }
+  };
+  const onPressGenreButton = (genre: PerformanceGenreKey) => {
+    if (genre === selectedGenre) {
+      setSelectedGenre(undefined);
+    } else {
+      setSelectedGenre(genre);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <SearchInput type="back"></SearchInput>
-      <ScrollView>
+      <SearchInput
+        type="back"
+        value={query}
+        onPressSearch={onPressSearch}
+        onChangeText={setQuery}
+      />
+      <View>
         <View>
           <Text style={styles.searchTitle}>최근 검색어</Text>
           <View style={styles.recentArea}>
-            <CancelButton label="검색어" />
+            {recentSearchList.length ? (
+              recentSearchList.map(searchQueryString => (
+                <CancelButton
+                  key={searchQueryString}
+                  label={searchQueryString}
+                  onPressText={() =>
+                    onPressTextSearchQueryHistory(searchQueryString)
+                  }
+                  onPressCancel={() =>
+                    onPressCancelButtonQueryHistory(searchQueryString)
+                  }
+                />
+              ))
+            ) : (
+              <Text
+                style={{
+                  backgroundColor: colors.SEARCH_BG,
+                  padding: 3,
+                  paddingHorizontal: 10,
+                  borderRadius: 5,
+                  fontSize: 13,
+                  color: colors.GRAY_400,
+                }}>
+                최근 검색어가 없습니다.
+              </Text>
+            )}
           </View>
         </View>
         <View>
           <Text style={styles.searchTitle}>공연일 선택</Text>
-          <CalendarButton label="날짜 선택" />
+          <CalendarButton
+            label={date ? `${date.format('YYYY년 MM월 DD일')}` : '날짜 선택'}
+            onPress={() => setIsDateSelectModalVisible(prevState => !prevState)}
+          />
         </View>
-        <View style={{margin: 16}}>
+        <View style={{marginHorizontal: 16, marginVertical: 5}}>
           <Text style={styles.searchTitle2}>장르 선택</Text>
           <Grid
             margin={16}
             numColumns={4}
             gap={10}
-            data={Object.keys(GenreCode) as GenreCodeKey[]}
+            data={
+              Object.keys(GenreCode).filter(
+                item => item !== '아동' && item !== '오픈런',
+              ) as PerformanceGenreKey[]
+            }
             renderItem={({item}) => (
               <TextButton
                 text={item}
-                onPress={() => setSelectedGenre(item)}
+                onPress={() => onPressGenreButton(item)}
                 isSelected={item === selectedGenre}
               />
             )}
           />
         </View>
-        <View style={{margin: 16}}>
+        <View style={{marginHorizontal: 16, marginVertical: 5}}>
           <Text style={styles.searchTitle2}>지역 선택</Text>
           <Grid
             margin={16}
@@ -59,14 +158,45 @@ const PerformanceSearch = ({}: PerformanceSearchProps) => {
             renderItem={({item}) => (
               <TextButton
                 text={item}
-                onPress={() => setSelectedArea(item)}
+                onPress={() => onPressAreaButton(item)}
                 isSelected={item === selectedArea}
               />
             )}
           />
         </View>
-      </ScrollView>
+      </View>
+      <DateSelectModal
+        isVisible={isDateSelectModalVisible}
+        onDayPress={date => {
+          setIsDateSelectModalVisible(false);
+          setDate(moment(date.dateString));
+        }}
+      />
     </View>
+  );
+};
+
+interface DateSelectModal {
+  isVisible?: boolean;
+  onDayPress: (day: DateData) => void;
+}
+
+const DateSelectModal = ({isVisible = false, onDayPress}: DateSelectModal) => {
+  return (
+    <Modal isVisible={isVisible} onBackdropPress={() => {}}>
+      <View
+        style={{
+          borderRadius: 16,
+          padding: 16,
+          gap: 16,
+          backgroundColor: colors.WHITE,
+        }}>
+        <Calendar
+          current={moment(new Date()).format('YYYY-MM-DD')}
+          onDayPress={onDayPress}
+        />
+      </View>
+    </Modal>
   );
 };
 
@@ -145,47 +275,13 @@ const TextButton = ({text, isSelected, onPress}: TextButtonProps) => {
   );
 };
 
-const AreaCode = {
-  서울: 11,
-  인천: 28,
-  대전: 30,
-  대구: 27,
-  광주: 29,
-  부산: 26,
-  울산: 31,
-  세종: 36,
-  경기: 41,
-  충북: 43,
-  충남: 44,
-  경북: 47,
-  경남: 48,
-  전북: 45,
-  전남: 46,
-  강원: 51,
-  제주: 50,
-  대학로: 'UNI',
-} as const;
-type AreaCodeKey = keyof typeof AreaCode;
-
-const GenreCode = {
-  연극: 'AAAA',
-  뮤지컬: 'GGGA',
-  클래식: 'CCCA',
-  국악: 'CCCC',
-  대중음악: 'CCCD',
-  무용: 'BBBC',
-  '서커스/마술': 'EEEB',
-  복합: 'EEEA',
-} as const;
-type GenreCodeKey = keyof typeof GenreCode;
-
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'white', paddingBottom: 100},
   searchTitle: {
     fontSize: 16,
     fontWeight: '600',
     color: colors.GRAY_500,
-    marginTop: 23,
+    marginTop: 20,
     marginLeft: 16,
   },
   searchTitle2: {
@@ -197,7 +293,7 @@ const styles = StyleSheet.create({
   recentArea: {
     flexDirection: 'row',
     marginHorizontal: 30,
-    marginTop: 10,
+    marginTop: 6,
     gap: 11,
   },
 });
@@ -218,7 +314,7 @@ const textButtonStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 48,
+    height: 20,
   },
 });
 

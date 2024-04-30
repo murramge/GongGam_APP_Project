@@ -35,7 +35,7 @@ test('회원가입 테스트', async () => {
 
 test('이메일 중복 테스트', async () => {
   const {data: data1} = await supabase.rpc('check_email_existence', {
-    new_email: 'test@test.com',
+    new_email: 'admin@test.com',
   });
   const {data: data2} = await supabase.rpc('check_email_existence', {
     new_email: 'testz@testvxcv.com',
@@ -47,12 +47,12 @@ test('이메일 중복 테스트', async () => {
 
 test('닉네임 중복 테스트', async () => {
   const {data: data1} = await supabase.rpc('check_nickname_existence', {
-    new_nickname: 'testing',
+    new_nickname: '관리자',
   });
   const {data: data2} = await supabase.rpc('check_nickname_existence', {
-    new_nickname: 'testing',
+    new_nickname: 'something',
   });
 
   expect(data1).toBe(true);
-  expect(data2).toBe(true);
+  expect(data2).toBe(false);
 });

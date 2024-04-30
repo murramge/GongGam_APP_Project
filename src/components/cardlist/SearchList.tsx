@@ -12,58 +12,35 @@ import {
 import SearchItem from '@components/carditem/SearchItem';
 
 export interface SearchListProps {
-  date: string;
-  stsType: PerformanceStsType[keyof PerformanceStsType];
-  categoryCode?: keyof PerformanceCategory | string;
-  area?: string;
-  cate?: string;
+  data: {
+    title: string;
+    photoUrl: string;
+    period: string;
+    place: string;
+    cate: string;
+    id: string;
+  }[];
 }
 
-const SearchList = ({
-  date,
-  stsType,
-  categoryCode,
-  area,
-  cate,
-}: SearchListProps) => {
-  const [performances, setPerformances] = useState<PerformanceBoxOffice[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getPerformanceBoxOffice({
-          date,
-          stsType,
-          categoryCode,
-          area,
-        });
-        data && setPerformances(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, [date, stsType, categoryCode, area, cate]);
-
+const SearchList = ({data}: SearchListProps) => {
   return (
     <View style={styles.boxOfficeContainer}>
       <View>
         <FlatList
-          data={performances}
-          renderItem={({item: art}) => {
+          data={data}
+          renderItem={({item: {cate, id, period, photoUrl, place, title}}) => {
             return (
               <SearchItem
-                photoUrl={art.poster ?? undefined}
-                title={art.prfnm}
-                period={art.prfpd}
-                place={art.area}
-                cate={art.cate}
-                id={art.mt20id}
+                photoUrl={photoUrl ?? undefined}
+                title={title}
+                period={period}
+                place={place}
+                cate={cate}
+                id={id}
               />
             );
           }}
-          keyExtractor={item => item?.mt20id ?? 'defaultKey'}
+          keyExtractor={item => item.id}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           showsHorizontalScrollIndicator={false}
         />

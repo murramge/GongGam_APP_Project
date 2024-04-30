@@ -7,11 +7,14 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Image, ScrollView, Linking} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
+
 import AfterTicketingModal from '@components/modals/AfterTicketingModal';
 import LottieViewAfter from 'lottie-react-native';
 import {set} from 'zod';
 import {modalVisibleAtom} from '@components/modals/AfterTicketingModal';
 import {useAtomValue, useSetAtom} from 'jotai';
+import ThumbnailHeader from '@components/header/ThumbnailHeader';
+
 type TicketingPageRouteParams = {
   Ticketing: {
     id: string;
@@ -66,6 +69,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
           borderBottomColor: colors.GRAY_200,
           flexDirection: 'row',
           paddingHorizontal: 20,
+          backgroundColor: colors.WHITE,
         }}>
         <View style={{paddingRight: 16}}>
           <View
@@ -91,7 +95,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
             alignItems: 'center',
             fontSize: 16,
             fontWeight: '600',
-            color: colors.Black,
+            color: colors.BLACK,
           }}>
           {price}
         </Text>
@@ -113,36 +117,9 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
 
   return (
     <ScrollView style={{flex: 1}}>
-      <View style={styles.detailHeader}>
-        <BackHeader
-          label={detailInfo?.prfnm}
-          Color={{labelColor: 'white'}}
-          rightIcon="arrow-forward-ios"
-        />
-      </View>
-      <View style={styles.dim}></View>
-      <View>
-        {detailInfo?.poster && (
-          <Image
-            style={styles.photo}
-            source={{
-              uri: detailInfo?.poster,
-            }}
-          />
-        )}
-      </View>
-      <View style={styles.photoContainer}>
-        {detailInfo?.poster && (
-          <Image
-            style={styles.photoView}
-            source={{
-              uri: detailInfo?.poster,
-            }}
-          />
-        )}
-      </View>
+      <ThumbnailHeader></ThumbnailHeader>
       <View style={{flexDirection: 'row', padding: 20}}>
-        <Text style={{fontSize: 16, fontWeight: '600', color: colors.Black}}>
+        <Text style={{fontSize: 16, fontWeight: '600', color: colors.BLACK}}>
           예매정보
         </Text>
         <Text>({priceArray?.length})건</Text>
@@ -182,7 +159,7 @@ const styles = StyleSheet.create({
     width: 214,
     height: 287,
     zIndex: 7,
-    backgroundColor: colors.Black,
+    backgroundColor: colors.BLACK,
   },
   photoView: {
     position: 'absolute',
