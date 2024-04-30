@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const useRecentSearch = (type: keyof typeof SearchTarget) => {
+const useRecentSearch = (type: SearchTarget) => {
   const [recentSearchList, setRecentSearchList] = useState<string[]>([]);
 
   const MAX_RECENT_SEARCHES = 5;
@@ -11,7 +11,7 @@ const useRecentSearch = (type: keyof typeof SearchTarget) => {
     initiate();
 
     async function initiate() {
-      await loadRecentSearches();
+      await fetchRecentSearches();
     }
   }, []);
 
@@ -39,7 +39,7 @@ const useRecentSearch = (type: keyof typeof SearchTarget) => {
     }
   };
 
-  const loadRecentSearches = async (): Promise<void> => {
+  const fetchRecentSearches = async (): Promise<void> => {
     try {
       const recentSearches = await AsyncStorage.getItem(RECENT_SEARCHES_KEY);
       if (recentSearches) {
@@ -84,13 +84,10 @@ const useRecentSearch = (type: keyof typeof SearchTarget) => {
     recentSearchList,
     saveRecentSearch,
     removeRecentSearch,
-    loadRecentSearches,
+    fetchRecentSearches,
     clearRecentSearches,
   };
 };
-const SearchTarget = {
-  Performance: 'Performance',
-  Meeting: 'Meeting',
-} as const;
+type SearchTarget = 'Performance' | 'Meeting';
 
 export default useRecentSearch;

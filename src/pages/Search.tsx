@@ -31,7 +31,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
   const {
     recentSearchList,
     saveRecentSearch,
-    loadRecentSearches,
+    fetchRecentSearches,
     removeRecentSearch,
   } = useRecentSearch('Performance');
   const [isDateSelectModalVisible, setIsDateSelectModalVisible] =
@@ -48,7 +48,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
 
     if (query) {
       await saveRecentSearch(query);
-      loadRecentSearches();
+      fetchRecentSearches();
     }
 
     navigation.navigate('PerformanceSearchResult', {
@@ -62,7 +62,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
   };
   const onPressCancelButtonQueryHistory = async (queryString: string) => {
     await removeRecentSearch(queryString);
-    await loadRecentSearches();
+    await fetchRecentSearches();
   };
   const onPressTextSearchQueryHistory = (text: string) => setQuery(text);
   const onPressAreaButton = (area: AreaCodeKey) => {
