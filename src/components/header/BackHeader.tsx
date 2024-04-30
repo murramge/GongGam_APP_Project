@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -13,7 +13,7 @@ interface BackHeaderProps {
     labelColor?: string;
   };
   label: string | undefined;
-  rightIcon?: string;
+  icon?: ReactNode;
 }
 
 const BackHeader = ({
@@ -23,7 +23,8 @@ const BackHeader = ({
     labelColor: 'black',
   },
   label,
-  rightIcon = '',
+  icon = null,
+  ...props
 }: BackHeaderProps) => {
   const navigate =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -58,9 +59,7 @@ const BackHeader = ({
         </Text>
       </View>
       <View style={{width: '5%'}}>
-        <TouchableOpacity>
-          <Icon name={rightIcon} color={Color.rightIconsColor} size={24}></Icon>
-        </TouchableOpacity>
+        <TouchableOpacity>{icon}</TouchableOpacity>
       </View>
     </SafeAreaView>
   );

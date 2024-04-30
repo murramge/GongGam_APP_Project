@@ -13,7 +13,10 @@ import TicketingPage from './template/home/TicketingPage';
 import Search from '@pages/Search';
 
 import SearchResultPage from './template/home/SearchResultPage';
+
+import SignUpTemplate from './template/Sign/SignUpTemplate';
 import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
+
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -21,6 +24,9 @@ export type RootStackParamList = {
     id: string;
   };
   Search: undefined;
+
+  Ticketing: undefined;
+
   PerformanceSearchResult: {
     date: string;
     performanceName?: string;
@@ -46,7 +52,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={SearchResultPage} />
+      <Tab.Screen name="Community" component={SignUpTemplate} />
       <Tab.Screen name="Calendar" component={Home} />
       <Tab.Screen name="Profile" component={Home} />
     </Tab.Navigator>

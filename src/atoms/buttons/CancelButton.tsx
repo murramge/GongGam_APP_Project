@@ -31,7 +31,7 @@ const CancelButton = ({
 
 const styles = StyleSheet.create({
   recentText: {
-    color: colors.Black,
+    color: colors.BLACK,
     fontSize: 14,
     fontWeight: '400',
     paddingLeft: 11,
