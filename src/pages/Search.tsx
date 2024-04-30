@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -60,10 +59,12 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
 
     if (!selectedArea || !selectedGenre) return;
   };
+
   const onPressCancelButtonQueryHistory = async (queryString: string) => {
     await removeRecentSearch(queryString);
     await fetchRecentSearches();
   };
+
   const onPressTextSearchQueryHistory = (text: string) => setQuery(text);
   const onPressAreaButton = (area: AreaCodeKey) => {
     if (area === selectedArea) {
@@ -88,22 +89,36 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
         onPressSearch={onPressSearch}
         onChangeText={setQuery}
       />
-      <ScrollView>
+      <View>
         <View>
           <Text style={styles.searchTitle}>최근 검색어</Text>
           <View style={styles.recentArea}>
-            {recentSearchList.map(searchQueryString => (
-              <CancelButton
-                key={searchQueryString}
-                label={searchQueryString}
-                onPressText={() =>
-                  onPressTextSearchQueryHistory(searchQueryString)
-                }
-                onPressCancel={() =>
-                  onPressCancelButtonQueryHistory(searchQueryString)
-                }
-              />
-            ))}
+            {recentSearchList.length ? (
+              recentSearchList.map(searchQueryString => (
+                <CancelButton
+                  key={searchQueryString}
+                  label={searchQueryString}
+                  onPressText={() =>
+                    onPressTextSearchQueryHistory(searchQueryString)
+                  }
+                  onPressCancel={() =>
+                    onPressCancelButtonQueryHistory(searchQueryString)
+                  }
+                />
+              ))
+            ) : (
+              <Text
+                style={{
+                  backgroundColor: colors.SEARCH_BG,
+                  padding: 3,
+                  paddingHorizontal: 10,
+                  borderRadius: 5,
+                  fontSize: 13,
+                  color: colors.GRAY_400,
+                }}>
+                최근 검색어가 없습니다.
+              </Text>
+            )}
           </View>
         </View>
         <View>
@@ -113,7 +128,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
             onPress={() => setIsDateSelectModalVisible(prevState => !prevState)}
           />
         </View>
-        <View style={{margin: 16}}>
+        <View style={{marginHorizontal: 16, marginVertical: 5}}>
           <Text style={styles.searchTitle2}>장르 선택</Text>
           <Grid
             margin={16}
@@ -133,7 +148,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
             )}
           />
         </View>
-        <View style={{margin: 16}}>
+        <View style={{marginHorizontal: 16, marginVertical: 5}}>
           <Text style={styles.searchTitle2}>지역 선택</Text>
           <Grid
             margin={16}
@@ -149,7 +164,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
             )}
           />
         </View>
-      </ScrollView>
+      </View>
       <DateSelectModal
         isVisible={isDateSelectModalVisible}
         onDayPress={date => {
@@ -266,7 +281,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: colors.GRAY_500,
-    marginTop: 23,
+    marginTop: 20,
     marginLeft: 16,
   },
   searchTitle2: {
@@ -278,7 +293,7 @@ const styles = StyleSheet.create({
   recentArea: {
     flexDirection: 'row',
     marginHorizontal: 30,
-    marginTop: 10,
+    marginTop: 6,
     gap: 11,
   },
 });
@@ -299,7 +314,7 @@ const textButtonStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 48,
+    height: 20,
   },
 });
 

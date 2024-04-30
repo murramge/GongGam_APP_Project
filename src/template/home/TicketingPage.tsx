@@ -7,6 +7,7 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Image, ScrollView, Linking} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
+import ThumbnailHeader from '@components/header/ThumbnailHeader';
 
 type TicketingPageRouteParams = {
   Ticketing: {
@@ -60,6 +61,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
           borderBottomColor: colors.GRAY_200,
           flexDirection: 'row',
           paddingHorizontal: 20,
+          backgroundColor: colors.WHITE,
         }}>
         <View style={{paddingRight: 16}}>
           <View
@@ -105,34 +107,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
   };
   return (
     <ScrollView style={{flex: 1}}>
-      <View style={styles.detailHeader}>
-        <BackHeader
-          label={detailInfo?.prfnm}
-          Color={{labelColor: 'white'}}
-          rightIcon="arrow-forward-ios"
-        />
-      </View>
-      <View style={styles.dim}></View>
-      <View>
-        {detailInfo?.poster && (
-          <Image
-            style={styles.photo}
-            source={{
-              uri: detailInfo?.poster,
-            }}
-          />
-        )}
-      </View>
-      <View style={styles.photoContainer}>
-        {detailInfo?.poster && (
-          <Image
-            style={styles.photoView}
-            source={{
-              uri: detailInfo?.poster,
-            }}
-          />
-        )}
-      </View>
+      <ThumbnailHeader></ThumbnailHeader>
       <View style={{flexDirection: 'row', padding: 20}}>
         <Text style={{fontSize: 16, fontWeight: '600', color: colors.BLACK}}>
           예매정보
