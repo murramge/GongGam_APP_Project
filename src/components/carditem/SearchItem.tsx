@@ -34,12 +34,7 @@ const SearchItem = ({
     <View>
       <TouchableOpacity style={styles.container} onPress={onPress}>
         <View style={styles.photo}>
-          {photoUrl && (
-            <Image
-              style={styles.photo}
-              source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${photoUrl}`}}
-            />
-          )}
+          {photoUrl && <Image style={styles.photo} source={{uri: photoUrl}} />}
         </View>
         <View style={styles.right}>
           <Text style={styles.nameText} numberOfLines={1} ellipsizeMode="tail">
