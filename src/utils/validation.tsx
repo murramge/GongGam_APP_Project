@@ -7,7 +7,10 @@ export const Signschema = z
       .string()
       .min(1, {message: '이메일을 입력해주세요!'})
       .email({message: '이메일 형식을 지켜주세요!'}),
-    name: z.string().min(2).max(10),
+    name: z
+      .string()
+      .min(2, {message: '이름을 2자 이상 입력해주세요!'})
+      .max(10, {message: '이름을 10자 이하로 입력해주세요!'}),
     password: z.string().regex(PASSWORD_REGEX, '비밀번호 형식을 지켜주세요!'),
     checkPassword: z
       .string()
