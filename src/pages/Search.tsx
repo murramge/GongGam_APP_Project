@@ -12,21 +12,53 @@ import {colors} from '@styles/color';
 import CancelButton from '../atoms/buttons/CancelButton';
 import CalendarButton from '../atoms/buttons/CalendarButton';
 import SearchInput from '@components/inputs/SearchInput';
+import {useRecentSearch} from '../hooks/useRecentSearch';
 
 interface PerformanceSearchProps {}
 
 const PerformanceSearch = ({}: PerformanceSearchProps) => {
+  const {
+    recentSearchList,
+    saveRecentSearch,
+    loadRecentSearches,
+    removeRecentSearch,
+  } = useRecentSearch('Performance');
+  const [query, setQuery] = useState<string>('');
   const [selectedGenre, setSelectedGenre] = useState<GenreCodeKey | null>(null);
   const [selectedArea, setSelectedArea] = useState<AreaCodeKey | null>(null);
 
+  const onPressSearch = async () => {
+    await saveRecentSearch(query);
+    await loadRecentSearches();
+    if (!selectedArea || !selectedGenre) return;
+    console.log(GenreCode[selectedGenre], AreaCode[selectedArea], query);
+  };
+
+  const onPressCancelSearchQueryString = async (queryString: string) => {
+    await removeRecentSearch(queryString);
+    await loadRecentSearches();
+  };
+
   return (
     <View style={styles.container}>
-      <SearchInput type="back"></SearchInput>
+      <SearchInput
+        type="back"
+        onPressSearch={onPressSearch}
+        onChangeText={setQuery}
+      />
       <ScrollView>
         <View>
           <Text style={styles.searchTitle}>최근 검색어</Text>
           <View style={styles.recentArea}>
-            <CancelButton label="검색어" />
+            {recentSearchList.map(searchQueryString => (
+              <CancelButton
+                key={searchQueryString}
+                label={searchQueryString}
+                onPress={() =>
+                  onPressCancelSearchQueryString(searchQueryString)
+                }
+              />
+            ))}
           </View>
         </View>
         <View>
