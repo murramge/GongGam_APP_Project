@@ -18,4 +18,6 @@ test('모임 코멘트 조회', async () => {
   console.log(comments[0].user_profile);
 });
 
-test('모임 코멘트 대댓글 생성', async () => {});
+test('모임 코멘트 대댓글 생성', async () => {
+  c;
+});
