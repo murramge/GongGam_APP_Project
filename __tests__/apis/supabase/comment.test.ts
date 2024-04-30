@@ -10,14 +10,14 @@ beforeEach(async () => {
 });
 
 test('코멘트 생성', async () => {
-  await createMeetingComment(2, '몇시에 보는 건가요?');
+  await createMeetingComment({
+    meetingId: 2,
+    content: '몇시에 보는 건가요?',
+    replyOf: 1,
+  });
 });
 
 test('모임 코멘트 조회', async () => {
   const comments = await getMeetingComments(2);
   console.log(comments[0].user_profile);
-});
-
-test('모임 코멘트 대댓글 생성', async () => {
-  c;
 });
