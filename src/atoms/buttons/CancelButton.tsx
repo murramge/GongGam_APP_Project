@@ -4,19 +4,28 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 interface CancelButtonProps {
   label: string | undefined;
-  onPress: () => void;
+  onPressText: () => void;
+  onPressCancel: () => void;
 }
 
-const CancelButton = ({label, onPress}: CancelButtonProps) => {
+const CancelButton = ({
+  label,
+  onPressText,
+  onPressCancel,
+}: CancelButtonProps) => {
   return (
-    <TouchableOpacity style={styles.recentBtn} onPress={onPress}>
-      <Text style={styles.recentText}>{label}</Text>
-      <Icon
-        name="close"
-        size={15}
-        color={colors.GRAY_300}
-        style={styles.recentIcon}></Icon>
-    </TouchableOpacity>
+    <View style={styles.recentBtn}>
+      <TouchableOpacity onPress={onPressText}>
+        <Text style={styles.recentText}>{label}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={onPressCancel}>
+        <Icon
+          name="close"
+          size={15}
+          color={colors.GRAY_300}
+          style={styles.recentIcon}></Icon>
+      </TouchableOpacity>
+    </View>
   );
 };
 

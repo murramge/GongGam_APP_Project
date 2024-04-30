@@ -1,14 +1,15 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Dimensions, Text} from 'react-native';
+import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {colors} from '@styles/color';
 
 interface CalendarButtonProps {
   label: string;
+  onPress: () => void;
 }
 
-const CalendarButton = ({label = '기본버튼'}: CalendarButtonProps) => {
+const CalendarButton = ({label = '기본버튼', onPress}: CalendarButtonProps) => {
   return (
-    <TouchableOpacity style={styles.CommonButton}>
+    <TouchableOpacity style={styles.CommonButton} onPress={onPress}>
       <Text style={styles.CommonButtonText}>{label}</Text>
     </TouchableOpacity>
   );

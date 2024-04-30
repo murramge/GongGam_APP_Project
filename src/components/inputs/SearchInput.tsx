@@ -8,11 +8,17 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../router';
 interface SearchInputProps {
   type?: string;
+  value?: string;
   onPressSearch: () => void;
   onChangeText: (text: string) => void;
 }
 
-const SearchInput = ({type, onPressSearch, onChangeText}: SearchInputProps) => {
+const SearchInput = ({
+  type,
+  value,
+  onPressSearch,
+  onChangeText,
+}: SearchInputProps) => {
   const navigate =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
@@ -27,6 +33,7 @@ const SearchInput = ({type, onPressSearch, onChangeText}: SearchInputProps) => {
       <View style={styles.SearchInput}>
         <View>
           <CommonInput
+            value={value}
             label="검색어를 입력해주세요"
             onChangeText={onChangeText}
           />
