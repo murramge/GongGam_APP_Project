@@ -4,10 +4,10 @@ import {PerformanceDetailInfo} from '@apis/kopis.d';
 import {RouteProp} from '@react-navigation/native';
 import {colors} from '@styles/color';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Image, ScrollView} from 'react-native';
+import {ActivityIndicator, Image, ScrollView, Linking} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
-import {stringify} from 'uuid';
+
 type TicketingPageRouteParams = {
   Ticketing: {
     id: string;
@@ -45,7 +45,6 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
   if (loading) return <ActivityIndicator />;
   if (error) return <Text>{error}</Text>;
 
-  const priceList = detailInfo?.pcseguidance;
   const priceArray = detailInfo?.pcseguidance.split(', ');
 
   const TicketingListItem: React.FC<{price: string; index: number}> = ({
@@ -56,10 +55,11 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
       <View
         style={{
           justifyContent: 'space-between',
-          alignContent: 'center',
+          alignItems: 'center',
           borderBottomWidth: 1,
           borderBottomColor: colors.GRAY_200,
           flexDirection: 'row',
+          paddingHorizontal: 20,
         }}>
         <View style={{paddingRight: 16}}>
           <View
@@ -80,12 +80,24 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
             <Text style={{zIndex: 2}}>{index + 1}</Text>
           </View>
         </View>
-        <Text style={{alignItems: 'center'}}>{price}</Text>
+        <Text
+          style={{
+            alignItems: 'center',
+            fontSize: 16,
+            fontWeight: '600',
+            color: colors.Black,
+          }}>
+          {price}
+        </Text>
 
         <CommonButton
           label="예매하기"
           onPress={async () => {
-            await console.log('예매사이트로 이동');
+            const searchQuery = `${encodeURIComponent(
+              detailInfo?.genrenm || '',
+            )}${encodeURIComponent(detailInfo?.prfnm || '')}티켓`;
+            const url = `https://search.shopping.naver.com/search/all?query=${searchQuery}`;
+            await Linking.openURL(url);
           }}
         />
       </View>
@@ -138,7 +150,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
           ))}
       </View>
 
-      <View>
+      <View style={{paddingHorizontal: 20, paddingTop: 30}}>
         <Text>예매사이트의 링크 연결 기능만 제공합니다.</Text>
         <Text>예매에 관련하여 어떠한 책임이 없습니다.</Text>
         <Text>목록의 공연장을 포함, 조건을 꼭! 확인해주세요.</Text>
