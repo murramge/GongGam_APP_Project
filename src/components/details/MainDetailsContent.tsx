@@ -14,17 +14,11 @@ interface ImageUrl {
 }
 
 interface MainDetailsContentProps {
-  id: string;
-  detailImgUrls: ImageUrl[];
+  detailImgUrls: ImageUrl | any;
 }
 
-const MainDetailsContent = ({
-  id,
-  detailImgUrls = [],
-}: MainDetailsContentProps) => {
+const MainDetailsContent = ({detailImgUrls = []}: MainDetailsContentProps) => {
   const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
-  //const imageHeight = (windowWidth / imageSize.width) * imageSize.height;
 
   return (
     <ScrollView
@@ -35,24 +29,26 @@ const MainDetailsContent = ({
       }}>
       <Text
         style={{
-          paddingLeft: 18,
-          paddingBottom: 8,
+          padding: 10,
           fontWeight: '600',
           fontSize: 16,
           color: colors.Black,
         }}>
         공연내용
       </Text>
+      <View>
+        {detailImgUrls?.styurl?.length === 0 && (
+          <Text>상세이미지가 없습니다.</Text>
+        )}
 
-      {detailImgUrls.styurl.length === 0 && <Text>상세이미지가 없습니다.</Text>}
-
-      {detailImgUrls.styurl.length >= 1 && (
-        <View>
-          {detailImgUrls?.styurl.map((item: string) => (
-            <ResizedImage key={item} uri={item} width={windowWidth} />
-          ))}
-        </View>
-      )}
+        {detailImgUrls?.styurl?.length >= 1 && (
+          <View>
+            {detailImgUrls?.styurl?.map((item: string) => (
+              <ResizedImage key={item} uri={item} width={windowWidth} />
+            ))}
+          </View>
+        )}
+      </View>
     </ScrollView>
   );
 };

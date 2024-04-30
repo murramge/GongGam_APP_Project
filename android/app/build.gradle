@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 // react-native-config
 project.ext.envConfigFiles = [
     productiondebug: ".env.production",
@@ -78,6 +79,7 @@ def enableProguardInReleaseBuilds = false
  * this variant is about 6MiB larger per architecture than default.
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
+
 
 android {
     ndkVersion rootProject.ext.ndkVersion

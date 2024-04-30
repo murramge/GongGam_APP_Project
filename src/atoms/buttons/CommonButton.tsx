@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 18,
     borderRadius: 32,
-    margin: 10,
+    margin: 2,
   },
   CommonButtonText: {
     color: 'white',
