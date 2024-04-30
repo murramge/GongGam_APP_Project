@@ -36,7 +36,7 @@ const AfterTicketingModal = () => {
             <View style={{paddingBottom: 10, width: 300}}>
               <CommonButton
                 label="등록하러 가기"
-                onPress={console.log('등록페이지로 이동')}
+                onPress={() => console.log('등록페이지로 이동')}
               />
             </View>
             <Pressable
