@@ -52,7 +52,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
     }
 
     navigation.navigate('PerformanceSearchResult', {
-      date,
+      date: date.format('YYYYMMDD'),
       performanceName: query,
       genreCode: selectedGenre,
       signguCode: selectedArea,

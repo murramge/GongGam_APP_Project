@@ -14,6 +14,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../router';
 import {AreaCode, GenreCode, PerformanceInfo} from '@apis/kopis.d';
 import {getPerformanceList} from '@apis/kopis';
+import moment from 'moment';
 
 interface SearchResultPageProps
   extends NativeStackScreenProps<
@@ -34,8 +35,8 @@ const SearchResultPage = ({route}: SearchResultPageProps) => {
           page: 1,
           size: 1000,
           performanceName,
-          startDate: date.format('YYYYMMDD'),
-          endDate: date.format('YYYYMMDD'),
+          startDate: date,
+          endDate: date,
           genreCode: genreCode && GenreCode[genreCode],
           signguCode: signguCode && AreaCode[signguCode],
         });
@@ -68,7 +69,7 @@ const SearchResultPage = ({route}: SearchResultPageProps) => {
           horizontal>
           {[
             performanceName && `검색어: ${performanceName}`,
-            date && `일자: ${date.format('YYYY년 MM월 DD일')}`,
+            date && `일자: ${moment(date).format('YYYY년 MM월 DD일')}`,
             genreCode && `장르: ${genreCode}`,
             signguCode && `지역: ${signguCode}`,
           ].map(

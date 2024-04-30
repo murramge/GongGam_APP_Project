@@ -14,7 +14,6 @@ import Search from '@pages/Search';
 
 import SearchResultPage from './template/home/SearchResultPage';
 import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
-import {Moment} from 'moment';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -23,7 +22,7 @@ export type RootStackParamList = {
   };
   Search: undefined;
   PerformanceSearchResult: {
-    date: Moment;
+    date: string;
     performanceName?: string;
     genreCode?: PerformanceGenreKey;
     signguCode?: AreaCodeKey;
