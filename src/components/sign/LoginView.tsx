@@ -59,7 +59,7 @@ const LoginView = () => {
       ))}
 
       <View style={styles.button}>
-        <CommonButton onPress={handleSubmit(onSignUpSubmit)} label="회원가입" />
+        <CommonButton onPress={handleSubmit(onSignUpSubmit)} label="로그인" />
       </View>
     </View>
   );

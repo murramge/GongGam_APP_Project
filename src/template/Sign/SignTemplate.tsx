@@ -1,10 +1,11 @@
 import BackHeader from '@components/header/BackHeader';
 import {colors} from '@styles/color';
 import React from 'react';
-import {View} from 'react-native';
-
+import {View, Image} from 'react-native';
 import SignUpView from '@components/sign/signUpView';
 import LoginView from '@components/sign/LoginView';
+
+const samplelogo = require('@images/samplelogo.png');
 
 interface SignTemplateProps {
   type: string;
@@ -33,7 +34,18 @@ const SignTemplate = ({type}: SignTemplateProps) => {
               leftIconsColor: colors.GRAY_500,
             }}
           />
-          <LoginView></LoginView>
+          <View style={{flex: 1}}>
+            <View
+              style={{
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingTop: 20,
+              }}>
+              <Image source={samplelogo}></Image>
+            </View>
+            <LoginView></LoginView>
+          </View>
         </>
       )}
     </View>
