@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import {View, Text, Modal, StyleSheet, Pressable} from 'react-native';
-//import Modal from 'react-native-modal';
+
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
 import CommonButton from '../../atoms/buttons/CommonButton';
+import {atom, useAtom, useSetAtom} from 'jotai';
+export const modalVisibleAtom = atom(false); //초기화
+
 const AfterTicketingModal = () => {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useAtom(modalVisibleAtom);
+
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
@@ -44,7 +48,7 @@ const AfterTicketingModal = () => {
                 borderRadius: 32,
                 margin: 2,
               }}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => setModalVisible(false)}>
               <Text style={styles.textStyle}>아니요</Text>
             </Pressable>
           </View>
