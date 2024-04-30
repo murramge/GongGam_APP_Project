@@ -11,13 +11,20 @@ beforeEach(async () => {
 
 test('코멘트 생성', async () => {
   await createMeetingComment({
-    meetingId: 2,
+    meetingId: 25,
     content: '몇시에 보는 건가요?',
-    replyOf: 1,
+  });
+});
+
+test('Reply 코멘트 생성', async () => {
+  await createMeetingComment({
+    meetingId: 25,
+    content: '몇시에 보는 건가요?',
+    replyOf: 8,
   });
 });
 
 test('모임 코멘트 조회', async () => {
-  const comments = await getMeetingComments(2);
+  const comments = await getMeetingComments(25);
   console.log(comments[0].user_profile);
 });

@@ -3,7 +3,9 @@ import type {MeetingInfo, createMeetingParams} from './meeting.d';
 
 export const getMeetings = async () => {
   try {
-    const {data, error} = await supabase.rpc('get_meeting_info');
+    const {data, error} = await supabase
+      .from('meeting_with_current_occupancy')
+      .select('*');
 
     if (error) {
       throw new Error(error.message);
@@ -37,7 +39,7 @@ export const getMeeting = async (id: number) => {
 
 export const getJoinedMeetings = async () => {
   try {
-    const {data, error} = await supabase.rpc('get_joined_meetings');
+    const {data, error} = await supabase.from('meeting_by_auth').select('*');
 
     if (error) {
       throw new Error(error.message);

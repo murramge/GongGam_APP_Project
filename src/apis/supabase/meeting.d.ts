@@ -2,11 +2,15 @@ export interface Meeting {
   id: number;
   title: string;
   introduction: string;
-  image_url?: string;
   max_occupancy: number;
-  created_at: string;
-  performance_id: string;
-  performance_name: string;
+  meeting_at: string; // ISO String
+  created_at: string; // ISO String
+  perf_image_url?: string;
+  perf_id: string;
+  perf_name: string;
+  perf_genre: string;
+  perf_runtime: number;
+  perf_at: string; // ISO String
 }
 
 export interface MeetingInfo extends Meeting {
