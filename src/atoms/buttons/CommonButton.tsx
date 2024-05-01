@@ -34,8 +34,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     backgroundColor: colors.MAIN_COLOR,
     paddingVertical: 15,
-    borderRadius: 20,
-    margin: 2,
+    borderRadius: 32,
   },
   CommonButtonText: {
     color: colors.WHITE,
