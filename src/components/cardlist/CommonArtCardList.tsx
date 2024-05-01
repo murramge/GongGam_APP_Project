@@ -1,12 +1,49 @@
+import {colors} from '@styles/color';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 
-interface CommonArtCardListProps {}
+import SearchCardItem from '@components/carditem/SearchCardItem';
+import CommunityCardItem from '@components/carditem/CommunityCardItem';
 
-const CommonArtCardList = ({}: CommonArtCardListProps) => {
-  return <View></View>;
+export interface CommonArtCardListProps {
+  data: any;
+  type: string;
+}
+
+const CommonArtCardList = ({data, type}: CommonArtCardListProps) => {
+  return (
+    <View style={styles.boxOfficeContainer}>
+      <View>
+        <FlatList
+          data={data}
+          renderItem={item =>
+            type == 'search' ? (
+              <SearchCardItem data={item} />
+            ) : (
+              <CommunityCardItem data={item} />
+            )
+          }
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+    </View>
+  );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  boxOfficeContainer: {},
+  titleText: {
+    color: colors.GRAY_500,
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 3,
+    marginLeft: 5,
+  },
+  separator: {
+    width: 8,
+  },
+});
 
 export default CommonArtCardList;

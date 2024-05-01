@@ -1,5 +1,5 @@
 import {getPerformanceDetail} from '@apis/kopis';
-import BackHeader from '@components/header/BackHeader';
+
 import {PerformanceDetailInfo} from '@apis/kopis.d';
 import {RouteProp} from '@react-navigation/native';
 import {colors} from '@styles/color';
