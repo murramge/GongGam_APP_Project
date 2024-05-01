@@ -7,10 +7,9 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Image, ScrollView, Linking} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
-
 import AfterTicketingModal from '@components/modals/AfterTicketingModal';
 import LottieViewAfter from 'lottie-react-native';
-import {set} from 'zod';
+
 import {modalVisibleAtom} from '@components/modals/AfterTicketingModal';
 import {useAtomValue, useSetAtom} from 'jotai';
 import ThumbnailHeader from '@components/header/ThumbnailHeader';
@@ -32,8 +31,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  //const [showModal, setShowModal] = useState(false); // 모달 상태 추가
-  //const showModal = useAtomValue(modalVisibleAtom);
+
   const setModalVisible = useSetAtom(modalVisibleAtom);
   useEffect(() => {
     const fetchDetail = async () => {

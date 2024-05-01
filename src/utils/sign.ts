@@ -45,3 +45,22 @@ export const loginInputValue: loginInputValueProps[] = [
     type: 'password',
   },
 ];
+
+export interface FindPasswordInputProps {
+  name: 'email' | 'authnumber';
+  label: '이메일' | '인증번호입력';
+  type: 'requireAuth' | 'timer' | 'default';
+}
+
+export const FindPasswordInput: FindPasswordInputProps[] = [
+  {
+    name: 'email',
+    label: '이메일',
+    type: 'requireAuth',
+  },
+  {
+    name: 'authnumber',
+    label: '인증번호입력',
+    type: 'timer',
+  },
+];

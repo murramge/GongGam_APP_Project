@@ -53,6 +53,23 @@ const SignInput = ({
             <Entypo name="eye" size={16} color={colors.GRAY_500}></Entypo>
           </TouchableOpacity>
         );
+      case 'requireAuth':
+        return (
+          <TouchableOpacity
+            onPress={() => {
+              console.log('인증번호 발송됨');
+            }}>
+            <Text style={{fontSize: 12, color: colors.MAIN_COLOR}}>
+              인증번호받기
+            </Text>
+          </TouchableOpacity>
+        );
+      case 'timer':
+        return (
+          <View>
+            <Text style={{fontSize: 12, color: colors.MAIN_COLOR}}>5:00</Text>
+          </View>
+        );
 
       default:
         break;
