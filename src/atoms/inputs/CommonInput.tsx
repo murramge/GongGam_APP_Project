@@ -5,9 +5,15 @@ interface CommonInputProps {
   label: string | undefined;
   onChangeText: (text: string) => void;
   value?: string;
+  visiable: boolean;
 }
 
-const CommonInput = ({label, value, onChangeText}: CommonInputProps) => {
+const CommonInput = ({
+  label,
+  value,
+  onChangeText,
+  visiable = false,
+}: CommonInputProps) => {
   return (
     <View>
       <TextInput
@@ -15,6 +21,7 @@ const CommonInput = ({label, value, onChangeText}: CommonInputProps) => {
         placeholderTextColor="#92929D"
         placeholder={label}
         onChangeText={onChangeText}
+        secureTextEntry={visiable}
       />
     </View>
   );

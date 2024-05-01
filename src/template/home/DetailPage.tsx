@@ -60,7 +60,7 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const gotoTicketing = () => {
-    console.log('예매하기');
+    console.log('예매하기.');
     navigate('Ticketing', {id});
   };
   return (

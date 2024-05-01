@@ -14,10 +14,10 @@ import Search from '@pages/Search';
 
 import SearchResultPage from './template/home/SearchResultPage';
 
-import SignUpTemplate from './template/Sign/SignUpTemplate';
 import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
 
-import PerformanceSearch from '@pages/PerformanceSearch';
+import SignUp from '@pages/SignUp';
+import Login from '@pages/Login';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -53,8 +53,8 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={SignUpTemplate} />
-      <Tab.Screen name="Calendar" component={Home} />
+      <Tab.Screen name="Community" component={SignUp} />
+      <Tab.Screen name="Calendar" component={Login} />
       <Tab.Screen name="Profile" component={Home} />
     </Tab.Navigator>
   );
