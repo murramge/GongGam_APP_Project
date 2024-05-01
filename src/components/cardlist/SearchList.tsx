@@ -1,14 +1,7 @@
 import {colors} from '@styles/color';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import ArtItem from '../carditem/ArtItem';
-import {getPerformanceBoxOffice, getPerformanceList} from '@apis/kopis';
-import {
-  PerformanceBoxOffice,
-  PerformanceCategory,
-  PerformanceInfo,
-  PerformanceStsType,
-} from '@apis/kopis.d';
+
 import SearchItem from '@components/carditem/SearchItem';
 
 export interface SearchListProps {

@@ -37,23 +37,12 @@ const LoginView = () => {
                   justifyContent: 'space-between',
                 }}>
                 <Text style={styles.title}>{item.label}</Text>
-                {error && (
-                  <Text
-                    style={{
-                      color: colors.MAIN_COLOR,
-                      fontSize: 11,
-                      paddingRight: 15,
-                    }}>
-                    {error.message}
-                  </Text>
-                )}
               </View>
               <SignInput
                 label={item.label}
                 value={value}
                 onChangeText={onChange}
-                type={item.type}
-                error={error}></SignInput>
+                type={item.type}></SignInput>
             </>
           )}></Controller>
       ))}
