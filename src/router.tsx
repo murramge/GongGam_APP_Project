@@ -18,6 +18,7 @@ import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
 
 import SignUp from '@pages/SignUp';
 import Login from '@pages/Login';
+import Splash from '@pages/Splash';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -34,6 +35,7 @@ export type RootStackParamList = {
     genreCode?: PerformanceGenreKey;
     signguCode?: AreaCodeKey;
   };
+  Splash: undefined;
 };
 
 export type MainBottomTabParamList = {
@@ -63,6 +65,11 @@ const MainTab = () => {
 function Router() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="Splash"
+        component={Splash}
+        options={{animation: 'fade_from_bottom'}}
+      />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
