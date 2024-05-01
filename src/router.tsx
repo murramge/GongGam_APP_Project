@@ -21,6 +21,7 @@ import Login from '@pages/Login';
 import Splash from '@pages/Splash';
 import AuthHome from '@pages/AuthHome';
 import Community from '@pages/Community';
+import AuthHome from '@pages/AuthHome';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -28,7 +29,7 @@ export type RootStackParamList = {
   Detail: {
     id: string;
   };
-  Login: undefined;
+
   SignUp: undefined;
   Search: undefined;
 
