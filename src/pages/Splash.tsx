@@ -26,7 +26,7 @@ const Splash: React.FC<Props> = ({navigation}) => {
     <View style={styles.container}>
       <LottieView
         source={require('@lotties/splash_ticket.json')}
-        style={{width: 150, height: 150}}
+        style={{width: 200, height: 200}}
         autoPlay
         loop
       />
