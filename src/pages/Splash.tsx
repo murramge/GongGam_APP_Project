@@ -35,7 +35,10 @@ const Splash: React.FC<Props> = ({navigation}) => {
       <Image source={logo} style={styles.logo} />
 
       <View style={styles.textArea}>
-        <Text style={styles.splashText}>공연의 감동을 한눈에,</Text>
+        <Text style={styles.splashText}>
+          <Text style={styles.pointText}>공</Text>연의
+          <Text style={styles.pointText}>감</Text>동을 한눈에,
+        </Text>
         <Text style={styles.splashText}>
           언제 어디서나 <Text style={styles.pointText}>공감</Text>과 함께하세요
         </Text>
