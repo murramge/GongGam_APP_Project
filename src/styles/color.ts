@@ -1,6 +1,7 @@
 const colors = {
   WHITE: '#FFF',
   MAIN_COLOR: '#3544C4',
+  LOGO_COLOR: '#5DC0F5',
   TITLE_COLOR: '#272F4B',
   SEARCH_BG: '#F5F6F7',
   RECENT_BG: '#F3F3F3',
