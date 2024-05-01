@@ -36,7 +36,7 @@ const Splash: React.FC<Props> = ({navigation}) => {
 
       <View style={styles.textArea}>
         <Text style={styles.splashText}>
-          <Text style={styles.pointText}>공</Text>연의
+          <Text style={styles.pointText}>공</Text>연의{' '}
           <Text style={styles.pointText}>감</Text>동을 한눈에,
         </Text>
         <Text style={styles.splashText}>
