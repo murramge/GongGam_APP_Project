@@ -37,7 +37,7 @@ export const loginInputValue: loginInputValueProps[] = [
   {
     name: 'email',
     label: '이메일',
-    type: 'duplicate',
+    type: 'default',
   },
   {
     name: 'password',

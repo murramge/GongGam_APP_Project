@@ -41,14 +41,19 @@ const SignInput = ({
           </TouchableOpacity>
         );
       case 'password':
-        return (
+        return visiable ? (
           <TouchableOpacity onPress={onVisiable}>
             <Entypo
               name="eye-with-line"
               size={16}
               color={colors.GRAY_500}></Entypo>
           </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={onVisiable}>
+            <Entypo name="eye" size={16} color={colors.GRAY_500}></Entypo>
+          </TouchableOpacity>
         );
+
       default:
         break;
     }

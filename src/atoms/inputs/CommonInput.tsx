@@ -1,3 +1,4 @@
+import {colors} from '@styles/color';
 import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 
@@ -22,6 +23,7 @@ const CommonInput = ({
         placeholder={label}
         onChangeText={onChangeText}
         secureTextEntry={visiable}
+        style={{color: colors.GRAY_500}}
       />
     </View>
   );
