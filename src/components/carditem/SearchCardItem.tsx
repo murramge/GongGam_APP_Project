@@ -3,47 +3,38 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';
 import React, {useCallback} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import Config from 'react-native-config';
 import {RootStackParamList} from '../../router';
 
-interface SearchItemProps {
-  photoUrl?: string;
-  title: string;
-  period: string;
-  place: string;
-  id: string;
-  cate?: string;
+interface CommonArtCardItemProps {
+  data: any;
 }
 
-const SearchItem = ({
-  photoUrl,
-  title,
-  period,
-  place,
-  id,
-  cate,
-}: SearchItemProps) => {
+const CommonArtCardItem = ({data}: CommonArtCardItemProps) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+  const item = data.item;
+
   const onPress = useCallback(() => {
-    navigate('Detail', {id, photoUrl, title, period, place, cate});
-  }, [id, photoUrl, title, period, place, cate, navigate]);
+    navigate('Detail', {id: item.mt20id});
+  }, [item.mt20id]);
 
   return (
     <View>
       <TouchableOpacity style={styles.container} onPress={onPress}>
         <View style={styles.photo}>
-          {photoUrl && <Image style={styles.photo} source={{uri: photoUrl}} />}
+          {item.poster && (
+            <Image style={styles.photo} source={{uri: item.poster}} />
+          )}
         </View>
         <View style={styles.right}>
           <Text style={styles.nameText} numberOfLines={1} ellipsizeMode="tail">
-            {title}
+            {item.prfnm}
           </Text>
-          <Text style={styles.descriptionText}>{period}</Text>
-          <Text style={styles.descriptionText}>{place}</Text>
+          <Text style={styles.descriptionText}>{item.prfpdto}</Text>
+          <Text style={styles.descriptionText}>{item.fcltynm}</Text>
           <View style={styles.cateArea}>
-            <Text style={styles.cateText}>{cate}</Text>
+            <Text style={styles.cateText}>{item.genrenm}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -85,7 +76,7 @@ const styles = StyleSheet.create({
   },
   nameText: {
     color: colors.GRAY_500,
-    fontSize: 17,
+    fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 4,
     width: 180,
@@ -100,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.SEARCH_BG,
     marginTop: 10,
     borderRadius: 4,
-    width: 57,
+    width: '50%',
     height: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -114,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchItem;
+export default CommonArtCardItem;

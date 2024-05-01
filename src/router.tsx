@@ -20,9 +20,9 @@ import SignUp from '@pages/SignUp';
 import Login from '@pages/Login';
 import Splash from '@pages/Splash';
 import AuthHome from '@pages/AuthHome';
+import Community from '@pages/Community';
 
 export type RootStackParamList = {
-  Login: undefined;
   MainTab: undefined;
   Detail: {
     id: string;
@@ -59,8 +59,8 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={AuthHome} />
-      <Tab.Screen name="Calendar" component={Login} />
+      <Tab.Screen name="Community" component={Community} />
+      <Tab.Screen name="Calendar" component={AuthHome} />
       <Tab.Screen name="Profile" component={SignUp} />
     </Tab.Navigator>
   );
