@@ -36,7 +36,9 @@ const Splash: React.FC<Props> = ({navigation}) => {
 
       <View style={styles.textArea}>
         <Text style={styles.splashText}>공연의 감동을 한눈에,</Text>
-        <Text style={styles.splashText}>언제 어디서나 공감과 함께하세요</Text>
+        <Text style={styles.splashText}>
+          언제 어디서나 <Text style={styles.pointText}>공감</Text>과 함께하세요
+        </Text>
       </View>
     </View>
   );
@@ -62,10 +64,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   splashText: {
-    color: colors.LOGO_COLOR,
-    fontSize: 20,
-    fontWeight: 'bold',
+    color: colors.GRAY_500,
+    fontSize: 15,
+    fontWeight: '400',
     textAlign: 'center',
+  },
+  pointText: {
+    color: colors.MAIN_COLOR,
+    fontWeight: 'bold',
   },
 });
 
