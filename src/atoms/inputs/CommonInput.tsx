@@ -24,7 +24,7 @@ const CommonInput = ({
   visiable = false,
 }: CommonInputProps) => {
   return (
-    <View>
+    <View style={{width: '100%'}}>
       <TextInput
         value={value}
         placeholderTextColor="#92929D"
@@ -32,7 +32,7 @@ const CommonInput = ({
         onChangeText={onChangeText}
         onBlur={onBlur}
         secureTextEntry={visiable}
-        style={{color: colors.GRAY_500}}
+        style={{color: colors.GRAY_500, width: '100%'}}
       />
     </View>
   );
