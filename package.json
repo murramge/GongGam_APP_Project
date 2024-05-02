@@ -17,6 +17,8 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@react-native-async-storage/async-storage": "^1.23.1",
+    "@react-native-google-signin/google-signin": "^11.0.1",
+    "@react-native-seoul/kakao-login": "^5.4.1",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/material-top-tabs": "^6.6.13",
     "@react-navigation/native": "^6.1.17",
@@ -27,6 +29,7 @@
     "@types/react-native-vector-icons": "^6.4.18",
     "axios": "^1.6.8",
     "base64-arraybuffer": "^1.0.2",
+    "dayjs": "^1.11.11",
     "fast-xml-parser": "^4.3.6",
     "install": "^0.13.0",
     "jotai": "^2.8.0",

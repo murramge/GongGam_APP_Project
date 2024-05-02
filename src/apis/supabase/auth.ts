@@ -1,5 +1,7 @@
+import {Alert} from 'react-native';
 import {supabase} from './supabase';
 import type {EmailCredentials, EmailSignUp} from './auth.d';
+import * as KakaoLogin from '@react-native-seoul/kakao-login';
 
 export const emailSignIn = async ({email, password}: EmailCredentials) => {
   try {
@@ -9,12 +11,11 @@ export const emailSignIn = async ({email, password}: EmailCredentials) => {
     });
 
     if (error) {
-      throw new Error(error.message);
+      throw error;
     }
 
     return data;
   } catch (e) {
-    console.error(e);
     throw e;
   }
 };
@@ -42,6 +43,29 @@ export const emailSignUp = async ({email, password, nickname}: EmailSignUp) => {
   }
 };
 
+export const kakaoSignIn = async () => {
+  try {
+    const {accessToken, idToken} = await KakaoLogin.login();
+    if (!idToken || !accessToken) {
+      throw new Error('토큰을 가져오지 못했습니다.');
+    }
+    console.log(idToken);
+
+    const {data, error} = await supabase.auth.signInWithIdToken({
+      provider: 'kakao',
+      token: idToken,
+      access_token: accessToken,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+    console.log(data);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const checkEmailDuplication = async (email: string) => {
   try {
     const {data, error} = await supabase.rpc('check_email_existence', {
@@ -61,7 +85,7 @@ export const checkEmailDuplication = async (email: string) => {
 
 export const checkNicknameDuplication = async (nickname: string) => {
   try {
-    const {data, error} = await supabase.rpc('check_email_existence', {
+    const {data, error} = await supabase.rpc('check_nickname_existence', {
       new_nickname: nickname,
     });
 
@@ -72,6 +96,61 @@ export const checkNicknameDuplication = async (nickname: string) => {
     return data as boolean;
   } catch (e) {
     console.error(e);
+    throw e;
+  }
+};
+
+export const sendResetLink = async () => {
+  try {
+    const {data, error} = await supabase.auth.resetPasswordForEmail(
+      'example@email.com',
+    );
+    if (error) {
+      throw new Error(error.message);
+    } else {
+      Alert.alert('Password reset link sent successfully!');
+    }
+  } catch (e) {
+    console.error('Error sending password reset link:', e);
+    throw e;
+  }
+};
+
+export const updatePassword = async (newPassword: string) => {
+  try {
+    const {data, error} = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+    if (error) {
+      throw new Error(error.message);
+    } else {
+      Alert.alert('Password updated successfully!');
+    }
+  } catch (e) {
+    console.error('Error updating password:', e);
+    throw e;
+  }
+};
+
+export const sendResetLinkAndPromptNewPassword = async () => {
+  try {
+    await sendResetLink();
+    Alert.prompt(
+      'Enter new password',
+      undefined,
+      async (newPassword: string | null) => {
+        if (newPassword) {
+          await updatePassword(newPassword);
+        } else {
+          console.warn('No new password provided');
+        }
+      },
+    );
+  } catch (e) {
+    console.error(
+      'Error sending password reset link and prompting new password:',
+      e,
+    );
     throw e;
   }
 };
