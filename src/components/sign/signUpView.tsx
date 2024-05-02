@@ -49,7 +49,6 @@ const SignUpView = () => {
 
     try {
       const {email, name, password} = data;
-
       await emailSignUp({email, password, nickname: name});
       navigation.navigate('Login');
     } catch (e) {
