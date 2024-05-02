@@ -1,5 +1,6 @@
 import {supabase} from './supabase';
 import type {EmailCredentials, EmailSignUp} from './auth.d';
+import * as KakaoLogin from '@react-native-seoul/kakao-login';
 
 export const emailSignIn = async ({email, password}: EmailCredentials) => {
   try {
@@ -39,6 +40,29 @@ export const emailSignUp = async ({email, password, nickname}: EmailSignUp) => {
   } catch (e) {
     console.error(e);
     throw e;
+  }
+};
+
+export const kakaoSignIn = async () => {
+  try {
+    const {accessToken, idToken} = await KakaoLogin.login();
+    if (!idToken || !accessToken) {
+      throw new Error('토큰을 가져오지 못했습니다.');
+    }
+    console.log(idToken);
+
+    const {data, error} = await supabase.auth.signInWithIdToken({
+      provider: 'kakao',
+      token: idToken,
+      access_token: accessToken,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+    console.log(data);
+  } catch (e) {
+    console.log(e);
   }
 };
 
