@@ -23,11 +23,11 @@ import AuthHome from '@pages/AuthHome';
 import Community from '@pages/Community';
 
 export type RootStackParamList = {
+  Login: undefined;
   MainTab: undefined;
   Detail: {
     id: string;
   };
-  Login: undefined;
   SignUp: undefined;
   Search: undefined;
 
@@ -74,6 +74,7 @@ function Router() {
         component={Splash}
         options={{animation: 'fade_from_bottom'}}
       />
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Login" component={Login} />
