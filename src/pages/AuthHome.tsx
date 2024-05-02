@@ -6,12 +6,22 @@ import CommonButton from '../atoms/buttons/CommonButton';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../router';
+import {kakaoSignIn} from '@apis/supabase/auth';
 
 interface AuthHomeProps {}
 
 const AuthHome = ({}: AuthHomeProps) => {
-  const {navigate} =
+  const {navigate, goBack} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const onPressKakaoButton = async () => {
+    try {
+      await kakaoSignIn();
+
+      goBack();
+    } catch (e) {}
+  };
+
   return (
     <View style={styles.container}>
       <LottieView
@@ -49,7 +59,7 @@ const AuthHome = ({}: AuthHomeProps) => {
         <TouchableOpacity>
           <Image source={googleIcon} style={styles.icon} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPressKakaoButton}>
           <Image source={kakaoIcon} style={styles.icon} />
         </TouchableOpacity>
       </View>

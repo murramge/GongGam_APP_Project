@@ -22,6 +22,7 @@ import Splash from '@pages/Splash';
 import AuthHome from '@pages/AuthHome';
 
 export type RootStackParamList = {
+  Login: undefined;
   MainTab: undefined;
   Detail: {
     id: string;
