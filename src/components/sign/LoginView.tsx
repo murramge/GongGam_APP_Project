@@ -1,6 +1,6 @@
 import {colors} from '@styles/color';
-import React from 'react';
-import {StyleSheet, Text, View, Alert} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import SignInput from '@components/inputs/SignInput';
 import {LoginType} from '@utils/validation';
@@ -11,6 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const LoginView = () => {
   const navigate = useNavigation();
+  const [isAuthFail, setIsAuthFail] = useState<boolean>();
   const {control, handleSubmit} = useForm<LoginType>({
     defaultValues: {
       email: '',
@@ -24,7 +25,7 @@ const LoginView = () => {
 
       navigate.goBack();
     } catch (e) {
-      Alert.alert('이메일 또는 비밀번호가 일치하지 않습니다.');
+      setIsAuthFail(true);
     }
   };
 
@@ -36,24 +37,26 @@ const LoginView = () => {
           control={control}
           name={item.name}
           defaultValue={''}
-          render={({field: {value, onChange}, fieldState: {error}}) => (
+          render={({field: {value, onChange}}) => (
             <>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
+              <View style={styles.inputLabel}>
                 <Text style={styles.title}>{item.label}</Text>
               </View>
               <SignInput
                 label={item.label}
                 value={value}
                 onChangeText={onChange}
-                type={item.type}></SignInput>
+                type={item.type}
+              />
             </>
-          )}></Controller>
+          )}
+        />
       ))}
-
+      {isAuthFail && (
+        <Text style={{color: colors.MAIN_COLOR}}>
+          이메일 또는 비밀번호가 일치하지 않습니다.
+        </Text>
+      )}
       <View style={styles.button}>
         <CommonButton onPress={handleSubmit(onSignUpSubmit)} label="로그인" />
       </View>
@@ -66,6 +69,10 @@ const styles = StyleSheet.create({
     marginTop: 73,
     marginHorizontal: 20,
     gap: 5,
+  },
+  inputLabel: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   title: {
     color: colors.BLACK,

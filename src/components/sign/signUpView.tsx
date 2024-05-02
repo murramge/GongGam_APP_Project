@@ -27,17 +27,28 @@ const SignUpView = () => {
       resolver: zodResolver(Signschema),
     });
 
+  const checkDuplication = async (field: DuplicateCheckFieldKey) => {
+    if (!(await trigger(field))) {
+      return;
+    }
+    if (
+      await (field === 'email'
+        ? checkEmailDuplication
+        : checkNicknameDuplication)(getValues(field))
+    ) {
+      setError(field, {message: DuplicationCheckField[field].message});
+      return true;
+    }
+    return false;
+  };
+
   const onSignUpSubmit = async (data: SignType) => {
+    if ((await checkDuplication('email')) || (await checkDuplication('name'))) {
+      return;
+    }
+
     try {
       const {email, name, password} = data;
-      if (await checkEmailDuplication(email)) {
-        setError('email', {message: '이미 사용중인 이메일 입니다!'});
-        return;
-      }
-      if (await checkNicknameDuplication(name)) {
-        setError('name', {message: '이미 사용중인 넥네임 입니다!'});
-        return;
-      }
 
       await emailSignUp({email, password, nickname: name});
       navigation.navigate('Login');
@@ -46,21 +57,8 @@ const SignUpView = () => {
     }
   };
 
-  const onBlurEmailInput = async () => {
-    if (
-      (await trigger('email')) &&
-      (await checkEmailDuplication(getValues('email')))
-    ) {
-      setError('email', {message: '이미 사용중인 이메일 입니다!'});
-    }
-  };
-  const onBlurNicknameInput = async () => {
-    if (
-      (await trigger('name')) &&
-      (await checkNicknameDuplication(getValues('name')))
-    ) {
-      setError('name', {message: '이미 사용중인 넥네임 입니다!'});
-    }
+  const onBlurDuplicateCheckField = async (field: DuplicateCheckFieldKey) => {
+    await checkDuplication(field);
   };
 
   return (
@@ -95,16 +93,20 @@ const SignUpView = () => {
                 value={value}
                 onChangeText={onChange}
                 onBlur={
-                  item.name === 'email'
-                    ? onBlurEmailInput
-                    : item.name === 'name'
-                    ? onBlurNicknameInput
+                  item.name === 'email' || item.name === 'name'
+                    ? async () => {
+                        onBlurDuplicateCheckField(
+                          item.name as DuplicateCheckFieldKey,
+                        );
+                      }
                     : undefined
                 }
                 type={item.type}
-                error={error}></SignInput>
+                error={error}
+              />
             </>
-          )}></Controller>
+          )}
+        />
       ))}
 
       <View style={styles.button}>
@@ -118,6 +120,12 @@ const SignUpView = () => {
     </View>
   );
 };
+
+const DuplicationCheckField = {
+  email: {message: '이미 사용중인 이메일입니다!'},
+  name: {message: '이미 사용중인 닉네임입니다!'},
+} as const;
+type DuplicateCheckFieldKey = keyof typeof DuplicationCheckField;
 
 const styles = StyleSheet.create({
   inputContainer: {

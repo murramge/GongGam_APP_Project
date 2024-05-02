@@ -74,7 +74,6 @@ function Router() {
         component={Splash}
         options={{animation: 'fade_from_bottom'}}
       />
-      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Login" component={Login} />
