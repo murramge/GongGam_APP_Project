@@ -4,7 +4,10 @@ import CommonInput from '../../atoms/inputs/CommonInput';
 import {colors} from '@styles/color';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {FieldError} from 'react-hook-form';
-
+import {useAtomValue, useSetAtom} from 'jotai';
+import {authSecondsAtom} from '../../template/Sign/FindPasswordPage';
+import {timerActiveAtom} from '../../template/Sign/FindPasswordPage';
+import {Timer} from '../../template/Sign/FindPasswordPage';
 interface SignInputProps {
   label: string;
   value: string;
@@ -29,7 +32,15 @@ const SignInput = ({
       setVisiable(true);
     }
   };
+  const authSeconds = useAtomValue(authSecondsAtom);
+  const setTimerActive = useSetAtom(timerActiveAtom);
+  const setAuthSeconds = useSetAtom(authSecondsAtom);
 
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
   const TypeForm = () => {
     switch (type) {
       case 'duplicate':
@@ -58,6 +69,8 @@ const SignInput = ({
           <TouchableOpacity
             onPress={() => {
               console.log('인증번호 발송됨');
+              setTimerActive(true);
+              setAuthSeconds(3);
             }}>
             <Text style={{fontSize: 12, color: colors.MAIN_COLOR}}>
               인증번호받기
@@ -67,7 +80,13 @@ const SignInput = ({
       case 'timer':
         return (
           <View>
-            <Text style={{fontSize: 12, color: colors.MAIN_COLOR}}>5:00</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                color: authSeconds > 0 ? colors.MAIN_COLOR : colors.GRAY_300,
+              }}>
+              {formatTime(authSeconds)}
+            </Text>
           </View>
         );
 

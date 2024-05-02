@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import CommonInput from '../../atoms/inputs/CommonInput';
 import {colors} from '@styles/color';
-import {StyleSheet, Text, View, Alert} from 'react-native';
+import {StyleSheet, Text, View, Alert, Button} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import SignInput from '@components/inputs/SignInput';
 import {Loginschema} from '@utils/validation';
@@ -10,10 +10,42 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {loginInputValue} from '@utils/sign';
 import {FindPasswordInput} from '@utils/sign';
 import BackHeader from '@components/header/BackHeader';
+import {atom, useAtom, useAtomValue} from 'jotai';
 
+export const authSecondsAtom = atom(0);
+export const timerActiveAtom = atom(false);
 //import LoginView from '@components/sign/LoginView';
+export const Timer = () => {
+  const [authSeconds, setAuthSeconds] = useAtom(authSecondsAtom); // 초기 시간 설정: 5분 (5 * 60 = 10초)
+  const [timerActive, setTimerActive] = useAtom(timerActiveAtom); // 타이머 활성화 상태
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (timerActive && authSeconds > 0) {
+      timer = setInterval(() => {
+        setAuthSeconds(prevSeconds => {
+          if (prevSeconds === 0) {
+            clearInterval(timer);
+            setTimerActive(false);
+            return 0;
+          }
+          return prevSeconds - 1;
+        });
+      }, 1000); // 1초마다 업데이트
+    }
+    return () => clearInterval(timer); // 컴포넌트가 언마운트될 때 타이머 정리
+  }, [authSeconds, timerActive]);
+
+  //TODO: utils로 분리
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  return;
+};
 const FindPassword = () => {
-  const [seconds, setSeconds] = useState(300); // 초기 시간 설정: 5분
+  //const [seconds, setSeconds] = useState(10); // 초기 시간 설정: 5분
 
   const {control, handleSubmit} = useForm({
     defaultValues: {
@@ -27,6 +59,11 @@ const FindPassword = () => {
     Alert.alert('successful', JSON.stringify(data));
   };
 
+  const onAuthNumSubmit = (authNum: number, seconds: number) => {
+    seconds > 0
+      ? Alert.alert('successful', JSON.stringify(authNum))
+      : Alert.alert('인증시간이 만료되었습니다.');
+  };
   return (
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
       <BackHeader
@@ -71,11 +108,19 @@ const FindPassword = () => {
               </>
             )}></Controller>
         ))}
-        <View></View>
+        {/* 인증번호 입력 폼 */}
+        {/* <SignInput label="인증번호입력" value="" onChangeText="" type="timer" /> */}
+
         <View style={styles.button}>
-          <CommonButton onPress={handleSubmit(onSignUpSubmit)} label="확인" />
+          <CommonButton
+            onPress={handleSubmit(onSignUpSubmit)}
+            label={
+              useAtomValue(authSecondsAtom) === 0 ? '인증번호 다시받기' : '확인'
+            }
+          />
         </View>
       </View>
+      <Timer />
     </View>
   );
 };
