@@ -14,7 +14,7 @@ import {atom, useAtom, useAtomValue} from 'jotai';
 
 export const authSecondsAtom = atom(0);
 export const timerActiveAtom = atom(false);
-//import LoginView from '@components/sign/LoginView';
+
 export const Timer = () => {
   const [authSeconds, setAuthSeconds] = useAtom(authSecondsAtom); // 초기 시간 설정: 5분 (5 * 60 = 10초)
   const [timerActive, setTimerActive] = useAtom(timerActiveAtom); // 타이머 활성화 상태
@@ -45,8 +45,6 @@ export const Timer = () => {
   return;
 };
 const FindPassword = () => {
-  //const [seconds, setSeconds] = useState(10); // 초기 시간 설정: 5분
-
   const {control, handleSubmit} = useForm({
     defaultValues: {
       email: '',
@@ -108,8 +106,6 @@ const FindPassword = () => {
               </>
             )}></Controller>
         ))}
-        {/* 인증번호 입력 폼 */}
-        {/* <SignInput label="인증번호입력" value="" onChangeText="" type="timer" /> */}
 
         <View style={styles.button}>
           <CommonButton
