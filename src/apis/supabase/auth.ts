@@ -75,3 +75,17 @@ export const checkNicknameDuplication = async (nickname: string) => {
     throw e;
   }
 };
+
+export const sendOTP = async () => {
+  try {
+    const {data, error} = await supabase.auth.signInWithOtp({
+      email: 'example@email.com',
+      options: {
+        emailRedirectTo: 'https://example.com/welcome',
+      },
+    });
+  } catch (e) {
+    console.error('Error sending OTP:', e);
+    throw e;
+  }
+};

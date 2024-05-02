@@ -7,7 +7,8 @@ import {FieldError} from 'react-hook-form';
 import {useAtomValue, useSetAtom} from 'jotai';
 import {authSecondsAtom} from '../../template/Sign/FindPasswordPage';
 import {timerActiveAtom} from '../../template/Sign/FindPasswordPage';
-import {Timer} from '../../template/Sign/FindPasswordPage';
+import {sendOTP} from '@apis/supabase/auth';
+
 interface SignInputProps {
   label: string;
   value: string;
@@ -70,7 +71,8 @@ const SignInput = ({
             onPress={() => {
               console.log('인증번호 발송됨');
               setTimerActive(true);
-              setAuthSeconds(3);
+              setAuthSeconds(300);
+              sendOTP;
             }}>
             <Text style={{fontSize: 12, color: colors.MAIN_COLOR}}>
               인증번호받기
