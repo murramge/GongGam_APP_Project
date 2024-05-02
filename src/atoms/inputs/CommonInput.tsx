@@ -24,7 +24,7 @@ const CommonInput = ({
   visiable = false,
 }: CommonInputProps) => {
   return (
-    <View style={{width: '100%'}}>
+    <View style={{width: '100%', flex: 1}}>
       <TextInput
         value={value}
         placeholderTextColor="#92929D"
