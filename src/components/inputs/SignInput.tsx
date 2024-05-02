@@ -11,6 +11,10 @@ import CommonInput from '../../atoms/inputs/CommonInput';
 import {colors} from '@styles/color';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {FieldError} from 'react-hook-form';
+import {useAtomValue, useSetAtom} from 'jotai';
+import {authSecondsAtom} from '../../template/Sign/FindPasswordPage';
+import {timerActiveAtom} from '../../template/Sign/FindPasswordPage';
+import {sendResetLink} from '@apis/supabase/auth';
 
 interface SignInputProps {
   label: string;
@@ -36,6 +40,45 @@ const SignInput = ({
       setVisiable(false);
     } else {
       setVisiable(true);
+    }
+  };
+  const authSeconds = useAtomValue(authSecondsAtom);
+  const setTimerActive = useSetAtom(timerActiveAtom);
+  const setAuthSeconds = useSetAtom(authSecondsAtom);
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+  const TypeForm = () => {
+    switch (type) {
+      case 'duplicate':
+        return (
+          <TouchableOpacity>
+            <Text style={{fontSize: 12, color: colors.MAIN_COLOR}}>
+              중복확인
+            </Text>
+          </TouchableOpacity>
+        );
+      case 'password':
+        return visiable ? (
+          <TouchableOpacity onPress={onVisiable}>
+            <Entypo
+              name="eye-with-line"
+              size={16}
+              color={colors.GRAY_500}></Entypo>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={onVisiable}>
+            <Entypo name="eye" size={16} color={colors.GRAY_500}></Entypo>
+          </TouchableOpacity>
+        );
+      case 'sendLink':
+        return;
+
+      default:
+        break;
     }
   };
 

@@ -9,7 +9,16 @@ export interface loginInputValueProps {
   label: '이메일' | '비밀번호';
   type: 'duplicate' | 'password' | 'default';
 }
-
+export interface FindPasswordInputProps {
+  name: 'email';
+  label: '이메일';
+  type: 'sendLink';
+}
+export interface NewPasswordInputProps {
+  name: 'password' | 'checkPassword';
+  label: '새 비밀번호' | '새 비밀번호 확인';
+  type: 'password';
+}
 export const signInputValue: signInputValueProps[] | loginInputValueProps[] = [
   {
     name: 'email',
@@ -42,6 +51,27 @@ export const loginInputValue: loginInputValueProps[] = [
   {
     name: 'password',
     label: '비밀번호',
+    type: 'password',
+  },
+];
+
+export const FindPasswordInput: FindPasswordInputProps[] = [
+  {
+    name: 'email',
+    label: '이메일',
+    type: 'sendLink',
+  },
+];
+
+export const NewPasswordInput: NewPasswordInputProps[] = [
+  {
+    name: 'password',
+    label: '새 비밀번호',
+    type: 'password',
+  },
+  {
+    name: 'checkPassword',
+    label: '새 비밀번호 확인',
     type: 'password',
   },
 ];
