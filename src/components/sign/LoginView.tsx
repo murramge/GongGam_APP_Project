@@ -3,22 +3,29 @@ import React from 'react';
 import {StyleSheet, Text, View, Alert} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import SignInput from '@components/inputs/SignInput';
-import {Loginschema} from '@utils/validation';
+import {LoginType} from '@utils/validation';
 import {useForm, Controller} from 'react-hook-form';
-import {zodResolver} from '@hookform/resolvers/zod';
 import {loginInputValue} from '@utils/sign';
+import {emailSignIn} from '@apis/supabase/auth';
+import {useNavigation} from '@react-navigation/native';
 
 const LoginView = () => {
-  const {control, handleSubmit} = useForm({
+  const navigate = useNavigation();
+  const {control, handleSubmit} = useForm<LoginType>({
     defaultValues: {
       email: '',
       password: '',
     },
-    resolver: zodResolver(Loginschema),
   });
 
-  const onSignUpSubmit = data => {
-    Alert.alert('successful', JSON.stringify(data));
+  const onSignUpSubmit = async ({email, password}: LoginType) => {
+    try {
+      await emailSignIn({email, password});
+
+      navigate.goBack();
+    } catch (e) {
+      Alert.alert('이메일 또는 비밀번호가 일치하지 않습니다.');
+    }
   };
 
   return (

@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  TextInputFocusEventData,
+  NativeSyntheticEvent,
+} from 'react-native';
 import CommonInput from '../../atoms/inputs/CommonInput';
 import {colors} from '@styles/color';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -9,6 +16,7 @@ interface SignInputProps {
   label: string;
   value: string;
   onChangeText: (text: string) => void;
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   error?: FieldError;
   type?: string;
 }
@@ -17,6 +25,7 @@ const SignInput = ({
   label = '아이디',
   value = '',
   onChangeText,
+  onBlur,
   error,
   type,
 }: SignInputProps) => {
@@ -71,6 +80,7 @@ const SignInput = ({
         label={label}
         value={value}
         onChangeText={onChangeText}
+        onBlur={onBlur}
         visiable={type == 'password' ? visiable : false}></CommonInput>
       <TypeForm></TypeForm>
     </View>

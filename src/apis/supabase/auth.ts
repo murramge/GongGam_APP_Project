@@ -10,12 +10,11 @@ export const emailSignIn = async ({email, password}: EmailCredentials) => {
     });
 
     if (error) {
-      throw new Error(error.message);
+      throw error;
     }
 
     return data;
   } catch (e) {
-    console.error(e);
     throw e;
   }
 };
@@ -85,7 +84,7 @@ export const checkEmailDuplication = async (email: string) => {
 
 export const checkNicknameDuplication = async (nickname: string) => {
   try {
-    const {data, error} = await supabase.rpc('check_email_existence', {
+    const {data, error} = await supabase.rpc('check_nickname_existence', {
       new_nickname: nickname,
     });
 

@@ -22,6 +22,7 @@ import Splash from '@pages/Splash';
 import AuthHome from '@pages/AuthHome';
 
 export type RootStackParamList = {
+  Login: undefined;
   MainTab: undefined;
   Detail: {
     id: string;
@@ -73,6 +74,7 @@ function Router() {
         component={Splash}
         options={{animation: 'fade_from_bottom'}}
       />
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Login" component={Login} />
