@@ -19,12 +19,18 @@ import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
 import SignUp from '@pages/SignUp';
 import Login from '@pages/Login';
 import Splash from '@pages/Splash';
+import AuthHome from '@pages/AuthHome';
+import Community from '@pages/Community';
+import AuthHome from '@pages/AuthHome';
 
 export type RootStackParamList = {
+  Login: undefined;
   MainTab: undefined;
   Detail: {
     id: string;
   };
+
+  SignUp: undefined;
   Search: undefined;
 
   Ticketing: undefined;
@@ -55,9 +61,10 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={SignUp} />
-      <Tab.Screen name="Calendar" component={Login} />
-      <Tab.Screen name="Profile" component={Home} />
+      <Tab.Screen name="Community" component={AuthHome} />
+      <Tab.Screen name="Calendar" component={Community} />
+
+      <Tab.Screen name="Profile" component={SignUp} />
     </Tab.Navigator>
   );
 };
@@ -72,6 +79,8 @@ function Router() {
       />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen

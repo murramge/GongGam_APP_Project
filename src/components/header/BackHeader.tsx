@@ -3,7 +3,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {ReactNode} from 'react';
 import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import {StyleSheet, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {RootStackParamList} from '../../router';
 
 interface BackHeaderProps {
@@ -13,7 +13,7 @@ interface BackHeaderProps {
     labelColor?: string;
   };
   label: string | undefined;
-  icon?: ReactNode;
+  icon?: string | null;
 }
 
 const BackHeader = ({
@@ -33,33 +33,35 @@ const BackHeader = ({
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 20,
-        paddingVertical: 10,
+        paddingHorizontal: 15,
+        paddingVertical: 15,
         alignItems: 'center',
       }}>
       <View style={{width: '5%'}}>
         <TouchableOpacity onPress={() => navigate.goBack()}>
           <Icon
-            name="arrow-back-ios"
+            name="chevron-left"
             color={Color.leftIconsColor}
-            size={24}></Icon>
+            size={20}></Icon>
         </TouchableOpacity>
       </View>
-      <View style={{justifyContent: 'center', width: '90%'}}>
+      <View
+        style={{justifyContent: 'center', alignItems: 'center', width: '90%'}}>
         <Text
           style={{
             flex: 1,
             fontSize: 16,
-            lineHeight: 32,
             color: Color.labelColor,
-            fontWeight: '500',
+            fontWeight: '700',
             textAlign: 'center',
           }}>
           {label}
         </Text>
       </View>
       <View style={{width: '5%'}}>
-        <TouchableOpacity>{icon}</TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name={icon} color={Color.leftIconsColor} size={20}></Icon>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

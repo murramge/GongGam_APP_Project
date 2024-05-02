@@ -4,6 +4,7 @@ declare module 'react-native-config' {
     KOPIS_API_KEY: string;
     SUPABASE_ANON_API_KEY: string;
     KOPIS_IMAGE_BASE_URL: string;
+    GOOGLE_OAUTH_CLIENT_ID: string;
   }
 
   export const Config: NativeConfig;

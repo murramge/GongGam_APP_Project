@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import RecentButton from '../../atoms/buttons/RecentButton';
 import {colors} from '@styles/color';
-import SearchList from '@components/cardlist/SearchList';
+import SearchList from '@components/cardlist/CommonArtCardList';
 import SearchHeaderButton from '../../atoms/buttons/SearchHeaderButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../router';
@@ -82,15 +82,9 @@ const SearchResultPage = ({route}: SearchResultPageProps) => {
         <Text style={styles.resultTotalText}>{results?.length}개의 결과</Text>
         <SearchList
           data={results.map(item => {
-            return {
-              id: item.mt20id,
-              cate: item.genrenm,
-              period: item.prfpdto,
-              photoUrl: item.poster,
-              place: item.fcltynm,
-              title: item.prfnm,
-            };
+            return item;
           })}
+          type="search"
         />
       </View>
     </View>

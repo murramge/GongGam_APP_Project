@@ -4,10 +4,10 @@ import MainUpperCardBar from '@components/cardlist/MainUpperCardBar';
 import MainCategories, {
   selectAtom,
 } from '@components/categories/MainCategories';
-import SearchHeader from '@components/header/SearchHeader';
+
 import React from 'react';
 import {View} from 'react-native';
-import BackHeader from '@components/header/BackHeader';
+
 import {PerformanceCategory, PerformanceStsType} from '@apis/kopis.d';
 import {PerformanceGenre} from '@utils/category';
 import {useAtomValue} from 'jotai';

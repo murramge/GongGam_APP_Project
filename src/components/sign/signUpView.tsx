@@ -1,28 +1,64 @@
 import {colors} from '@styles/color';
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, Alert} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import SignInput from '@components/inputs/SignInput';
-import {Signschema} from '@utils/validation';
+import {SignType, Signschema} from '@utils/validation';
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {signInputValue} from '@utils/sign';
+import {
+  checkEmailDuplication,
+  checkNicknameDuplication,
+  emailSignUp,
+} from '@apis/supabase/auth';
+import {useNavigation} from '@react-navigation/native';
 
 const SignUpView = () => {
-  const {control, handleSubmit} = useForm({
-    defaultValues: {
-      email: '',
-      name: '',
-      password: '',
-      checkPassword: '',
-    },
-    resolver: zodResolver(Signschema),
-  });
+  const navigation = useNavigation();
+  const {control, handleSubmit, getValues, trigger, setError} =
+    useForm<SignType>({
+      defaultValues: {
+        email: '',
+        name: '',
+        password: '',
+        checkPassword: '',
+      },
+      resolver: zodResolver(Signschema),
+    });
 
-  const onSignUpSubmit = data => {
-    //TODO : supabase
+  const checkDuplication = async (field: DuplicateCheckFieldKey) => {
+    if (!(await trigger(field))) {
+      return;
+    }
+    if (
+      await (field === 'email'
+        ? checkEmailDuplication
+        : checkNicknameDuplication)(getValues(field))
+    ) {
+      setError(field, {message: DuplicationCheckField[field].message});
+      return true;
+    }
+    return false;
+  };
 
-    Alert.alert('successful', JSON.stringify(data));
+  const onSignUpSubmit = async (data: SignType) => {
+    if ((await checkDuplication('email')) || (await checkDuplication('name'))) {
+      return;
+    }
+
+    try {
+      const {email, name, password} = data;
+
+      await emailSignUp({email, password, nickname: name});
+      navigation.navigate('Login');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onBlurDuplicateCheckField = async (field: DuplicateCheckFieldKey) => {
+    await checkDuplication(field);
   };
 
   return (
@@ -56,18 +92,40 @@ const SignUpView = () => {
                 label={item.label}
                 value={value}
                 onChangeText={onChange}
+                onBlur={
+                  item.name === 'email' || item.name === 'name'
+                    ? async () => {
+                        onBlurDuplicateCheckField(
+                          item.name as DuplicateCheckFieldKey,
+                        );
+                      }
+                    : undefined
+                }
                 type={item.type}
-                error={error}></SignInput>
+                error={error}
+              />
             </>
-          )}></Controller>
+          )}
+        />
       ))}
 
       <View style={styles.button}>
-        <CommonButton onPress={handleSubmit(onSignUpSubmit)} label="회원가입" />
+        <CommonButton
+          onPress={handleSubmit(onSignUpSubmit, e => {
+            console.log(e);
+          })}
+          label="회원가입"
+        />
       </View>
     </View>
   );
 };
+
+const DuplicationCheckField = {
+  email: {message: '이미 사용중인 이메일입니다!'},
+  name: {message: '이미 사용중인 닉네임입니다!'},
+} as const;
+type DuplicateCheckFieldKey = keyof typeof DuplicationCheckField;
 
 const styles = StyleSheet.create({
   inputContainer: {
