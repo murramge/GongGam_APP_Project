@@ -11,7 +11,7 @@ import {loginInputValue} from '@utils/sign';
 import {FindPasswordInput} from '@utils/sign';
 import BackHeader from '@components/header/BackHeader';
 import {atom, useAtom, useAtomValue} from 'jotai';
-
+import {sendResetLink} from '@apis/supabase/auth';
 export const authSecondsAtom = atom(0);
 export const timerActiveAtom = atom(false);
 
@@ -62,10 +62,11 @@ const FindPassword = () => {
       ? Alert.alert('successful', JSON.stringify(authNum))
       : Alert.alert('인증시간이 만료되었습니다.');
   };
+
   return (
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
       <BackHeader
-        label="비밀번호 찾기"
+        label="비밀번호 재설정 링크받기"
         Color={{
           labelColor: colors.GRAY_500,
           leftIconsColor: colors.GRAY_500,
@@ -109,14 +110,14 @@ const FindPassword = () => {
 
         <View style={styles.button}>
           <CommonButton
-            onPress={handleSubmit(onSignUpSubmit)}
-            label={
-              useAtomValue(authSecondsAtom) === 0 ? '인증번호 다시받기' : '확인'
-            }
+            onPress={() => {
+              console.log('비밀번호 재설정링크 전송됨');
+              sendResetLink();
+            }}
+            label={'메일 발송'}
           />
         </View>
       </View>
-      <Timer />
     </View>
   );
 };

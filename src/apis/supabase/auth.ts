@@ -80,7 +80,7 @@ export const checkNicknameDuplication = async (nickname: string) => {
 export const sendResetLink = async () => {
   try {
     const {data, error} = await supabase.auth.resetPasswordForEmail(
-      'espoiryoung@naver.com',
+      'example@email.com',
     );
     if (error) {
       throw new Error(error.message);
