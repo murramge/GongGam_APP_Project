@@ -19,7 +19,7 @@ const CommunityTemplates = ({}: CommunityTemplatesProps) => {
   return (
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
       <View style={{backgroundColor: '#F7F5F5'}}>
-        <BackHeader label="함께 보기" icon="search"></BackHeader>
+        <BackHeader label="함께보기" icon="search"></BackHeader>
       </View>
       <View>
         <CommunityTabBar></CommunityTabBar>
