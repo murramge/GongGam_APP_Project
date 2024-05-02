@@ -21,7 +21,9 @@ import Login from '@pages/Login';
 import Splash from '@pages/Splash';
 import AuthHome from '@pages/AuthHome';
 import Community from '@pages/Community';
-import CommunitySelect from './template/Community/CommunitySelect';
+import NewPassword from './template/Sign/NewPasswordPage';
+import FindPassword from './template/Sign/FindPasswordPage';
+import CommunitySelect from './template/community/CommunitySelect';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -29,12 +31,9 @@ export type RootStackParamList = {
   Detail: {
     id: string;
   };
-
   SignUp: undefined;
   Search: undefined;
-
   Ticketing: undefined;
-
   PerformanceSearchResult: {
     date: string;
     performanceName?: string;
@@ -42,6 +41,10 @@ export type RootStackParamList = {
     signguCode?: AreaCodeKey;
   };
   Splash: undefined;
+  NewPasswordPage: {
+    code: string;
+  };
+  FindPasswordPage: undefined;
 };
 
 export type MainBottomTabParamList = {
@@ -86,6 +89,8 @@ function Router() {
         name="PerformanceSearchResult"
         component={SearchResultPage}
       />
+      <Stack.Screen name="NewPasswordPage" component={NewPassword} />
+      <Stack.Screen name="FindPasswordPage" component={FindPassword} />
     </Stack.Navigator>
   );
 }
