@@ -21,7 +21,6 @@ import Login from '@pages/Login';
 import Splash from '@pages/Splash';
 import AuthHome from '@pages/AuthHome';
 import Community from '@pages/Community';
-import AuthHome from '@pages/AuthHome';
 
 export type RootStackParamList = {
   Login: undefined;
