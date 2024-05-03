@@ -7,7 +7,7 @@ import {
 import Home from '@pages/Home';
 import CustomBottomTabBar from '@components/CustomBottomTabBar';
 import DetailPage from './template/home/DetailPage';
-
+import PerformanceSearch from '@pages/PerformanceSearch';
 import TicketingPage from './template/home/TicketingPage';
 
 import Search from '@pages/Search';
@@ -26,7 +26,6 @@ import FindPassword from './template/Sign/FindPasswordPage';
 import CommunitySelect from './template/community/CommunitySelect';
 
 export type RootStackParamList = {
-  Login: undefined;
   MainTab: undefined;
   Detail: {
     id: string;
@@ -74,16 +73,10 @@ const MainTab = () => {
 function Router() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen
-        name="Splash"
-        component={Splash}
-        options={{animation: 'fade_from_bottom'}}
-      />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
+
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen
         name="PerformanceSearchResult"
@@ -91,6 +84,7 @@ function Router() {
       />
       <Stack.Screen name="NewPasswordPage" component={NewPassword} />
       <Stack.Screen name="FindPasswordPage" component={FindPassword} />
+
     </Stack.Navigator>
   );
 }
