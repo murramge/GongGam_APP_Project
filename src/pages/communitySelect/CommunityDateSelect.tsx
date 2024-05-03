@@ -7,9 +7,9 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Calendar, DateData} from 'react-native-calendars';
 import WheelPick from 'react-native-wheely';
 
-interface MeetingDateSelectProps {}
+interface CommunityDateSelectProps {}
 
-const CommunityDateSelect = ({}: MeetingDateSelectProps) => {
+const CommunityDateSelect = ({}: CommunityDateSelectProps) => {
   const [selectedDate, setSelectedDate] = useState<string>(
     dayjs(new Date()).format('YYYY-MM-DD'),
   );
@@ -26,11 +26,11 @@ const CommunityDateSelect = ({}: MeetingDateSelectProps) => {
     date && setSelectedDate(date.dateString);
 
   const onPressPrevButton = () => {
-    // TODO: 이전페이지로
+    // TODO: 이전 단계로 페이지 이동
   };
 
   const onPressNextButton = () => {
-    // TODO: 다음페이지로, form에 데이터 저장
+    // TODO: form에 데이터 저장, 다음 단계로 페이지 이동
     console.log(getISODateTime());
   };
 
