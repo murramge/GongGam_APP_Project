@@ -92,12 +92,12 @@ export default CommunityQuitModal;
 const styles = StyleSheet.create({
   menuContainer: {
     flex: 1,
-    marginTop: 30,
+    marginTop: 10,
     alignItems: 'center',
   },
   menuItem: {
     width: '100%',
-    paddingVertical: 15,
+    paddingVertical: 20,
   },
   menuText: {
     color: colors.BLACK,

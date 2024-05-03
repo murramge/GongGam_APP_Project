@@ -63,8 +63,7 @@ const MainTab = () => {
   );
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
-      {/* <Tab.Screen name="Performance" component={Home} /> */}
-      <Tab.Screen name="Performance" component={CommunityTemplates} />
+      <Tab.Screen name="Performance" component={Home} />
       <Tab.Screen name="Community" component={CommunityDetail} />
       <Tab.Screen name="Calendar" component={Login} />
       <Tab.Screen name="Profile" component={SignUp} />
