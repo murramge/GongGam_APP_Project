@@ -49,7 +49,6 @@ export const kakaoSignIn = async () => {
     if (!idToken || !accessToken) {
       throw new Error('토큰을 가져오지 못했습니다.');
     }
-    console.log(idToken);
 
     const {data, error} = await supabase.auth.signInWithIdToken({
       provider: 'kakao',
@@ -100,11 +99,11 @@ export const checkNicknameDuplication = async (nickname: string) => {
   }
 };
 
-export const sendResetLink = async () => {
+export const sendPasswordResetLink = async (email: string) => {
   try {
-    const {data, error} = await supabase.auth.resetPasswordForEmail(
-      'example@email.com',
-    );
+    const {error} = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'gonggam://reset/password',
+    });
     if (error) {
       throw new Error(error.message);
     } else {
@@ -132,25 +131,14 @@ export const updatePassword = async (newPassword: string) => {
   }
 };
 
-export const sendResetLinkAndPromptNewPassword = async () => {
+export const signInByPkceCode = async (code: string) => {
   try {
-    await sendResetLink();
-    Alert.prompt(
-      'Enter new password',
-      undefined,
-      async (newPassword: string | null) => {
-        if (newPassword) {
-          await updatePassword(newPassword);
-        } else {
-          console.warn('No new password provided');
-        }
-      },
-    );
+    const {error} = await supabase.auth.exchangeCodeForSession(code);
+
+    if (error) {
+      throw new Error(error.message);
+    }
   } catch (e) {
-    console.error(
-      'Error sending password reset link and prompting new password:',
-      e,
-    );
     throw e;
   }
 };
