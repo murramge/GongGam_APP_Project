@@ -72,6 +72,11 @@ const MainTab = () => {
 function Router() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="Splash"
+        component={Splash}
+        options={{animation: 'fade_from_bottom'}}
+      />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
