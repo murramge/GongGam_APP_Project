@@ -59,51 +59,6 @@ const styles = StyleSheet.create({
     flex: 0.65,
     marginHorizontal: 30,
   },
-  selectBottom: {
-    width: '93%',
-    justifyContent: 'flex-end',
-    marginHorizontal: 12,
-    marginTop: 10,
-  },
-  indicatorBar: {
-    width: '100%',
-    height: 6,
-    backgroundColor: colors.SEARCH_BG,
-  },
-  step01: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '33%',
-    height: 6,
-    backgroundColor: colors.MAIN_COLOR,
-  },
-  step02: {
-    position: 'absolute',
-    top: 0,
-    left: '33.5%',
-    width: '33%',
-    height: 6,
-    backgroundColor: colors.MAIN_COLOR,
-  },
-  step03: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: '33%',
-    height: 6,
-    backgroundColor: colors.MAIN_COLOR,
-  },
-  stepBtnArea: {
-    flexDirection: 'row',
-    marginTop: 28,
-  },
-  prev: {
-    width: '50%',
-  },
-  next: {
-    width: '50%',
-  },
 });
 
 export default CommunitySelect;
