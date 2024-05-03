@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {View, Text, Image, TextInput} from 'react-native';
 import {colors} from '@styles/color';
-import WheelPicker from 'react-native-wheely';
-import BackHeader from '@components/header/BackHeader';
 
+import BackHeader from '@components/header/BackHeader';
+import CommonButton from '../../atoms/buttons/CommonButton';
 const MeetingIntroduce = () => {
+  const [name, onChangeName] = useState('');
   const [text, onChangeText] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
@@ -24,7 +25,7 @@ const MeetingIntroduce = () => {
           <TextInput
             placeholderTextColor={colors.GRAY_300}
             placeholder={'모임명이 짧을수록 이해하기 쉬워요'}
-            onChangeText={onChangeText}
+            onChangeText={onChangeName}
             style={{
               color: colors.GRAY_500,
               width: '100%',
@@ -71,13 +72,8 @@ const MeetingIntroduce = () => {
           </Text>
         </View>
       </View>
-      <View style={{width: 100, marginLeft: 100}}>
-        <WheelPicker
-          selectedIndex={selectedIndex}
-          options={['2', '3', '4', '5', '6', '7', '8', '9', '10']}
-          onChange={index => setSelectedIndex(index)}
-        />
-      </View>
+      <View style={{width: 100, marginLeft: 100}}></View>
+      <CommonButton label="다음" onPress={() => console.log(name, text)} />
     </View>
   );
 };
