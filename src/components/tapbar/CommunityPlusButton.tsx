@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import {colors} from '@styles/color';
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
@@ -5,6 +6,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 interface CommunityPlusButtonProps {}
 
 const CommunityPlusButton = ({}: CommunityPlusButtonProps) => {
+  const {navigate} = useNavigation();
   return (
     <View
       style={{
@@ -22,7 +24,7 @@ const CommunityPlusButton = ({}: CommunityPlusButtonProps) => {
         }}>
         내 모임을 생성해보세요!
       </Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigate('CommunitySelect')}>
         <Icon name="pluscircle" size={40} color={colors.MAIN_COLOR}></Icon>
       </TouchableOpacity>
     </View>
