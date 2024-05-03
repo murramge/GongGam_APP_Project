@@ -7,7 +7,6 @@ import {
 import Home from '@pages/Home';
 import CustomBottomTabBar from '@components/CustomBottomTabBar';
 import DetailPage from './template/home/DetailPage';
-import PerformanceSearch from '@pages/PerformanceSearch';
 import TicketingPage from './template/home/TicketingPage';
 
 import Search from '@pages/Search';
@@ -23,7 +22,7 @@ import AuthHome from '@pages/AuthHome';
 import Community from '@pages/Community';
 import NewPassword from './template/Sign/NewPasswordPage';
 import FindPassword from './template/Sign/FindPasswordPage';
-import CommunitySelect from './template/community/CommunitySelect';
+import CommunitySelect from './template/Community/CommunitySelect';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -84,7 +83,6 @@ function Router() {
       />
       <Stack.Screen name="NewPasswordPage" component={NewPassword} />
       <Stack.Screen name="FindPasswordPage" component={FindPassword} />
-
     </Stack.Navigator>
   );
 }

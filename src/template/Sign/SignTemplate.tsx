@@ -67,8 +67,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 42,
-    marginBottom: 80,
   },
 });
 
-const logo = require('../assets/images/logo.png');
+const logo = require('../../assets/images/logo.png');
