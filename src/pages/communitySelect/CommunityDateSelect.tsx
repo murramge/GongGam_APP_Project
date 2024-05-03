@@ -9,7 +9,7 @@ import WheelPick from 'react-native-wheely';
 
 interface MeetingDateSelectProps {}
 
-const MeetingDateSelect = ({}: MeetingDateSelectProps) => {
+const CommunityDateSelect = ({}: MeetingDateSelectProps) => {
   const [selectedDate, setSelectedDate] = useState<string>(
     dayjs(new Date()).format('YYYY-MM-DD'),
   );
@@ -19,10 +19,11 @@ const MeetingDateSelect = ({}: MeetingDateSelectProps) => {
     ampm: '오전',
   });
 
-  const onPressDate = (date: DateData) =>
-    date && setSelectedDate(date.dateString);
   const handleTimeChange = (type: keyof Time) => (value: string) =>
     setSelectedTime(prev => ({...prev, [type]: value}));
+
+  const onPressDate = (date: DateData) =>
+    date && setSelectedDate(date.dateString);
 
   const onPressPrevButton = () => {
     // TODO: 이전페이지로
@@ -45,6 +46,7 @@ const MeetingDateSelect = ({}: MeetingDateSelectProps) => {
 
     return dayjs(dateString).toISOString();
   };
+
   return (
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
       {/* Header */}
@@ -64,20 +66,8 @@ const MeetingDateSelect = ({}: MeetingDateSelectProps) => {
         </View>
         <View>
           <Text style={styles.labelText}>모임 시간</Text>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                position: 'absolute',
-                top: 0,
-                alignItems: 'center',
-              }}>
+          <View style={styles.timeWheelsContainer}>
+            <View style={styles.timeWheels}>
               <CustomWheelPick
                 data={ampmArray}
                 onChange={handleTimeChange('ampm')}
@@ -86,14 +76,7 @@ const MeetingDateSelect = ({}: MeetingDateSelectProps) => {
                 data={hourArray}
                 onChange={handleTimeChange('hour')}
               />
-              <Text
-                style={{
-                  color: colors.BLACK,
-                  fontSize: 14,
-                  fontWeight: 'bold',
-                }}>
-                :
-              </Text>
+              <Text style={styles.timeSeperator}>:</Text>
               <CustomWheelPick
                 data={minuteArray}
                 onChange={handleTimeChange('minute')}
@@ -158,6 +141,23 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 16,
   },
+  timeWheelsContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  timeWheels: {
+    flexDirection: 'row',
+    position: 'absolute',
+    top: 0,
+    alignItems: 'center',
+  },
+  timeSeperator: {
+    color: colors.BLACK,
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
 });
 
-export default MeetingDateSelect;
+export default CommunityDateSelect;
