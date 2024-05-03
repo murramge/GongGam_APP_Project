@@ -1,9 +1,10 @@
 import BackHeader from '@components/header/BackHeader';
 import {colors} from '@styles/color';
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 import SignUpView from '@components/sign/signUpView';
 import LoginView from '@components/sign/LoginView';
+import LottieView from 'lottie-react-native';
 
 const samplelogo = require('@images/samplelogo.png');
 
@@ -42,7 +43,15 @@ const SignTemplate = ({type}: SignTemplateProps) => {
                 alignItems: 'center',
                 paddingTop: 20,
               }}>
-              <Image source={samplelogo}></Image>
+              <LottieView
+                source={require('@lotties/join.json')}
+                style={{width: 150, height: 150}}
+                autoPlay
+                loop
+              />
+              <View>
+                <Image source={logo} style={styles.logo} />
+              </View>
             </View>
             <LoginView></LoginView>
           </View>
@@ -53,3 +62,13 @@ const SignTemplate = ({type}: SignTemplateProps) => {
 };
 
 export default SignTemplate;
+
+const styles = StyleSheet.create({
+  logo: {
+    width: 200,
+    height: 42,
+    marginBottom: 80,
+  },
+});
+
+const logo = require('../assets/images/logo.png');
