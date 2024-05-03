@@ -1,26 +1,45 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {colors} from '@styles/color';
-import {StyleSheet, Text, View, Alert} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import SignInput from '@components/inputs/SignInput';
-import {Loginschema} from '@utils/validation';
+import {PasswordResetSchema, PasswordResetType} from '@utils/validation';
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {NewPasswordInput} from '@utils/sign';
 import BackHeader from '@components/header/BackHeader';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../router';
+import {signInByPkceCode, updatePassword} from '@apis/supabase/auth';
 
 const NewPassword = () => {
-  const {control, handleSubmit} = useForm({
+  const {params} = useRoute<RouteProp<RootStackParamList, 'NewPasswordPage'>>();
+  const {replace, goBack} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const {control, handleSubmit} = useForm<PasswordResetType>({
     defaultValues: {
-      email: '',
       password: '',
+      passwordCheck: '',
     },
-    resolver: zodResolver(Loginschema),
+    resolver: zodResolver(PasswordResetSchema),
   });
 
-  const onSignUpSubmit = data => {
-    Alert.alert('successful', JSON.stringify(data));
-    //TODO:supabase
+  useEffect(() => {
+    initiate();
+    async function initiate() {
+      try {
+        await signInByPkceCode(params.code);
+      } catch (e) {
+        goBack();
+      }
+    }
+  }, [params]);
+
+  const onSubmit = async ({password}: PasswordResetType) => {
+    await updatePassword(password);
+    replace('Login');
   };
 
   return (
@@ -63,13 +82,15 @@ const NewPassword = () => {
                   value={value}
                   onChangeText={onChange}
                   type={item.type}
-                  error={error}></SignInput>
+                  error={error}
+                />
               </>
-            )}></Controller>
+            )}
+          />
         ))}
 
         <View style={styles.button}>
-          <CommonButton onPress={handleSubmit(onSignUpSubmit)} label="확인" />
+          <CommonButton onPress={handleSubmit(onSubmit)} label="확인" />
         </View>
       </View>
     </View>

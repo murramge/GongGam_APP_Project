@@ -10,6 +10,7 @@ const colors = {
   GRAY_300: '#92929D',
   GRAY_400: '#838383',
   GRAY_500: '#100F13',
+  GRAY_600: '#1C2238',
   BLACK: '#000',
   LINE_COLOR: '#DEE2EE',
   RED_500: '#FF5F5F',

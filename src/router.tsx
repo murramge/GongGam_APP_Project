@@ -21,18 +21,18 @@ import Login from '@pages/Login';
 import Splash from '@pages/Splash';
 import AuthHome from '@pages/AuthHome';
 import Community from '@pages/Community';
+import NewPassword from './template/Sign/NewPasswordPage';
+import FindPassword from './template/Sign/FindPasswordPage';
+import CommunitySelect from './template/community/CommunitySelect';
 
 export type RootStackParamList = {
   MainTab: undefined;
   Detail: {
     id: string;
   };
-
   SignUp: undefined;
   Search: undefined;
-
   Ticketing: undefined;
-
   PerformanceSearchResult: {
     date: string;
     performanceName?: string;
@@ -40,6 +40,10 @@ export type RootStackParamList = {
     signguCode?: AreaCodeKey;
   };
   Splash: undefined;
+  NewPasswordPage: {
+    code: string;
+  };
+  FindPasswordPage: undefined;
 };
 
 export type MainBottomTabParamList = {
@@ -59,9 +63,8 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={AuthHome} />
-      <Tab.Screen name="Calendar" component={Community} />
-
+      <Tab.Screen name="Community" component={CommunitySelect} />
+      <Tab.Screen name="Calendar" component={Login} />
       <Tab.Screen name="Profile" component={SignUp} />
     </Tab.Navigator>
   );
@@ -73,6 +76,15 @@ function Router() {
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
+
+      <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen
+        name="PerformanceSearchResult"
+        component={SearchResultPage}
+      />
+      <Stack.Screen name="NewPasswordPage" component={NewPassword} />
+      <Stack.Screen name="FindPasswordPage" component={FindPassword} />
+
     </Stack.Navigator>
   );
 }

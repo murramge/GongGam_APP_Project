@@ -1,6 +1,6 @@
 import {colors} from '@styles/color';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import SignInput from '@components/inputs/SignInput';
 import {LoginType} from '@utils/validation';
@@ -8,9 +8,12 @@ import {useForm, Controller} from 'react-hook-form';
 import {loginInputValue} from '@utils/sign';
 import {emailSignIn} from '@apis/supabase/auth';
 import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../router';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const LoginView = () => {
-  const navigate = useNavigation();
+  const {goBack, navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [isAuthFail, setIsAuthFail] = useState<boolean>();
   const {control, handleSubmit} = useForm<LoginType>({
     defaultValues: {
@@ -23,7 +26,7 @@ const LoginView = () => {
     try {
       await emailSignIn({email, password});
 
-      navigate.goBack();
+      goBack();
     } catch (e) {
       setIsAuthFail(true);
     }
@@ -57,6 +60,12 @@ const LoginView = () => {
           이메일 또는 비밀번호가 일치하지 않습니다.
         </Text>
       )}
+      <TouchableOpacity onPress={() => navigate('FindPasswordPage')}>
+        <Text style={{color: colors.MAIN_COLOR, textAlign: 'right'}}>
+          비밀번호 찾기
+        </Text>
+      </TouchableOpacity>
+
       <View style={styles.button}>
         <CommonButton onPress={handleSubmit(onSignUpSubmit)} label="로그인" />
       </View>

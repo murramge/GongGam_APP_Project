@@ -15,7 +15,7 @@ export interface FindPasswordInputProps {
   type: 'sendLink';
 }
 export interface NewPasswordInputProps {
-  name: 'password' | 'checkPassword';
+  name: 'password' | 'passwordCheck';
   label: '새 비밀번호' | '새 비밀번호 확인';
   type: 'password';
 }
@@ -70,7 +70,7 @@ export const NewPasswordInput: NewPasswordInputProps[] = [
     type: 'password',
   },
   {
-    name: 'checkPassword',
+    name: 'passwordCheck',
     label: '새 비밀번호 확인',
     type: 'password',
   },

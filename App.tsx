@@ -4,8 +4,17 @@ import Router from './src/router';
 import {Provider} from 'jotai';
 
 function App(): React.JSX.Element {
+  const linking = {
+    prefixes: ['gonggam://'],
+    config: {
+      screens: {
+        NewPasswordPage: 'reset/password',
+      },
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Provider>
         <Router />
       </Provider>
