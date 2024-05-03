@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import {View, Text, Image, TextInput} from 'react-native';
 import {colors} from '@styles/color';
 import WheelPicker from 'react-native-wheely';
+import BackHeader from '@components/header/BackHeader';
 
-const CommunityIntroduce = () => {
+const MeetingIntroduce = () => {
   const [text, onChangeText] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
+      <BackHeader label="모임의 상세 정보를 입력해 주세요" />
       <View style={{paddingHorizontal: 20}}>
         <View style={{paddingBottom: 10}}>
           <Text
@@ -79,4 +81,4 @@ const CommunityIntroduce = () => {
     </View>
   );
 };
-export default CommunityIntroduce;
+export default MeetingIntroduce;
