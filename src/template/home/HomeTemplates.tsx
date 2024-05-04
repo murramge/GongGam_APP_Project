@@ -30,7 +30,7 @@ const HomeTemplates = () => {
       <SearchHeaderButton></SearchHeaderButton>
       <MainUpperCardBar></MainUpperCardBar>
       <MainCategories></MainCategories>
-      <ArtList date="20240425" stsType="day" categoryCode={code}></ArtList>
+      <ArtList date="20240503" stsType="day" categoryCode={code}></ArtList>
     </View>
   );
 };

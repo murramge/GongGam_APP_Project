@@ -17,19 +17,22 @@ import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
 
 import SignUp from '@pages/SignUp';
 import Login from '@pages/Login';
-import Splash from '@pages/Splash';
-import AuthHome from '@pages/AuthHome';
+
+import CommunitySelect from './pages/communitySelect/ArtSelectFirstStap';
 import Community from '@pages/Community';
 import NewPassword from './template/Sign/NewPasswordPage';
 import FindPassword from './template/Sign/FindPasswordPage';
 
-//import CommunitySelect from './template/community/CommunitySelect';
-
-import CommunitySelect from './template/Community/CommunitySelect';
-import CommunityDetail from './template/Community/CommunityDetail';
-import CommunityTemplates from './template/Community/CommunityTemplates';
+import CommunityDetail from './template/community/CommunityDetail';
+import CommunityTemplates from './template/community/CommunityTemplates';
+import ArtDaysTwoStap from '@pages/communitySelect/ArtDaysTwoStap';
+import ArtTimesThreeStap from '@pages/communitySelect/ArtTimesThreeStap';
+import CommunityDateSelect from '@pages/communitySelect/CommunityDateSelectFourStap';
+import CommunityIntroduce from '@pages/communitySelect/CommunityIntroduceFiveStap';
+import CommunitySummary from '@pages/communitySelect/CommunitySummaryLastStap';
+import CommunitySelectLayOut from '@components/CommunitySelectLayOut';
+import Splash from '@pages/Splash';
 import MeetingIntroduce from '@pages/communitySelect/CommunityIntroduce';
-
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -49,10 +52,17 @@ export type RootStackParamList = {
     signguCode?: AreaCodeKey;
   };
   Splash: undefined;
+  CommunitySelect: undefined;
+  CommunitySelectTwoStap: undefined;
+  CommunitySelectThreeStap: undefined;
+  CommunitySelectFourStap: undefined;
+  CommunitySelectFiveStap: undefined;
+  CommunitySelectLastStap: undefined;
   NewPasswordPage: {
     code: string;
   };
   FindPasswordPage: undefined;
+  CommunitySelectLayOut: undefined;
   Login: undefined;
 };
 
@@ -91,8 +101,27 @@ function Router() {
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
-
       <Stack.Screen name="Search" component={Search} />
+
+      <Stack.Screen name="CommunitySelect" component={CommunitySelect} />
+      <Stack.Screen name="CommunitySelectTwoStap" component={ArtDaysTwoStap} />
+      <Stack.Screen
+        name="CommunitySelectThreeStap"
+        component={ArtTimesThreeStap}
+      />
+      <Stack.Screen
+        name="CommunitySelectFourStap"
+        component={CommunityDateSelect}></Stack.Screen>
+      <Stack.Screen
+        name="CommunitySelectFiveStap"
+        component={CommunityIntroduce}></Stack.Screen>
+      <Stack.Screen
+        name="CommunitySelectLastStap"
+        component={CommunitySummary}></Stack.Screen>
+      <Stack.Screen
+        name="CommunitySelectLayOut"
+        component={CommunitySelectLayOut}></Stack.Screen>
+
       <Stack.Screen
         name="PerformanceSearchResult"
         component={SearchResultPage}

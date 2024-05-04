@@ -1,5 +1,9 @@
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';
-import React from 'react';
+import {atom, useAtom} from 'jotai';
+import React, {useCallback, useState} from 'react';
+import {useFormContext} from 'react-hook-form';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Config from 'react-native-config';
 
@@ -8,7 +12,9 @@ interface CommunityItemProps {
   title: string;
   period: string;
   place: string;
-  id: string;
+  id: any;
+  setValue: any;
+  watch: any;
 }
 
 const CommunityItem = ({
@@ -17,26 +23,46 @@ const CommunityItem = ({
   period,
   place,
   id,
+  setValue,
+  watch,
 }: CommunityItemProps) => {
   return (
     <View>
-      <TouchableOpacity style={styles.container}>
-        <View style={styles.photo}>
-          {photoUrl && (
-            <Image
-              style={styles.photo}
-              source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${photoUrl}`}}
-            />
-          )}
-        </View>
-        <View style={styles.right}>
-          <Text style={styles.nameText} numberOfLines={1} ellipsizeMode="tail">
-            {title}
-          </Text>
-          <Text style={styles.descriptionText}>{period}</Text>
-          <Text style={styles.descriptionText}>{place}</Text>
-          <View style={styles.cateArea}>
-            <Text style={styles.cateText}>{place}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          setValue('artTitle', title, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          setValue('artId', id, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+        }}
+        style={
+          watch('artTitle') == title ? styles.selectcontainer : styles.container
+        }>
+        <View style={{flexDirection: 'row'}}>
+          <View style={styles.photo}>
+            {photoUrl && (
+              <Image
+                style={styles.photo}
+                source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${photoUrl}`}}
+              />
+            )}
+          </View>
+          <View style={styles.right}>
+            <Text
+              style={styles.nameText}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {title}
+            </Text>
+            <Text style={styles.descriptionText}>{period}</Text>
+            <Text style={styles.descriptionText}>{place}</Text>
+            <View style={styles.cateArea}>
+              <Text style={styles.cateText}>{place}</Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
@@ -50,6 +76,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: colors.LINE_COLOR,
     paddingVertical: 15,
+    paddingHorizontal: 10,
+  },
+  selectcontainer: {
+    flexDirection: 'row',
+
+    backgroundColor: colors.GRAY_100,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderRadius: 10,
   },
   photo: {
     width: 117,

@@ -31,6 +31,9 @@ export const detailDataAtom = atom<PerformanceDetailInfo | null>(null);
 
 const DetailPage: React.FC<DetailPageProps> = ({route}) => {
   const {id} = route.params;
+  //임시 추가
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [detailInfo, setDetailInfo] = useAtom<PerformanceDetailInfo | null>(
     detailDataAtom,
   );
@@ -56,9 +59,6 @@ const DetailPage: React.FC<DetailPageProps> = ({route}) => {
   if (loading) return <ActivityIndicator />;
   if (error) return <Text>{error}</Text>;
 
-  //임시 추가
-  const {navigate} =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const gotoTicketing = () => {
     console.log('예매하기.');
     navigate('Ticketing', {id});
