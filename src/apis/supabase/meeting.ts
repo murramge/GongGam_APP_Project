@@ -18,7 +18,7 @@ export const getMeetings = async () => {
   }
 };
 
-export const getMeeting = async (id: number) => {
+export const getMeeting = async (id: string) => {
   try {
     const {data, error} = await supabase
       .rpc('get_meeting_info', {

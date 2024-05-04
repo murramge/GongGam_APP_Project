@@ -32,6 +32,9 @@ export type RootStackParamList = {
   Detail: {
     id: string;
   };
+  CommunityDetail: {
+    id: string;
+  };
   SignUp: undefined;
   Search: undefined;
   Ticketing: undefined;
@@ -66,7 +69,8 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={CommunitySelect} />
+      {/* <Tab.Screen name="Performance" component={CommunityDetail} /> */}
+      <Tab.Screen name="Community" component={CommunityTemplates} />
       <Tab.Screen name="Calendar" component={Login} />
       <Tab.Screen name="Profile" component={SignUp} />
     </Tab.Navigator>
@@ -93,6 +97,7 @@ function Router() {
       <Stack.Screen name="NewPasswordPage" component={NewPassword} />
       <Stack.Screen name="FindPasswordPage" component={FindPassword} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
     </Stack.Navigator>
   );
 }
