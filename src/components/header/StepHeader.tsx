@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, CommonActions} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {ReactNode} from 'react';
 import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
@@ -42,7 +42,26 @@ const StepHeader = ({
           alignItems: 'center',
         }}>
         <View style={{width: '8%', paddingTop: 5}}>
-          <TouchableOpacity onPress={() => navigate.goBack()}>
+          <TouchableOpacity
+            onPress={() => {
+              navigate.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: 'MainTab',
+                      state: {
+                        routes: [
+                          {
+                            name: 'Performance',
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                }),
+              );
+            }}>
             <Icon name="close" color={Color.leftIconsColor} size={25}></Icon>
           </TouchableOpacity>
         </View>

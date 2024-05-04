@@ -41,9 +41,8 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
   const [selectedArea, setSelectedArea] = useState<AreaCodeKey>();
 
   const onPressSearch = async () => {
-    if (!date) {
-      return;
-    }
+    // 날짜가 선택되지 않았을 경우 오늘 날짜로 설정
+    const searchDate = date || moment();
 
     if (query) {
       await saveRecentSearch(query);
@@ -51,7 +50,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
     }
 
     navigation.navigate('PerformanceSearchResult', {
-      date: date.format('YYYYMMDD'),
+      date: searchDate.format('YYYYMMDD'),
       performanceName: query,
       genreCode: selectedGenre,
       signguCode: selectedArea,
