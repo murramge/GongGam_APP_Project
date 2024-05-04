@@ -5,6 +5,7 @@ const colors = {
   LOGIN_BG: '#BFD2E5',
   SEARCH_BG: '#F5F6F7',
   RECENT_BG: '#F3F3F3',
+  GRAY_100: '#EAEAEA',
   GRAY_200: '#E0E0E0',
   GRAY_300: '#92929D',
   GRAY_400: '#838383',
