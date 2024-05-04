@@ -1,52 +1,51 @@
 import React, {useState} from 'react';
-import {View, Text, Image, Modal, Pressable, StyleSheet} from 'react-native';
+import {View, Text, Modal, StyleSheet, Pressable} from 'react-native';
+import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
 import CommonButton from '../../atoms/buttons/CommonButton';
-import CommunityItem from '@components/carditem/CommunityItem';
 
-const CommunityJoinModal = ({
-  isJoinModalOpen,
-  onPressJoinCancel,
+const CommunityWithdrawModal = ({
+  isWithdrawModalOpen,
+  onPressWithdrawCancel,
 }: {
-  isJoinModalOpen: boolean;
-  onPressJoinCancel: () => void;
+  isWithdrawModalOpen: boolean;
+  onPressWithdrawCancel: () => void;
 }) => {
   return (
     <View>
-      <Modal animationType="slide" transparent={true} visible={isJoinModalOpen}>
+      <Modal
+        style={{}}
+        animationType="slide"
+        transparent={true}
+        visible={isWithdrawModalOpen}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <CommunityItem
-            // photoUrl={art.poster ?? undefined}
-            // title={art.prfnm}
-            // period={art.prfpd}
-            // place={art.area}
-            // id={art.mt20id}
+            <LottieView
+              source={require('@lotties/doorOpen.json')}
+              style={{width: 100, height: 100}}
+              autoPlay
+              loop
             />
+            <Text>모임명</Text>
+
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 22,
                 fontWeight: '700',
                 color: colors.BLACK,
-                lineHeight: 28,
                 textAlign: 'center',
-                paddingTop: 24,
                 paddingBottom: 24,
               }}>
-              {isJoinModalOpen}
-              선택한 모임에 참가하시겠습니까?{'\n'}
-              아래 버튼을 누르면{'\n'}
-              모임상세를 보실 수 있습니다.
+              모임을{'\n'}탈퇴하시겠습니까?
             </Text>
             <View style={{paddingBottom: 10, width: 300}}>
               <CommonButton
-                label="공연함께 보기 참가"
+                label="예"
                 borderRadius={32}
                 onPress={() => {
-                  console.log('모임참가');
-                  onPressJoinCancel();
+                  console.log('모임탈퇴처리');
+                  onPressWithdrawCancel();
                 }}
-                // TODO: 모임 참여 처리
               />
             </View>
             <Pressable
@@ -58,7 +57,7 @@ const CommunityJoinModal = ({
                 borderRadius: 32,
                 margin: 2,
               }}
-              onPress={onPressJoinCancel}>
+              onPress={onPressWithdrawCancel}>
               <Text style={styles.textStyle}>아니요</Text>
             </Pressable>
           </View>
@@ -67,7 +66,6 @@ const CommunityJoinModal = ({
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
@@ -91,15 +89,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
@@ -107,4 +96,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CommunityJoinModal;
+export default CommunityWithdrawModal;
