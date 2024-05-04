@@ -28,11 +28,15 @@ import FindPassword from './template/Sign/FindPasswordPage';
 import CommunitySelect from './template/Community/CommunitySelect';
 import CommunityDetail from './template/Community/CommunityDetail';
 import CommunityTemplates from './template/Community/CommunityTemplates';
+import MeetingIntroduce from '@pages/communitySelect/CommunityIntroduce';
 
 
 export type RootStackParamList = {
   MainTab: undefined;
   Detail: {
+    id: string;
+  };
+  CommunityDetail: {
     id: string;
   };
   SignUp: undefined;
@@ -49,6 +53,7 @@ export type RootStackParamList = {
     code: string;
   };
   FindPasswordPage: undefined;
+  Login: undefined;
 };
 
 export type MainBottomTabParamList = {
@@ -68,11 +73,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-
-      <Tab.Screen name="Community" component={Community} />
-
-      <Tab.Screen name="Community" component={CommunityDetail} />
-
+      <Tab.Screen name="Community" component={CommunityTemplates} />
       <Tab.Screen name="Calendar" component={Login} />
       <Tab.Screen name="Profile" component={SignUp} />
     </Tab.Navigator>
@@ -98,6 +99,8 @@ function Router() {
       />
       <Stack.Screen name="NewPasswordPage" component={NewPassword} />
       <Stack.Screen name="FindPasswordPage" component={FindPassword} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
     </Stack.Navigator>
   );
 }

@@ -12,6 +12,8 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../router';
 import {signInByPkceCode, updatePassword} from '@apis/supabase/auth';
+import {StackActions} from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 
 const NewPassword = () => {
   const {params} = useRoute<RouteProp<RootStackParamList, 'NewPasswordPage'>>();
@@ -38,8 +40,19 @@ const NewPassword = () => {
   }, [params]);
 
   const onSubmit = async ({password}: PasswordResetType) => {
-    await updatePassword(password);
-    replace('Login');
+    const navigation = useNavigation();
+
+    try {
+      await updatePassword(password);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: 'Login'}],
+        }),
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

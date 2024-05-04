@@ -7,7 +7,18 @@ import {RootStackParamList} from '../../router';
 import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/Ionicons';
 interface CommonArtCardItemProps {
-  data: any;
+  data: {
+    item: {
+      id: string;
+      perf_image_url?: string; // 공연 이미지 URL
+      perf_name: string; // 공연 이름
+      title: string; // 모임 제목
+      perf_at: string; // 공연일정
+      meeting_at: string; // 모임일정
+      current_occupancy: number; // 현재 참여 인원
+      max_occupancy: number; // 최대 참여 인원
+    };
+  };
 }
 
 const CommunityCardItem = ({data}: CommonArtCardItemProps) => {
@@ -18,13 +29,13 @@ const CommunityCardItem = ({data}: CommonArtCardItemProps) => {
   let perfDay = dayjs(item.perf_at).format('YY년 MM월 DD일 HH시 mm분');
   let meetDay = dayjs(item.meeting_at).format('YY년 MM월 DD일 HH시 mm분');
 
-  // const onPress = useCallback(() => {
-  //   navigate('Detail', {id, photoUrl, title, period, place, cate});
-  // }, [id, photoUrl, title, period, place, cate, navigate]);
+  const onPress = () => {
+    navigate('CommunityDetail', {id: item.id});
+  };
 
   return (
     <View>
-      <TouchableOpacity style={styles.container} onPress={() => {}}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
         <View style={styles.photo}>
           {item.perf_image_url && (
             <Image style={styles.photo} source={{uri: item.perf_image_url}} />
