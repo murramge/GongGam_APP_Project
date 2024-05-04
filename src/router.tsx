@@ -7,7 +7,6 @@ import {
 import Home from '@pages/Home';
 import CustomBottomTabBar from '@components/CustomBottomTabBar';
 import DetailPage from './template/home/DetailPage';
-import PerformanceSearch from '@pages/PerformanceSearch';
 import TicketingPage from './template/home/TicketingPage';
 
 import Search from '@pages/Search';
@@ -23,7 +22,9 @@ import AuthHome from '@pages/AuthHome';
 import Community from '@pages/Community';
 import NewPassword from './template/Sign/NewPasswordPage';
 import FindPassword from './template/Sign/FindPasswordPage';
-import CommunitySelect from './template/community/CommunitySelect';
+import CommunitySelect from './template/Community/CommunitySelect';
+import CommunityDetail from './template/Community/CommunityDetail';
+import CommunityTemplates from './template/Community/CommunityTemplates';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -63,7 +64,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={CommunitySelect} />
+      <Tab.Screen name="Community" component={CommunityDetail} />
       <Tab.Screen name="Calendar" component={Login} />
       <Tab.Screen name="Profile" component={SignUp} />
     </Tab.Navigator>
@@ -73,6 +74,11 @@ const MainTab = () => {
 function Router() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="Splash"
+        component={Splash}
+        options={{animation: 'fade_from_bottom'}}
+      />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Detail" component={DetailPage} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
@@ -84,7 +90,6 @@ function Router() {
       />
       <Stack.Screen name="NewPasswordPage" component={NewPassword} />
       <Stack.Screen name="FindPasswordPage" component={FindPassword} />
-
     </Stack.Navigator>
   );
 }

@@ -75,7 +75,7 @@ const LoginView = () => {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginTop: 73,
+    marginTop: 43,
     marginHorizontal: 20,
     gap: 5,
   },
