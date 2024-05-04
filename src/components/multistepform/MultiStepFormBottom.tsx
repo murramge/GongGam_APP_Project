@@ -7,12 +7,14 @@ import {colors} from '@styles/color';
 interface MultiStepFormBottomProps extends StepIndicatorProps {
   onPressNextButton?: () => void;
   onPressPrevButton?: () => void;
+  disabled?: any;
 }
 const MultiStepFormBottom = ({
   currentStep,
   maxStep,
   onPressNextButton,
   onPressPrevButton,
+  disabled,
 }: MultiStepFormBottomProps) => {
   const isFirst = currentStep === 1;
   const isFinal = maxStep === currentStep;
@@ -29,6 +31,7 @@ const MultiStepFormBottom = ({
           <CommonButton
             label={isFinal ? '모임 만들기' : '다음'}
             onPress={onPressNextButton}
+            disabled={disabled}
           />
         </View>
       </View>

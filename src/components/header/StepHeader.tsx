@@ -69,7 +69,7 @@ const StepHeader = ({
           <Text
             style={{
               flex: 1,
-              fontSize: 20,
+              fontSize: 16,
               lineHeight: 32,
               color: Color.labelColor,
               fontWeight: '500',

@@ -9,6 +9,7 @@ interface MainButtonProps {
   textColor?: string;
   borderRadius?: number;
   margin?: number;
+  disabled?: any;
 }
 
 const CommonButton = ({
@@ -16,14 +17,17 @@ const CommonButton = ({
   onPress,
   borderRadius = 20,
   margin = 2,
+  bgColor = colors.MAIN_COLOR,
+  disabled = false,
 }: MainButtonProps) => {
   return (
     <TouchableOpacity
       style={[
         styles.CommonButton,
-        {borderRadius: borderRadius, margin: margin},
+        {backgroundColor: bgColor, borderRadius: borderRadius, margin: margin},
       ]}
-      onPress={onPress}>
+      onPress={onPress}
+      disabled={disabled}>
       <Text style={styles.CommonButtonText}>{label}</Text>
     </TouchableOpacity>
   );

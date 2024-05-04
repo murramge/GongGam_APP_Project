@@ -3,6 +3,7 @@ import {colors} from '@styles/color';
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {RootStackParamList} from '../../router';
 interface CommunityPlusButtonProps {}
 
 const CommunityPlusButton = ({}: CommunityPlusButtonProps) => {
@@ -13,19 +14,16 @@ const CommunityPlusButton = ({}: CommunityPlusButtonProps) => {
         justifyContent: 'flex-end',
         alignItems: 'center',
         flexDirection: 'row',
-        paddingHorizontal: 15,
+        padding: 10,
       }}>
-      <Text
+      <TouchableOpacity
+        onPress={() => navigate('CommunitySelectLayOut')}
         style={{
-          fontSize: 15,
-          paddingRight: 2,
-          color: colors.MAIN_COLOR,
-          fontFamily: 'Nanum Brush Script',
+          position: 'absolute',
         }}>
-        내 모임을 생성해보세요!
-      </Text>
-      <TouchableOpacity onPress={() => navigate('CommunitySelect')}>
-        <Icon name="pluscircle" size={40} color={colors.MAIN_COLOR}></Icon>
+        <View style={{padding: 20}}>
+          <Icon name="pluscircle" size={40} color={colors.MAIN_COLOR}></Icon>
+        </View>
       </TouchableOpacity>
     </View>
   );

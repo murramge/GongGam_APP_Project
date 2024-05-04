@@ -3,11 +3,14 @@ import {View, Text, StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
 import BackHeader from '@components/header/BackHeader';
+import {useFormContext} from 'react-hook-form';
 
-const MeetingSummary = () => {
+const CommunitySummary = () => {
+  const {watch} = useFormContext();
+
+  console.log(watch());
   return (
-    <View style={{flex: 1, backgroundColor: colors.WHITE}}>
-      <BackHeader label="모임을 확인해주세요" />
+    <View>
       <View style={{paddingLeft: 120, paddingTop: 200, paddingBottom: 70}}>
         <View style={{flexDirection: 'row', paddingBottom: 4}}>
           <Text
@@ -25,7 +28,7 @@ const MeetingSummary = () => {
               color: colors.MAIN_COLOR,
               paddingLeft: 5,
             }}>
-            마틸다
+            {watch('artTitle')}
           </Text>
         </View>
         <View style={{flexDirection: 'row', paddingBottom: 4}}>
@@ -39,7 +42,7 @@ const MeetingSummary = () => {
               color: colors.MAIN_COLOR,
               paddingLeft: 5,
             }}>
-            2024.05.05
+            {watch('artDays')}
           </Text>
         </View>
         <View style={{flexDirection: 'row', paddingBottom: 4}}>
@@ -53,7 +56,7 @@ const MeetingSummary = () => {
               color: colors.MAIN_COLOR,
               paddingLeft: 5,
             }}>
-            PM 12:00
+            {watch('artTime')}
           </Text>
         </View>
         <View style={{flexDirection: 'row', paddingBottom: 4}}>
@@ -100,4 +103,4 @@ const MeetingSummary = () => {
   );
 };
 
-export default MeetingSummary;
+export default CommunitySummary;

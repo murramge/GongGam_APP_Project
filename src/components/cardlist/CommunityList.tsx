@@ -15,6 +15,8 @@ export interface CommunityListProps {
   stsType: PerformanceStsType[keyof PerformanceStsType];
   categoryCode?: keyof PerformanceCategory | string;
   area?: string;
+  setValue?: any;
+  watch?: any;
 }
 
 const CommunityList = ({
@@ -22,6 +24,8 @@ const CommunityList = ({
   stsType,
   categoryCode,
   area,
+  setValue,
+  watch,
 }: CommunityListProps) => {
   const [performances, setPerformances] = useState<PerformanceBoxOffice[]>([]);
 
@@ -55,6 +59,8 @@ const CommunityList = ({
                 period={art.prfpd}
                 place={art.area}
                 id={art.mt20id}
+                setValue={setValue}
+                watch={watch}
               />
             );
           }}

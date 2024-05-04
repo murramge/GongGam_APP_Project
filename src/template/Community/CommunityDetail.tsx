@@ -9,6 +9,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList} from '../../router';
 import {getMeeting} from '@apis/supabase/meeting';
 import type {MeetingInfo} from '@apis/supabase/meeting.d';
+import {Share} from 'react-native';
 
 type CommunityDetailRouteParams = RouteProp<
   RootStackParamList,
@@ -54,7 +55,10 @@ const CommunityDetail = () => {
         )}
       </View>
       <View style={styles.iconArea}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={async () =>
+            await Share.share({message: `${data.perf_name} - ${data.title}`})
+          }>
           <Image source={shareIcon} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>

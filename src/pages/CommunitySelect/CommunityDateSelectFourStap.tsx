@@ -1,15 +1,20 @@
 import StepHeader from '@components/header/StepHeader';
 import MultiStepFormBottom from '@components/multistepform/MultiStepFormBottom';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';
 import dayjs from 'dayjs';
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Calendar, DateData} from 'react-native-calendars';
 import WheelPick from 'react-native-wheely';
+import {RootStackParamList} from '../../router';
+import {useFormContext} from 'react-hook-form';
 
 interface CommunityDateSelectProps {}
 
 const CommunityDateSelect = ({}: CommunityDateSelectProps) => {
+  const {setValue} = useFormContext();
   const [selectedDate, setSelectedDate] = useState<string>(
     dayjs(new Date()).format('YYYY-MM-DD'),
   );
@@ -18,23 +23,18 @@ const CommunityDateSelect = ({}: CommunityDateSelectProps) => {
     minute: '00',
     ampm: '오전',
   });
+  const handleTimeChange = useCallback(
+    (type: keyof Time) => (value: string) => {
+      setSelectedTime(prev => ({...prev, [type]: value}));
+    },
+    [],
+  );
 
-  const handleTimeChange = (type: keyof Time) => (value: string) =>
-    setSelectedTime(prev => ({...prev, [type]: value}));
-
-  const onPressDate = (date: DateData) =>
+  const onPressDate = useCallback((date: DateData) => {
     date && setSelectedDate(date.dateString);
+  }, []);
 
-  const onPressPrevButton = () => {
-    // TODO: 이전 단계로 페이지 이동
-  };
-
-  const onPressNextButton = () => {
-    // TODO: form에 데이터 저장, 다음 단계로 페이지 이동
-    console.log(getISODateTime());
-  };
-
-  const getISODateTime = () => {
+  useEffect(() => {
     const hour24 =
       selectedTime.ampm === '오전'
         ? parseInt(selectedTime.hour) % 12
@@ -44,55 +44,44 @@ const CommunityDateSelect = ({}: CommunityDateSelectProps) => {
       selectedTime.minute
     }:00`;
 
-    return dayjs(dateString).toISOString();
-  };
+    setValue('communityDate', dayjs(dateString).toISOString(), {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  }, [selectedDate, selectedTime, setValue]);
 
   return (
-    <View style={{flex: 1, backgroundColor: colors.WHITE}}>
-      {/* Header */}
-      <StepHeader label="함께 모일 시간을 알려주세요" />
-
-      {/* Content */}
-      <View style={{flex: 1}}>
-        <View>
-          <Text style={styles.labelText}>모임 날짜</Text>
-          <Calendar
-            onDayPress={onPressDate}
-            current={dayjs(new Date()).format('YYYY-MM-DD')}
-            markedDates={{
-              [selectedDate]: {selected: true},
-            }}
-          />
-        </View>
-        <View>
-          <Text style={styles.labelText}>모임 시간</Text>
-          <View style={styles.timeWheelsContainer}>
-            <View style={styles.timeWheels}>
-              <CustomWheelPick
-                data={ampmArray}
-                onChange={handleTimeChange('ampm')}
-              />
-              <CustomWheelPick
-                data={hourArray}
-                onChange={handleTimeChange('hour')}
-              />
-              <Text style={styles.timeSeperator}>:</Text>
-              <CustomWheelPick
-                data={minuteArray}
-                onChange={handleTimeChange('minute')}
-              />
-            </View>
+    <View style={{flex: 1}}>
+      <View>
+        <Text style={styles.labelText}>모임 날짜</Text>
+        <Calendar
+          onDayPress={onPressDate}
+          current={dayjs(new Date()).format('YYYY-MM-DD')}
+          markedDates={{
+            [selectedDate]: {selected: true},
+          }}
+        />
+      </View>
+      <View>
+        <Text style={styles.labelText}>모임 시간</Text>
+        <View style={styles.timeWheelsContainer}>
+          <View style={styles.timeWheels}>
+            <CustomWheelPick
+              data={ampmArray}
+              onChange={handleTimeChange('ampm')}
+            />
+            <CustomWheelPick
+              data={hourArray}
+              onChange={handleTimeChange('hour')}
+            />
+            <Text style={styles.timeSeperator}>:</Text>
+            <CustomWheelPick
+              data={minuteArray}
+              onChange={handleTimeChange('minute')}
+            />
           </View>
         </View>
       </View>
-
-      {/* Bottom */}
-      <MultiStepFormBottom
-        currentStep={3}
-        maxStep={6}
-        onPressNextButton={onPressNextButton}
-        onPressPrevButton={onPressPrevButton}
-      />
     </View>
   );
 };
