@@ -23,7 +23,7 @@ import AuthHome from '@pages/AuthHome';
 import Community from '@pages/Community';
 import NewPassword from './template/Sign/NewPasswordPage';
 import FindPassword from './template/Sign/FindPasswordPage';
-import CommunitySelect from './template/community/CommunitySelect';
+//import CommunitySelect from './template/community/CommunitySelect';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -64,7 +64,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={CommunitySelect} />
+      <Tab.Screen name="Community" component={Community} />
       <Tab.Screen name="Calendar" component={Login} />
       <Tab.Screen name="Profile" component={SignUp} />
     </Tab.Navigator>

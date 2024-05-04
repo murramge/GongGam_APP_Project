@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, Modal, StyleSheet, Pressable} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
@@ -14,30 +14,20 @@ const CommunityWithdrawModal = ({
   return (
     <View>
       <Modal
-        style={{}}
         animationType="slide"
         transparent={true}
         visible={isWithdrawModalOpen}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <LottieView
-              source={require('@lotties/doorOpen.json')}
+              source={require('@lotties/join.json')}
               style={{width: 100, height: 100}}
               autoPlay
               loop
             />
-            <Text>모임명</Text>
+            <Text style={styles.communityName}>모임명</Text>
 
-            <Text
-              style={{
-                fontSize: 22,
-                fontWeight: '700',
-                color: colors.BLACK,
-                textAlign: 'center',
-                paddingBottom: 24,
-              }}>
-              모임을{'\n'}탈퇴하시겠습니까?
-            </Text>
+            <Text style={styles.modalText}>모임을{'\n'}탈퇴하시겠습니까?</Text>
             <View style={{paddingBottom: 10, width: 300}}>
               <CommonButton
                 label="예"
@@ -93,6 +83,19 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  communityName: {
+    color: colors.BLACK,
+    textAlign: 'center',
+    paddingBottom: 10,
+    fontSize: 18,
+  },
+  modalText: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: colors.BLACK,
+    textAlign: 'center',
+    paddingBottom: 24,
   },
 });
 

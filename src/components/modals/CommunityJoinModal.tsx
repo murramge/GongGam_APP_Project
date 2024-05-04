@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, Image, Modal, Pressable, StyleSheet} from 'react-native';
 import {colors} from '@styles/color';
 import CommonButton from '../../atoms/buttons/CommonButton';
