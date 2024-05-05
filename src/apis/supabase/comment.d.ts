@@ -9,7 +9,7 @@ export interface Comment {
   content: string;
   created_at: string;
   reply_of: number;
-  user_profile: {
+  profile: {
     nickname: string;
     image_url?: string;
   };

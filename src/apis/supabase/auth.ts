@@ -142,3 +142,12 @@ export const signInByPkceCode = async (code: string) => {
     throw e;
   }
 };
+
+export const getCurrentAuthUser = async () => {
+  try {
+    const session = (await supabase.auth.getSession()).data.session;
+    return session?.user;
+  } catch (e) {
+    throw e;
+  }
+};

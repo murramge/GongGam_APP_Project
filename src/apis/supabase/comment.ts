@@ -14,7 +14,7 @@ export const getMeetingComments = async (meetingId: number) => {
         id,
         content,
         created_at,
-        user_profile(nickname,image_url)
+        profile:public_profile(user_id, nickname, image_url)
         `,
       )
       .eq('meeting_id', meetingId);
