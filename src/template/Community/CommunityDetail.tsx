@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import BackHeader from '@components/header/BackHeader';
 import CommunityQuitModal from '@components/modals/CommunityQuitModal';
-import {RouteProp, useRoute} from '@react-navigation/native';
 import {colors} from '@styles/color';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
@@ -16,8 +15,6 @@ import {
 } from '@apis/supabase/meeting';
 import {MeetingInfo} from '@apis/supabase/meeting.d';
 import {getCurrentAuthUser} from '@apis/supabase/auth';
-import {getMeetingComments} from '@apis/supabase/comment';
-import {getProfile} from '@apis/supabase/profile';
 
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
@@ -27,39 +24,36 @@ interface CommunityDetailProps
 
 const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   const [meeting, setMeeting] = useState<MeetingInfo>();
-  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>();
   const [isVisible, setIsVisible] = useState(false);
   const [isJoined, setIsJoined] = useState<boolean>(true);
   const [isOwner, setIsOwner] = useState<boolean>(false);
 
   useEffect(() => {
-    initiate();
-
-    async function initiate() {
-      try {
-        const [fetchedMeeting, joinedMeetings] = await Promise.all([
-          getMeeting(route.params.id),
-          getJoinedMeetings(),
-        ]);
-
-        const foundMeeting = joinedMeetings.find(
-          joinedMeeting => fetchedMeeting.id === joinedMeeting.id,
-        );
-
-        if (foundMeeting) {
-          setIsJoined(true);
-          foundMeeting.is_owner && setIsOwner(true);
-        } else {
-          setIsJoined(false);
-        }
-        setMeeting(fetchedMeeting);
-        setLoading(false);
-      } catch (e) {
-        setError('에러가 발생했습니다.');
-      }
-    }
+    fetch();
   }, [route.params.id]);
+  const fetch = async () => {
+    try {
+      const [fetchedMeeting, joinedMeetings] = await Promise.all([
+        getMeeting(route.params.id),
+        getJoinedMeetings(),
+      ]);
+
+      const foundMeeting = joinedMeetings.find(
+        joinedMeeting => fetchedMeeting.id === joinedMeeting.id,
+      );
+
+      if (foundMeeting) {
+        setIsJoined(true);
+        foundMeeting.is_owner && setIsOwner(true);
+      } else {
+        setIsJoined(false);
+      }
+      setMeeting(fetchedMeeting);
+    } catch (e) {
+      setError('에러가 발생했습니다.');
+    }
+  };
 
   const onPressJoinButton = async () => {
     if (!meeting) {
@@ -68,7 +62,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
     try {
       if (await getCurrentAuthUser()) {
         await joinMeeting(meeting.id);
-        setIsJoined(true);
+        await fetch();
       } else {
         navigation.navigate('Login');
       }
@@ -83,14 +77,13 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
     return <View />;
   }
 
-  if (loading) {
+  if (!meeting) {
     // TODO: 로딩 화면
     return <View />;
   }
 
   if (meeting) {
     const {
-      id,
       title,
       introduction,
       current_occupancy,
@@ -112,9 +105,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           <View style={styles.iconArea}>
             <TouchableOpacity
               onPress={async () => {
-                const comments = await getMeetingComments(id);
-                console.log(await getProfile());
-                console.log(comments);
+                //TODO: 공유 로직
               }}>
               <Image source={shareIcon} style={styles.icon} />
             </TouchableOpacity>
