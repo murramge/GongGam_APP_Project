@@ -17,5 +17,20 @@ export interface MeetingInfo extends Meeting {
   current_occupancy: number;
 }
 
+export interface JoinedMeetingInfo {
+  id: number;
+  title: string;
+  image_url: string;
+  max_occupancy: number;
+  current_occupancy: number;
+  is_owner: boolean;
+  created_at: string;
+  meeting_at: string;
+  perf_at: string;
+  perf_id: string;
+  perf_name: string;
+  perf_genre: string;
+}
+
 export interface createMeetingParams
   extends Omit<Meeting, 'id' | 'created_at'> {}

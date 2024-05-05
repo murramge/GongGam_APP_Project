@@ -4,12 +4,12 @@ import {StyleSheet, View} from 'react-native';
 import StepHeader from './header/StepHeader';
 import MultiStepFormBottom from './multistepform/MultiStepFormBottom';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
-import CommunitySelect from '@pages/communitySelect/ArtSelectFirstStap';
-import ArtDaysTwoStap from '@pages/communitySelect/ArtDaysTwoStap';
-import ArtTimesThreeStap from '@pages/communitySelect/ArtTimesThreeStap';
-import CommunityDateSelect from '@pages/communitySelect/CommunityDateSelectFourStap';
-import CommunityIntroduce from '@pages/communitySelect/CommunityIntroduceFiveStap';
-import CommunitySummary from '@pages/communitySelect/CommunitySummaryLastStap';
+import CommunitySelect from '@pages/CommunitySelect/ArtSelectFirstStap';
+import ArtDaysTwoStap from '@pages/CommunitySelect/ArtDaysTwoStap';
+import ArtTimesThreeStap from '@pages/CommunitySelect/ArtTimesThreeStap';
+import CommunityDateSelect from '@pages/CommunitySelect/CommunityDateSelectFourStap';
+import CommunityIntroduce from '@pages/CommunitySelect/CommunityIntroduceFiveStap';
+import CommunitySummary from '@pages/CommunitySelect/CommunitySummaryLastStap';
 
 interface CommunitySelectLayOutProps {
   label: any;

@@ -3,38 +3,36 @@ import {v4 as uuid} from 'uuid';
 import FileSystem from 'react-native-fs';
 import {decode} from 'base64-arraybuffer';
 
-type SaveLocation = 'profile' | 'meeting';
-
-interface uploadFileProps {
-  path: string;
+interface UploadFileProps {
+  userId: string;
+  filePath: string;
   mime: string;
-  saveLocation: SaveLocation;
+  type: 'profile' | 'review';
 }
 
 export const uploadFile = async ({
-  saveLocation,
+  userId,
+  filePath,
+  type,
   mime,
-  path,
-}: uploadFileProps) => {
+}: UploadFileProps) => {
+  const uploadPath = `${userId}/${type}/${uuid()}`;
   try {
-    const baseUrl =
-      'https://nevgphppzzhbdcqetahi.supabase.co/storage/v1/object/public/images/';
-    const uploadPathName = `${saveLocation}/${uuid()}`;
-    const uploadFileBase64 = await FileSystem.readFile(path, 'base64');
-
+    const fileBase64 = await FileSystem.readFile(filePath, 'base64');
     const {error} = await supabase.storage
-      .from('images')
-      .upload(uploadPathName, decode(uploadFileBase64), {
+      .from('image')
+      .upload(uploadPath, decode(fileBase64), {
         contentType: mime,
       });
 
     if (error) {
-      throw new Error(error.message);
+      console.error(`Error uploading file: ${error.message}`);
+      throw new Error(`Error uploading file: ${error.message}`);
     }
-
-    return `${baseUrl}${uploadPathName}`;
+    return uploadPath;
   } catch (e) {
-    console.error(e);
     throw e;
   }
 };
+const baseUrl =
+  'https://nevgphppzzhbdcqetahi.supabase.co/storage/v1/object/public/images/';

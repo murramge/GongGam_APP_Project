@@ -1,87 +1,167 @@
-import CommunityCardItem from '@components/carditem/CommunityCardItem';
-import BackHeader from '@components/header/BackHeader';
-import CommentsModal from '@components/modals/CommentsModal';
-import CommunityQuitModal from '@components/modals/CommunityQuitModal';
-import {RouteProp, useRoute} from '@react-navigation/native';
-import {colors} from '@styles/color';
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import BackHeader from '@components/header/BackHeader';
+import CommunityQuitModal from '@components/modals/CommunityQuitModal';
+import {colors} from '@styles/color';
+import IonIcon from 'react-native-vector-icons/Ionicons';
+import dayjs from 'dayjs';
+import CommonButton from '../../atoms/buttons/CommonButton';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../router';
-import {getMeeting} from '@apis/supabase/meeting';
-import type {MeetingInfo} from '@apis/supabase/meeting.d';
-import {Share} from 'react-native';
+import {
+  getJoinedMeetings,
+  getMeeting,
+  joinMeeting,
+} from '@apis/supabase/meeting';
+import {MeetingInfo} from '@apis/supabase/meeting.d';
+import {getCurrentAuthUser} from '@apis/supabase/auth';
 
-type CommunityDetailRouteParams = RouteProp<
-  RootStackParamList,
-  'CommunityDetail'
->;
+const PosterImageWidth = 110;
+const PosterImageHeight = PosterImageWidth * 1.1;
 
-const CommunityDetail = () => {
-  const route = useRoute<CommunityDetailRouteParams>();
-  const {id} = route.params;
+interface CommunityDetailProps
+  extends NativeStackScreenProps<RootStackParamList, 'CommunityDetail'> {}
 
-  const [data, setData] = useState<MeetingInfo | null>(null);
+const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
+  const [meeting, setMeeting] = useState<MeetingInfo>();
+  const [error, setError] = useState<string>();
   const [isVisible, setIsVisible] = useState(false);
+  const [isJoined, setIsJoined] = useState<boolean>(true);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const result = await getMeeting(id);
-        setData(result);
-      } catch (error) {
-        console.error('모임 정보를 불러오는 데 실패했습니다.', error);
+    fetch();
+  }, [route.params.id]);
+  const fetch = async () => {
+    try {
+      const [fetchedMeeting, joinedMeetings] = await Promise.all([
+        getMeeting(route.params.id),
+        getJoinedMeetings(),
+      ]);
+
+      const foundMeeting = joinedMeetings.find(
+        joinedMeeting => fetchedMeeting.id === joinedMeeting.id,
+      );
+
+      if (foundMeeting) {
+        setIsJoined(true);
+        foundMeeting.is_owner && setIsOwner(true);
+      } else {
+        setIsJoined(false);
       }
-    };
+      setMeeting(fetchedMeeting);
+    } catch (e) {
+      setError('에러가 발생했습니다.');
+    }
+  };
 
-    loadData();
-  }, [id]);
+  const onPressJoinButton = async () => {
+    if (!meeting) {
+      return;
+    }
+    try {
+      if (await getCurrentAuthUser()) {
+        await joinMeeting(meeting.id);
+        await fetch();
+      } else {
+        navigation.navigate('Login');
+      }
+    } catch (e) {
+      // TODO: 이미 가입한 모임이거나, 이미 꽉 찬 모임일 경우 에러 처리(Modal or Toast)
+      console.warn(e);
+    }
+  };
 
-  if (!data) {
-    return <Text>Loading...</Text>;
+  if (error) {
+    // TODO: 에러 화면
+    return <View />;
   }
 
-  return (
-    <View>
-      <BackHeader label={data.perf_name} />
-      <View style={styles.mainVisual}>
-        <Image source={mainVisual} style={styles.mainImg} />
-      </View>
-      <View style={styles.profileImgArea}>
-        {data.perf_image_url && (
-          <Image
-            source={{uri: data.perf_image_url}}
-            style={styles.profileImg}
-          />
+  if (!meeting) {
+    // TODO: 로딩 화면
+    return <View />;
+  }
+
+  if (meeting) {
+    const {
+      title,
+      introduction,
+      current_occupancy,
+      max_occupancy,
+      meeting_at,
+      perf_name,
+      perf_at,
+      perf_image_url,
+    } = meeting;
+
+    return (
+      <View style={{flex: 1}}>
+        <BackHeader label={title} />
+        <View style={styles.mainVisual}>
+          <Image source={mainVisual} style={styles.mainImg} />
+        </View>
+        <View style={styles.profileImgArea}>
+          <Image source={{uri: perf_image_url}} style={styles.profileImg} />
+          <View style={styles.iconArea}>
+            <TouchableOpacity
+              onPress={async () => {
+                //TODO: 공유 로직
+              }}>
+              <Image source={shareIcon} style={styles.icon} />
+            </TouchableOpacity>
+            {isJoined && (
+              <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
+                <Image source={moreIcon} style={styles.icon} />
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+        <View style={styles.mainContainer}>
+          <View style={styles.titleArea}>
+            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+              {perf_name}
+            </Text>
+            <Text style={styles.communityTitle}>{title}</Text>
+          </View>
+          <View style={styles.mainContentContainer}>
+            <View style={styles.scheduleContainer}>
+              <View style={styles.scheduleSection}>
+                <Text style={styles.scheduleLabel}>공연일정</Text>
+                <Text style={styles.scheduleDateTime}>
+                  {dayjs(perf_at).format('YYYY년 MM월 DD일 HH시 mm분')}
+                </Text>
+              </View>
+              <View style={styles.scheduleSection}>
+                <Text style={styles.scheduleLabel}>모임일정</Text>
+                <Text style={styles.scheduleDateTime}>
+                  {dayjs(meeting_at).format('YYYY년 MM월 DD일 HH시 mm분')}
+                </Text>
+              </View>
+              <View style={styles.scheduleSection}>
+                <IonIcon name="person" color={colors.GRAY_300} />
+                <Text style={styles.peopleLabel}>인원</Text>
+                <Text
+                  style={
+                    styles.peopleCount
+                  }>{`${current_occupancy}/${max_occupancy}`}</Text>
+              </View>
+            </View>
+            <View style={styles.meetingDescriptionContainer}>
+              <Text style={styles.meetingDescriptionTitle}>모임소개</Text>
+              <Text style={styles.meetingDescriptionText}>{introduction}</Text>
+            </View>
+          </View>
+        </View>
+        {!isJoined && (
+          <View style={styles.buttonContainer}>
+            <CommonButton label="가입하기" onPress={onPressJoinButton} />
+          </View>
         )}
+        <CommunityQuitModal isVisible={isVisible} setIsVisible={setIsVisible} />
+        {/* <CommentsModal isVisible={isVisible} setIsVisible={setIsVisible} /> */}
       </View>
-      <View style={styles.iconArea}>
-        <TouchableOpacity
-          onPress={async () =>
-            await Share.share({message: `${data.perf_name} - ${data.title}`})
-          }>
-          <Image source={shareIcon} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
-          <Image source={moreIcon} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.titleArea}>
-        <View style={styles.titleStyle}>
-          <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-            {/* 프랑켄슈타인 */}
-            {data.perf_name}
-          </Text>
-        </View>
-        <View style={styles.communityTitleArea}>
-          <Text style={styles.communityTitle}>
-            {data.title}
-            {/* 영화같이 볼 사람 영화같이 볼 사람 */}
-          </Text>
-        </View>
-      </View>
-      <CommunityQuitModal isVisible={isVisible} setIsVisible={setIsVisible} />
-    </View>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -95,20 +175,20 @@ const styles = StyleSheet.create({
     height: 210,
   },
   profileImgArea: {
-    position: 'absolute',
-    top: 210,
-    left: 23,
     borderRadius: 16,
     zIndex: 5,
   },
   profileImg: {
-    width: 110,
-    height: 120,
     borderRadius: 16,
+    position: 'absolute',
+    top: -PosterImageHeight / 2,
+    left: 16,
+    width: PosterImageWidth,
+    height: PosterImageHeight,
   },
   iconArea: {
     position: 'absolute',
-    top: 250,
+    top: -16,
     right: 13,
     flexDirection: 'row',
     gap: 8,
@@ -117,30 +197,27 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
+  mainContainer: {flex: 1, paddingHorizontal: 16},
   titleArea: {
-    position: 'absolute',
-    top: 278,
-    left: 142,
-    width: 231,
-    height: 71,
-    marginBottom: 11,
+    marginTop: 16,
+    marginLeft: PosterImageWidth + 16,
+    gap: 4,
   },
   titleStyle: {
-    width: 135,
-    height: 24,
-    backgroundColor: colors.MAIN_COLOR,
-    borderRadius: 6,
-    paddingBottom: 2,
+    alignItems: 'flex-start',
   },
   title: {
+    maxWidth: '60%',
     color: colors.WHITE,
+    backgroundColor: colors.MAIN_COLOR,
+    borderRadius: 6,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
     fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  communityTitleArea: {
-    marginTop: 2,
-  },
+
   communityTitle: {
     color: colors.GRAY_500,
     fontSize: 16,
@@ -148,11 +225,42 @@ const styles = StyleSheet.create({
     width: 200,
     marginLeft: 5,
   },
+  mainContentContainer: {flex: 1},
+  scheduleContainer: {
+    backgroundColor: colors.GRAY_100,
+    borderRadius: 16,
+    padding: 16,
+    paddingHorizontal: 24,
+    marginVertical: 16,
+    gap: 8,
+  },
+  scheduleSection: {flexDirection: 'row', gap: 4, alignItems: 'center'},
+  scheduleLabel: {color: colors.MAIN_COLOR, fontWeight: 'bold'},
+  scheduleDateTime: {color: colors.GRAY_400, fontWeight: '700'},
+  peopleLabel: {
+    color: colors.GRAY_400,
+  },
+  peopleCount: {
+    color: colors.GRAY_400,
+  },
+  meetingDescriptionContainer: {
+    flex: 1,
+    marginBottom: 8,
+  },
+  meetingDescriptionTitle: {
+    color: colors.GRAY_600,
+    fontWeight: '700',
+    fontSize: 15,
+    marginBottom: 8,
+  },
+  meetingDescriptionText: {
+    color: colors.GRAY_500,
+  },
+  buttonContainer: {padding: 16},
 });
 
 export default CommunityDetail;
 
 const mainVisual = require('../../assets/images/community/community_img.png');
-const profileImg = require('../../assets/images/community/community_profile.png');
 const shareIcon = require('../../assets/icons/share_icon.png');
 const moreIcon = require('../../assets/icons/more_icon.png');

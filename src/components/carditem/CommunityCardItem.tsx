@@ -35,7 +35,11 @@ const CommunityCardItem = ({data}: CommonArtCardItemProps) => {
 
   return (
     <View>
-      <TouchableOpacity style={styles.container} onPress={onPress}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => {
+          navigate('CommunityDetail', {id: item.id});
+        }}>
         <View style={styles.photo}>
           {item.perf_image_url && (
             <Image style={styles.photo} source={{uri: item.perf_image_url}} />
