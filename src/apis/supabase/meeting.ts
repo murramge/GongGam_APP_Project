@@ -1,5 +1,9 @@
 import {supabase} from './supabase';
-import type {MeetingInfo, createMeetingParams} from './meeting.d';
+import type {
+  JoinedMeetingInfo,
+  MeetingInfo,
+  createMeetingParams,
+} from './meeting.d';
 
 export const getMeetings = async () => {
   try {
@@ -39,13 +43,13 @@ export const getMeeting = async (id: string) => {
 
 export const getJoinedMeetings = async () => {
   try {
-    const {data, error} = await supabase.from('meeting_by_auth').select('*');
+    const {data, error} = await supabase.rpc('get_joined_meetings');
 
     if (error) {
       throw new Error(error.message);
     }
 
-    return data as MeetingInfo[];
+    return data as JoinedMeetingInfo[];
   } catch (e) {
     console.error(e);
     throw e;
