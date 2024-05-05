@@ -4,6 +4,23 @@ import {colors} from '@styles/color';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import dayjs from 'dayjs';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../router';
+interface CommunityJoinModalProps {
+  isJoinModalOpen: boolean;
+  onPressJoinCancel: () => void;
+  perf_image_url: string;
+  title: string;
+  perf_name: string;
+  perf_at: string;
+  meeting_at: string;
+  current_occupancy: number;
+  max_occupancy: string;
+  id: string;
+  //navigation: NativeStackNavigationProp<RootStackParamList>;
+}
 
 const CommunityJoinModal = ({
   isJoinModalOpen,
@@ -16,19 +33,9 @@ const CommunityJoinModal = ({
   meeting_at,
   current_occupancy,
   max_occupancy,
-}: {
-  isJoinModalOpen: boolean;
-  onPressJoinCancel: () => void;
-  perf_image_url: string;
-  title: string;
-  perf_name: string;
-  perf_at: string;
-  meeting_at: string;
-  current_occupancy: number;
-  max_occupancy: string;
-
-  id: string;
-}) => {
+}: CommunityJoinModalProps) => {
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={isJoinModalOpen}>
@@ -90,6 +97,7 @@ const CommunityJoinModal = ({
                 onPress={() => {
                   console.log('모임참가');
                   onPressJoinCancel();
+                  navigate('Login');
                 }}
                 // TODO: 모임 참여 처리
               />

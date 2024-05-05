@@ -77,8 +77,8 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
         await fetch();
       } else {
         //TODO: 모임 참여 모달
-        //setIsJoinModalOpen(true);
-        navigation.navigate('Login');
+        setIsJoinModalOpen(true);
+        //navigation.navigate('Login');
       }
     } catch (e) {
       // TODO: 이미 가입한 모임이거나, 이미 꽉 찬 모임일 경우 에러 처리(Modal or Toast)
