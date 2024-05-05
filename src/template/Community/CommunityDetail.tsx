@@ -15,6 +15,9 @@ import {
   joinMeeting,
 } from '@apis/supabase/meeting';
 import {MeetingInfo} from '@apis/supabase/meeting.d';
+import {getCurrentAuthUser} from '@apis/supabase/auth';
+import {getMeetingComments} from '@apis/supabase/comment';
+import {getProfile} from '@apis/supabase/profile';
 
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
@@ -28,6 +31,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   const [error, setError] = useState<string>();
   const [isVisible, setIsVisible] = useState(false);
   const [isJoined, setIsJoined] = useState<boolean>(true);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
 
   useEffect(() => {
     initiate();
@@ -39,12 +43,13 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           getJoinedMeetings(),
         ]);
 
-        if (
-          joinedMeetings.find(
-            joinedMeeting => fetchedMeeting.id === joinedMeeting.id,
-          )
-        ) {
+        const foundMeeting = joinedMeetings.find(
+          joinedMeeting => fetchedMeeting.id === joinedMeeting.id,
+        );
+
+        if (foundMeeting) {
           setIsJoined(true);
+          foundMeeting.is_owner && setIsOwner(true);
         } else {
           setIsJoined(false);
         }
@@ -61,9 +66,12 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
       return;
     }
     try {
-      await joinMeeting(meeting.id);
-
-      setIsJoined(true);
+      if (await getCurrentAuthUser()) {
+        await joinMeeting(meeting.id);
+        setIsJoined(true);
+      } else {
+        navigation.navigate('Login');
+      }
     } catch (e) {
       // TODO: 이미 가입한 모임이거나, 이미 꽉 찬 모임일 경우 에러 처리(Modal or Toast)
       console.warn(e);
@@ -82,6 +90,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
 
   if (meeting) {
     const {
+      id,
       title,
       introduction,
       current_occupancy,
@@ -101,7 +110,12 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
         <View style={styles.profileImgArea}>
           <Image source={{uri: perf_image_url}} style={styles.profileImg} />
           <View style={styles.iconArea}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={async () => {
+                const comments = await getMeetingComments(id);
+                console.log(await getProfile());
+                console.log(comments);
+              }}>
               <Image source={shareIcon} style={styles.icon} />
             </TouchableOpacity>
             {isJoined && (
