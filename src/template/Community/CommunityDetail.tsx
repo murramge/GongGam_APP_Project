@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   Button,
+  ToastAndroid,
 } from 'react-native';
 import BackHeader from '@components/header/BackHeader';
 import CommunityQuitModal from '@components/modals/CommunityQuitModal';
@@ -83,6 +84,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
     } catch (e) {
       // TODO: 이미 가입한 모임이거나, 이미 꽉 찬 모임일 경우 에러 처리(Modal or Toast)
       console.warn(e);
+      ToastAndroid.show(e.toString(), ToastAndroid.SHORT);
     }
   };
 
@@ -171,32 +173,19 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
             <View style={styles.buttonContainer}>
               <CommonButton label="가입하기" onPress={onPressJoinButton} />
             </View>
-            {/* <CommunityJoinModal
+            <CommunityJoinModal
               isJoinModalOpen={isJoinModalOpen}
               onPressJoinCancel={onPressJoinCancel}
-              perf_image_url={perf_image_url}
-            /> */}
+              perf_image_url={meeting.perf_image_url}
+              perf_name={meeting.perf_name}
+              title={meeting.title}
+              perf_at={meeting.perf_at}
+              current_occupancy={meeting.current_occupancy}
+              max_occupancy={meeting.max_occupancy}
+            />
           </View>
         )}
-        <View>
-          <Button
-            title="모임참여하기"
-            onPress={() => {
-              setIsJoinModalOpen(true);
-              console.log(meeting.current_occupancy, meeting.max_occupancy);
-            }}
-          />
-          <CommunityJoinModal
-            isJoinModalOpen={isJoinModalOpen}
-            onPressJoinCancel={onPressJoinCancel}
-            perf_image_url={meeting.perf_image_url}
-            perf_name={meeting.perf_name}
-            title={meeting.title}
-            perf_at={meeting.perf_at}
-            current_occupancy={meeting.current_occupancy}
-            max_occupancy={meeting.max_occupancy}
-          />
-        </View>
+
         <CommunityQuitModal isVisible={isVisible} setIsVisible={setIsVisible} />
         {/* <CommentsModal isVisible={isVisible} setIsVisible={setIsVisible} /> */}
       </View>
