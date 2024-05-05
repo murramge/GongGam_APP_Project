@@ -104,9 +104,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
             <TouchableOpacity>
               <Image source={shareIcon} style={styles.icon} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
-              <Image source={moreIcon} style={styles.icon} />
-            </TouchableOpacity>
+            {isJoined && (
+              <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
+                <Image source={moreIcon} style={styles.icon} />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
         <View style={styles.mainContainer}>
