@@ -64,6 +64,9 @@ export type RootStackParamList = {
   FindPasswordPage: undefined;
   CommunitySelectLayOut: undefined;
   Login: undefined;
+  CommunityDetail: {
+    id: number;
+  };
 };
 
 export type MainBottomTabParamList = {
@@ -83,7 +86,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={CommunityTemplates} />
+      <Tab.Screen name="Community" component={Community} />
       <Tab.Screen name="Calendar" component={Login} />
       <Tab.Screen name="Profile" component={SignUp} />
     </Tab.Navigator>
