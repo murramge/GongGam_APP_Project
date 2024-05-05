@@ -85,7 +85,19 @@ export const joinMeeting = async (meetingId: number) => {
       throw new Error(error.message);
     }
   } catch (e) {
-    console.error(e);
+    throw e;
+  }
+};
+
+export const quitMeeting = async (meetingId: number) => {
+  try {
+    const {error} = await supabase.rpc('remove_user_from_meeting', {
+      param_meeting_id: meetingId,
+    });
+    if (error) {
+      throw new Error(error.message);
+    }
+  } catch (e) {
     throw e;
   }
 };

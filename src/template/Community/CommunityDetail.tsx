@@ -9,7 +9,11 @@ import dayjs from 'dayjs';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../router';
-import {getMeeting} from '@apis/supabase/meeting';
+import {
+  getJoinedMeetings,
+  getMeeting,
+  joinMeeting,
+} from '@apis/supabase/meeting';
 import {MeetingInfo} from '@apis/supabase/meeting.d';
 
 const PosterImageWidth = 110;
@@ -19,34 +23,61 @@ interface CommunityDetailProps
   extends NativeStackScreenProps<RootStackParamList, 'CommunityDetail'> {}
 
 const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
+  const [meeting, setMeeting] = useState<MeetingInfo>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>();
+  const [isVisible, setIsVisible] = useState(false);
+  const [isJoined, setIsJoined] = useState<boolean>(true);
+
   useEffect(() => {
     initiate();
 
     async function initiate() {
       try {
-        const data = await getMeeting(route.params.id);
-        console.log(data);
-        setMeeting(data);
+        const [fetchedMeeting, joinedMeetings] = await Promise.all([
+          getMeeting(route.params.id),
+          getJoinedMeetings(),
+        ]);
+
+        if (
+          joinedMeetings.find(
+            joinedMeeting => fetchedMeeting.id === joinedMeeting.id,
+          )
+        ) {
+          setIsJoined(true);
+        } else {
+          setIsJoined(false);
+        }
+        setMeeting(fetchedMeeting);
         setLoading(false);
       } catch (e) {
         setError('에러가 발생했습니다.');
       }
     }
   }, [route.params.id]);
-  const [meeting, setMeeting] = useState<MeetingInfo>();
-  const [isVisible, setIsVisible] = useState(false);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>();
 
-  // TODO: 모임 가입버튼 이벤트
-  const onPressJoinButton = () => {};
+  const onPressJoinButton = async () => {
+    if (!meeting) {
+      return;
+    }
+    try {
+      await joinMeeting(meeting.id);
+
+      setIsJoined(true);
+    } catch (e) {
+      // TODO: 이미 가입한 모임이거나, 이미 꽉 찬 모임일 경우 에러 처리(Modal or Toast)
+      console.warn(e);
+    }
+  };
 
   if (error) {
-    return <View></View>;
+    // TODO: 에러 화면
+    return <View />;
   }
 
   if (loading) {
-    return <View></View>;
+    // TODO: 로딩 화면
+    return <View />;
   }
 
   if (meeting) {
@@ -114,9 +145,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
             </View>
           </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <CommonButton label="가입하기" onPress={onPressJoinButton} />
-        </View>
+        {!isJoined && (
+          <View style={styles.buttonContainer}>
+            <CommonButton label="가입하기" onPress={onPressJoinButton} />
+          </View>
+        )}
         <CommunityQuitModal isVisible={isVisible} setIsVisible={setIsVisible} />
         {/* <CommentsModal isVisible={isVisible} setIsVisible={setIsVisible} /> */}
       </View>
@@ -222,6 +255,5 @@ const styles = StyleSheet.create({
 export default CommunityDetail;
 
 const mainVisual = require('../../assets/images/community/community_img.png');
-const profileImg = require('../../assets/images/community/community_profile.png');
 const shareIcon = require('../../assets/icons/share_icon.png');
 const moreIcon = require('../../assets/icons/more_icon.png');
