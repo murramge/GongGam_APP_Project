@@ -2,27 +2,72 @@ import React from 'react';
 import {View, Text, Image, Modal, Pressable, StyleSheet} from 'react-native';
 import {colors} from '@styles/color';
 import CommonButton from '../../atoms/buttons/CommonButton';
-import CommunityItem from '@components/carditem/CommunityItem';
+import dayjs from 'dayjs';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 const CommunityJoinModal = ({
   isJoinModalOpen,
   onPressJoinCancel,
+  perf_image_url,
+  perf_name,
+  title,
+  id,
+  perf_at,
+  meeting_at,
+  current_occupancy,
+  max_occupancy,
 }: {
   isJoinModalOpen: boolean;
   onPressJoinCancel: () => void;
+  perf_image_url: string;
+  title: string;
+  perf_name: string;
+  perf_at: string;
+  meeting_at: string;
+  current_occupancy: number;
+  max_occupancy: string;
+
+  id: string;
 }) => {
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={isJoinModalOpen}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <CommunityItem
-            // photoUrl={art.poster ?? undefined}
-            // title={art.prfnm}
-            // period={art.prfpd}
-            // place={art.area}
-            // id={art.mt20id}
-            />
+            <View style={{flexDirection: 'row'}}>
+              <Image source={{uri: perf_image_url}} style={styles.profileImg} />
+              <View style={{paddingLeft: 16}}>
+                <View style={styles.titleArea}>
+                  <Text
+                    style={styles.title}
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
+                    {perf_name}
+                  </Text>
+                  <Text style={styles.communityTitle}>{title}</Text>
+                </View>
+                <View style={styles.scheduleSection}>
+                  <Text style={styles.scheduleLabel}>공연일정</Text>
+                  <Text style={styles.scheduleDateTime}>
+                    {dayjs(perf_at).format('YYYY년 MM월 DD일 HH시 mm분')}
+                  </Text>
+                </View>
+                <View style={styles.scheduleSection}>
+                  <Text style={styles.scheduleLabel}>모임일정</Text>
+                  <Text style={styles.scheduleDateTime}>
+                    {dayjs(meeting_at).format('YYYY년 MM월 DD일 HH시 mm분')}
+                  </Text>
+                </View>
+                <View style={styles.scheduleSection}>
+                  <IonIcon name="person" color={colors.GRAY_300} />
+                  <Text style={styles.peopleLabel}>인원</Text>
+                  <Text
+                    style={
+                      styles.peopleCount
+                    }>{`${current_occupancy}/${max_occupancy}`}</Text>
+                </View>
+              </View>
+            </View>
             <Text
               style={{
                 fontSize: 16,
@@ -30,7 +75,7 @@ const CommunityJoinModal = ({
                 color: colors.BLACK,
                 lineHeight: 28,
                 textAlign: 'center',
-                paddingTop: 24,
+                paddingTop: 50,
                 paddingBottom: 24,
               }}>
               {isJoinModalOpen}
@@ -104,6 +149,56 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  scheduleSection: {flexDirection: 'row', gap: 4, alignItems: 'center'},
+  scheduleLabel: {
+    color: colors.MAIN_COLOR,
+    fontWeight: 'bold',
+    fontSize: 12,
+    paddingBottom: 6,
+  },
+  scheduleDateTime: {
+    color: colors.GRAY_400,
+    fontWeight: '700',
+    fontSize: 12,
+    paddingBottom: 6,
+  },
+  peopleLabel: {
+    color: colors.GRAY_400,
+  },
+  peopleCount: {
+    color: colors.GRAY_400,
+  },
+  titleArea: {
+    marginTop: 16,
+
+    gap: 4,
+  },
+
+  title: {
+    maxWidth: '60%',
+    color: colors.WHITE,
+    backgroundColor: colors.MAIN_COLOR,
+    borderRadius: 6,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  communityTitle: {
+    color: colors.GRAY_500,
+    fontSize: 16,
+    fontWeight: '600',
+    width: 200,
+    marginLeft: 5,
+    paddingBottom: 6,
+  },
+  profileImg: {
+    borderRadius: 16,
+    width: 120,
+    height: 120 * 1.1,
   },
 });
 
