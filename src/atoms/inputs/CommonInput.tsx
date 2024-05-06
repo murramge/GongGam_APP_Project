@@ -14,6 +14,7 @@ interface CommonInputProps {
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   value?: string;
   visiable: boolean;
+  editable: boolean;
 }
 
 const CommonInput = ({
@@ -22,6 +23,7 @@ const CommonInput = ({
   onChangeText,
   onBlur,
   visiable = false,
+  editable,
 }: CommonInputProps) => {
   return (
     <View style={{width: '100%', flex: 1}}>
@@ -33,6 +35,7 @@ const CommonInput = ({
         onBlur={onBlur}
         secureTextEntry={visiable}
         style={{color: colors.GRAY_500, width: '100%'}}
+        editable={editable}
       />
     </View>
   );

@@ -14,6 +14,7 @@ const colors = {
   BLACK: '#000',
   LINE_COLOR: '#DEE2EE',
   RED_500: '#FF5F5F',
+  SETTINGS_COLOR: '#F4F8FF',
 };
 
 export {colors};

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, TextInput} from 'react-native';
 import {colors} from '@styles/color';
 
@@ -15,7 +15,11 @@ const CommunityIntroduce = () => {
   const [text, onChangeText] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const {setValue} = useFormContext();
+  const {setValue, watch} = useFormContext();
+
+  useEffect(() => {
+    console.log('?');
+  }, [watch('communityContext')]);
 
   return (
     <View style={{flex: 1, paddingHorizontal: 20}}>
@@ -32,7 +36,12 @@ const CommunityIntroduce = () => {
         <TextInput
           placeholderTextColor={colors.GRAY_300}
           placeholder={'모임명이 짧을수록 이해하기 쉬워요'}
-          onChangeText={() => setValue('communityName', onChangeName)}
+          onChangeText={text =>
+            setValue('communityName', text, {
+              shouldValidate: true,
+              shouldDirty: true,
+            })
+          }
           style={{
             color: colors.GRAY_500,
             width: '100%',
@@ -55,7 +64,12 @@ const CommunityIntroduce = () => {
         <TextInput
           placeholderTextColor={colors.GRAY_300}
           placeholder={'예매하신 공연과 관련된 내용을 적어주세요'}
-          onChangeText={() => setValue('communityContext', onChangeName)}
+          onChangeText={text =>
+            setValue('communityContext', text, {
+              shouldValidate: true,
+              shouldDirty: true,
+            })
+          }
           style={{
             color: colors.GRAY_500,
             width: '100%',
