@@ -11,6 +11,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Modal from 'react-native-modal';
+import CommunityWithdrawModal from '@components/modals/CommunityWithdrawModal';
 
 interface CommunityQuitModalProps {
   isVisible: boolean;
@@ -25,65 +26,81 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
 
   const [selectedMenuItem, setSelectedMenuItem] = useState<null | string>(null);
 
+  const onPressWithdrawCancel = () => {
+    setIsWithdrawModalOpen(false); // 탈퇴모달을 닫음
+  };
+  const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
+
   return (
-    <Modal
-      useNativeDriver
-      isVisible={isVisible}
-      animationIn={'slideInUp'}
-      animationInTiming={300}
-      animationOut={'slideOutDown'}
-      animationOutTiming={300}
-      backdropColor="#000"
-      backdropOpacity={0.4}
-      style={{
-        flex: 1,
-        margin: 0,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-      }}
-      onBackdropPress={() => {
-        Keyboard.dismiss();
-        setIsVisible(!isVisible);
-      }}
-      onBackButtonPress={() => {
-        Keyboard.dismiss();
-        setIsVisible(!isVisible);
-      }}
-      hideModalContentWhileAnimating>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} //os별로 다르게 준다
-        keyboardVerticalOffset={8}
-        style={{width: '100%'}}>
-        <View
-          style={{
-            paddingTop: 20,
-            width: SCREEN_WIDTH,
-            height: 200,
-            backgroundColor: '#FFF',
-            borderTopEndRadius: 16,
-            borderTopStartRadius: 16,
-          }}>
-          <View style={styles.menuContainer}>
-            <TouchableOpacity
-              onPress={() => setSelectedMenuItem('leave')}
-              style={[
-                styles.menuItem,
-                selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
-              ]}>
-              <Text style={styles.menuText}>모임 탈퇴</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setIsVisible(!isVisible)}
-              style={[
-                styles.menuItem,
-                selectedMenuItem === 'close' ? styles.selectedMenuItem : null,
-              ]}>
-              <Text style={styles.menuText}>닫기</Text>
-            </TouchableOpacity>
+    <View>
+      <Modal
+        useNativeDriver
+        isVisible={isVisible}
+        animationIn={'slideInUp'}
+        animationInTiming={300}
+        animationOut={'slideOutDown'}
+        animationOutTiming={300}
+        backdropColor="#000"
+        backdropOpacity={0.4}
+        style={{
+          flex: 1,
+          margin: 0,
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}
+        onBackdropPress={() => {
+          Keyboard.dismiss();
+          setIsVisible(!isVisible);
+        }}
+        onBackButtonPress={() => {
+          Keyboard.dismiss();
+          setIsVisible(!isVisible);
+        }}
+        hideModalContentWhileAnimating>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'} //os별로 다르게 준다
+          keyboardVerticalOffset={8}
+          style={{width: '100%'}}>
+          <View
+            style={{
+              paddingTop: 20,
+              width: SCREEN_WIDTH,
+              height: 200,
+              backgroundColor: '#FFF',
+              borderTopEndRadius: 16,
+              borderTopStartRadius: 16,
+            }}>
+            <View style={styles.menuContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedMenuItem('leave');
+                  setIsWithdrawModalOpen(true);
+                }}
+                style={[
+                  styles.menuItem,
+                  selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
+                ]}>
+                <Text style={styles.menuText}>모임 탈퇴</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setIsVisible(!isVisible);
+                }}
+                style={[
+                  styles.menuItem,
+                  selectedMenuItem === 'close' ? styles.selectedMenuItem : null,
+                ]}>
+                <Text style={styles.menuText}>닫기</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </Modal>
+        </KeyboardAvoidingView>
+      </Modal>
+      <CommunityWithdrawModal
+        isWithdrawModalOpen={isWithdrawModalOpen}
+        onPressWithdrawCancel={onPressWithdrawCancel}
+      />
+    </View>
   );
 };
 

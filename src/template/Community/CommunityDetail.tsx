@@ -1,7 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Button,
+  ToastAndroid,
+} from 'react-native';
 import BackHeader from '@components/header/BackHeader';
 import CommunityQuitModal from '@components/modals/CommunityQuitModal';
+import CommunityJoinModal from '@components/modals/CommunityJoinModal';
 import {colors} from '@styles/color';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
@@ -29,6 +38,10 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   const [isJoined, setIsJoined] = useState<boolean>(true);
   const [isOwner, setIsOwner] = useState<boolean>(false);
 
+  const onPressJoinCancel = () => {
+    setIsJoinModalOpen(false);
+  };
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   useEffect(() => {
     fetch();
   }, [route.params.id]);
@@ -64,11 +77,14 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
         await joinMeeting(meeting.id);
         await fetch();
       } else {
-        navigation.navigate('Login');
+        //TODO: 모임 참여 모달
+        setIsJoinModalOpen(true);
+        //navigation.navigate('Login');
       }
     } catch (e) {
       // TODO: 이미 가입한 모임이거나, 이미 꽉 찬 모임일 경우 에러 처리(Modal or Toast)
       console.warn(e);
+      ToastAndroid.show(e.toString(), ToastAndroid.SHORT);
     }
   };
 
@@ -153,10 +169,23 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           </View>
         </View>
         {!isJoined && (
-          <View style={styles.buttonContainer}>
-            <CommonButton label="가입하기" onPress={onPressJoinButton} />
+          <View>
+            <View style={styles.buttonContainer}>
+              <CommonButton label="가입하기" onPress={onPressJoinButton} />
+            </View>
+            <CommunityJoinModal
+              isJoinModalOpen={isJoinModalOpen}
+              onPressJoinCancel={onPressJoinCancel}
+              perf_image_url={meeting.perf_image_url}
+              perf_name={meeting.perf_name}
+              title={meeting.title}
+              perf_at={meeting.perf_at}
+              current_occupancy={meeting.current_occupancy}
+              max_occupancy={meeting.max_occupancy}
+            />
           </View>
         )}
+
         <CommunityQuitModal isVisible={isVisible} setIsVisible={setIsVisible} />
         {/* <CommentsModal isVisible={isVisible} setIsVisible={setIsVisible} /> */}
       </View>
