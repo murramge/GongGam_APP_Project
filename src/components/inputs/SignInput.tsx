@@ -45,6 +45,9 @@ const SignInput = ({
         error
           ? {borderColor: colors.MAIN_COLOR}
           : {borderColor: colors.GRAY_200},
+        type == 'editable'
+          ? {backgroundColor: colors.GRAY_200}
+          : {backgroundColor: colors.WHITE},
       ]}>
       <CommonInput
         label={label}
@@ -52,6 +55,7 @@ const SignInput = ({
         onChangeText={onChangeText}
         onBlur={onBlur}
         visiable={type === 'password' ? visiable : false}
+        editable={type === 'editable' ? false : true}
       />
       {type === 'password' && (
         <SecurityVisibleButton

@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import CommunityTemplates from '../template/Community/CommunityTemplates';
+import CommunityIntroduce from './CommunitySelect/CommunityIntroduce';
+import CommunitySummary from './CommunitySelect/CommunitySummary';
 
 interface CommunityProps {}
 

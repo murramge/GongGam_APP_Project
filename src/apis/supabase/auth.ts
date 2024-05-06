@@ -9,11 +9,9 @@ export const emailSignIn = async ({email, password}: EmailCredentials) => {
       email,
       password,
     });
-
     if (error) {
       throw error;
     }
-
     return data;
   } catch (e) {
     throw e;

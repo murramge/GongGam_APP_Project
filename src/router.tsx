@@ -11,7 +11,6 @@ import TicketingPage from './template/home/TicketingPage';
 import Search from '@pages/Search';
 import SearchResultPage from './template/home/SearchResultPage';
 import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
-import SignUp from '@pages/SignUp';
 import Login from '@pages/Login';
 import CommunitySelect from './pages/CommunitySelect/ArtSelectFirstStap';
 import NewPassword from './template/Sign/NewPasswordPage';
@@ -26,6 +25,11 @@ import CommunitySummary from '@pages/CommunitySelect/CommunitySummaryLastStap';
 import CommunitySelectLayOut from '@components/CommunitySelectLayOut';
 import Splash from '@pages/Splash';
 import MeetingIntroduce from '@pages/CommunitySelect/CommunityIntroduce';
+import MyPage from '@pages/MyPage';
+import AuthHome from '@pages/AuthHome';
+import SignUp from '@pages/SignUp';
+import ProfileEdit from '@pages/ProfileEdit';
+import Setting from '@pages/Setting';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -57,6 +61,8 @@ export type RootStackParamList = {
   FindPasswordPage: undefined;
   CommunitySelectLayOut: undefined;
   Login: undefined;
+  ProfileEdit: undefined;
+  Settings: undefined;
 };
 
 export type MainBottomTabParamList = {
@@ -77,8 +83,8 @@ const MainTab = () => {
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
       <Tab.Screen name="Community" component={CommunityTemplates} />
-      <Tab.Screen name="Calendar" component={Login} />
-      <Tab.Screen name="Profile" component={SignUp} />
+      <Tab.Screen name="Calendar" component={AuthHome} />
+      <Tab.Screen name="Profile" component={MyPage} />
     </Tab.Navigator>
   );
 };
@@ -126,7 +132,10 @@ function Router() {
       <Stack.Screen name="NewPasswordPage" component={NewPassword} />
       <Stack.Screen name="FindPasswordPage" component={FindPassword} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
+      <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
+      <Stack.Screen name="Settings" component={Setting}></Stack.Screen>
     </Stack.Navigator>
   );
 }

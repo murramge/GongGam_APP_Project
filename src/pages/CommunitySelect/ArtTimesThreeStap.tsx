@@ -1,7 +1,7 @@
 import StepHeader from '@components/header/StepHeader';
 import MultiStepFormBottom from '@components/multistepform/MultiStepFormBottom';
 import {colors} from '@styles/color';
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -26,7 +26,11 @@ const ArtTimesThreeStap = ({route}: any) => {
     const dateTime = dayjs(`${artday}T${artlist}`, 'YYYY-MM-DDTHH:mm');
     const isoString = dateTime.toISOString();
 
-    setValue('artTime', isoString, {
+    setValue('artDay', artday, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+    setValue('artTime', artlist, {
       shouldValidate: true,
       shouldDirty: true,
     });

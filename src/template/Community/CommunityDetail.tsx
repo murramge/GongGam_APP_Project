@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Share,
   Button,
   ToastAndroid,
 } from 'react-native';
@@ -121,7 +122,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           <View style={styles.iconArea}>
             <TouchableOpacity
               onPress={async () => {
-                //TODO: 공유 로직
+                await Share.share({message: `${perf_name} ${title}`});
               }}>
               <Image source={shareIcon} style={styles.icon} />
             </TouchableOpacity>

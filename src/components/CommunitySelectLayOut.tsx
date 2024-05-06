@@ -10,6 +10,7 @@ import ArtTimesThreeStap from '@pages/CommunitySelect/ArtTimesThreeStap';
 import CommunityDateSelect from '@pages/CommunitySelect/CommunityDateSelectFourStap';
 import CommunityIntroduce from '@pages/CommunitySelect/CommunityIntroduceFiveStap';
 import CommunitySummary from '@pages/CommunitySelect/CommunitySummaryLastStap';
+import {useNavigation} from '@react-navigation/native';
 
 interface CommunitySelectLayOutProps {
   label: any;
@@ -25,7 +26,7 @@ const CommunitySelectLayOut = ({label}: CommunitySelectLayOutProps) => {
     shouldFocusError: true,
     reValidateMode: 'onSubmit',
   });
-  const {handleSubmit, getValues, formState} = methods;
+  const {getValues} = methods;
   const [currentStep, setCurrentStep] = useState(1);
   const totalStep = 6;
 
@@ -52,6 +53,8 @@ const CommunitySelectLayOut = ({label}: CommunitySelectLayOutProps) => {
       case 3:
         return !values.artTime;
       case 5:
+        return !values.communityContext;
+      case 6:
         return !values.communityContext;
       default:
         return false;

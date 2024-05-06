@@ -14,14 +14,9 @@ const CommunityPlusButton = ({}: CommunityPlusButtonProps) => {
         justifyContent: 'flex-end',
         alignItems: 'center',
         flexDirection: 'row',
-        padding: 10,
       }}>
-      <TouchableOpacity
-        onPress={() => navigate('CommunitySelectLayOut')}
-        style={{
-          position: 'absolute',
-        }}>
-        <View style={{padding: 20}}>
+      <TouchableOpacity onPress={() => navigate('CommunitySelectLayOut')}>
+        <View style={{padding: 10}}>
           <Icon name="pluscircle" size={40} color={colors.MAIN_COLOR}></Icon>
         </View>
       </TouchableOpacity>
