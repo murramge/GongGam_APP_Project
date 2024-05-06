@@ -26,7 +26,7 @@ const AuthHome = ({}: AuthHomeProps) => {
     <View style={styles.container}>
       <LottieView
         source={require('@lotties/join.json')}
-        style={{width: 150, height: 150}}
+        style={styles.lottie}
         autoPlay
         loop
       />
@@ -56,9 +56,6 @@ const AuthHome = ({}: AuthHomeProps) => {
         <View style={styles.line} />
       </View>
       <View style={styles.iconArea}>
-        <TouchableOpacity>
-          <Image source={googleIcon} style={styles.icon} />
-        </TouchableOpacity>
         <TouchableOpacity onPress={onPressKakaoButton}>
           <Image source={kakaoIcon} style={styles.icon} />
         </TouchableOpacity>
@@ -73,12 +70,17 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 30,
+    paddingTop: 30,
+    backgroundColor: colors.WHITE,
   },
   logo: {
     width: 200,
     height: 42,
     marginBottom: 80,
+  },
+  lottie: {
+    width: 150,
+    height: 150,
   },
   button: {
     width: '90%',
@@ -119,13 +121,12 @@ const styles = StyleSheet.create({
     gap: 28,
   },
   icon: {
-    width: 70,
-    height: 70,
+    width: 183,
+    height: 45,
   },
 });
 
 export default AuthHome;
 
 const logo = require('../assets/images/logo.png');
-const googleIcon = require('../assets/icons/google_btn.png');
 const kakaoIcon = require('../assets/icons/kakao_btn.png');

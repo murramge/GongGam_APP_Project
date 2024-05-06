@@ -15,7 +15,7 @@ interface MainButtonProps {
 const CommonButton = ({
   label = '기본버튼',
   onPress,
-  borderRadius = 20,
+  borderRadius = 50,
   margin = 2,
   bgColor = colors.MAIN_COLOR,
   disabled = false,

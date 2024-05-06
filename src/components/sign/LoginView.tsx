@@ -56,7 +56,7 @@ const LoginView = () => {
         />
       ))}
       {isAuthFail && (
-        <Text style={{color: colors.MAIN_COLOR}}>
+        <Text style={{color: colors.MAIN_COLOR, marginLeft: 24}}>
           이메일 또는 비밀번호가 일치하지 않습니다.
         </Text>
       )}
@@ -69,6 +69,16 @@ const LoginView = () => {
       <View style={styles.button}>
         <CommonButton onPress={handleSubmit(onSignUpSubmit)} label="로그인" />
       </View>
+
+      <TouchableOpacity
+        onPress={() => {
+          navigate('SignUp');
+        }}
+        style={styles.authArea}>
+        <Text style={styles.authText}>
+          처음이신가요? <Text style={styles.pointText}>회원가입하기</Text>
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -92,6 +102,19 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 15,
+  },
+  authArea: {
+    alignItems: 'center',
+  },
+  authText: {
+    marginTop: 22,
+    color: colors.GRAY_300,
+    fontSize: 15,
+    marginBottom: 50,
+  },
+  pointText: {
+    color: colors.MAIN_COLOR,
+    fontWeight: '400',
   },
 });
 

@@ -84,7 +84,7 @@ const MainTab = () => {
       <Tab.Screen name="Performance" component={Home} />
       <Tab.Screen name="Community" component={CommunityTemplates} />
       <Tab.Screen name="Calendar" component={AuthHome} />
-      <Tab.Screen name="Profile" component={MyPage} />
+      <Tab.Screen name="Profile" component={Login} />
     </Tab.Navigator>
   );
 };
