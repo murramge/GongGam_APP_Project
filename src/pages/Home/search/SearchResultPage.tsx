@@ -15,6 +15,7 @@ import {AreaCode, GenreCode, PerformanceInfo} from '@apis/kopis.d';
 import {getPerformanceList} from '@apis/kopis';
 import moment from 'moment';
 import HorizontalCardList from '@components/common/cardlist/HorizontalCardList';
+import NotResult from '@components/common/cardlist/NotResult';
 
 interface SearchResultPageProps
   extends NativeStackScreenProps<
@@ -80,12 +81,16 @@ const SearchResultPage = ({route}: SearchResultPageProps) => {
       </View>
       <View style={styles.resultListContainer}>
         <Text style={styles.resultTotalText}>{results?.length}개의 결과</Text>
-        <HorizontalCardList
-          data={results.map(item => {
-            return item;
-          })}
-          type="search"
-        />
+        {results.length === 0 ? (
+          <NotResult />
+        ) : (
+          <HorizontalCardList
+            data={results.map(item => {
+              return item;
+            })}
+            type="search"
+          />
+        )}
       </View>
     </View>
   );
@@ -113,6 +118,7 @@ const styles = StyleSheet.create({
   resultTotalText: {
     color: colors.GRAY_500,
     fontSize: 13,
+    marginBottom: 5,
   },
 });
 
