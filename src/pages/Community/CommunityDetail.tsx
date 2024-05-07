@@ -17,7 +17,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../router';
+import {RootStackParamList} from '@router.d';
 import {
   getJoinedMeetings,
   getMeeting,

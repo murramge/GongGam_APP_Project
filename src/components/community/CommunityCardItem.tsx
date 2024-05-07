@@ -3,7 +3,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';
 import React, {useCallback} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {RootStackParamList} from '../../router';
+import {RootStackParamList} from '@router.d';
 import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/Ionicons';
 interface CommonArtCardItemProps {

@@ -12,7 +12,8 @@
       "@pages/*": ["./src/pages/*"],
       "@apis/*": ["./src/apis/*"],
       "@interfaces/*": ["./src/interfaces/*"],
-      "@common/*": ["./src/components/common/*"]
+      "@common/*": ["./src/components/common/*"],
+      "@*":["./src/*"]
     }
   }
 }

@@ -8,7 +8,7 @@ import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../router';
+import {RootStackParamList} from '@router.d';
 import {kakaoSignIn} from '@apis/supabase/auth';
 import Toast from 'react-native-toast-message';
 import Modal from 'react-native-modal';

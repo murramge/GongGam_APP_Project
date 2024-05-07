@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {colors} from '@styles/color';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../router';
+import {RootStackParamList} from '@router.d';
 interface SearchInputProps {
   type?: string;
   value?: string;

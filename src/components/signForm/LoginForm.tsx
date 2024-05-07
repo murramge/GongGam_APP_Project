@@ -16,7 +16,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {loginInputValue} from '@utils/sign';
 import {emailSignIn, resendVerificationEmail} from '@apis/supabase/auth';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../router';
+import {RootStackParamList} from '@router.d';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import Modal from 'react-native-modal';
 import Toast from 'react-native-toast-message';

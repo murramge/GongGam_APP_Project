@@ -10,9 +10,8 @@ import {NewPasswordInput} from '@utils/sign';
 import BackHeader from '@components/common/header/BackHeader';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../router';
-import {signInByPkceCode, updatePassword} from '@apis/supabase/auth';
-import {popToSpecificRoute} from '@utils/route';
+import {RootStackParamList} from '@router.d';
+import {signInByPkceCode} from '@apis/supabase/auth';
 import Toast from 'react-native-toast-message';
 
 const NewPassword = () => {

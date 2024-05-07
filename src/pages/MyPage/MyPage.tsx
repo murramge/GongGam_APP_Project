@@ -3,7 +3,7 @@ import MyPageHeader from '@components/common/header/MyPageHeader';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../router';
+import {RootStackParamList} from '@router.d';
 import {colors} from '@styles/color';
 import {signOut} from '@apis/supabase/auth';
 

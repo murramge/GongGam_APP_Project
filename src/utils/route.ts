@@ -1,5 +1,5 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../router';
+import {RootStackParamList} from '@router.d';
 
 export function popToSpecificRoute(
   navigation: NativeStackNavigationProp<RootStackParamList>,
