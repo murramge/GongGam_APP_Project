@@ -6,7 +6,6 @@ import {
 } from '@react-navigation/bottom-tabs';
 import Home from '@pages/Home/main/Home';
 import CustomBottomTabBar from '@components/common/CustomBottomTabBar';
-import DetailPage from './template/home/DetailPage';
 import TicketingPage from './pages/Home/booking/Booking';
 import Search from '@pages/Home/search/Search';
 import SearchResultPage from './pages/Home/search/SearchResultPage';
@@ -24,7 +23,7 @@ import CommunityIntroduce from '@pages/CommunitySelect/stappage/CommunityIntrodu
 import CommunitySummary from '@pages/CommunitySelect/stappage/CommunitySummaryLastStap';
 import CommunitySelectLayOut from '@components/communitySelect/CommunitySelectLayOut';
 import Splash from '@pages/Splash';
-import MeetingIntroduce from '@pages/CommunitySelect/CommunityIntroduce';
+
 import MyPage from '@pages/MyPage/MyPage';
 import AuthHome from '@pages/Sign/AuthHome';
 import SignUp from '@pages/Sign/SignUp';
@@ -85,7 +84,7 @@ const MainTab = () => {
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
       <Tab.Screen name="Community" component={Community} />
-      <Tab.Screen name="Calendar" component={SignUp} />
+      <Tab.Screen name="Calendar" component={AuthHome} />
       <Tab.Screen name="Profile" component={MyPage} />
     </Tab.Navigator>
   );

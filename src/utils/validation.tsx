@@ -7,7 +7,7 @@ const emailSchema = z
   .email({message: '이메일 형식을 지켜주세요!'});
 const passwordSchema = z
   .string()
-  .regex(PASSWORD_REGEX, '비밀번호 형식을 지켜주세요!');
+  .regex(PASSWORD_REGEX, '비밀번호: 9-20자, 영문+특수문자 필수');
 
 export const Signschema = z
   .object({
@@ -17,12 +17,14 @@ export const Signschema = z
       .email({message: '이메일 형식을 지켜주세요!'}),
     name: z
       .string()
-      .min(2, {message: '이름을 2자 이상 입력해주세요!'})
-      .max(10, {message: '이름을 10자 이하로 입력해주세요!'}),
-    password: z.string().regex(PASSWORD_REGEX, '비밀번호 형식을 지켜주세요!'),
+      .min(2, {message: '닉네임을 2자 이상 입력해주세요!'})
+      .max(10, {message: '닉네임을 10자 이하로 입력해주세요!'}),
+    password: z
+      .string()
+      .regex(PASSWORD_REGEX, '비밀번호: 9-20자, 영문+특수문자 필수'),
     checkPassword: z
       .string()
-      .regex(PASSWORD_REGEX, '비밀번호 형식을 지켜주세요!'),
+      .regex(PASSWORD_REGEX, '비밀번호: 9-20자, 영문+특수문자 필수'),
   })
   .superRefine(({checkPassword, password}, ctx) => {
     if (checkPassword !== password) {
@@ -46,7 +48,9 @@ export const Loginschema = z.object({
     .string()
     .min(1, {message: '이메일을 입력해주세요!'})
     .email({message: '이메일 형식을 지켜주세요!'}),
-  password: z.string().regex(PASSWORD_REGEX, '비밀번호 형식을 지켜주세요!'),
+  password: z
+    .string()
+    .regex(PASSWORD_REGEX, '비밀번호: 9-20자, 영문+특수문자 필수'),
 });
 
 export type LoginType = z.infer<typeof Loginschema>;
