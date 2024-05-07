@@ -10,6 +10,8 @@ import {modalVisibleAtom} from '@components/common/modals/AfterTicketingModal';
 import {useAtomValue, useSetAtom} from 'jotai';
 import usePerformanceDetailApi from '@pages/Home/detail/hooks/usePerformanceDetailApi';
 import DetailBookingHeader from '@components/common/header/DetailBookingHeader';
+import SmallButton from '../../../atoms/buttons/SmallButton';
+import {number} from 'zod';
 
 type TicketingPageRouteParams = {
   Ticketing: {
@@ -38,46 +40,16 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
     index,
   }) => {
     return (
-      <View
-        style={{
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          borderBottomWidth: 1,
-          borderBottomColor: colors.GRAY_200,
-          flexDirection: 'row',
-          paddingHorizontal: 20,
-          backgroundColor: colors.WHITE,
-        }}>
-        <View style={{paddingRight: 16}}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 30,
-            }}>
-            <View
-              style={{
-                backgroundColor: colors.GRAY_200,
-                height: 32,
-                width: 32,
-                borderRadius: 16,
-                position: 'absolute',
-                zIndex: 1,
-              }}></View>
+      <View style={styles.container}>
+        <View>
+          <View style={styles.wrapper}>
+            <View style={styles.numberBg}></View>
             <Text style={{zIndex: 2}}>{index + 1}</Text>
           </View>
         </View>
-        <Text
-          style={{
-            alignItems: 'center',
-            fontSize: 16,
-            fontWeight: '600',
-            color: colors.BLACK,
-          }}>
-          {price}
-        </Text>
+        <Text style={styles.priceText}>{price}</Text>
 
-        <CommonButton
+        <SmallButton
           label="예매하기"
           onPress={async () => {
             const searchQuery = `${encodeURIComponent(
@@ -93,13 +65,11 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
   };
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView style={styles.infoContainer}>
       <DetailBookingHeader detailInfo={detailInfo}></DetailBookingHeader>
-      <View style={{flexDirection: 'row', padding: 20}}>
-        <Text style={{fontSize: 16, fontWeight: '600', color: colors.BLACK}}>
-          예매정보
-        </Text>
-        <Text>({priceArray?.length})건</Text>
+      <View style={styles.infoWrapper}>
+        <Text style={styles.infoTitle}>예매정보 </Text>
+        <Text style={styles.booking}>({priceArray?.length})건</Text>
       </View>
       {/* pcseguidance이 여러개면 map돌리기 */}
       <View>
@@ -112,10 +82,16 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
           ))}
       </View>
 
-      <View style={{paddingHorizontal: 20, paddingTop: 30}}>
-        <Text>예매사이트의 링크 연결 기능만 제공합니다.</Text>
-        <Text>예매에 관련하여 어떠한 책임이 없습니다.</Text>
-        <Text>목록의 공연장을 포함, 조건을 꼭! 확인해주세요.</Text>
+      <View style={{paddingHorizontal: 20, paddingVertical: 30}}>
+        <Text style={styles.booking}>
+          예매사이트의 링크 연결 기능만 제공합니다.
+        </Text>
+        <Text style={styles.booking}>
+          예매에 관련하여 어떠한 책임이 없습니다.
+        </Text>
+        <Text style={styles.booking}>
+          목록의 공연장을 포함, 조건을 꼭! 확인해주세요.
+        </Text>
       </View>
       {modalVisibleAtom && <AfterTicketingModal />}
     </ScrollView>
@@ -123,6 +99,29 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: colors.GRAY_200,
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    backgroundColor: colors.WHITE,
+  },
+  wrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    marginVertical: 20,
+  },
+  numberBg: {
+    backgroundColor: colors.GRAY_200,
+    height: 32,
+    width: 32,
+    borderRadius: 16,
+    position: 'absolute',
+    zIndex: 1,
+  },
   detailHeader: {
     position: 'absolute',
     left: 0,
@@ -137,6 +136,15 @@ const styles = StyleSheet.create({
     height: 287,
     zIndex: 7,
     backgroundColor: colors.BLACK,
+  },
+  booking: {
+    color: colors.GRAY_300,
+  },
+  priceText: {
+    alignItems: 'center',
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.BLACK,
   },
   photoView: {
     position: 'absolute',
@@ -158,6 +166,18 @@ const styles = StyleSheet.create({
   photo: {
     width: '100%',
     height: 360,
+  },
+  infoContainer: {
+    flex: 1,
+  },
+  infoWrapper: {
+    flexDirection: 'row',
+    padding: 20,
+  },
+  infoTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.BLACK,
   },
 });
 
