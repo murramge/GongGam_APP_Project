@@ -1,18 +1,41 @@
 import {colors} from '@styles/color';
 import LottieView from 'lottie-react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../router';
 import {kakaoSignIn} from '@apis/supabase/auth';
+import Toast from 'react-native-toast-message';
+import Modal from 'react-native-modal';
 
-interface AuthHomeProps {}
+interface AuthHomeProps
+  extends NativeStackScreenProps<RootStackParamList, 'AuthHome'> {}
 
-const AuthHome = ({}: AuthHomeProps) => {
+const AuthHome = ({route}: AuthHomeProps) => {
+  const [isEmailConfirmModalVisible, setIsEmailConfirmModalVisible] =
+    useState(false);
   const {navigate, goBack} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  useEffect(() => {
+    if (!route.params) {
+      return;
+    }
+
+    if ('code' in route.params) {
+      Toast.show({
+        text1: '이메일 인증이 완료되었습니다!',
+        type: 'success',
+      });
+    } else if ('error' in route.params) {
+      setIsEmailConfirmModalVisible(true);
+    }
+  }, [route.params, route.path]);
 
   const onPressKakaoButton = async () => {
     try {
@@ -23,44 +46,57 @@ const AuthHome = ({}: AuthHomeProps) => {
   };
 
   return (
-    <View style={styles.container}>
-      <LottieView
-        source={require('@lotties/join.json')}
-        style={{width: 150, height: 150}}
-        autoPlay
-        loop
-      />
-      <View>
-        <Image source={logo} style={styles.logo} />
-      </View>
-      <TouchableOpacity style={styles.button}>
-        <CommonButton
-          label="회원가입"
-          onPress={() => {
-            navigate('SignUp');
-          }}
+    <>
+      <View style={styles.container}>
+        <LottieView
+          source={require('@lotties/join.json')}
+          style={{width: 150, height: 150}}
+          autoPlay
+          loop
         />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigate('Login');
-        }}
-        style={styles.authArea}>
-        <Text style={styles.authText}>
-          회원이신가요? <Text style={styles.pointText}>로그인하기</Text>
-        </Text>
-      </TouchableOpacity>
-      <View style={styles.snsInfoArea}>
-        <View style={styles.line} />
-        <Text style={styles.snsInfoText}>소셜 로그인 하기</Text>
-        <View style={styles.line} />
-      </View>
-      <View style={styles.iconArea}>
-        <TouchableOpacity onPress={onPressKakaoButton}>
-          <Image source={kakaoIcon} style={styles.icon} />
+        <View>
+          <Image source={logo} style={styles.logo} />
+        </View>
+        <TouchableOpacity style={styles.button}>
+          <CommonButton
+            label="회원가입"
+            onPress={() => {
+              navigate('SignUp');
+            }}
+          />
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigate('Login');
+          }}
+          style={styles.authArea}>
+          <Text style={styles.authText}>
+            회원이신가요? <Text style={styles.pointText}>로그인하기</Text>
+          </Text>
+        </TouchableOpacity>
+        <View style={styles.snsInfoArea}>
+          <View style={styles.line} />
+          <Text style={styles.snsInfoText}>소셜 로그인 하기</Text>
+          <View style={styles.line} />
+        </View>
+        <View style={styles.iconArea}>
+          <TouchableOpacity onPress={onPressKakaoButton}>
+            <Image source={kakaoIcon} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+      <Modal
+        isVisible={isEmailConfirmModalVisible}
+        onBackdropPress={() => setIsEmailConfirmModalVisible(false)}>
+        <Text>{'인증 메일이 만료되었거나 유효하지 않습니다.'}</Text>
+        <TouchableOpacity>
+          <Text>인증메일 재전송</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setIsEmailConfirmModalVisible(false)}>
+          <Text>취소</Text>
+        </TouchableOpacity>
+      </Modal>
+    </>
   );
 };
 
