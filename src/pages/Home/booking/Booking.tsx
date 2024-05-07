@@ -4,12 +4,12 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Image, ScrollView, Linking} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../../atoms/buttons/CommonButton';
-import AfterTicketingModal from '@common/modals/AfterTicketingModal';
+import AfterTicketingModal from '@components/common/modals/AfterTicketingModal';
 
-import {modalVisibleAtom} from '@common/modals/AfterTicketingModal';
+import {modalVisibleAtom} from '@components/common/modals/AfterTicketingModal';
 import {useAtomValue, useSetAtom} from 'jotai';
 import usePerformanceDetailApi from '@pages/Home/detail/hooks/usePerformanceDetailApi';
-import DetailBookingHeader from '@common/header/DetailBookingHeader';
+import DetailBookingHeader from '@components/common/header/DetailBookingHeader';
 
 type TicketingPageRouteParams = {
   Ticketing: {

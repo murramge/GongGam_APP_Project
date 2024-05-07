@@ -4,7 +4,7 @@ import CommunityList from '@components/communitySelect/CommunityList';
 import MyCommunityList from '@components/communitySelect/MyCommunityList';
 import CommunitySelectLayOut from '@components/communitySelect/CommunitySelectLayOut';
 import {useFormContext} from 'react-hook-form';
-import MultiStepFormBottom from '@common/multistepform/MultiStepFormBottom';
+import MultiStepFormBottom from '@components/common/multistepform/MultiStepFormBottom';
 import {useNavigation} from '@react-navigation/native';
 
 const CommunitySelect = () => {

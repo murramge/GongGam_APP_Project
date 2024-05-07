@@ -11,7 +11,7 @@ import {Calendar, DateData} from 'react-native-calendars';
 import {colors} from '@styles/color';
 import CancelButton from '../../../atoms/buttons/CancelButton';
 import CalendarButton from '../../../atoms/buttons/CalendarButton';
-import SearchInput from '@common/input/SearchInput';
+import SearchInput from '@components/common/input/SearchInput';
 import useRecentSearch from './hooks/useRecentSearch';
 import moment, {Moment} from 'moment';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';

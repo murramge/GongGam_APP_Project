@@ -11,7 +11,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import CommunityWithdrawModal from '@common/modals/CommunityWithdrawModal';
+import CommunityWithdrawModal from '@components/common/modals/CommunityWithdrawModal';
 
 interface CommunityQuitModalProps {
   isVisible: boolean;

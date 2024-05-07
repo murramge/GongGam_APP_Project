@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Image, TextInput} from 'react-native';
 import {colors} from '@styles/color';
 
-import BackHeader from '@common/header/BackHeader';
+import BackHeader from '@components/common/header/BackHeader';
 import CommonButton from '../../../atoms/buttons/CommonButton';
-import StepHeader from '@common/header/StepHeader';
-import MultiStepFormBottom from '@common/multistepform/MultiStepFormBottom';
+import StepHeader from '@components/common/header/StepHeader';
+import MultiStepFormBottom from '@components/common/multistepform/MultiStepFormBottom';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../router';

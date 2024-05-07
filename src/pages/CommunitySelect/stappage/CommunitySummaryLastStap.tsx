@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
-import BackHeader from '@common/header/BackHeader';
+import BackHeader from '@components/common/header/BackHeader';
 import {useFormContext} from 'react-hook-form';
 
 const CommunitySummary = () => {

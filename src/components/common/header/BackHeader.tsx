@@ -4,7 +4,7 @@ import React, {ReactNode} from 'react';
 import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {RootStackParamList} from '../../router';
+import {RootStackParamList} from '../../../router';
 
 interface BackHeaderProps {
   Color?: {

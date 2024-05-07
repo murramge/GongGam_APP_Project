@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import CommonInput from '../../atoms/inputs/CommonInput';
+import CommonInput from '../../../atoms/inputs/CommonInput';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {colors} from '@styles/color';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../router';
+import {RootStackParamList} from '../../../router';
 interface SearchInputProps {
   type?: string;
   value?: string;

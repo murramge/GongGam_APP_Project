@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import CommonButton from '../../atoms/buttons/CommonButton';
+import CommonButton from '../../../atoms/buttons/CommonButton';
 import {colors} from '@styles/color';
 
 interface MultiStepFormBottomProps extends StepIndicatorProps {

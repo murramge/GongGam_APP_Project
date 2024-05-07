@@ -1,4 +1,4 @@
-import DetailBookingHeader from '@common/header/DetailBookingHeader';
+import DetailBookingHeader from '@components/common/header/DetailBookingHeader';
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import DetailPageInfo from '../../../components/detail/DetailPageInfo';

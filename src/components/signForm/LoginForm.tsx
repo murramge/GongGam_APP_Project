@@ -2,7 +2,7 @@ import {colors} from '@styles/color';
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
-import SignInput from '@common/input/SignInput';
+import SignInput from '@components/common/input/SignInput';
 import {LoginType} from '@utils/validation';
 import {useForm, Controller} from 'react-hook-form';
 import {loginInputValue} from '@utils/sign';

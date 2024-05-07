@@ -2,14 +2,14 @@ import React from 'react';
 import {colors} from '@styles/color';
 import {StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../../atoms/buttons/CommonButton';
-import SignInput from '@common/input/SignInput';
+import SignInput from '@components/common/input/SignInput';
 import {
   PasswordResetEmailSchema,
   PasswordResetEmailType,
 } from '@utils/validation';
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
-import BackHeader from '@common/header/BackHeader';
+import BackHeader from '@components/common/header/BackHeader';
 import {sendPasswordResetLink} from '@apis/supabase/auth';
 
 const FindPassword = () => {
