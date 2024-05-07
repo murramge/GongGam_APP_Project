@@ -12,12 +12,12 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../router';
 import {signInByPkceCode, updatePassword} from '@apis/supabase/auth';
-import {StackActions} from '@react-navigation/native';
-import {CommonActions} from '@react-navigation/native';
+import {popToSpecificRoute} from '@utils/route';
+import Toast from 'react-native-toast-message';
 
 const NewPassword = () => {
   const {params} = useRoute<RouteProp<RootStackParamList, 'NewPasswordPage'>>();
-  const {replace, goBack} =
+  const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const {control, handleSubmit} = useForm<PasswordResetType>({
@@ -34,22 +34,17 @@ const NewPassword = () => {
       try {
         await signInByPkceCode(params.code);
       } catch (e) {
-        goBack();
+        // goBack();
       }
     }
   }, [params]);
 
   const onSubmit = async ({password}: PasswordResetType) => {
-    const navigation = useNavigation();
-
     try {
-      await updatePassword(password);
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{name: 'Login'}],
-        }),
-      );
+      // await updatePassword(password);
+
+      navigation.replace('Login');
+      Toast.show({text1: '비밀번호가 재설정되었습니다.', type: 'success'});
     } catch (error) {
       console.error(error);
     }

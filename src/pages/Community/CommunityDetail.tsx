@@ -46,6 +46,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   useEffect(() => {
     fetch();
   }, [route.params.id]);
+
   const fetch = async () => {
     try {
       const [fetchedMeeting, joinedMeetings] = await Promise.all([

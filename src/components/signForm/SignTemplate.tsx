@@ -6,8 +6,6 @@ import SignUpForm from '@components/signForm/signUpForm';
 import LoginForm from '@components/signForm/LoginForm';
 import LottieView from 'lottie-react-native';
 
-const samplelogo = require('@images/samplelogo.png');
-
 interface SignTemplateProps {
   type: string;
 }

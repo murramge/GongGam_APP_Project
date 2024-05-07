@@ -22,8 +22,12 @@ import {
   emailSignUp,
 } from '@apis/supabase/auth';
 import {useNavigation} from '@react-navigation/native';
+import AlramModal from '@components/common/modals/AlramModal';
+import Toast from 'react-native-toast-message';
 
 const SignUpForm = () => {
+  const [isSignUpCompleteModalVisible, setIsSignUpCompleteModalVisible] =
+    useState(false);
   const navigation = useNavigation();
   const {control, handleSubmit, getValues, trigger, setError} =
     useForm<SignType>({
@@ -36,112 +40,101 @@ const SignUpForm = () => {
       resolver: zodResolver(Signschema),
     });
 
-  const checkDuplication = async (field: DuplicateCheckFieldKey) => {
-    if (!(await trigger(field))) {
+  const checkDuplication = async (field: keyof SignType) => {
+    if (field !== 'email') {
       return;
     }
-    if (
-      await (field === 'email'
-        ? checkEmailDuplication
-        : checkNicknameDuplication)(getValues(field))
-    ) {
+
+    if (await checkEmailDuplication(getValues(field))) {
       setError(field, {message: DuplicationCheckField[field].message});
       return true;
     }
     return false;
   };
 
-  const onSignUpSubmit = async (data: SignType) => {
-    if ((await checkDuplication('email')) || (await checkDuplication('name'))) {
+  const onSignUpSubmit = async ({email, name, password}: SignType) => {
+    if (await checkDuplication('email')) {
       return;
     }
 
     try {
-      const {email, name, password} = data;
-
       await emailSignUp({email, password, nickname: name});
-      navigation.navigate('Login');
+
+      setIsSignUpCompleteModalVisible(true);
     } catch (e) {
-      console.log(e);
+      Toast.show({text1: '에러가 발생했습니다.', type: 'error'});
     }
   };
 
-  const onBlurDuplicateCheckField = async (field: DuplicateCheckFieldKey) => {
-    await checkDuplication(field);
-  };
-
   return (
-    <ScrollView
-      style={{
-        flex: 1,
-        width: '100%',
-        backgroundColor: colors.WHITE,
-      }}>
-      <View style={styles.inputContainer}>
-        {signInputValue.map((item, index) => (
-          <Controller
-            key={index}
-            control={control}
-            name={item.name}
-            defaultValue={''}
-            render={({field: {value, onChange}, fieldState: {error}}) => (
-              <>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.title}>{item.label}</Text>
-                  {error && (
-                    <Text
-                      style={{
-                        color: colors.MAIN_COLOR,
-                        fontSize: 11,
-                        paddingRight: 15,
-                      }}>
-                      {error.message}
-                    </Text>
-                  )}
-                </View>
-                <SignInput
-                  label={item.label}
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={
-                    item.name === 'email' || item.name === 'name'
-                      ? async () => {
-                          onBlurDuplicateCheckField(
-                            item.name as DuplicateCheckFieldKey,
-                          );
-                        }
-                      : undefined
-                  }
-                  type={item.type}
-                  error={error}
-                />
-              </>
-            )}
-          />
-        ))}
+    <>
+      <ScrollView
+        style={{
+          flex: 1,
+          width: '100%',
+          backgroundColor: colors.WHITE,
+        }}>
+        <View style={styles.inputContainer}>
+          {signInputValue.map((item, index) => (
+            <Controller
+              key={index}
+              control={control}
+              name={item.name}
+              defaultValue={''}
+              render={({field: {value, onChange}, fieldState: {error}}) => (
+                <>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text style={styles.title}>{item.label}</Text>
+                    {error && (
+                      <Text
+                        style={{
+                          color: colors.MAIN_COLOR,
+                          fontSize: 11,
+                          paddingRight: 15,
+                        }}>
+                        {error.message}
+                      </Text>
+                    )}
+                  </View>
+                  <SignInput
+                    label={item.label}
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={() => checkDuplication(item.name)}
+                    type={item.type}
+                    error={error}
+                  />
+                </>
+              )}
+            />
+          ))}
 
-        <View style={styles.button}>
-          <CommonButton
-            onPress={handleSubmit(onSignUpSubmit, e => {
-              console.log(e);
-            })}
-            label="회원가입"
-          />
+          <View style={styles.button}>
+            <CommonButton
+              onPress={handleSubmit(onSignUpSubmit, e => {
+                console.log(e);
+              })}
+              label="회원가입"
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      <AlramModal
+        isVisible={isSignUpCompleteModalVisible}
+        content={'회원가입이 완료되었습니다.\n이메일 인증을 완료해주세요!'}
+        onPressConfirm={() => navigation.goBack()}
+      />
+    </>
   );
 };
 
 const DuplicationCheckField = {
   email: {message: '이미 사용중인 이메일입니다!'},
-  name: {message: '이미 사용중인 닉네임입니다!'},
 } as const;
-type DuplicateCheckFieldKey = keyof typeof DuplicationCheckField;
 
 const styles = StyleSheet.create({
   inputContainer: {
