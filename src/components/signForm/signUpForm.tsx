@@ -16,11 +16,7 @@ import {SignType, Signschema} from '@utils/validation';
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {signInputValue} from '@utils/sign';
-import {
-  checkEmailDuplication,
-  checkNicknameDuplication,
-  emailSignUp,
-} from '@apis/supabase/auth';
+import {checkEmailDuplication, emailSignUp} from '@apis/supabase/auth';
 import {useNavigation} from '@react-navigation/native';
 import AlramModal from '@components/common/modals/AlramModal';
 import Toast from 'react-native-toast-message';
@@ -29,16 +25,15 @@ const SignUpForm = () => {
   const [isSignUpCompleteModalVisible, setIsSignUpCompleteModalVisible] =
     useState(false);
   const navigation = useNavigation();
-  const {control, handleSubmit, getValues, trigger, setError} =
-    useForm<SignType>({
-      defaultValues: {
-        email: '',
-        name: '',
-        password: '',
-        checkPassword: '',
-      },
-      resolver: zodResolver(Signschema),
-    });
+  const {control, handleSubmit, getValues, setError} = useForm<SignType>({
+    defaultValues: {
+      email: '',
+      name: '',
+      password: '',
+      checkPassword: '',
+    },
+    resolver: zodResolver(Signschema),
+  });
 
   const checkDuplication = async (field: keyof SignType) => {
     if (field !== 'email') {
