@@ -4,7 +4,7 @@ import MainCategories from '@components/main/MainCategories';
 import React from 'react';
 import {View} from 'react-native';
 
-import SearchHeaderButton from '../../../common/button/SearchHeaderButton';
+import SearchHeaderButton from '../../../components/common/button/SearchHeaderButton';
 import useCategorizedPerformances from '@pages/Home/main/hooks/useCategorizedPerformances';
 import usePerformanceDate from '@pages/Home/main/hooks/usePerformanceDate';
 import usePerformanceApi from '@pages/Home/main/hooks/usePerformanceApi';

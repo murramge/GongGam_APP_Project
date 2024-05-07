@@ -14,7 +14,7 @@ dayjs.extend(isSameOrBefore);
 import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
 import utc from 'dayjs/plugin/utc';
-import MultiStepFormBottom from '@common/multistepform/MultiStepFormBottom';
+import MultiStepFormBottom from '@components/common/multistepform/MultiStepFormBottom';
 import {atom, useAtom} from 'jotai';
 import CommunitySelectLayOut from '@components/communitySelect/CommunitySelectLayOut';
 dayjs.extend(utc);

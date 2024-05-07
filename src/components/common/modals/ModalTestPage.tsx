@@ -1,8 +1,8 @@
 // 모달을 불러오는 더미 페이지 입니다.
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import CommunityWithdrawModal from '@common/modals/CommunityWithdrawModal';
-import CommunityJoinModal from '@common/modals/CommunityJoinModal';
+import CommunityWithdrawModal from '@components/common/modals/CommunityWithdrawModal';
+import CommunityJoinModal from '@components/common/modals/CommunityJoinModal';
 import {Button} from 'react-native';
 import {useState} from 'react';
 

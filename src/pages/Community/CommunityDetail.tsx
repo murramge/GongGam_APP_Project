@@ -9,9 +9,9 @@ import {
   Button,
   ToastAndroid,
 } from 'react-native';
-import BackHeader from '@common/header/BackHeader';
-import CommunityQuitModal from '@common/modals/CommunityQuitModal';
-import CommunityJoinModal from '@common/modals/CommunityJoinModal';
+import BackHeader from '@components/common/header/BackHeader';
+import CommunityQuitModal from '@components/common/modals/CommunityQuitModal';
+import CommunityJoinModal from '@components/common/modals/CommunityJoinModal';
 import {colors} from '@styles/color';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';

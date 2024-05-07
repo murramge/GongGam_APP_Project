@@ -6,7 +6,7 @@ import {
   TextInputFocusEventData,
   NativeSyntheticEvent,
 } from 'react-native';
-import CommonInput from '../../atoms/inputs/CommonInput';
+import CommonInput from '../../../atoms/inputs/CommonInput';
 import {colors} from '@styles/color';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {FieldError} from 'react-hook-form';

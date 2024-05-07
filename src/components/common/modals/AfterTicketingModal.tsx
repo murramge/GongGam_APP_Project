@@ -1,41 +1,42 @@
 import React from 'react';
 import {View, Text, Modal, StyleSheet, Pressable} from 'react-native';
+
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
-import CommonButton from '../../atoms/buttons/CommonButton';
+import CommonButton from '../../../atoms/buttons/CommonButton';
+import {atom, useAtom, useSetAtom} from 'jotai';
+export const modalVisibleAtom = atom(false); //초기화
 
-const CommunityWithdrawModal = ({
-  isWithdrawModalOpen,
-  onPressWithdrawCancel,
-}: {
-  isWithdrawModalOpen: boolean;
-  onPressWithdrawCancel: () => void;
-}) => {
+const AfterTicketingModal = () => {
+  const [modalVisible, setModalVisible] = useAtom(modalVisibleAtom);
+
   return (
     <View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isWithdrawModalOpen}>
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <LottieView
-              source={require('@lotties/join.json')}
-              style={{width: 100, height: 100}}
+              source={require('@lotties/ticket.json')}
+              style={{width: 150, height: 150}}
               autoPlay
               loop
             />
-            <Text style={styles.communityName}>모임명</Text>
-
-            <Text style={styles.modalText}>모임을{'\n'}탈퇴하시겠습니까?</Text>
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: '700',
+                color: colors.BLACK,
+                textAlign: 'center',
+                paddingBottom: 24,
+              }}>
+              예매를 완료하셨습니까?{'\n'}
+              완료하셨다면 정보를{'\n'}
+              등록해주세요
+            </Text>
             <View style={{paddingBottom: 10, width: 300}}>
               <CommonButton
-                label="예"
-                borderRadius={32}
-                onPress={() => {
-                  console.log('모임탈퇴처리');
-                  onPressWithdrawCancel();
-                }}
+                label="등록하러 가기"
+                onPress={() => console.log('등록페이지로 이동')}
               />
             </View>
             <Pressable
@@ -47,7 +48,7 @@ const CommunityWithdrawModal = ({
                 borderRadius: 32,
                 margin: 2,
               }}
-              onPress={onPressWithdrawCancel}>
+              onPress={() => setModalVisible(false)}>
               <Text style={styles.textStyle}>아니요</Text>
             </Pressable>
           </View>
@@ -79,24 +80,20 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  communityName: {
-    color: colors.BLACK,
-    textAlign: 'center',
-    paddingBottom: 10,
-    fontSize: 18,
-  },
-  modalText: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: colors.BLACK,
-    textAlign: 'center',
-    paddingBottom: 24,
-  },
 });
 
-export default CommunityWithdrawModal;
+export default AfterTicketingModal;

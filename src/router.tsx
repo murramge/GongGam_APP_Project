@@ -5,7 +5,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import Home from '@pages/Home/main/Home';
-import CustomBottomTabBar from '@common/CustomBottomTabBar';
+import CustomBottomTabBar from '@components/common/CustomBottomTabBar';
 import DetailPage from './template/home/DetailPage';
 import TicketingPage from './pages/Home/booking/Booking';
 import Search from '@pages/Home/search/Search';

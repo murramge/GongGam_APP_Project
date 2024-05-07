@@ -1,8 +1,8 @@
 import {colors} from '@styles/color';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import StepHeader from '../../common/header/StepHeader';
-import MultiStepFormBottom from '../../common/multistepform/MultiStepFormBottom';
+import StepHeader from '../common/header/StepHeader';
+import MultiStepFormBottom from '../common/multistepform/MultiStepFormBottom';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 import CommunitySelect from '@pages/CommunitySelect/stappage/ArtSelectFirstStap';
 import ArtDaysTwoStap from '@pages/CommunitySelect/stappage/ArtDaysTwoStap';

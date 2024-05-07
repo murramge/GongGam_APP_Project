@@ -1,6 +1,6 @@
 import SettingsItems from '@pages/MyPage/setting/SettingsItems';
 import SettingsList from '@pages/MyPage/setting/SettingsList';
-import BackHeader from '@common/header/BackHeader';
+import BackHeader from '@components/common/header/BackHeader';
 import {colors} from '@styles/color';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';

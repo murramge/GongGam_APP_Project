@@ -1,13 +1,13 @@
 import React from 'react';
 import {View, Text, Image, Modal, Pressable, StyleSheet} from 'react-native';
 import {colors} from '@styles/color';
-import CommonButton from '../../atoms/buttons/CommonButton';
+import CommonButton from '../../../atoms/buttons/CommonButton';
 import dayjs from 'dayjs';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../router';
+import {RootStackParamList} from '../../../router';
 interface CommunityJoinModalProps {
   isJoinModalOpen: boolean;
   onPressJoinCancel: () => void;

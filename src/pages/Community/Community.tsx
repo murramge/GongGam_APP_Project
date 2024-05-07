@@ -6,9 +6,9 @@ import {colors} from '@styles/color';
 import CommunityTabBar from '@components/community/CommunityTabBar';
 import {useAtomValue} from 'jotai';
 
-import BackHeader from '@common/header/BackHeader';
+import BackHeader from '@components/common/header/BackHeader';
 import {CommunityDataAtom} from './hooks/useMettingApi';
-import HorizontalCardList from '@common/cardlist/HorizontalCardList';
+import HorizontalCardList from '@components/common/cardlist/HorizontalCardList';
 import CommunityCreate from '../../components/community/CommunityCreate';
 
 const Community = () => {

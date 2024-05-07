@@ -8,13 +8,13 @@ import {
 } from 'react-native';
 import RecentButton from '../../../atoms/buttons/RecentButton';
 import {colors} from '@styles/color';
-import SearchHeaderButton from '../../../common/button/SearchHeaderButton';
+import SearchHeaderButton from '../../../components/common/button/SearchHeaderButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../router';
 import {AreaCode, GenreCode, PerformanceInfo} from '@apis/kopis.d';
 import {getPerformanceList} from '@apis/kopis';
 import moment from 'moment';
-import HorizontalCardList from '@common/cardlist/HorizontalCardList';
+import HorizontalCardList from '@components/common/cardlist/HorizontalCardList';
 
 interface SearchResultPageProps
   extends NativeStackScreenProps<

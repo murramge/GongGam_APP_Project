@@ -1,5 +1,5 @@
 import MyPageMainList from '@pages/MyPage/MyPageMainList';
-import MyPageHeader from '@common/header/MyPageHeader';
+import MyPageHeader from '@components/common/header/MyPageHeader';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 

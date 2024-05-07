@@ -1,5 +1,5 @@
-import StepHeader from '@common/header/StepHeader';
-import MultiStepFormBottom from '@common/multistepform/MultiStepFormBottom';
+import StepHeader from '@components/common/header/StepHeader';
+import MultiStepFormBottom from '@components/common/multistepform/MultiStepFormBottom';
 import {colors} from '@styles/color';
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';

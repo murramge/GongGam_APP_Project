@@ -1,5 +1,5 @@
-import StepHeader from '@common/header/StepHeader';
-import MultiStepFormBottom from '@common/multistepform/MultiStepFormBottom';
+import StepHeader from '@components/common/header/StepHeader';
+import MultiStepFormBottom from '@components/common/multistepform/MultiStepFormBottom';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';

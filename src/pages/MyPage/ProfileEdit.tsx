@@ -1,8 +1,8 @@
-import MyPageHeader from '@common/header/MyPageHeader';
+import MyPageHeader from '@components/common/header/MyPageHeader';
 import React, {useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
-import SignInput from '@common/input/SignInput';
+import SignInput from '@components/common/input/SignInput';
 import {colors} from '@styles/color';
 
 interface ProfileEditProps {}
