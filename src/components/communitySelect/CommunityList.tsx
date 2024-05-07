@@ -2,7 +2,7 @@ import {colors} from '@styles/color';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 
-import CommunityItem from '@pages/CommunitySelect/CommunityItem';
+import CommunityItem from '@components/communitySelect/CommunityItem';
 import {
   PerformanceBoxOffice,
   PerformanceCategory,

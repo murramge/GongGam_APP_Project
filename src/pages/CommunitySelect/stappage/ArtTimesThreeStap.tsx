@@ -8,7 +8,7 @@ import 'dayjs/locale/ko';
 import {useAtomValue} from 'jotai';
 import {scheduleAtom} from './ArtDaysTwoStap';
 import {useNavigation} from '@react-navigation/native';
-import CommunitySelectLayOut from '@pages/CommunitySelect/CommunitySelectLayOut';
+import CommunitySelectLayOut from '@components/communitySelect/CommunitySelectLayOut';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 import {date} from 'zod';
 dayjs.locale('ko');

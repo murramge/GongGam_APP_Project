@@ -1,5 +1,5 @@
 import React from 'react';
-import SignTemplate from './signForm/SignTemplate';
+import SignTemplate from '../../components/signForm/SignTemplate';
 
 const SignUp = () => {
   return <SignTemplate type="signup"></SignTemplate>;

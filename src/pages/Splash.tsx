@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const logo = require('../assets/images/logo.png');
+const logo = require('@images/logo.png');

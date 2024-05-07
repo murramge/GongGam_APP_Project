@@ -1,14 +1,14 @@
 import {colors} from '@styles/color';
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import CommonButton from '../../../atoms/buttons/CommonButton';
+import CommonButton from '../../atoms/buttons/CommonButton';
 import SignInput from '@common/input/SignInput';
 import {LoginType} from '@utils/validation';
 import {useForm, Controller} from 'react-hook-form';
 import {loginInputValue} from '@utils/sign';
 import {emailSignIn} from '@apis/supabase/auth';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../router';
+import {RootStackParamList} from '../../router';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const LoginForm = () => {

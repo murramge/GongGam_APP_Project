@@ -16,7 +16,7 @@ dayjs.extend(isBetween);
 import utc from 'dayjs/plugin/utc';
 import MultiStepFormBottom from '@common/multistepform/MultiStepFormBottom';
 import {atom, useAtom} from 'jotai';
-import CommunitySelectLayOut from '@pages/CommunitySelect/CommunitySelectLayOut';
+import CommunitySelectLayOut from '@components/communitySelect/CommunitySelectLayOut';
 dayjs.extend(utc);
 import {useForm, useFormContext} from 'react-hook-form';
 

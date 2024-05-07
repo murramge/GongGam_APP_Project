@@ -4,8 +4,7 @@ import {colors} from '@styles/color';
 import React, {useCallback} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Config from 'react-native-config';
-import {RootStackParamList} from '../../../router';
-import useDetailNavigation from './hooks/useDetailNavigation';
+import useDetailNavigation from '@pages/Home/main/hooks/useDetailNavigation';
 
 interface MainPageBottomCardItemProps {
   photoUrl?: string;

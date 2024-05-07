@@ -9,8 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Config from 'react-native-config';
-import {RootStackParamList} from '../../../router';
-import useDetailNavigation from './hooks/useDetailNavigation';
+import useDetailNavigation from '@pages/Home/main/hooks/useDetailNavigation';
 
 interface MainPageTopCardItemProps {
   photoUrl?: string;

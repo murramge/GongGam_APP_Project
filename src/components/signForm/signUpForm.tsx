@@ -1,7 +1,7 @@
 import {colors} from '@styles/color';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Alert} from 'react-native';
-import CommonButton from '../../../atoms/buttons/CommonButton';
+import CommonButton from '../../atoms/buttons/CommonButton';
 import SignInput from '@common/input/SignInput';
 import {SignType, Signschema} from '@utils/validation';
 import {useForm, Controller} from 'react-hook-form';

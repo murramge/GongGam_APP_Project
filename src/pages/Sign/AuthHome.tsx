@@ -126,6 +126,6 @@ const styles = StyleSheet.create({
 
 export default AuthHome;
 
-const logo = require('../../assets/images/logo.png');
-const googleIcon = require('../../assets/icons/google_btn.png');
-const kakaoIcon = require('../../assets/icons/kakao_btn.png');
+const logo = require('@images/logo.png');
+const googleIcon = require('@icons/google_btn.png');
+const kakaoIcon = require('@icons/kakao_btn.png');

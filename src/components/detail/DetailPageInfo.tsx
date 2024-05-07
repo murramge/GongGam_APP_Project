@@ -2,7 +2,7 @@ import {colors} from '@styles/color';
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {useAtomValue} from 'jotai';
-import {detailDataAtom} from './hooks/usePerformanceDetailApi';
+import {detailDataAtom} from '../../pages/Home/detail/hooks/usePerformanceDetailApi';
 
 const DetailPageInfo = () => {
   const detailInfo = useAtomValue(detailDataAtom);

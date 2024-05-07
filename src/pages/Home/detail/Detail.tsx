@@ -1,9 +1,9 @@
 import DetailBookingHeader from '@common/header/DetailBookingHeader';
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import DetailPageInfo from './DetailPageInfo';
-import DetailPageContent from './DetailPageContent';
-import DetailPageMap from './DetailPageMap';
+import DetailPageInfo from '../../../components/detail/DetailPageInfo';
+import DetailPageContent from '../../../components/detail/DetailPageContent';
+import DetailPageMap from '../../../components/detail/DetailPageMap';
 import CommonButton from '../../../atoms/buttons/CommonButton';
 import usePerformanceDetailApi from './hooks/usePerformanceDetailApi';
 import {ActivityIndicator} from 'react-native';

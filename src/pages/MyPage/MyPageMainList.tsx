@@ -4,7 +4,7 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 
 import {PerformanceBoxOffice} from '@apis/kopis.d';
 import {getPerformanceBoxOffice} from '@apis/kopis';
-import MyCommunityItem from '@pages/CommunitySelect/MyCommunityItem';
+import MyCommunityItem from '@components/communitySelect/MyCommunityItem';
 
 interface MyPageListProps {}
 

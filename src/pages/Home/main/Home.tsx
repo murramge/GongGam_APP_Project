@@ -1,5 +1,5 @@
 import ArtList from '@components/cardlist/ArtList';
-import MainCategories from '@pages/Home/main/MainCategories';
+import MainCategories from '@components/main/MainCategories';
 
 import React from 'react';
 import {View} from 'react-native';
@@ -8,8 +8,8 @@ import SearchHeaderButton from '../../../common/button/SearchHeaderButton';
 import useCategorizedPerformances from '@pages/Home/main/hooks/useCategorizedPerformances';
 import usePerformanceDate from '@pages/Home/main/hooks/usePerformanceDate';
 import usePerformanceApi from '@pages/Home/main/hooks/usePerformanceApi';
-import MainPageTopCard from './MainPageTopCard';
-import MainPageBottomCard from './MainPageBottomCard';
+import MainPageTopCard from '../../../components/main/MainPageTopCard';
+import MainPageBottomCard from '../../../components/main/MainPageBottomCard';
 
 const Home = () => {
   const code = useCategorizedPerformances();

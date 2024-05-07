@@ -2,8 +2,8 @@ import BackHeader from '@common/header/BackHeader';
 import {colors} from '@styles/color';
 import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
-import SignUpForm from '@pages/Sign/signForm/signUpForm';
-import LoginForm from '@pages/Sign/signForm/LoginForm';
+import SignUpForm from '@components/signForm/signUpForm';
+import LoginForm from '@components/signForm/LoginForm';
 import LottieView from 'lottie-react-native';
 
 const samplelogo = require('@images/samplelogo.png');
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const logo = require('../../../assets/images/logo.png');
+const logo = require('@images/logo.png');

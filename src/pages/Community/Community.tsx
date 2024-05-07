@@ -3,13 +3,13 @@ import {StyleSheet, View} from 'react-native';
 
 import {colors} from '@styles/color';
 
-import CommunityTabBar from '@pages/Community/CommunityTabBar';
+import CommunityTabBar from '@components/community/CommunityTabBar';
 import {useAtomValue} from 'jotai';
 
 import BackHeader from '@common/header/BackHeader';
 import {CommunityDataAtom} from './hooks/useMettingApi';
 import HorizontalCardList from '@common/cardlist/HorizontalCardList';
-import CommunityCreate from './CommunityCreate';
+import CommunityCreate from '../../components/community/CommunityCreate';
 
 const Community = () => {
   const results = useAtomValue(CommunityDataAtom);

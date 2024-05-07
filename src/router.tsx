@@ -22,7 +22,7 @@ import ArtTimesThreeStap from '@pages/CommunitySelect/stappage/ArtTimesThreeStap
 import CommunityDateSelect from '@pages/CommunitySelect/stappage/CommunityDateSelectFourStap';
 import CommunityIntroduce from '@pages/CommunitySelect/stappage/CommunityIntroduceFiveStap';
 import CommunitySummary from '@pages/CommunitySelect/stappage/CommunitySummaryLastStap';
-import CommunitySelectLayOut from '@pages/CommunitySelect/CommunitySelectLayOut';
+import CommunitySelectLayOut from '@components/communitySelect/CommunitySelectLayOut';
 import Splash from '@pages/Splash';
 import MeetingIntroduce from '@pages/CommunitySelect/CommunityIntroduce';
 import MyPage from '@pages/MyPage/MyPage';

@@ -2,8 +2,8 @@ import {colors} from '@styles/color';
 import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 
-import SearchCardItem from '@pages/Home/search/SearchCardItem';
-import CommunityCardItem from '@pages/Community/CommunityCardItem';
+import SearchCardItem from '@components/search/SearchCardItem';
+import CommunityCardItem from '@components/community/CommunityCardItem';
 
 export interface CommonArtCardListProps {
   data: any;

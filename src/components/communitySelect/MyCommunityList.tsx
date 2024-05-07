@@ -2,14 +2,14 @@ import {colors} from '@styles/color';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 
-import CommunityItem from '@pages/CommunitySelect/CommunityItem';
+import CommunityItem from '@components/communitySelect/CommunityItem';
 import {
   PerformanceBoxOffice,
   PerformanceCategory,
   PerformanceStsType,
 } from '@apis/kopis.d';
 import {getPerformanceBoxOffice} from '@apis/kopis';
-import MyCommunityItem from '@pages/CommunitySelect/MyCommunityItem';
+import MyCommunityItem from '@components/communitySelect/MyCommunityItem';
 
 export interface MyCommunityListProps {
   date: string;
