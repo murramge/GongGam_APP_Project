@@ -97,7 +97,7 @@ const CommunityJoinModal = ({
                 onPress={() => {
                   console.log('모임참가');
                   onPressJoinCancel();
-                  navigate('Login');
+                  navigate('AuthHome');
                 }}
                 // TODO: 모임 참여 처리
               />

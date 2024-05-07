@@ -91,7 +91,7 @@ const MainTab = () => {
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
       <Tab.Screen name="Community" component={Community} />
-      <Tab.Screen name="Profile" component={AuthHome} />
+      <Tab.Screen name="Profile" component={MyPage} />
     </Tab.Navigator>
   );
 };
