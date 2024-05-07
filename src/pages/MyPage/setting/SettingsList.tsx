@@ -1,10 +1,30 @@
+import {signOut} from '@apis/supabase/auth';
 import SettingsItems from '@pages/MyPage/setting/SettingsItems';
+import {useNavigation, CommonActions} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import Toast from 'react-native-toast-message';
+import {RootStackParamList} from '../../../router';
 
 interface SettingsListProps {}
 
 const SettingsList = ({}: SettingsListProps) => {
+  const {dispatch} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const onPressSignOut = async () => {
+    try {
+      await signOut();
+
+      dispatch(CommonActions.reset({index: 0, routes: [{name: 'MainTab'}]}));
+
+      Toast.show({text1: '로그아웃 성공', type: 'success'});
+    } catch (e) {
+      Toast.show({text1: '에러가 발생했습니다.', type: 'error'});
+    }
+  };
+
   return (
     <View style={{paddingHorizontal: 5}}>
       <View style={{paddingVertical: 10}}>
@@ -19,7 +39,10 @@ const SettingsList = ({}: SettingsListProps) => {
           title="기타"
           icons="dots-horizontal"
           subtitle="일반적인 설정들"></SettingsItems>
-        <SettingsItems title="로그아웃" icons="logout-variant"></SettingsItems>
+        <SettingsItems
+          title="로그아웃"
+          icons="logout-variant"
+          onPress={onPressSignOut}></SettingsItems>
         <SettingsItems title="회원탈퇴" icons="account-cancel"></SettingsItems>
       </View>
       <View>

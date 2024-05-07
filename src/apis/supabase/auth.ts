@@ -150,3 +150,13 @@ export const resendVerificationEmail = async (email: string) => {
     throw e;
   }
 };
+
+export const signOut = async () => {
+  try {
+    const {error} = await supabase.auth.signOut();
+
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw e;
+  }
+};

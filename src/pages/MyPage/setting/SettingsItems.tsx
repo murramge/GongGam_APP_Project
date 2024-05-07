@@ -7,11 +7,13 @@ interface SettingsItemsProps {
   title: string;
   icons: string;
   subtitle?: string;
+  onPress?: () => void;
 }
 
 const SettingsItems = ({
   title = '알람',
   icons = 'bell-circle',
+  onPress,
 }: SettingsItemsProps) => {
   return (
     <TouchableOpacity
@@ -19,7 +21,8 @@ const SettingsItems = ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,
-      }}>
+      }}
+      onPress={onPress}>
       <View style={{flexDirection: 'row'}}>
         <View
           style={{
@@ -36,7 +39,10 @@ const SettingsItems = ({
             color={colors.MAIN_COLOR}></MaterialCommunityIcons>
         </View>
         <View style={{justifyContent: 'center', paddingHorizontal: 10}}>
-          <Text style={{fontSize: 16, fontWeight: '700'}}>{title}</Text>
+          <Text
+            style={{fontSize: 16, fontWeight: '700', color: colors.MAIN_COLOR}}>
+            {title}
+          </Text>
         </View>
       </View>
 
