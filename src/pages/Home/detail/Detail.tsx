@@ -69,6 +69,12 @@ const Detail: React.FC<DetailProps> = ({route}: DetailProps) => {
               borderRadius={0}
               margin={0}></CommonButton>
           </View>
+          <View style={{width: '60%'}}>
+            <CommonButton
+              label="같이 볼 사람 모집하기"
+              borderRadius={0}
+              margin={0}></CommonButton>
+          </View>
         </View>
       </View>
     )
