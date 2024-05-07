@@ -121,7 +121,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
           </View>
         </View>
         <View>
-          <Text style={styles.searchTitle}>공연일 선택</Text>
+          <Text style={styles.searchTitle}>공연일 선택 (필수)</Text>
           <CalendarButton
             label={date ? `${date.format('YYYY년 MM월 DD일')}` : '날짜 선택'}
             onPress={() => setIsDateSelectModalVisible(prevState => !prevState)}

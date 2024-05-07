@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {atom, useAtom} from 'jotai';
 import {PerformanceGenre} from '@utils/category';
 import {PerformanceCategory} from '@apis/kopis.d';
+import {colors} from '@styles/color';
 interface MainCategoriesProps {}
 
 export const selectAtom = atom('All');
@@ -14,11 +15,6 @@ const MainCategories = ({}: MainCategoriesProps) => {
     <TouchableOpacity onPress={() => setSelectItem(item)}>
       <Text
         style={[
-          item == selectItem && {
-            backgroundColor: '#3544C4',
-            color: '#EBEDFF',
-            borderRadius: 8,
-          },
           {
             padding: 5,
             justifyContent: 'center',
@@ -26,6 +22,13 @@ const MainCategories = ({}: MainCategoriesProps) => {
             margin: 5,
             paddingHorizontal: 27,
             paddingBottom: 8,
+            color: colors.GRAY_400,
+          },
+          item == selectItem && {
+            backgroundColor: '#3544C4',
+            color: '#EBEDFF',
+            borderRadius: 8,
+            fontWeight: 'bold',
           },
         ]}>
         {item}
