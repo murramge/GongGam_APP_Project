@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../router';
+import {RootStackParamList} from '@router.d';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
 

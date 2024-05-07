@@ -1,14 +1,9 @@
-import StepHeader from '@components/common/header/StepHeader';
-import MultiStepFormBottom from '@components/common/multistepform/MultiStepFormBottom';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';
 import dayjs from 'dayjs';
 import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {Calendar, DateData} from 'react-native-calendars';
 import WheelPick from 'react-native-wheely';
-import {RootStackParamList} from '../../../router';
 import {useFormContext} from 'react-hook-form';
 
 interface CommunityDateSelectProps {}

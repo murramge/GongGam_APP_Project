@@ -15,7 +15,7 @@ import SearchInput from '@components/common/input/SearchInput';
 import useRecentSearch from './hooks/useRecentSearch';
 import moment, {Moment} from 'moment';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../router';
+import {RootStackParamList} from '@router.d';
 import {
   AreaCode,
   AreaCodeKey,

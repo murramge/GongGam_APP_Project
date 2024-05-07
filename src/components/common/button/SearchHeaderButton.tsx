@@ -9,7 +9,8 @@ import {
   Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {RootStackParamList} from '../../../router';
+import {RootStackParamList} from '@router.d';
+
 interface SearchHeaderButtonProps {}
 
 const SearchHeaderButton = ({}: SearchHeaderButtonProps) => {

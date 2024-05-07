@@ -5,7 +5,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import Toast from 'react-native-toast-message';
-import {RootStackParamList} from '../../../router';
+import {RootStackParamList} from '@router.d';
 
 interface SettingsListProps {}
 
