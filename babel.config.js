@@ -16,6 +16,7 @@ module.exports = {
           '@pages': './src/pages',
           '@apis': './src/apis',
           '@interfaces': './src/interfaces',
+          '@common': './src/common',
         },
       },
     ],
