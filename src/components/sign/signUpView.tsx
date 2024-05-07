@@ -1,6 +1,15 @@
 import {colors} from '@styles/color';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Alert} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import SignInput from '@components/inputs/SignInput';
 import {SignType, Signschema} from '@utils/validation';
@@ -62,62 +71,75 @@ const SignUpView = () => {
   };
 
   return (
-    <View style={styles.inputContainer}>
-      {signInputValue.map((item, index) => (
-        <Controller
-          key={index}
-          control={control}
-          name={item.name}
-          defaultValue={''}
-          render={({field: {value, onChange}, fieldState: {error}}) => (
-            <>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={styles.title}>{item.label}</Text>
-                {error && (
-                  <Text
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{flex: 1}}>
+      <ScrollView
+        style={{
+          flex: 1,
+          width: '100%',
+          position: 'absolute',
+          bottom: 0,
+          backgroundColor: colors.WHITE,
+        }}>
+        <View style={styles.inputContainer}>
+          {signInputValue.map((item, index) => (
+            <Controller
+              key={index}
+              control={control}
+              name={item.name}
+              defaultValue={''}
+              render={({field: {value, onChange}, fieldState: {error}}) => (
+                <>
+                  <View
                     style={{
-                      color: colors.MAIN_COLOR,
-                      fontSize: 11,
-                      paddingRight: 15,
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
                     }}>
-                    {error.message}
-                  </Text>
-                )}
-              </View>
-              <SignInput
-                label={item.label}
-                value={value}
-                onChangeText={onChange}
-                onBlur={
-                  item.name === 'email' || item.name === 'name'
-                    ? async () => {
-                        onBlurDuplicateCheckField(
-                          item.name as DuplicateCheckFieldKey,
-                        );
-                      }
-                    : undefined
-                }
-                type={item.type}
-                error={error}
-              />
-            </>
-          )}
-        />
-      ))}
+                    <Text style={styles.title}>{item.label}</Text>
+                    {error && (
+                      <Text
+                        style={{
+                          color: colors.MAIN_COLOR,
+                          fontSize: 11,
+                          paddingRight: 15,
+                        }}>
+                        {error.message}
+                      </Text>
+                    )}
+                  </View>
+                  <SignInput
+                    label={item.label}
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={
+                      item.name === 'email' || item.name === 'name'
+                        ? async () => {
+                            onBlurDuplicateCheckField(
+                              item.name as DuplicateCheckFieldKey,
+                            );
+                          }
+                        : undefined
+                    }
+                    type={item.type}
+                    error={error}
+                  />
+                </>
+              )}
+            />
+          ))}
 
-      <View style={styles.button}>
-        <CommonButton
-          onPress={handleSubmit(onSignUpSubmit, e => {
-            console.log(e);
-          })}
-          label="회원가입"
-        />
-      </View>
-    </View>
+          <View style={styles.button}>
+            <CommonButton
+              onPress={handleSubmit(onSignUpSubmit, e => {
+                console.log(e);
+              })}
+              label="회원가입"
+            />
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

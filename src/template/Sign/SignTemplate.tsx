@@ -6,8 +6,6 @@ import SignUpView from '@components/sign/signUpView';
 import LoginView from '@components/sign/LoginView';
 import LottieView from 'lottie-react-native';
 
-const samplelogo = require('@images/samplelogo.png');
-
 interface SignTemplateProps {
   type: string;
 }
@@ -24,6 +22,25 @@ const SignTemplate = ({type}: SignTemplateProps) => {
               leftIconsColor: colors.GRAY_500,
             }}
           />
+          <View style={{flex: 1}}>
+            <View
+              style={{
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: -20,
+              }}>
+              <LottieView
+                source={require('@lotties/join.json')}
+                style={{width: 150, height: 150}}
+                autoPlay
+                loop
+              />
+              <View>
+                <Image source={logo} style={styles.logo} />
+              </View>
+            </View>
+          </View>
           <SignUpView></SignUpView>
         </>
       ) : (
