@@ -52,13 +52,10 @@ const AuthHome = ({}: AuthHomeProps) => {
       </TouchableOpacity>
       <View style={styles.snsInfoArea}>
         <View style={styles.line} />
-        <Text style={styles.snsInfoText}>Or Sign up with</Text>
+        <Text style={styles.snsInfoText}>소셜 로그인 하기</Text>
         <View style={styles.line} />
       </View>
       <View style={styles.iconArea}>
-        <TouchableOpacity>
-          <Image source={googleIcon} style={styles.icon} />
-        </TouchableOpacity>
         <TouchableOpacity onPress={onPressKakaoButton}>
           <Image source={kakaoIcon} style={styles.icon} />
         </TouchableOpacity>
@@ -119,13 +116,12 @@ const styles = StyleSheet.create({
     gap: 28,
   },
   icon: {
-    width: 70,
-    height: 70,
+    width: 200,
+    height: 50,
   },
 });
 
 export default AuthHome;
 
 const logo = require('@images/logo.png');
-const googleIcon = require('@icons/google_btn.png');
 const kakaoIcon = require('@icons/kakao_btn.png');

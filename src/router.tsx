@@ -84,7 +84,7 @@ const MainTab = () => {
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
       <Tab.Screen name="Community" component={Community} />
-      <Tab.Screen name="Calendar" component={SignUp} />
+      <Tab.Screen name="Calendar" component={AuthHome} />
       <Tab.Screen name="Profile" component={MyPage} />
     </Tab.Navigator>
   );
