@@ -9,47 +9,43 @@ import {
 import React, {useState} from 'react';
 import {colors} from '@styles/color';
 import FastImage from 'react-native-fast-image';
-interface ImageUrl {
-  styurl: string[];
-}
 
-interface MainDetailsContentProps {
-  detailImgUrls: ImageUrl | any;
-}
-
-const DetailPageContent = ({detailImgUrls = []}: MainDetailsContentProps) => {
+const DetailPageContent = ({detailImgUrls}) => {
   const windowWidth = Dimensions.get('window').width;
 
+  console.log('url : ', detailImgUrls);
   return (
-    <ScrollView
-      style={{
-        flex: 1,
-        width: windowWidth,
-        paddingTop: 8,
-      }}>
-      <Text
+    detailImgUrls && (
+      <ScrollView
         style={{
-          padding: 10,
-          fontWeight: '600',
-          fontSize: 16,
-          color: colors.BLACK,
+          flex: 1,
+          width: windowWidth,
+          paddingTop: 8,
         }}>
-        공연내용
-      </Text>
-      <View>
-        {detailImgUrls?.styurl?.length === 0 && (
-          <Text>상세이미지가 없습니다.</Text>
-        )}
+        <Text
+          style={{
+            padding: 10,
+            fontWeight: '600',
+            fontSize: 16,
+            color: colors.BLACK,
+          }}>
+          공연내용
+        </Text>
+        <View>
+          {detailImgUrls?.styurl?.length === 0 && (
+            <Text>상세이미지가 없습니다.</Text>
+          )}
 
-        {detailImgUrls?.styurl?.length >= 1 && (
-          <View>
-            {detailImgUrls?.styurl?.map((item: string) => (
-              <ResizedImage key={item} uri={item} width={windowWidth} />
-            ))}
-          </View>
-        )}
-      </View>
-    </ScrollView>
+          {detailImgUrls?.styurl?.length >= 1 && (
+            <View>
+              {detailImgUrls?.styurl?.map((item: string) => (
+                <ResizedImage key={item} uri={item} width={windowWidth} />
+              ))}
+            </View>
+          )}
+        </View>
+      </ScrollView>
+    )
   );
 };
 

@@ -26,6 +26,7 @@ const Detail: React.FC<DetailProps> = ({route}: DetailProps) => {
   const {id} = route.params;
 
   const {detailInfo, loading, error} = usePerformanceDetailApi(id);
+
   if (loading) return <ActivityIndicator />;
   if (error) return <Text>{error}</Text>;
 
@@ -34,39 +35,43 @@ const Detail: React.FC<DetailProps> = ({route}: DetailProps) => {
     navigate('Ticketing', {id: detailInfo.mt20id});
   };
 
+  console.log(detailInfo.mt10id);
+
   return (
-    <View style={{flex: 1, backgroundColor: colors.WHITE}}>
-      <ScrollView style={{flex: 1}}>
-        <DetailBookingHeader detailInfo={detailInfo}></DetailBookingHeader>
-        <DetailPageInfo></DetailPageInfo>
-        <View style={{flex: 1}}>
-          <DetailPageContent
-            detailImgUrls={detailInfo?.styurls}></DetailPageContent>
-          <DetailPageMap id={detailInfo?.mt10id}></DetailPageMap>
-        </View>
-      </ScrollView>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          backgroundColor: 'transparent',
-        }}>
-        <View style={{width: '40%', marginRight: 1}}>
-          <CommonButton
-            label="예매하기"
-            borderRadius={0}
-            margin={0}
-            onPress={gotoTicketing}
-          />
-        </View>
-        <View style={{width: '60%'}}>
-          <CommonButton
-            label="같이 볼 사람 모집하기"
-            borderRadius={0}
-            margin={0}></CommonButton>
+    detailInfo && (
+      <View style={{flex: 1, backgroundColor: colors.WHITE}}>
+        <ScrollView style={{flex: 1}}>
+          <DetailBookingHeader detailInfo={detailInfo}></DetailBookingHeader>
+          <DetailPageInfo></DetailPageInfo>
+          <View style={{flex: 1}}>
+            <DetailPageContent
+              detailImgUrls={detailInfo.styurls}></DetailPageContent>
+            <DetailPageMap id={detailInfo.mt10id}></DetailPageMap>
+          </View>
+        </ScrollView>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            backgroundColor: 'transparent',
+          }}>
+          <View style={{width: '40%', marginRight: 1}}>
+            <CommonButton
+              label="예매하기"
+              borderRadius={0}
+              margin={0}
+              onPress={gotoTicketing}
+            />
+          </View>
+          <View style={{width: '60%'}}>
+            <CommonButton
+              label="같이 볼 사람 모집하기"
+              borderRadius={0}
+              margin={0}></CommonButton>
+          </View>
         </View>
       </View>
-    </View>
+    )
   );
 };
 

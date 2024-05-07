@@ -28,7 +28,6 @@ const usePerformanceDetailApi = id => {
     fetchDetail();
   }, []);
 
-  console.log(detailInfo);
   return {detailInfo, loading, error};
 };
 
