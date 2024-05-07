@@ -4,32 +4,34 @@ import {
   BottomTabBarProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import Home from '@pages/Home';
-import CustomBottomTabBar from '@components/CustomBottomTabBar';
+import Home from '@pages/Home/main/Home';
+import CustomBottomTabBar from '@common/CustomBottomTabBar';
 import DetailPage from './template/home/DetailPage';
-import TicketingPage from './template/home/TicketingPage';
-import Search from '@pages/Search';
-import SearchResultPage from './template/home/SearchResultPage';
+import TicketingPage from './pages/Home/booking/Booking';
+import Search from '@pages/Home/search/Search';
+import SearchResultPage from './pages/Home/search/SearchResultPage';
 import {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
-import Login from '@pages/Login';
-import CommunitySelect from './pages/CommunitySelect/ArtSelectFirstStap';
-import NewPassword from './template/Sign/NewPasswordPage';
-import FindPassword from './template/Sign/FindPasswordPage';
-import CommunityDetail from './template/Community/CommunityDetail';
-import CommunityTemplates from './template/Community/CommunityTemplates';
-import ArtDaysTwoStap from '@pages/CommunitySelect/ArtDaysTwoStap';
-import ArtTimesThreeStap from '@pages/CommunitySelect/ArtTimesThreeStap';
-import CommunityDateSelect from '@pages/CommunitySelect/CommunityDateSelectFourStap';
-import CommunityIntroduce from '@pages/CommunitySelect/CommunityIntroduceFiveStap';
-import CommunitySummary from '@pages/CommunitySelect/CommunitySummaryLastStap';
-import CommunitySelectLayOut from '@components/CommunitySelectLayOut';
+import Login from '@pages/Sign/Login';
+import CommunitySelect from './pages/CommunitySelect/stappage/ArtSelectFirstStap';
+import NewPassword from './pages/Sign/passwordPage/NewPasswordPage';
+import FindPassword from './pages/Sign/passwordPage/FindPasswordPage';
+import CommunityDetail from './pages/Community/CommunityDetail';
+
+import ArtDaysTwoStap from '@pages/CommunitySelect/stappage/ArtDaysTwoStap';
+import ArtTimesThreeStap from '@pages/CommunitySelect/stappage/ArtTimesThreeStap';
+import CommunityDateSelect from '@pages/CommunitySelect/stappage/CommunityDateSelectFourStap';
+import CommunityIntroduce from '@pages/CommunitySelect/stappage/CommunityIntroduceFiveStap';
+import CommunitySummary from '@pages/CommunitySelect/stappage/CommunitySummaryLastStap';
+import CommunitySelectLayOut from '@components/communitySelect/CommunitySelectLayOut';
 import Splash from '@pages/Splash';
 import MeetingIntroduce from '@pages/CommunitySelect/CommunityIntroduce';
-import MyPage from '@pages/MyPage';
-import AuthHome from '@pages/AuthHome';
-import SignUp from '@pages/SignUp';
-import ProfileEdit from '@pages/ProfileEdit';
-import Setting from '@pages/Setting';
+import MyPage from '@pages/MyPage/MyPage';
+import AuthHome from '@pages/Sign/AuthHome';
+import SignUp from '@pages/Sign/SignUp';
+import ProfileEdit from '@pages/MyPage/ProfileEdit';
+import Setting from '@pages/MyPage/setting/Setting';
+import Detail from '@pages/Home/detail/Detail';
+import Community from '@pages/Community/Community';
 
 export type RootStackParamList = {
   MainTab: undefined;
@@ -82,7 +84,7 @@ const MainTab = () => {
   return (
     <Tab.Navigator tabBar={renderTabBar} screenOptions={{headerShown: false}}>
       <Tab.Screen name="Performance" component={Home} />
-      <Tab.Screen name="Community" component={CommunityTemplates} />
+      <Tab.Screen name="Community" component={Community} />
       <Tab.Screen name="Calendar" component={AuthHome} />
       <Tab.Screen name="Profile" component={MyPage} />
     </Tab.Navigator>
@@ -98,7 +100,7 @@ function Router() {
         options={{animation: 'fade_from_bottom'}}
       />
       <Stack.Screen name="MainTab" component={MainTab} />
-      <Stack.Screen name="Detail" component={DetailPage} />
+      <Stack.Screen name="Detail" component={Detail} />
       <Stack.Screen name="Ticketing" component={TicketingPage} />
       <Stack.Screen name="Search" component={Search} />
 
