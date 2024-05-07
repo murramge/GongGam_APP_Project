@@ -7,24 +7,26 @@ import {detailDataAtom} from '../../pages/Home/detail/hooks/usePerformanceDetail
 const DetailPageInfo = () => {
   const detailInfo = useAtomValue(detailDataAtom);
   return (
-    <View style={styles.detailContainer}>
-      <View style={styles.detailItemList}>
-        <Text style={styles.itemTitle}>런타임</Text>
-        <Text style={styles.itemText}>{detailInfo?.prfruntime}</Text>
+    detailInfo && (
+      <View style={styles.detailContainer}>
+        <View style={styles.detailItemList}>
+          <Text style={styles.itemTitle}>런타임</Text>
+          <Text style={styles.itemText}>{detailInfo?.prfruntime}</Text>
+        </View>
+        <View style={styles.detailItemList}>
+          <Text style={styles.itemTitle}>관람연령</Text>
+          <Text style={styles.itemText}>{detailInfo?.prfage}</Text>
+        </View>
+        <View style={styles.detailItemList}>
+          <Text style={styles.itemTitle}>출연진</Text>
+          <Text style={styles.itemText}>{detailInfo?.prfcast}</Text>
+        </View>
+        <View style={styles.detailItemList}>
+          <Text style={styles.itemTitle}>제작진</Text>
+          <Text style={styles.itemText}>{detailInfo?.prfcrew}</Text>
+        </View>
       </View>
-      <View style={styles.detailItemList}>
-        <Text style={styles.itemTitle}>관람연령</Text>
-        <Text style={styles.itemText}>{detailInfo?.prfage}</Text>
-      </View>
-      <View style={styles.detailItemList}>
-        <Text style={styles.itemTitle}>출연진</Text>
-        <Text style={styles.itemText}>{detailInfo?.prfcast}</Text>
-      </View>
-      <View style={styles.detailItemList}>
-        <Text style={styles.itemTitle}>제작진</Text>
-        <Text style={styles.itemText}>{detailInfo?.prfcrew}</Text>
-      </View>
-    </View>
+    )
   );
 };
 

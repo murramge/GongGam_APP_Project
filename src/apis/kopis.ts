@@ -144,7 +144,6 @@ export const getPerformanceBoxOffice = async ({
 export const getPerformanceFacilityDetail = async (id: string) => {
   try {
     const res = await kopisInstance.get(`/prfplc/${id}`);
-
     return parser.parse(res.data).dbs.db as PerformanceFacilityDetail;
   } catch (e) {
     console.error('Error in getBoxOffice:', e);

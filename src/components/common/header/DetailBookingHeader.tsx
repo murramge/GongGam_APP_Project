@@ -6,36 +6,39 @@ import {useAtomValue} from 'jotai';
 import {detailDataAtom} from '../../template/home/DetailPage';
 
 const DetailBookingHeader = ({detailInfo}) => {
+  console.log(detailInfo);
   return (
-    <View>
-      <View style={styles.detailHeader}>
-        <BackHeader
-          label={detailInfo?.prfnm}
-          Color={{labelColor: 'white', leftIconsColor: 'white'}}
-        />
-      </View>
-      <View style={styles.dim}></View>
+    detailInfo && (
       <View>
-        {detailInfo?.poster && (
-          <Image
-            style={styles.photo}
-            source={{
-              uri: detailInfo?.poster,
-            }}
+        <View style={styles.detailHeader}>
+          <BackHeader
+            label={detailInfo?.prfnm}
+            Color={{labelColor: 'white', leftIconsColor: 'white'}}
           />
-        )}
+        </View>
+        <View style={styles.dim}></View>
+        <View>
+          {detailInfo?.poster && (
+            <Image
+              style={styles.photo}
+              source={{
+                uri: detailInfo?.poster,
+              }}
+            />
+          )}
+        </View>
+        <View style={styles.photoContainer}>
+          {detailInfo?.poster && (
+            <Image
+              style={styles.photoView}
+              source={{
+                uri: detailInfo?.poster,
+              }}
+            />
+          )}
+        </View>
       </View>
-      <View style={styles.photoContainer}>
-        {detailInfo?.poster && (
-          <Image
-            style={styles.photoView}
-            source={{
-              uri: detailInfo?.poster,
-            }}
-          />
-        )}
-      </View>
-    </View>
+    )
   );
 };
 

@@ -11,8 +11,8 @@ interface MainDetailsMapProps {
   id: string | undefined;
 }
 interface LocationProps {
-  lat: Float | null;
-  lng: Float | null;
+  lat: Float | string | null;
+  lng: Float | string | null;
   theater: string | null;
   address: string | null;
 }
@@ -26,56 +26,63 @@ const DetailPageMap = ({id}: MainDetailsMapProps) => {
   });
   useEffect(() => {
     const getMapLocationData = async () => {
-      const data = await getPerformanceFacilityDetail(id);
-      data &&
-        setLocation({
-          lat: data.la,
-          lng: data.lo,
-          theater: data.fcltynm,
-          address: data.adres,
-        });
+      try {
+        const data = await getPerformanceFacilityDetail(id);
+        console.log('data: ', data);
+        data &&
+          setLocation({
+            lat: parseFloat(data.la),
+            lng: parseFloat(data.lo),
+            theater: data.fcltynm,
+            address: data.adres,
+          });
+      } catch (error) {
+        console.log(error);
+      }
     };
     getMapLocationData();
-  });
+  }, []);
 
   return (
-    <>
-      <View style={{flex: 1}}>
-        <View>
-          <Text
-            style={{
-              padding: 10,
-              fontWeight: '600',
-              fontSize: 16,
-              color: colors.BLACK,
-            }}>
-            공연장 위치
-          </Text>
+    location && (
+      <>
+        <View style={{flex: 1}}>
+          <View>
+            <Text
+              style={{
+                padding: 10,
+                fontWeight: '600',
+                fontSize: 16,
+                color: colors.BLACK,
+              }}>
+              공연장 위치
+            </Text>
+          </View>
+          {location.lat && location.lng && (
+            <MapView
+              style={{width: '100%', height: 300}}
+              provider={PROVIDER_GOOGLE}
+              initialRegion={{
+                latitude: location.lat,
+                longitude: location.lng,
+                latitudeDelta: 0.001,
+                longitudeDelta: 0.001,
+              }}>
+              {location.theater && location.address && (
+                <Marker
+                  coordinate={{
+                    latitude: location.lat,
+                    longitude: location.lng,
+                  }}
+                  image={theaterPin}
+                  title={location.theater}
+                  description={location.address}></Marker>
+              )}
+            </MapView>
+          )}
         </View>
-        {location.lat && location.lng && (
-          <MapView
-            style={{width: '100%', height: 300}}
-            provider={PROVIDER_GOOGLE}
-            initialRegion={{
-              latitude: location.lat,
-              longitude: location.lng,
-              latitudeDelta: 0.001,
-              longitudeDelta: 0.001,
-            }}>
-            {location.theater && location.address && (
-              <Marker
-                coordinate={{
-                  latitude: location.lat,
-                  longitude: location.lng,
-                }}
-                image={theaterPin}
-                title={location.theater}
-                description={location.address}></Marker>
-            )}
-          </MapView>
-        )}
-      </View>
-    </>
+      </>
+    )
   );
 };
 
