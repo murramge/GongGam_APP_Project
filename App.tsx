@@ -11,6 +11,7 @@ function App(): React.JSX.Element {
       screens: {
         NewPasswordPage: 'reset/password',
         AuthHome: 'auth',
+        MainTab: '*',
       },
     },
   };

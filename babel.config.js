@@ -12,6 +12,7 @@ module.exports = {
           '@lotties': './src/assets/lotties',
           '@components': './src/components',
           '@libs': './src/libs',
+          '@hooks': './src/hooks',
           '@utils': './src/utils',
           '@styles': './src/styles',
           '@pages': './src/pages',
