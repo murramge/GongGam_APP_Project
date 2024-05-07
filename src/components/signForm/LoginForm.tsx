@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
