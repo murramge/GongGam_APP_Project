@@ -5,7 +5,7 @@ import {colors} from '@styles/color';
 import {getPerformanceFacilityDetail} from '@apis/kopis';
 import {Float} from 'react-native/Libraries/Types/CodegenTypes';
 
-const theaterPin = require('@icons/theater.png');
+const theaterPin = require('@icons/theaters.png');
 
 interface MainDetailsMapProps {
   id: string | undefined;
