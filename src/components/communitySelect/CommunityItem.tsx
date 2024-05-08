@@ -1,9 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';
-import {atom, useAtom} from 'jotai';
-import React, {useCallback, useState} from 'react';
-import {useFormContext} from 'react-hook-form';
+import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Config from 'react-native-config';
 
@@ -15,6 +11,7 @@ interface CommunityItemProps {
   id: any;
   setValue: any;
   watch: any;
+  cate: string;
 }
 
 const CommunityItem = ({
@@ -25,6 +22,7 @@ const CommunityItem = ({
   id,
   setValue,
   watch,
+  cate,
 }: CommunityItemProps) => {
   return (
     <View>
@@ -35,6 +33,14 @@ const CommunityItem = ({
             shouldDirty: true,
           });
           setValue('artId', id, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          setValue('artPhotoUrl', photoUrl, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          setValue('artGenre', cate, {
             shouldValidate: true,
             shouldDirty: true,
           });
@@ -54,12 +60,11 @@ const CommunityItem = ({
           <View style={styles.right}>
             <Text
               style={styles.nameText}
-              numberOfLines={1}
+              numberOfLines={3}
               ellipsizeMode="tail">
               {title}
             </Text>
             <Text style={styles.descriptionText}>{period}</Text>
-            <Text style={styles.descriptionText}>{place}</Text>
             <View style={styles.cateArea}>
               <Text style={styles.cateText}>{place}</Text>
             </View>
@@ -73,22 +78,23 @@ const CommunityItem = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    paddingLeft: 10,
+    paddingBottom: 10,
+    paddingTop: 10,
     borderBottomWidth: 1,
     borderColor: colors.LINE_COLOR,
-    paddingVertical: 15,
-    paddingHorizontal: 10,
   },
   selectcontainer: {
     flexDirection: 'row',
-
+    paddingLeft: 10,
+    paddingBottom: 10,
+    paddingTop: 10,
     backgroundColor: colors.GRAY_100,
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    borderRadius: 10,
+    borderRadius: 4,
   },
   photo: {
     width: 117,
-    height: 144,
+    height: 140,
     backgroundColor: colors.WHITE,
     borderRadius: 12,
     overflow: 'hidden',
