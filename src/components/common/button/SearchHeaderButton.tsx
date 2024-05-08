@@ -38,7 +38,8 @@ const SearchHeaderButton = ({}: SearchHeaderButtonProps) => {
 const styles = StyleSheet.create({
   SearchInput: {
     backgroundColor: 'white',
-    margin: 10,
+    marginHorizontal: 10,
+    marginVertical: 5,
     borderRadius: 10,
     paddingHorizontal: 20,
     flexDirection: 'row',
