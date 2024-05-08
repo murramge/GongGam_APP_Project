@@ -8,18 +8,23 @@ import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {NewPasswordInput} from '@utils/sign';
 import BackHeader from '@components/common/header/BackHeader';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {
+  CommonActions,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../router';
+import {RootStackParamList} from '@router.d';
 import {signInByPkceCode, updatePassword} from '@apis/supabase/auth';
-import {StackActions} from '@react-navigation/native';
-import {CommonActions} from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+import useBackHandler from '@hooks/useBackHandler';
+import TitleHeader from '@components/common/header/TitleHeader';
 
 const NewPassword = () => {
   const {params} = useRoute<RouteProp<RootStackParamList, 'NewPasswordPage'>>();
-  const {replace, goBack} =
+  const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
   const {control, handleSubmit} = useForm<PasswordResetType>({
     defaultValues: {
       password: '',
@@ -28,40 +33,53 @@ const NewPassword = () => {
     resolver: zodResolver(PasswordResetSchema),
   });
 
+  useBackHandler(() => true);
+
   useEffect(() => {
     initiate();
     async function initiate() {
       try {
         await signInByPkceCode(params.code);
       } catch (e) {
-        goBack();
+        Toast.show({
+          text1: '링크가 만료되었습니다.',
+          text2: '비밀번호 찾기를 통해 링크를 다시 받으세요.',
+          type: 'error',
+        });
+
+        navigation.dispatch(
+          CommonActions.reset({
+            routes: [{name: 'MainTab'}, {name: 'AuthHome'}, {name: 'Login'}],
+          }),
+        );
       }
     }
   }, [params]);
 
   const onSubmit = async ({password}: PasswordResetType) => {
-    const navigation = useNavigation();
-
     try {
       await updatePassword(password);
+
       navigation.dispatch(
         CommonActions.reset({
-          index: 0,
-          routes: [{name: 'Login'}],
+          routes: [{name: 'MainTab'}, {name: 'AuthHome'}, {name: 'Login'}],
         }),
       );
+      Toast.show({text1: '비밀번호가 재설정되었습니다.', type: 'success'});
     } catch (error) {
-      console.error(error);
+      Toast.show({
+        text1: '에러가 발생했습니다.',
+        type: 'error',
+      });
     }
   };
 
   return (
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
-      <BackHeader
+      <TitleHeader
         label="새 비밀번호 설정하기"
         Color={{
           labelColor: colors.GRAY_500,
-          leftIconsColor: colors.GRAY_500,
         }}
       />
       <View style={styles.inputContainer}>

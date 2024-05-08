@@ -7,7 +7,8 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../router';
+import {RootStackParamList} from '@router.d';
+
 interface CommunityJoinModalProps {
   isJoinModalOpen: boolean;
   onPressJoinCancel: () => void;
@@ -97,7 +98,7 @@ const CommunityJoinModal = ({
                 onPress={() => {
                   console.log('모임참가');
                   onPressJoinCancel();
-                  navigate('Login');
+                  navigate('AuthHome');
                 }}
                 // TODO: 모임 참여 처리
               />

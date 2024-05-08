@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderWidth: 1,
-    margin: 5,
+    marginVertical: 5,
     borderRadius: 50,
     paddingHorizontal: 16,
     backgroundColor: 'white',

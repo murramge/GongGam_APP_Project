@@ -10,7 +10,7 @@ import RecentButton from '../../../atoms/buttons/RecentButton';
 import {colors} from '@styles/color';
 import SearchHeaderButton from '../../../components/common/button/SearchHeaderButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../router';
+import {RootStackParamList} from '@router.d';
 import {AreaCode, GenreCode, PerformanceInfo} from '@apis/kopis.d';
 import {getPerformanceList} from '@apis/kopis';
 import moment from 'moment';

@@ -2,7 +2,7 @@
 
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../../router';
+import {RootStackParamList} from '@router.d';
 import {useCallback} from 'react';
 
 const useDetailNavigation = datas => {

@@ -11,6 +11,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import BackHeader from '@components/common/header/BackHeader';
 import {sendPasswordResetLink} from '@apis/supabase/auth';
+import Toast from 'react-native-toast-message';
 
 const FindPassword = () => {
   const {control, handleSubmit} = useForm<PasswordResetEmailType>({
@@ -21,8 +22,20 @@ const FindPassword = () => {
   });
 
   const onSubmit = async ({email}: PasswordResetEmailType) => {
-    // TODO: 로딩
-    await sendPasswordResetLink(email);
+    try {
+      // TODO: 로딩
+      await sendPasswordResetLink(email);
+
+      Toast.show({
+        text1: '메일이 성공적으로 발송되었습니다.',
+        type: 'success',
+      });
+    } catch (e) {
+      Toast.show({
+        text1: '메일을 발송하는 도중 에러가 발생하였습니다.',
+        type: 'error',
+      });
+    }
   };
 
   return (

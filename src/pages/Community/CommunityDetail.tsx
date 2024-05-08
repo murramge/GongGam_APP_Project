@@ -17,7 +17,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../router';
+import {RootStackParamList} from '@router.d';
 import {
   getJoinedMeetings,
   getMeeting,
@@ -46,6 +46,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   useEffect(() => {
     fetch();
   }, [route.params.id]);
+
   const fetch = async () => {
     try {
       const [fetchedMeeting, joinedMeetings] = await Promise.all([
