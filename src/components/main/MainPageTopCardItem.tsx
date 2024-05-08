@@ -7,9 +7,11 @@ import {
   Dimensions,
   TouchableOpacity,
   StyleSheet,
+  View,
 } from 'react-native';
 import Config from 'react-native-config';
 import useDetailNavigation from '@pages/Home/main/hooks/useDetailNavigation';
+import {colors} from '@styles/color';
 
 interface MainPageTopCardItemProps {
   photoUrl?: string;
@@ -34,10 +36,12 @@ const MainPageTopCardItem = ({
 
   return (
     <TouchableOpacity onPress={onPress} style={{width: cardWidth, height: 154}}>
-      <Image
-        source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${photoUrl}`}}
-        style={styles.image}
-      />
+      <View style={styles.shadow}>
+        <Image
+          source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${photoUrl}`}}
+          style={styles.image}
+        />
+      </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.period}>{period}</Text>
     </TouchableOpacity>
@@ -50,6 +54,18 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
     borderRadius: 16,
+  },
+  shadow: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    shadowColor: colors.BLACK,
+    shadowOffset: {width: 8, height: 8},
+    shadowOpacity: 0.32,
+    shadowRadius: 16,
+    elevation: 10,
+    borderRadius: 16,
+    overflow: 'hidden',
   },
   title: {
     position: 'absolute',
