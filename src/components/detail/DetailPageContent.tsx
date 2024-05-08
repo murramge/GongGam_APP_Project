@@ -20,14 +20,15 @@ const DetailPageContent = ({detailImgUrls}) => {
         style={{
           flex: 1,
           width: windowWidth,
-          paddingTop: 8,
         }}>
         <Text
           style={{
-            padding: 10,
-            fontWeight: '600',
+            width: '100%',
             fontSize: 16,
+            padding: 16,
+            fontWeight: '600',
             color: colors.BLACK,
+            backgroundColor: colors.WHITE,
           }}>
           공연내용
         </Text>
