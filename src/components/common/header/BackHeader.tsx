@@ -14,6 +14,7 @@ interface BackHeaderProps {
   };
   label: string | undefined;
   icon?: string | null;
+  showLeftIcon?: boolean | undefined;
 }
 
 const BackHeader = ({
@@ -24,6 +25,7 @@ const BackHeader = ({
   },
   label,
   icon = null,
+  showLeftIcon = true,
   ...props
 }: BackHeaderProps) => {
   const navigate =
@@ -38,12 +40,14 @@ const BackHeader = ({
         alignItems: 'center',
       }}>
       <View style={{width: '5%'}}>
-        <TouchableOpacity onPress={() => navigate.goBack()}>
-          <Icon
-            name="chevron-left"
-            color={Color.leftIconsColor}
-            size={20}></Icon>
-        </TouchableOpacity>
+        {showLeftIcon && (
+          <TouchableOpacity onPress={() => navigate.goBack()}>
+            <Icon
+              name="chevron-left"
+              color={Color.leftIconsColor}
+              size={20}></Icon>
+          </TouchableOpacity>
+        )}
       </View>
       <View
         style={{justifyContent: 'center', alignItems: 'center', width: '90%'}}>
@@ -58,7 +62,7 @@ const BackHeader = ({
           {label}
         </Text>
       </View>
-      <View style={{width: '5%'}}>
+      <View style={{width: '6%'}}>
         <TouchableOpacity>
           <Icon name={icon} color={Color.leftIconsColor} size={20}></Icon>
         </TouchableOpacity>

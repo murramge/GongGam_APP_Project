@@ -172,9 +172,20 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
         </View>
         {!isJoined && (
           <View>
-            <View style={styles.buttonContainer}>
-              <CommonButton label="가입하기" onPress={onPressJoinButton} />
-            </View>
+            {current_occupancy === max_occupancy ? (
+              <View style={styles.buttonContainer}>
+                <CommonButton
+                  label="모집 완료"
+                  onPress={() => {}}
+                  disabled={true}
+                  bgColor={colors.GRAY_300}
+                />
+              </View>
+            ) : (
+              <View style={styles.buttonContainer}>
+                <CommonButton label="가입하기" onPress={onPressJoinButton} />
+              </View>
+            )}
             <CommunityJoinModal
               isJoinModalOpen={isJoinModalOpen}
               onPressJoinCancel={onPressJoinCancel}
