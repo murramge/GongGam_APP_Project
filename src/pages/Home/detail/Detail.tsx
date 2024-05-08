@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   ScrollView,
   StyleSheet,
   Text,
   View,
   ActivityIndicator,
+  Animated,
 } from 'react-native';
 import DetailBookingHeader from '@components/common/header/DetailBookingHeader';
 import DetailPageInfo from '../../../components/detail/DetailPageInfo';
@@ -30,6 +31,10 @@ const Detail: React.FC<DetailProps> = ({route}: DetailProps) => {
   const {id} = route.params;
   const {detailInfo, loading, error} = usePerformanceDetailApi(id);
 
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const HEADER_MAX_HEIGHT = 360;
+  const HEADER_MIN_HEIGHT = 55;
+  const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
   if (loading)
     return <ActivityIndicator size="large" color={colors.MAIN_COLOR} />;
   if (error) return <Text style={styles.errorText}>{error}</Text>;
@@ -38,17 +43,37 @@ const Detail: React.FC<DetailProps> = ({route}: DetailProps) => {
     navigate('Ticketing', {id: detailInfo.mt20id});
   };
 
+  const headerHeight = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE],
+    outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+    extrapolate: 'clamp',
+  });
+
+  const scrollHandler = Animated.event(
+    [{nativeEvent: {contentOffset: {y: scrollY}}}],
+    {useNativeDriver: false},
+  );
+
   return (
     detailInfo && (
       <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>
-          <DetailBookingHeader detailInfo={detailInfo} />
-          <DetailPageInfo />
+        <ScrollView
+          style={styles.scrollView}
+          scrollEventThrottle={16}
+          onScroll={scrollHandler}
+          contentContainerStyle={{paddingTop: HEADER_MAX_HEIGHT}}>
+          <View style={{paddingHorizontal: 16, paddingTop: 16}}>
+            <DetailPageInfo />
+          </View>
           <View style={styles.contentContainer}>
             <DetailPageContent detailImgUrls={detailInfo.styurls} />
             <DetailPageMap id={detailInfo.mt10id} />
           </View>
         </ScrollView>
+        <DetailBookingHeader
+          detailInfo={detailInfo}
+          headerHeight={headerHeight}
+        />
         <View
           style={
             detailInfo.prfstate === '공연완료'

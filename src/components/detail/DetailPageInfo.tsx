@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   detailContainer: {
     left: 0,
     width: '100%',
-    paddingVertical: 17,
     borderBottomWidth: 1,
     borderBottomColor: colors.GRAY_200,
   },
