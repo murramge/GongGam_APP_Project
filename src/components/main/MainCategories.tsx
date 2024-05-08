@@ -47,7 +47,7 @@ const MainCategories = ({}: MainCategoriesProps) => {
           horizontal
           renderItem={onCategoriesRender}
           style={{
-            backgroundColor: '#E8E8EA',
+            backgroundColor: colors.SEARCH_BG,
             marginVertical: 8,
             borderRadius: 12,
           }}
