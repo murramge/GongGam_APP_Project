@@ -8,36 +8,47 @@ const MainPageTopCard = ({performanceData}) => {
   const {width: viewportWidth} = Dimensions.get('window');
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const _renderItem = ({item: art}) => (
-    <MainPageTopCardItem
-      photoUrl={art.poster ?? undefined}
-      title={art.prfnm}
-      period={art.prfpd}
-      place={art.area}
-      id={art.mt20id}
-    />
+  const _renderItem = ({item: art, index}) => (
+    <View
+      style={{
+        marginBottom: 20,
+        marginTop: 8,
+      }}>
+      <MainPageTopCardItem
+        photoUrl={art.poster ?? undefined}
+        title={art.prfnm}
+        period={art.prfpd}
+        place={art.area}
+        id={art.mt20id}
+      />
+    </View>
   );
 
   return (
     <View style={[styles.container, {width: viewportWidth}]}>
-      <Carousel
-        data={performanceData}
-        layout="default"
-        renderItem={_renderItem}
-        sliderWidth={viewportWidth}
-        itemWidth={viewportWidth - 60}
-        loop={false}
-        activeSlideOffset={10}
-        autoplay={false}
-        inactiveSlideScale={0.8}
-        onSnapToItem={setActiveIndex}
-      />
-      <Pagination
-        dotsLength={3} // Assume it's dynamic based on data
-        activeDotIndex={activeIndex}
-        dotStyle={styles.activeDot}
-        inactiveDotStyle={styles.inactiveDot}
-      />
+      <View>
+        <Carousel
+          data={performanceData}
+          layout="default"
+          renderItem={_renderItem}
+          sliderWidth={viewportWidth}
+          itemWidth={viewportWidth - 75}
+          loop={false}
+          activeSlideAlignment={'center'}
+          activeSlideOffset={10}
+          autoplay={false}
+          inactiveSlideScale={0.8}
+          onSnapToItem={setActiveIndex}
+        />
+      </View>
+      <View style={{marginTop: -25}}>
+        <Pagination
+          dotsLength={3} // Assume it's dynamic based on data
+          activeDotIndex={activeIndex}
+          dotStyle={styles.activeDot}
+          inactiveDotStyle={styles.inactiveDot}
+        />
+      </View>
     </View>
   );
 };

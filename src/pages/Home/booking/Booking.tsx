@@ -82,7 +82,7 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
           ))}
       </View>
 
-      <View style={{paddingHorizontal: 20, paddingVertical: 30}}>
+      <View style={{paddingHorizontal: 20, paddingVertical: 20}}>
         <Text style={styles.booking}>
           예매사이트의 링크 연결 기능만 제공합니다.
         </Text>
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
   },
   booking: {
     color: colors.GRAY_300,
+    fontSize: 12,
   },
   priceText: {
     alignItems: 'center',
@@ -173,6 +174,7 @@ const styles = StyleSheet.create({
   infoWrapper: {
     flexDirection: 'row',
     padding: 20,
+    alignItems: 'center',
   },
   infoTitle: {
     fontSize: 16,
