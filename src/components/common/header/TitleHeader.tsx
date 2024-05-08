@@ -23,7 +23,7 @@ const TitleHeader = ({
         paddingHorizontal: 15,
         paddingVertical: 15,
         alignItems: 'center',
-        height: 60,
+        height: 55,
       }}>
       <View
         style={{justifyContent: 'center', alignItems: 'center', width: '90%'}}>

@@ -6,9 +6,9 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import {useAtomValue} from 'jotai';
-import {scheduleAtom} from './ArtDaysTwoStap';
+import {scheduleAtom} from './CommunityTwoStep';
 import {useNavigation} from '@react-navigation/native';
-import CommunitySelectLayOut from '@components/communitySelect/CommunitySelectLayOut';
+import CommunitySelectLayOut from '@pages/CommunitySelect/CommunitySelectLayOut';
 import {FormProvider, useForm, useFormContext} from 'react-hook-form';
 import {date} from 'zod';
 dayjs.locale('ko');
@@ -65,11 +65,10 @@ const ArtTimesThreeStap = ({route}: any) => {
                     <View
                       style={{
                         backgroundColor: colors.RECENT_BG,
-                        borderRadius: 5,
                         padding: 5,
                         zIndex: 1,
                       }}>
-                      <Text style={{color: colors.GRAY_400}}>{artday}</Text>
+                      <Text style={{color: colors.GRAY_300}}>{artday}</Text>
                     </View>
                     <Text
                       style={{
@@ -93,16 +92,15 @@ const ArtTimesThreeStap = ({route}: any) => {
 const styles = StyleSheet.create({
   contextfalse: {
     borderWidth: 0.5,
-    borderColor: colors.GRAY_200,
+    borderColor: colors.GRAY_100,
     paddingHorizontal: 20,
     backgroundColor: colors.WHITE,
   },
   contextselect: {
     borderWidth: 0.5,
-    borderColor: colors.GRAY_200,
+    borderColor: colors.GRAY_100,
     paddingHorizontal: 20,
-    backgroundColor: colors.GRAY_200,
-    borderRadius: 10,
+    backgroundColor: colors.GRAY_100,
   },
 
   calendar: {
