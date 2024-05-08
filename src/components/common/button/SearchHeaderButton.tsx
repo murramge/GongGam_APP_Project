@@ -10,14 +10,14 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {RootStackParamList} from '@router.d';
-
+import {colors} from '@styles/color';
 interface SearchHeaderButtonProps {}
 
 const SearchHeaderButton = ({}: SearchHeaderButtonProps) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
-    <SafeAreaView style={{backgroundColor: '#F5F6F7', padding: 10}}>
+    <SafeAreaView style={{backgroundColor: colors.SEARCH_BG, padding: 10}}>
       <TouchableOpacity
         onPress={() => {
           navigate('Search');
