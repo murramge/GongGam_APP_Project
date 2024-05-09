@@ -6,6 +6,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList} from '@router.d';
 import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Config from 'react-native-config';
 interface CommonArtCardItemProps {
   data: {
     item: {
@@ -29,6 +30,8 @@ const CommunityCardItem = ({data}: CommonArtCardItemProps) => {
   let perfDay = dayjs(item.perf_at).format('YY년 MM월 DD일 HH시 mm분');
   let meetDay = dayjs(item.meeting_at).format('YY년 MM월 DD일 HH시 mm분');
 
+  console.log(item.perf_image_url);
+
   return (
     <View>
       <TouchableOpacity
@@ -38,7 +41,12 @@ const CommunityCardItem = ({data}: CommonArtCardItemProps) => {
         }}>
         <View style={styles.photo}>
           {item.perf_image_url && (
-            <Image style={styles.photo} source={{uri: item.perf_image_url}} />
+            <Image
+              style={styles.photo}
+              source={{
+                uri: `${Config.KOPIS_IMAGE_BASE_URL}/${item.perf_image_url}`,
+              }}
+            />
           )}
         </View>
         <View style={styles.right}>
@@ -123,7 +131,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: colors.GRAY_200,
     backgroundColor: colors.MAIN_COLOR,
-    width: '100%',
+    width: '80%',
     borderRadius: 4,
     height: 25,
     justifyContent: 'center',

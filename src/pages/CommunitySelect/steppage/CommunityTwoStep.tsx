@@ -1,11 +1,10 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {colors} from '@styles/color';
-import {useNavigation} from '@react-navigation/native';
 import {Calendar} from 'react-native-calendars';
 import dayjs from 'dayjs';
 import {getPerformanceDetail} from '@apis/kopis';
-import {PerformanceDetailInfo} from '@apis/kopis';
+import {PerformanceDetailInfo} from '@apis/kopis.d';
 import {divFuntion, parseSchedule} from '@utils/splitdate';
 var customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
@@ -14,9 +13,8 @@ dayjs.extend(isSameOrBefore);
 import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
 import utc from 'dayjs/plugin/utc';
-import MultiStepFormBottom from '@components/common/multistepform/MultiStepFormBottom';
 import {atom, useAtom} from 'jotai';
-import CommunitySelectLayOut from '@components/communitySelect/CommunitySelectLayOut';
+
 dayjs.extend(utc);
 import {useForm, useFormContext} from 'react-hook-form';
 
@@ -28,8 +26,6 @@ const ArtDaysTwoStap = ({route}: any) => {
   const [markedDates, setMarkedDates] = useState({});
   const [startday, setStartDay] = useState();
   const [lastday, setLastDay] = useState();
-  const [currentStep, setCurrentStep] = useState(2);
-  const [selectedDate, setSelectedDate] = useState();
   const [schedule, setSchedule] = useAtom(scheduleAtom);
   const {setValue, watch} = useFormContext();
 
@@ -39,7 +35,6 @@ const ArtDaysTwoStap = ({route}: any) => {
 
   useEffect(() => {
     const fetchDetail = async () => {
-      console.log(id);
       try {
         const data = await getPerformanceDetail({performanceId: id});
 
@@ -149,7 +144,16 @@ const ArtDaysTwoStap = ({route}: any) => {
   };
 
   return (
-    <>
+    <View style={{flex: 1}}>
+      <View
+        style={{
+          padding: 16,
+          paddingHorizontal: 30,
+        }}>
+        <Text style={{fontSize: 16, color: colors.BLACK, fontWeight: '700'}}>
+          공연 날짜
+        </Text>
+      </View>
       <View style={styles.communityList}>
         {dayjs(startday).isValid() &&
           dayjs(lastday).isValid() &&
@@ -175,16 +179,30 @@ const ArtDaysTwoStap = ({route}: any) => {
             />
           )}
       </View>
-    </>
+      {watch('artDays') && (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: 30,
+          }}>
+          <Text style={{fontSize: 16, fontWeight: '700'}}>
+            선택하신 공연 날짜는
+            <Text style={{color: colors.MAIN_COLOR}}> {watch('artDays')} </Text>
+            입니다.
+          </Text>
+          <Text>멋진 공연을 기대하며 일정을 확인하세요!</Text>
+        </View>
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   calendar: {
-    paddingBottom: 30,
     borderWidth: 1,
     borderColor: '#E9E9E9',
-    borderRadius: 20,
+    borderRadius: 10,
   },
   container: {
     flex: 1,

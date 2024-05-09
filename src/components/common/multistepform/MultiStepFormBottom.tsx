@@ -19,7 +19,7 @@ const MultiStepFormBottom = ({
   const isFirst = currentStep === 1;
   const isFinal = maxStep === currentStep;
   return (
-    <View style={{padding: 16, gap: 8}}>
+    <View style={{padding: 16, gap: 8, backgroundColor: colors.WHITE}}>
       <StepIndicator currentStep={currentStep} maxStep={maxStep} />
       <View style={{flexDirection: 'row', gap: 8}}>
         {!isFirst && (
@@ -54,7 +54,7 @@ const StepIndicator = ({currentStep, maxStep}: StepIndicatorProps) => {
     <View
       style={{
         width: '100%',
-        height: 6,
+        height: 1.5,
         gap: 2,
         flexDirection: 'row',
       }}>
