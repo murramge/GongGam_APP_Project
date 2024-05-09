@@ -67,8 +67,8 @@ const StepIndicator = ({currentStep, maxStep}: StepIndicatorProps) => {
           }}
         />
       ))}
-      {remainStep.map(_ => (
-        <View style={{flex: 1, backgroundColor: colors.GRAY_200}} />
+      {remainStep.map((_, index) => (
+        <View key={index} style={{flex: 1, backgroundColor: colors.GRAY_200}} />
       ))}
     </View>
   );
