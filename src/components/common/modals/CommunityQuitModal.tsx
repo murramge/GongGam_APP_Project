@@ -17,12 +17,14 @@ interface CommunityQuitModalProps {
   isVisible: boolean;
   setIsVisible: (isVisible: boolean) => void;
   title: string;
+  isOwner: boolean;
 }
 
 const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
   isVisible,
   setIsVisible,
   title,
+  isOwner,
 }) => {
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
 
@@ -80,10 +82,15 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
                 }}
                 style={[
                   styles.menuItem,
-                  selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
+                  //selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
                 ]}>
                 <Text style={styles.menuText}>모임 탈퇴</Text>
               </TouchableOpacity>
+              {isOwner && (
+                <TouchableOpacity onPress={() => console.log()}>
+                  <Text style={styles.menuText}>모임 수정</Text>
+                </TouchableOpacity>
+              )}
               <TouchableOpacity
                 onPress={() => {
                   setIsVisible(!isVisible);
@@ -121,7 +128,7 @@ const styles = StyleSheet.create({
   },
   menuText: {
     color: colors.BLACK,
-    fontSize: 24,
+    fontSize: 20,
     textAlign: 'center',
   },
   selectedMenuItem: {

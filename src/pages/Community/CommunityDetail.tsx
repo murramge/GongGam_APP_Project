@@ -132,7 +132,10 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
               <Image source={shareIcon} style={styles.icon} />
             </TouchableOpacity>
             {isJoined && (
-              <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
+              <TouchableOpacity
+                onPress={() => {
+                  setIsVisible(!isVisible);
+                }}>
                 <Image source={moreIcon} style={styles.icon} />
               </TouchableOpacity>
             )}
@@ -197,8 +200,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           </View>
         )}
 
-        <CommunityQuitModal isVisible={isVisible} setIsVisible={setIsVisible} />
-        {/* <CommentsModal isVisible={isVisible} setIsVisible={setIsVisible} /> */}
+        <CommunityQuitModal
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          isOwner={isOwner}
+        />
       </View>
     );
   }
