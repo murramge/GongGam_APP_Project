@@ -1,15 +1,15 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, Animated} from 'react-native';
 import BackHeader from './BackHeader';
 import {colors} from '@styles/color';
 import {useAtomValue} from 'jotai';
 import {detailDataAtom} from '../../template/home/DetailPage';
 
-const DetailBookingHeader = ({detailInfo}) => {
-  console.log(detailInfo);
+const DetailBookingHeader = ({detailInfo, headerHeight}) => {
   return (
     detailInfo && (
-      <View>
+      <Animated.View
+        style={headerHeight && [styles.animated, {height: headerHeight}]}>
         <View style={styles.detailHeader}>
           <BackHeader
             label={detailInfo?.prfnm}
@@ -37,21 +37,31 @@ const DetailBookingHeader = ({detailInfo}) => {
             />
           )}
         </View>
-      </View>
+      </Animated.View>
     )
   );
 };
 
 const styles = StyleSheet.create({
+  animated: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflow: 'hidden',
+    zIndex: 19,
+  },
   detailHeader: {
     position: 'absolute',
     left: 0,
     top: 0,
+    right: 0,
     zIndex: 10,
   },
   photoContainer: {
     position: 'absolute',
-    top: 50,
+    top: 58,
     left: 88,
     width: 214,
     height: 287,

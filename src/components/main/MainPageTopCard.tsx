@@ -24,11 +24,13 @@ const MainPageTopCard = ({performanceData}) => {
     </View>
   );
 
+  const firstThreeItems = performanceData.slice(0, 3);
+
   return (
     <View style={[styles.container, {width: viewportWidth}]}>
       <View>
         <Carousel
-          data={performanceData}
+          data={firstThreeItems}
           layout="default"
           renderItem={_renderItem}
           sliderWidth={viewportWidth}

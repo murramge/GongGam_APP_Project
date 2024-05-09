@@ -35,8 +35,8 @@ const BackHeader = ({
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 15,
-        paddingVertical: 15,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
         alignItems: 'center',
       }}>
       <View style={{width: '5%'}}>
@@ -53,11 +53,11 @@ const BackHeader = ({
         style={{justifyContent: 'center', alignItems: 'center', width: '90%'}}>
         <Text
           style={{
-            flex: 1,
             fontSize: 16,
             color: Color.labelColor,
             fontWeight: '700',
             textAlign: 'center',
+            lineHeight: 20,
           }}>
           {label}
         </Text>
