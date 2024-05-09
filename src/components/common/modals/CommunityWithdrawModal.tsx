@@ -7,9 +7,11 @@ import CommonButton from '../../../atoms/buttons/CommonButton';
 const CommunityWithdrawModal = ({
   isWithdrawModalOpen,
   onPressWithdrawCancel,
+  title,
 }: {
   isWithdrawModalOpen: boolean;
   onPressWithdrawCancel: () => void;
+  title: string;
 }) => {
   return (
     <View>
@@ -25,7 +27,7 @@ const CommunityWithdrawModal = ({
               autoPlay
               loop
             />
-            <Text style={styles.communityName}>모임명</Text>
+            <Text style={styles.communityName}>{title}</Text>
 
             <Text style={styles.modalText}>모임을{'\n'}탈퇴하시겠습니까?</Text>
             <View style={{paddingBottom: 10, width: 300}}>

@@ -16,11 +16,13 @@ import CommunityWithdrawModal from '@components/common/modals/CommunityWithdrawM
 interface CommunityQuitModalProps {
   isVisible: boolean;
   setIsVisible: (isVisible: boolean) => void;
+  title: string;
 }
 
 const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
   isVisible,
   setIsVisible,
+  title,
 }) => {
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
 
@@ -99,6 +101,7 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
       <CommunityWithdrawModal
         isWithdrawModalOpen={isWithdrawModalOpen}
         onPressWithdrawCancel={onPressWithdrawCancel}
+        title={title}
       />
     </View>
   );
