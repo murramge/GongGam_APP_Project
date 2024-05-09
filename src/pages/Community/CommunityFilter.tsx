@@ -13,10 +13,10 @@ import DropDownPicker from 'react-native-dropdown-picker';
 interface CommunityFilterProps {}
 
 const CommunityFilter = ({}: CommunityFilterProps) => {
-  const [perfName, setPerfName] = useState('');
+  const [perfName, setPerfName] = useState<string>('');
   const [perfGenre, setPerfGenre] = useState<PerformanceGenreKey>();
   const [meetingAt, setMeetingAt] = useState<Dayjs>();
-  const [maxOccupancy, setMaxOccupancy] = useState(2);
+  const [maxOccupancy, setMaxOccupancy] = useState<number>();
   const [open, setOpen] = useState(false);
 
   return (
@@ -80,6 +80,7 @@ const CommunityFilter = ({}: CommunityFilterProps) => {
             setValue={value => {
               setMaxOccupancy(value);
             }}
+            itemKey="label"
             placeholder={'상관 없음'}
             style={{borderColor: colors.GRAY_200}}
             dropDownDirection="TOP"

@@ -41,27 +41,8 @@ const StepHeader = ({
           alignItems: 'center',
         }}>
         <View style={{width: '8%', paddingTop: 5}}>
-          <TouchableOpacity
-            onPress={() => {
-              navigate.dispatch(
-                CommonActions.reset({
-                  index: 0,
-                  routes: [
-                    {
-                      name: 'MainTab',
-                      state: {
-                        routes: [
-                          {
-                            name: 'Performance',
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                }),
-              );
-            }}>
-            <Icon name="close" color={colors.GRAY_500} size={25}></Icon>
+          <TouchableOpacity onPress={onPressCancel}>
+            <Icon name="close" color={colors.GRAY_500} size={25} />
           </TouchableOpacity>
         </View>
         <View style={{justifyContent: 'flex-start', width: '75%'}}>

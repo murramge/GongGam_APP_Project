@@ -22,10 +22,6 @@ const Grid = <ItemT,>({
   data,
   renderItem,
 }: GridProps<ItemT>) => {
-  useEffect(() => {
-    console.log('render');
-  }, []);
-
   const cellWidth = (width - gap * (numColumns - 1)) / numColumns;
   return (
     <View
