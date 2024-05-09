@@ -5,6 +5,7 @@ import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {RootStackParamList} from '@router.d';
+import {colors} from '@styles/color';
 
 interface BackHeaderProps {
   Color?: {
@@ -14,6 +15,7 @@ interface BackHeaderProps {
   };
   label: string | undefined;
   icon?: string | null;
+  onPressBack?: () => void;
 }
 
 const BackHeader = ({
@@ -24,13 +26,14 @@ const BackHeader = ({
   },
   label,
   icon = null,
-  ...props
+  onPressBack,
 }: BackHeaderProps) => {
   const navigate =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <SafeAreaView
       style={{
+        backgroundColor: colors.GRAY_100,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 10,
@@ -38,7 +41,8 @@ const BackHeader = ({
         alignItems: 'center',
       }}>
       <View style={{width: '5%'}}>
-        <TouchableOpacity onPress={() => navigate.goBack()}>
+        <TouchableOpacity
+          onPress={onPressBack ? onPressBack : () => navigate.goBack()}>
           <Icon
             name="chevron-left"
             color={Color.leftIconsColor}
