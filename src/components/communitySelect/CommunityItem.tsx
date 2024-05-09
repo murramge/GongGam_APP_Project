@@ -66,6 +66,9 @@ const CommunityItem = ({
           </View>
         </View>
       </TouchableOpacity>
+      <View
+        style={{width: '100%', height: 1, backgroundColor: colors.GRAY_200}}
+      />
     </View>
   );
 };
@@ -73,18 +76,19 @@ const CommunityItem = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: colors.LINE_COLOR,
     paddingVertical: 15,
     paddingHorizontal: 10,
+    borderWidth: 2,
+    borderColor: colors.WHITE,
   },
   selectcontainer: {
     flexDirection: 'row',
-
-    backgroundColor: colors.GRAY_100,
+    backgroundColor: colors.WHITE,
     paddingVertical: 15,
     paddingHorizontal: 10,
     borderRadius: 10,
+    borderWidth: 2,
+    borderColor: colors.MAIN_COLOR,
   },
   photo: {
     width: 117,
