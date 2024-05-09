@@ -29,6 +29,8 @@ const CommunityIntroduce = () => {
         <TextInput
           placeholderTextColor={colors.GRAY_300}
           placeholder={'모임명이 짧을수록 이해하기 쉬워요'}
+          value={watch('communityName')}
+          maxLength={20}
           onChangeText={text =>
             setValue('communityName', text, {
               shouldValidate: true,
@@ -56,7 +58,9 @@ const CommunityIntroduce = () => {
         </Text>
         <TextInput
           placeholderTextColor={colors.GRAY_300}
-          placeholder={'예매하신 공연과 관련된 내용을 적어주세요'}
+          placeholder={'함께 볼 공연과 관련된 내용을 적어주세요'}
+          value={watch('communityContext')}
+          maxLength={200}
           onChangeText={text =>
             setValue('communityContext', text, {
               shouldValidate: true,

@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 30,
+    backgroundColor: colors.WHITE,
   },
   logo: {
     width: 200,

@@ -6,10 +6,11 @@ import {colors} from '@styles/color';
 import CommunityTabBar from '@components/community/CommunityTabBar';
 import {useAtomValue} from 'jotai';
 
-import BackHeader from '@components/common/header/BackHeader';
 import {CommunityDataAtom} from './hooks/useMettingApi';
 import HorizontalCardList from '@components/common/cardlist/HorizontalCardList';
 import CommunityCreate from '../../components/community/CommunityCreate';
+import TitleHeader from '@components/common/header/TitleHeader';
+import BackHeader from '@components/common/header/BackHeader';
 
 const Community = () => {
   const results = useAtomValue(CommunityDataAtom);
@@ -17,6 +18,7 @@ const Community = () => {
   return (
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
       <View style={{backgroundColor: '#F7F5F5'}}>
+        <TitleHeader label="함께 보기"></TitleHeader>
         <BackHeader
           label="함께 보기"
           icon="search"

@@ -1,56 +1,29 @@
-import {colors} from '@styles/color';
-import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {FlatList, View} from 'react-native';
 
 import CommunityItem from '@components/communitySelect/CommunityItem';
-import {
-  PerformanceBoxOffice,
-  PerformanceCategory,
-  PerformanceStsType,
-} from '@apis/kopis.d';
-import {getPerformanceBoxOffice} from '@apis/kopis';
 
+import usePerformanceDate from '@hooks/usePerformanceDate';
+import usePerformanceApi from '@hooks/usePerformanceApi';
 export interface CommunityListProps {
-  date: string;
-  stsType: PerformanceStsType[keyof PerformanceStsType];
-  categoryCode?: keyof PerformanceCategory | string;
-  area?: string;
   setValue?: any;
   watch?: any;
 }
 
-const CommunityList = ({
-  date,
-  stsType,
-  categoryCode,
-  area,
-  setValue,
-  watch,
-}: CommunityListProps) => {
-  const [performances, setPerformances] = useState<PerformanceBoxOffice[]>([]);
+const CommunityList = ({setValue, watch}: CommunityListProps) => {
+  const performanceDate = usePerformanceDate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getPerformanceBoxOffice({
-          date,
-          stsType,
-          categoryCode,
-          area,
-        });
-        data && setPerformances(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const performanceData = usePerformanceApi(
+    performanceDate.today,
+    performanceDate.stsType,
+  );
+  console.log('pdata', performanceData);
 
-    fetchData();
-  }, [date, stsType, categoryCode, area]);
   return (
     <View>
       <View>
         <FlatList
-          data={performances}
+          data={performanceData}
           renderItem={({item: art}) => {
             return (
               <CommunityItem
@@ -58,6 +31,7 @@ const CommunityList = ({
                 title={art.prfnm}
                 period={art.prfpd}
                 place={art.area}
+                cate={art.cate}
                 id={art.mt20id}
                 setValue={setValue}
                 watch={watch}
@@ -71,18 +45,5 @@ const CommunityList = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  titleText: {
-    color: colors.GRAY_500,
-    fontSize: 15,
-    fontWeight: '600',
-    marginBottom: 3,
-    marginLeft: 5,
-  },
-  separator: {
-    width: 8,
-  },
-});
 
 export default CommunityList;

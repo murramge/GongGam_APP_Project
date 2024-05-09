@@ -40,6 +40,7 @@ const SignTemplate = ({type}: SignTemplateProps) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 paddingTop: 20,
+                backgroundColor: colors.WHITE,
               }}>
               <LottieView
                 source={require('@lotties/join.json')}

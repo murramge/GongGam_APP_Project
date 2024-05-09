@@ -136,7 +136,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
         </View>
         <View style={styles.mainContainer}>
           <View style={styles.titleArea}>
-            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+            <Text style={styles.title} ellipsizeMode="tail">
               {perf_name}
             </Text>
             <Text style={styles.communityTitle}>{title}</Text>
@@ -241,6 +241,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {flex: 1, paddingHorizontal: 16},
   titleArea: {
+    width: '80%',
     marginTop: 16,
     marginLeft: PosterImageWidth + 16,
     gap: 4,
