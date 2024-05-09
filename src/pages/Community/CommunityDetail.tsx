@@ -25,6 +25,8 @@ import {
 } from '@apis/supabase/meeting';
 import {MeetingInfo} from '@apis/supabase/meeting.d';
 import {getCurrentAuthUser} from '@apis/supabase/auth';
+import CommentView from '@components/common/modals/CommentView';
+import Loading from '../../components/common/skeleton/Loading';
 
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
@@ -97,7 +99,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
 
   if (!meeting) {
     // TODO: 로딩 화면
-    return <View />;
+    return <Loading />;
   }
 
   if (meeting) {
@@ -119,7 +121,9 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           <Image source={mainVisual} style={styles.mainImg} />
         </View>
         <View style={styles.profileImgArea}>
-          <Image source={{uri: perf_image_url}} style={styles.profileImg} />
+          <TouchableOpacity>
+            <Image source={{uri: perf_image_url}} style={styles.profileImg} />
+          </TouchableOpacity>
           <View style={styles.iconArea}>
             <TouchableOpacity
               onPress={async () => {
@@ -185,6 +189,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
               current_occupancy={meeting.current_occupancy}
               max_occupancy={meeting.max_occupancy}
             />
+          </View>
+        )}
+        {isJoined && (
+          <View>
+            <CommentView meetingId={meeting.id} />
           </View>
         )}
 
