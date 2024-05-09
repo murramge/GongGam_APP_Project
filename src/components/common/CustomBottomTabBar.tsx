@@ -8,8 +8,7 @@ import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import 'react-native-get-random-values';
 import {v4} from 'uuid';
 import {getCurrentAuthUser} from '@apis/supabase/auth';
-
-const TabBarHeight = 92;
+import {BOTTOM_TAB_HEIGHT} from '@styles/common';
 
 interface CustomBottomTabBarProps extends BottomTabBarProps {}
 
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
     left: 0,
     backgroundColor: 'transparent',
     width,
-    height: TabBarHeight,
+    height: BOTTOM_TAB_HEIGHT,
     padding: 16,
   },
   tabBar: {
@@ -138,8 +137,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   tabButton: {
-    width: TabBarHeight * 0.52,
-    height: TabBarHeight * 0.52,
+    width: BOTTOM_TAB_HEIGHT * 0.52,
+    height: BOTTOM_TAB_HEIGHT * 0.52,
     borderRadius: 100,
     backgroundColor: '#FFF',
     alignItems: 'center',

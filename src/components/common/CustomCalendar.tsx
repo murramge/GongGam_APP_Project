@@ -1,5 +1,4 @@
 import React from 'react';
-import {View} from 'react-native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {DateData, MarkedDates} from 'react-native-calendars/src/types';
 
