@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
 import {RootStackParamList} from '@router.d';
 
 import {colors} from '@styles/color';

@@ -4,6 +4,7 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 
 import SearchCardItem from '@components/search/SearchCardItem';
 import CommunityCardItem from '@components/community/CommunityCardItem';
+import {BOTTOM_TAB_HEIGHT} from '@styles/common';
 
 export interface CommonArtCardListProps {
   data: any;
@@ -12,28 +13,24 @@ export interface CommonArtCardListProps {
 
 const HorizontalCardList = ({data, type}: CommonArtCardListProps) => {
   return (
-    <View style={styles.boxOfficeContainer}>
-      <View>
-        <FlatList
-          data={data}
-          renderItem={item =>
-            type == 'search' ? (
-              <SearchCardItem data={item} />
-            ) : (
-              <CommunityCardItem data={item} />
-            )
-          }
-          keyExtractor={item => item.id}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
-    </View>
+    <FlatList
+      contentContainerStyle={{paddingBottom: BOTTOM_TAB_HEIGHT, flexGrow: 1}}
+      data={data}
+      renderItem={item =>
+        type == 'search' ? (
+          <SearchCardItem data={item} />
+        ) : (
+          <CommunityCardItem data={item} />
+        )
+      }
+      keyExtractor={item => item.id}
+      ItemSeparatorComponent={() => <View style={styles.separator} />}
+      showsHorizontalScrollIndicator={false}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  boxOfficeContainer: {},
   titleText: {
     color: colors.GRAY_500,
     fontSize: 16,

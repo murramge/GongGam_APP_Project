@@ -25,9 +25,9 @@ export const getMeetings = async () => {
 export const getMeeting = async (id: string) => {
   try {
     const {data, error} = await supabase
-      .rpc('get_meeting_info', {
-        param_id: id,
-      })
+      .from('meeting_with_current_occupancy')
+      .select('*')
+      .eq('id', id)
       .single();
 
     if (error) {

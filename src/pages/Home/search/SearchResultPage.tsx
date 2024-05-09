@@ -60,7 +60,7 @@ const SearchResultPage = ({route}: SearchResultPageProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchInputArea}>
-        <SearchHeaderButton></SearchHeaderButton>
+        <SearchHeaderButton />
         <ScrollView
           style={{marginBottom: 16, marginHorizontal: 16}}
           contentContainerStyle={{
@@ -81,16 +81,18 @@ const SearchResultPage = ({route}: SearchResultPageProps) => {
       </View>
       <View style={styles.resultListContainer}>
         <Text style={styles.resultTotalText}>{results?.length}개의 결과</Text>
-        {results.length === 0 ? (
-          <NotResult />
-        ) : (
-          <HorizontalCardList
-            data={results.map(item => {
-              return item;
-            })}
-            type="search"
-          />
-        )}
+        <View style={{flex: 1}}>
+          {results.length === 0 ? (
+            <NotResult />
+          ) : (
+            <HorizontalCardList
+              data={results.map(item => {
+                return item;
+              })}
+              type="search"
+            />
+          )}
+        </View>
       </View>
     </View>
   );
@@ -112,13 +114,13 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   resultListContainer: {
-    marginTop: 18,
-    marginHorizontal: 27,
+    marginHorizontal: 16,
+    flex: 1,
   },
   resultTotalText: {
     color: colors.GRAY_500,
     fontSize: 13,
-    marginBottom: 5,
+    paddingVertical: 8,
   },
 });
 
