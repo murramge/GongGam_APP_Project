@@ -20,7 +20,7 @@ interface CommunitySelectLayOutProps
   extends NativeStackScreenProps<RootStackParamList, 'CommunitySelectLayOut'> {}
 
 const CommunitySelectLayOut = ({
-  navigation: {goBack},
+  navigation: {goBack, navigate},
 }: CommunitySelectLayOutProps) => {
   const methods = useForm({
     mode: 'all',
@@ -45,7 +45,7 @@ const CommunitySelectLayOut = ({
     } else {
       try {
         const fetchdata = await createMeeting({...selectedData});
-        console.log(fetchdata);
+        navigate('CommunityDetail', {id: fetchdata});
       } catch (error) {
         console.log(error);
       }

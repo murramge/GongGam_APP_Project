@@ -3,5 +3,6 @@ module.exports = {
   extends: '@react-native',
   rules: {
     curly: 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
 };
