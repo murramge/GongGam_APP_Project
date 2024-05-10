@@ -14,25 +14,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ElevatedView from 'react-native-elevated-view';
 import {getProfile} from '@apis/supabase/profile';
 import {useNavigation} from '@react-navigation/native';
+import useImage from '@hooks/useImage';
+import Config from 'react-native-config';
 interface MyPageHeaderProps {
   type?: string;
+  profileImageUrl?: string;
+  onPressCameraButton: () => void;
 }
 
-const MyPageHeader = ({type}: MyPageHeaderProps) => {
-  const {navigate} = useNavigation();
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await getProfile();
-        console.log(data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getData();
-  }, []);
-
+const MyPageHeader = ({
+  type,
+  profileImageUrl,
+  onPressCameraButton,
+}: MyPageHeaderProps) => {
   return (
     <SafeAreaView>
       <View
@@ -54,7 +48,9 @@ const MyPageHeader = ({type}: MyPageHeaderProps) => {
           <Image
             resizeMode="cover"
             source={{
-              uri: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+              uri: profileImageUrl
+                ? profileImageUrl
+                : 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
             }}
             style={{
               width: 150,
@@ -74,7 +70,8 @@ const MyPageHeader = ({type}: MyPageHeaderProps) => {
               left: 20,
               alignItems: 'center',
               justifyContent: 'center',
-            }}>
+            }}
+            onPress={onPressCameraButton}>
             <FontAwesome name="camera" size={25}></FontAwesome>
           </TouchableOpacity>
         </View>
