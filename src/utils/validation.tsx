@@ -8,6 +8,10 @@ const emailSchema = z
 const passwordSchema = z
   .string()
   .regex(PASSWORD_REGEX, '비밀번호: 9-20자, 영문+특수문자 필수');
+const nicknameSchema = z
+  .string()
+  .min(2, {message: '닉네임을 2자 이상 입력해주세요!'})
+  .max(10, {message: '닉네임을 10자 이하로 입력해주세요!'});
 
 export const Signschema = z
   .object({
@@ -75,3 +79,8 @@ export const PasswordResetSchema = z
     }
   });
 export type PasswordResetType = z.infer<typeof PasswordResetSchema>;
+
+export const ProfileSchema = z.object({
+  nickname: nicknameSchema,
+});
+export type ProfileSchemaType = z.infer<typeof ProfileSchema>;

@@ -16,6 +16,8 @@ import usePerformanceDetailApi from './hooks/usePerformanceDetailApi';
 import {RouteProp, useNavigation} from '@react-navigation/native';
 import {colors} from '@styles/color';
 import Loading from '../../../components/common/skeleton/Loading';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '@router.d';
 
 type DetailRouteParams = {
   Detail: {
@@ -23,12 +25,13 @@ type DetailRouteParams = {
   };
 };
 
-interface DetailProps {
-  route: RouteProp<DetailRouteParams, 'Detail'>;
-}
+interface DetailProps
+  extends NativeStackScreenProps<RootStackParamList, 'Detail'> {}
 
-const Detail: React.FC<DetailProps> = ({route}: DetailProps) => {
-  const {navigate} = useNavigation();
+const Detail: React.FC<DetailProps> = ({
+  route,
+  navigation: {navigate},
+}: DetailProps) => {
   const {id} = route.params;
   const {detailInfo, loading, error} = usePerformanceDetailApi(id);
 
@@ -108,6 +111,7 @@ const Detail: React.FC<DetailProps> = ({route}: DetailProps) => {
                 label="같이 볼 사람 모집하기"
                 borderRadius={0}
                 margin={0}
+                onPress={() => navigate('CommunitySelectLayOut')}
               />
             </View>
           )}

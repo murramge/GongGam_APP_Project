@@ -1,31 +1,33 @@
 import {useEffect, useState} from 'react';
 import {getMeetings} from '@apis/supabase/meeting';
 import {atom, useAtom} from 'jotai';
-import {getProfile} from '@react-native-seoul/kakao-login';
+import {getProfile} from '@apis/supabase/profile';
 import {supabase} from '@apis/supabase/supabase';
+import {UserProfile} from '@apis/supabase/profile.d';
+import {getCurrentAuthUser} from '@apis/supabase/auth';
+import {User} from '@supabase/supabase-js';
 
 //프로필 api 불러옴
 
-export const ProfileDataAtom = atom([]);
+export const ProfileDataAtom = atom<UserProfile | undefined>(undefined);
+
 const useProfileApi = () => {
   const [profile, setProfile] = useAtom(ProfileDataAtom);
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
-    const fetchProfiles = async () => {
-      try {
-        console.log(await supabase.auth.getSession());
-        const data = await getProfile();
-
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchProfiles();
   }, []);
+  const fetchProfiles = async () => {
+    try {
+      setProfile(await getProfile());
+      setUser(await getCurrentAuthUser());
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  return profile;
+  return {profile, user, fetchProfiles};
 };
 
 export default useProfileApi;
