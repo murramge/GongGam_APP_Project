@@ -4,16 +4,9 @@ import {
   Image,
   FlatList,
   TextInput,
-  KeyboardAvoidingView,
   TouchableOpacity,
   Text,
-  Platform,
-  useWindowDimensions,
-  Keyboard,
-  SafeAreaView,
-  PanResponder,
   Dimensions,
-  //Animated,
 } from 'react-native';
 import dayjs from 'dayjs';
 import {colors} from '@styles/color';
@@ -35,7 +28,6 @@ import {
   PanGestureHandler,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 export interface CommentItemProps {
   id: number;

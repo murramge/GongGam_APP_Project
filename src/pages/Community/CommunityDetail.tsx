@@ -49,6 +49,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   useEffect(() => {
     fetch();
+    console.log(route.params.id);
   }, [route.params.id]);
 
   const fetch = async () => {
