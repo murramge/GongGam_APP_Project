@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   Text,
@@ -10,10 +10,13 @@ import {
   Platform,
   useWindowDimensions,
   Keyboard,
+  Dimensions,
 } from 'react-native';
+import {colors} from '@styles/color';
+import {getProfile} from '@apis/supabase/profile';
 import Modal from 'react-native-modal';
-
-const moreIcon = require('../../assets/icons/more.png');
+import {getMeetingComments} from '@apis/supabase/comment';
+// const moreIcon = require('../../assets/icons/more.png');
 
 interface Comment {
   id: number;
@@ -21,21 +24,6 @@ interface Comment {
   contents: string;
   profileImg: string;
 }
-
-const dummy_comments: Comment[] = [
-  {
-    id: 1,
-    name: 'newjeans',
-    contents: '와 잘 봤어요!',
-    profileImg: 'https://picsum.photos/seed/picsum/60/60',
-  },
-  {
-    id: 2,
-    name: 'mimi',
-    contents: '정말 멋있네요',
-    profileImg: 'https://picsum.photos/seed/picsum/60/60',
-  },
-];
 
 interface CommentItemProps {
   item: Comment;
@@ -69,9 +57,9 @@ const CommentItem: React.FC<CommentItemProps> = ({item, index}) => {
             </View>
             <Text style={{color: '#000', fontSize: 15}}>{item.contents}</Text>
           </View>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Image source={moreIcon} style={{width: 20, height: 20}} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </View>
@@ -81,21 +69,43 @@ const CommentItem: React.FC<CommentItemProps> = ({item, index}) => {
 interface CommentsModalProps {
   isVisible: boolean;
   setIsVisible: (isVisible: boolean) => void;
+  meetingId: number;
 }
 
 const CommentsModal: React.FC<CommentsModalProps> = ({
   isVisible,
   setIsVisible,
+  meetingId,
 }) => {
   const [textValue, setTextValue] = useState<string>('');
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
-
+  const screenWidth = Dimensions.get('window').width;
   const renderItem = useCallback(
     ({item, index}: {item: Comment; index: number}) => (
       <CommentItem item={item} index={index} />
     ),
     [],
   );
+  const [comments, setComments] = useState<Comment[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getMeetingComments(meetingId);
+        console.log(data);
+        console.log(data[0].profile.nickname);
+        if (data) {
+          setComments(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [meetingId]);
+
+  const test = getProfile();
+  console.log(test);
+
   return (
     <Modal
       useNativeDriver
@@ -158,7 +168,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
               <Text style={{color: '#333'}}>댓글</Text>
             </View>
             <FlatList
-              data={dummy_comments}
+              data={comments}
               renderItem={renderItem}
               keyExtractor={item => item.id.toString()}
               showsVerticalScrollIndicator={false}
@@ -168,26 +178,31 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             />
           </View>
 
-          {/* 댓글 입력 */}
+          {/*댓글입력 시작 */}
           <View
             style={{
-              borderTopWidth: 1,
-              borderColor: '#EEE',
+              backgroundColor: colors.GRAY_200,
               flexDirection: 'row',
-              alignItems: 'flex-end',
+              paddingHorizontal: 20,
+              width: screenWidth,
+              paddingVertical: 20,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              position: 'absolute',
+              bottom: 0,
             }}>
+            <Image
+              source={{uri: 'https://avatar.iran.liara.run/public'}}
+              style={{width: 32, height: 32}}
+            />
             <View
               style={{
-                flex: 1,
-                justifyContent: 'center',
-                paddingHorizontal: 12,
-                marginTop: 16,
-                marginBottom: 24,
-                minHeight: 40,
-                maxHeight: 130,
-                borderRadius: 6,
-                borderWidth: 1,
-                borderColor: '#b1b1b1',
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                backgroundColor: colors.WHITE,
+                borderRadius: 4,
+                width: 270,
+                height: 36,
               }}>
               <TextInput
                 style={{
@@ -196,12 +211,12 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                   paddingVertical: 0,
                   lineHeight: 18,
                   fontSize: 15,
-                  color: '#3A3A3A',
+                  textAlignVertical: 'center',
                 }}
                 multiline
                 maxLength={200}
-                placeholder="댓글을 입력해주세요"
-                placeholderTextColor="#BBB"
+                placeholder="댓글을 입력해주세요."
+                placeholderTextColor={colors.GRAY_300}
                 autoCapitalize="none"
                 spellCheck={false}
                 autoCorrect={false}
@@ -209,13 +224,19 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 onChangeText={text => setTextValue(text)}
               />
             </View>
-            <TouchableOpacity
-              style={{
-                marginLeft: 10,
-                marginBottom: 28,
-                opacity: 0.5,
-              }}></TouchableOpacity>
+
+            <TouchableOpacity onPress={() => console.log(textValue)}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: '700',
+                  color: colors.BLACK,
+                }}>
+                등록
+              </Text>
+            </TouchableOpacity>
           </View>
+          {/* 댓글 입력 끝*/}
         </View>
       </KeyboardAvoidingView>
     </Modal>
