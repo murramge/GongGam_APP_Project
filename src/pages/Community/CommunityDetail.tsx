@@ -18,6 +18,7 @@ import dayjs from 'dayjs';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router.d';
+import Config from 'react-native-config';
 import {
   getJoinedMeetings,
   getMeeting,
@@ -122,7 +123,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
         </View>
         <View style={styles.profileImgArea}>
           <TouchableOpacity>
-            <Image source={{uri: perf_image_url}} style={styles.profileImg} />
+            {/* <Image source={{uri: perf_image_url}} style={styles.profileImg} /> */}
+            <Image
+              source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${perf_image_url}`}}
+              style={styles.profileImg}
+            />
           </TouchableOpacity>
           <View style={styles.iconArea}>
             <TouchableOpacity
