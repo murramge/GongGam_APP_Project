@@ -230,7 +230,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           setIsVisible={setIsVisible}
           isOwner={isOwner}
         />
-        <CommentsModal isVisible={commentOpen} setIsVisible={setCommentOpen} />
+        <CommentsModal
+          isVisible={commentOpen}
+          setIsVisible={setCommentOpen}
+          meetingId={meeting.id}
+        />
       </View>
     );
   }
