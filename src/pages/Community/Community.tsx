@@ -10,6 +10,7 @@ import {CommunityDataAtom} from './hooks/useMettingApi';
 import HorizontalCardList from '@components/common/cardlist/HorizontalCardList';
 import CommunityCreate from '../../components/community/CommunityCreate';
 import TitleHeader from '@components/common/header/TitleHeader';
+import BackHeader from '@components/common/header/BackHeader';
 
 const Community = () => {
   const results = useAtomValue(CommunityDataAtom);

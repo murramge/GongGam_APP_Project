@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   photoContainer: {
     position: 'absolute',
-    top: 50,
+    top: 58,
     left: 88,
     width: 214,
     height: 287,

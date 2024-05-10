@@ -21,13 +21,14 @@ const SettingsItems = ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,
+        paddingHorizontal: 16,
       }}
       onPress={onPress}>
       <View style={{flexDirection: 'row'}}>
         <View
           style={{
-            width: 50,
-            height: 50,
+            width: 30,
+            height: 30,
             backgroundColor: colors.SETTINGS_COLOR,
             justifyContent: 'center',
             alignItems: 'center',
@@ -35,12 +36,12 @@ const SettingsItems = ({
           }}>
           <MaterialCommunityIcons
             name={icons}
-            size={30}
+            size={20}
             color={colors.MAIN_COLOR}></MaterialCommunityIcons>
         </View>
         <View style={{justifyContent: 'center', paddingHorizontal: 10}}>
           <Text
-            style={{fontSize: 16, fontWeight: '700', color: colors.MAIN_COLOR}}>
+            style={{fontSize: 16, fontWeight: '500', color: colors.GRAY_400}}>
             {title}
           </Text>
         </View>
@@ -52,7 +53,8 @@ const SettingsItems = ({
         }}>
         <MaterialCommunityIcons
           name="chevron-right"
-          size={30}></MaterialCommunityIcons>
+          size={30}
+          color={colors.GRAY_300}></MaterialCommunityIcons>
       </View>
     </TouchableOpacity>
   );

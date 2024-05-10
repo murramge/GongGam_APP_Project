@@ -18,6 +18,7 @@ import dayjs from 'dayjs';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router.d';
+
 import {
   getJoinedMeetings,
   getMeeting,
@@ -28,6 +29,7 @@ import {getCurrentAuthUser} from '@apis/supabase/auth';
 import CommentView from '@components/common/modals/CommentView';
 import Loading from '../../components/common/skeleton/Loading';
 
+import Config from 'react-native-config';
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
 
@@ -112,8 +114,9 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
       perf_name,
       perf_at,
       perf_image_url,
+      perf_id,
     } = meeting;
-
+    console.log(meeting);
     return (
       <View style={{flex: 1}}>
         <BackHeader label={title} />
@@ -121,8 +124,15 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           <Image source={mainVisual} style={styles.mainImg} />
         </View>
         <View style={styles.profileImgArea}>
-          <TouchableOpacity>
-            <Image source={{uri: perf_image_url}} style={styles.profileImg} />
+          <TouchableOpacity
+            onPress={() => {
+              console.log(perf_id);
+              navigation.navigate('Detail', {id: perf_id});
+            }}>
+            <Image
+              source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${perf_image_url}`}}
+              style={styles.profileImg}
+            />
           </TouchableOpacity>
           <View style={styles.iconArea}>
             <TouchableOpacity
@@ -132,7 +142,10 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
               <Image source={shareIcon} style={styles.icon} />
             </TouchableOpacity>
             {isJoined && (
-              <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
+              <TouchableOpacity
+                onPress={() => {
+                  setIsVisible(!isVisible);
+                }}>
                 <Image source={moreIcon} style={styles.icon} />
               </TouchableOpacity>
             )}
@@ -176,9 +189,20 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
         </View>
         {!isJoined && (
           <View>
-            <View style={styles.buttonContainer}>
-              <CommonButton label="가입하기" onPress={onPressJoinButton} />
-            </View>
+            {current_occupancy === max_occupancy ? (
+              <View style={styles.buttonContainer}>
+                <CommonButton
+                  label="모집 완료"
+                  onPress={() => {}}
+                  disabled={true}
+                  bgColor={colors.GRAY_300}
+                />
+              </View>
+            ) : (
+              <View style={styles.buttonContainer}>
+                <CommonButton label="가입하기" onPress={onPressJoinButton} />
+              </View>
+            )}
             <CommunityJoinModal
               isJoinModalOpen={isJoinModalOpen}
               onPressJoinCancel={onPressJoinCancel}
@@ -197,8 +221,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           </View>
         )}
 
-        <CommunityQuitModal isVisible={isVisible} setIsVisible={setIsVisible} />
-        {/* <CommentsModal isVisible={isVisible} setIsVisible={setIsVisible} /> */}
+        <CommunityQuitModal
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          isOwner={isOwner}
+        />
       </View>
     );
   }

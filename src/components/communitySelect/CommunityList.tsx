@@ -23,7 +23,7 @@ const CommunityList = ({setValue, watch}: CommunityListProps) => {
     <View>
       <View>
         <FlatList
-          data={performanceData}
+          data={performanceData.performances}
           renderItem={({item: art}) => {
             return (
               <CommunityItem

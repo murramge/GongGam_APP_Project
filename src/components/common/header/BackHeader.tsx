@@ -15,7 +15,7 @@ interface BackHeaderProps {
   };
   label: string | undefined;
   icon?: string | null;
-  onPressBack?: () => void;
+  showLeftIcon?: boolean | undefined;
 }
 
 const BackHeader = ({
@@ -26,14 +26,13 @@ const BackHeader = ({
   },
   label,
   icon = null,
-  onPressBack,
+  ...props
 }: BackHeaderProps) => {
   const navigate =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <SafeAreaView
       style={{
-        backgroundColor: colors.GRAY_100,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 10,
@@ -41,8 +40,7 @@ const BackHeader = ({
         alignItems: 'center',
       }}>
       <View style={{width: '5%'}}>
-        <TouchableOpacity
-          onPress={onPressBack ? onPressBack : () => navigate.goBack()}>
+        <TouchableOpacity onPress={() => navigate.goBack()}>
           <Icon
             name="chevron-left"
             color={Color.leftIconsColor}
@@ -57,11 +55,12 @@ const BackHeader = ({
             color: Color.labelColor,
             fontWeight: '700',
             textAlign: 'center',
+            lineHeight: 20,
           }}>
           {label}
         </Text>
       </View>
-      <View style={{width: '5%'}}>
+      <View style={{width: '6%'}}>
         <TouchableOpacity>
           <Icon name={icon} color={Color.leftIconsColor} size={20}></Icon>
         </TouchableOpacity>

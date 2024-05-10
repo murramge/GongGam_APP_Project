@@ -4412,6 +4412,11 @@ fs.realpath@^1.0.0:
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
+fsevents@^2.3.2:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
+
 function-bind@^1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz"
@@ -7296,10 +7301,22 @@ react-native-get-random-values@^1.11.0:
   dependencies:
     fast-base64-decode "^1.0.0"
 
+react-native-gradients@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/react-native-gradients/-/react-native-gradients-2.1.1.tgz"
+  integrity sha512-rDLtxPr9l1K/dStihTsSeljnsLbkhKCDjDnKGLPO3uo5b/05AajT/s2MsUIpx80uDH/eggEck705j/tuE7LE3Q==
+  dependencies:
+    react-native-svg ">=13.2.0"
+
 react-native-image-crop-picker@^0.40.3:
   version "0.40.3"
   resolved "https://registry.npmjs.org/react-native-image-crop-picker/-/react-native-image-crop-picker-0.40.3.tgz"
   integrity sha512-45PKcTnsnLS+E36YwoXutllQdRSOuOsMN0IRcAcwsFXOuAQIOtugXlAuGGL28JHKb/ATaSSPvqCSrdG65Jv3GA==
+
+react-native-linear-gradient@^2.8.3:
+  version "2.8.3"
+  resolved "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.8.3.tgz"
+  integrity sha512-KflAXZcEg54PXkLyflaSZQ3PJp4uC4whM7nT/Uot9m0e/qxFV3p6uor1983D1YOBJbJN7rrWdqIjq0T42jOJyA==
 
 react-native-maps@^1.14.0:
   version "1.14.0"
@@ -7368,7 +7385,7 @@ react-native-step-indicator@^1.0.3:
   resolved "https://registry.npmjs.org/react-native-step-indicator/-/react-native-step-indicator-1.0.3.tgz"
   integrity sha512-WwTb6lpJl0T7MV59sus1utoEQuqbuWHq6V0R0iDWmlPRFjM0qirhTNTS5on1+V9Qmc9dsUCT380/mRgDF+U6zw==
 
-react-native-svg@>=12.1.0:
+react-native-svg@^15.2.0, react-native-svg@>=12.1.0, react-native-svg@>=13.2.0:
   version "15.2.0"
   resolved "https://registry.npmjs.org/react-native-svg/-/react-native-svg-15.2.0.tgz"
   integrity sha512-R0E6IhcJfVLsL0lRmnUSm72QO+mTqcAOM5Jb8FVGxJqX3NfJMlMP0YyvcajZiaRR8CqQUpEoqrY25eyZb006kw==

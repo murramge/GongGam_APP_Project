@@ -69,17 +69,20 @@ const styles = StyleSheet.create({
   },
   title: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 32,
     left: 18,
     color: 'white',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
+    lineHeight: 17,
+    width: 200,
   },
   period: {
     position: 'absolute',
     bottom: 13,
     left: 18,
     color: 'white',
+    fontSize: 12,
     letterSpacing: 0.12,
   },
 });
