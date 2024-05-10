@@ -113,8 +113,9 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
       perf_name,
       perf_at,
       perf_image_url,
+      perf_id,
     } = meeting;
-
+    console.log(meeting);
     return (
       <View style={{flex: 1}}>
         <BackHeader label={title} />
@@ -122,8 +123,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           <Image source={mainVisual} style={styles.mainImg} />
         </View>
         <View style={styles.profileImgArea}>
-          <TouchableOpacity>
-            {/* <Image source={{uri: perf_image_url}} style={styles.profileImg} /> */}
+          <TouchableOpacity
+            onPress={() => {
+              console.log(perf_id);
+              navigation.navigate('Detail', {id: perf_id});
+            }}>
             <Image
               source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${perf_image_url}`}}
               style={styles.profileImg}
