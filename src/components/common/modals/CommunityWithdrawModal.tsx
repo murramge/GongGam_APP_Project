@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.WHITE,
     borderRadius: 20,
     padding: 35,
-    width: 374,
-    height: 500,
+    width: 350,
+    height: 450,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   modalText: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '700',
     color: colors.BLACK,
     textAlign: 'center',
