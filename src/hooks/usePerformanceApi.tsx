@@ -14,10 +14,11 @@ const usePerformanceApi = (
   categoryCode?: keyof PerformanceCategory | string,
 ) => {
   const [performances, setPerformances] = useState<PerformanceBoxOffice[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const performanceApi = async () => {
       try {
+        setIsLoading(true);
         const data = await getPerformanceBoxOffice({
           date: date,
           stsType: stsType,
@@ -26,12 +27,15 @@ const usePerformanceApi = (
         setPerformances(data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     performanceApi();
+    console.log(isLoading);
   }, [date, stsType, categoryCode]);
 
-  return performances;
+  return {performances, isLoading};
 };
 
 export default usePerformanceApi;
