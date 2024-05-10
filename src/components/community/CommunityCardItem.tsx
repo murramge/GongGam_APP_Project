@@ -1,12 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList} from '@router.d';
 import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Config from 'react-native-config';
+import CommunityCardSkeleton from '../common/skeleton/CommunityCardSkeleton';
 interface CommonArtCardItemProps {
   data: {
     item: {
@@ -31,6 +32,10 @@ const CommunityCardItem = ({data}: CommonArtCardItemProps) => {
   let meetDay = dayjs(item.meeting_at).format('YY년 MM월 DD일 HH시 mm분');
 
   console.log(item.perf_image_url);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   return (
     <View>
@@ -39,41 +44,52 @@ const CommunityCardItem = ({data}: CommonArtCardItemProps) => {
         onPress={() => {
           navigate('CommunityDetail', {id: item.id});
         }}>
-        <View style={styles.photo}>
-          {item.perf_image_url && (
-            <Image
-              style={styles.photo}
-              source={{
-                uri: `${Config.KOPIS_IMAGE_BASE_URL}/${item.perf_image_url}`,
-              }}
-            />
-          )}
-        </View>
-        <View style={styles.right}>
-          <View style={styles.cateArea}>
-            <Text
-              style={styles.cateText}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {item.perf_name}
-            </Text>
-          </View>
-          <Text style={styles.nameText} numberOfLines={1} ellipsizeMode="tail">
-            {item.title}
-          </Text>
-          <Text style={styles.descriptionText}>
-            <Text style={{color: colors.MAIN_COLOR}}>공연일정 </Text> {perfDay}
-          </Text>
-          <Text style={styles.descriptionText}>
-            <Text style={{color: colors.MAIN_COLOR}}>모임일정 </Text> {meetDay}
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Icon name="person" size={10} style={{padding: 4}}></Icon>
-            <Text style={styles.descriptionText}>
-              인원 {item.current_occupancy}/{item.max_occupancy}
-            </Text>
-          </View>
-        </View>
+        {isLoading ? (
+          <CommunityCardSkeleton />
+        ) : (
+          <>
+            <View style={styles.photo}>
+              {item.perf_image_url && (
+                <Image
+                  style={styles.photo}
+                  source={{
+                    uri: `${Config.KOPIS_IMAGE_BASE_URL}/${item.perf_image_url}`,
+                  }}
+                />
+              )}
+            </View>
+            <View style={styles.right}>
+              <View style={styles.cateArea}>
+                <Text
+                  style={styles.cateText}
+                  numberOfLines={1}
+                  ellipsizeMode="tail">
+                  {item.perf_name}
+                </Text>
+              </View>
+              <Text
+                style={styles.nameText}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {item.title}
+              </Text>
+              <Text style={styles.descriptionText}>
+                <Text style={{color: colors.MAIN_COLOR}}>공연일정 </Text>{' '}
+                {perfDay}
+              </Text>
+              <Text style={styles.descriptionText}>
+                <Text style={{color: colors.MAIN_COLOR}}>모임일정 </Text>{' '}
+                {meetDay}
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <Icon name="person" size={10} style={{padding: 4}}></Icon>
+                <Text style={styles.descriptionText}>
+                  인원 {item.current_occupancy}/{item.max_occupancy}
+                </Text>
+              </View>
+            </View>
+          </>
+        )}
       </TouchableOpacity>
     </View>
   );
