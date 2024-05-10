@@ -61,4 +61,5 @@ type AuthenticationRouteParams = {
     code: string;
   };
   FindPasswordPage: undefined;
+  OnBoarding: undefined;
 };

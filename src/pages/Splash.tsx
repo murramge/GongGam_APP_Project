@@ -7,7 +7,7 @@ import {colors} from '@styles/color';
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  'MainTab'
+  'OnBoarding'
 >;
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
 const Splash: React.FC<Props> = ({navigation}) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('MainTab');
+      navigation.replace('OnBoarding');
     }, 3000);
 
     return () => clearTimeout(timer);
