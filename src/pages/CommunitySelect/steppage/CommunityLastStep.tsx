@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
 import BackHeader from '@components/common/header/BackHeader';
@@ -11,11 +11,12 @@ const CommunitySummary = ({setSelectedData}) => {
 
   useEffect(() => {
     const datas = watch();
+    console.log(datas);
     const date = dayjs(`${datas.artDays} ${datas.artTime}`);
     const artdateisoString = date.toISOString();
     setSelectedData({
       introduction: datas.communityContext,
-      max_occupancy: 4,
+      max_occupancy: datas.communityParticipant,
       title: datas.communityName,
       perf_id: datas.artId,
       perf_name: datas.artTitle,
@@ -27,7 +28,13 @@ const CommunitySummary = ({setSelectedData}) => {
   }, []);
   return (
     <View>
-      <View style={{paddingLeft: 120, paddingTop: 200, paddingBottom: 70}}>
+      <View
+        style={{
+          width: '100%',
+          paddingLeft: 20,
+          paddingTop: 200,
+          paddingBottom: 70,
+        }}>
         <View style={{flexDirection: 'row', paddingBottom: 4}}>
           <Text
             style={{
@@ -43,7 +50,8 @@ const CommunitySummary = ({setSelectedData}) => {
               fontWeight: '700',
               color: colors.MAIN_COLOR,
               paddingLeft: 5,
-            }}>
+            }}
+            numberOfLines={2}>
             {watch('artTitle')}
           </Text>
         </View>

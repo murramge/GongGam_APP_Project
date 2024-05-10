@@ -1,23 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, TextInput} from 'react-native';
+import {View, Text, TextInput} from 'react-native';
 
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import {colors} from '@styles/color';
-import BackHeader from '@components/common/header/BackHeader';
-import CommonButton from '../../../atoms/buttons/CommonButton';
-import StepHeader from '@components/common/header/StepHeader';
-import MultiStepFormBottom from '@components/common/multistepform/MultiStepFormBottom';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../router';
+
 import {useFormContext} from 'react-hook-form';
-import {number} from 'zod';
 
 const CommunityIntroduce = () => {
-  const [name, onChangeName] = useState('');
-  const [text, onChangeText] = useState('');
-  const [max, onChacngeMax] = useState(2);
   const [open, setOpen] = useState(false);
   const [participant, setParticipant] = useState(null);
   const [items, setItems] = useState([
@@ -34,16 +24,13 @@ const CommunityIntroduce = () => {
   const {setValue, watch} = useFormContext();
 
   useEffect(() => {
-    //console.log(communityParticipant);
-    //console.log('participant:', participant);
-    console.log(watch('communityName'));
-  }, [watch('communityParticipant')]); //[watch('communityParticipant')]
-
-  useEffect(() => {
-    console.log('participant:', participant);
-    console.log('items:', items);
-    console.log('watch(communityParticipant):', watch('communityName'));
+    watch();
+    setValue('communityParticipant', participant, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
   }, [participant]);
+
   return (
     <View style={{flex: 1, paddingHorizontal: 20}}>
       <View style={{paddingBottom: 10}}>
@@ -121,18 +108,12 @@ const CommunityIntroduce = () => {
             value={participant}
             items={items}
             setOpen={setOpen}
-            //setValue={setParticipant}
             setValue={number => {
-              setValue('communityParticipant', number, {
-                shouldValidate: true,
-                shouldDirty: true,
-              });
               setParticipant(number);
             }}
             setItems={setItems}
             placeholder={`${participant || '모임참석 최대인원을 설정해주세요'}`}
             style={{borderColor: colors.GRAY_200}}
-            //onChangeValue={}
           />
         </View>
       </View>
