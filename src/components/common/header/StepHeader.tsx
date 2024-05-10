@@ -1,5 +1,3 @@
-import {useNavigation, CommonActions} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {ReactNode} from 'react';
 import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import {StyleSheet, View} from 'react-native';
@@ -15,6 +13,7 @@ interface StepHeaderProps {
   };
   label: string | undefined;
   icon?: ReactNode;
+  onPressCancel?: () => void;
 }
 
 const StepHeader = ({
@@ -25,10 +24,8 @@ const StepHeader = ({
   },
   label,
   icon = null,
-  ...props
+  onPressCancel,
 }: StepHeaderProps) => {
-  const navigate =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <SafeAreaView
       style={{
@@ -44,27 +41,8 @@ const StepHeader = ({
           alignItems: 'center',
         }}>
         <View style={{width: '8%', paddingTop: 5}}>
-          <TouchableOpacity
-            onPress={() => {
-              navigate.dispatch(
-                CommonActions.reset({
-                  index: 0,
-                  routes: [
-                    {
-                      name: 'MainTab',
-                      state: {
-                        routes: [
-                          {
-                            name: 'Performance',
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                }),
-              );
-            }}>
-            <Icon name="close" color={colors.GRAY_500} size={25}></Icon>
+          <TouchableOpacity onPress={onPressCancel}>
+            <Icon name="close" color={colors.GRAY_500} size={25} />
           </TouchableOpacity>
         </View>
         <View style={{justifyContent: 'flex-start', width: '75%'}}>

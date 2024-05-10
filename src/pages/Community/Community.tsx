@@ -19,10 +19,6 @@ const Community = () => {
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
       <View style={{backgroundColor: '#F7F5F5'}}>
         <TitleHeader label="함께 보기"></TitleHeader>
-        <BackHeader
-          label="함께 보기"
-          icon="search"
-          showLeftIcon={false}></BackHeader>
       </View>
       <View>
         <CommunityTabBar></CommunityTabBar>

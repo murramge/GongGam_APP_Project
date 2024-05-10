@@ -58,16 +58,17 @@ const StepIndicator = ({currentStep, maxStep}: StepIndicatorProps) => {
         gap: 2,
         flexDirection: 'row',
       }}>
-      {completedStep.map(_ => (
+      {completedStep.map((_, index) => (
         <View
+          key={index}
           style={{
             flex: 1,
             backgroundColor: colors.MAIN_COLOR,
           }}
         />
       ))}
-      {remainStep.map(_ => (
-        <View style={{flex: 1, backgroundColor: colors.GRAY_200}} />
+      {remainStep.map((_, index) => (
+        <View key={index} style={{flex: 1, backgroundColor: colors.GRAY_200}} />
       ))}
     </View>
   );

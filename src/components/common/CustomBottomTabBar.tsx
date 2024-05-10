@@ -7,6 +7,8 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import 'react-native-get-random-values';
 import {v4} from 'uuid';
+import {getCurrentAuthUser} from '@apis/supabase/auth';
+import {BOTTOM_TAB_HEIGHT} from '@styles/common';
 
 interface CustomBottomTabBarProps extends BottomTabBarProps {}
 
@@ -70,7 +72,14 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
               type: routeInfo[routeName]?.iconType ?? 'ion',
               name: routeInfo[routeName]?.iconName ?? 'alert-circle',
               isFocused: currentRouteName === routeName,
-              onPress: () => navigation.navigate(routeName),
+              onPress: async () => {
+                const user = await getCurrentAuthUser();
+                if (!user && routeName === 'Profile') {
+                  navigation.navigate('AuthHome');
+                  return;
+                }
+                navigation.navigate(routeName);
+              },
             }),
           )}
         </View>
@@ -113,7 +122,7 @@ const styles = StyleSheet.create({
     left: 0,
     backgroundColor: 'transparent',
     width,
-    height: 100,
+    height: BOTTOM_TAB_HEIGHT,
     padding: 16,
   },
   tabBar: {
@@ -128,8 +137,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   tabButton: {
-    width: 52,
-    height: 52,
+    width: BOTTOM_TAB_HEIGHT * 0.52,
+    height: BOTTOM_TAB_HEIGHT * 0.52,
     borderRadius: 100,
     backgroundColor: '#FFF',
     alignItems: 'center',

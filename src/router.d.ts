@@ -1,23 +1,20 @@
 import type {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
 
-export interface MainBottomTabParamList {
+export type MainBottomTabParamList = {
   Performance: undefined;
   Community: undefined;
   Profile: undefined;
-  [key: string]: undefined;
-}
+};
 
-export interface RootStackParamList
-  extends PerformanceRouteParams,
-    CommunityRouteParams,
-    ProfileRouteParams,
-    AuthenticationRouteParams {
-  Splash: undefined;
-  MainTab: undefined;
-  [key: string]: undefined;
-}
+export type RootStackParamList = PerformanceRouteParams &
+  CommunityRouteParams &
+  ProfileRouteParams &
+  AuthenticationRouteParams & {
+    Splash: undefined;
+    MainTab: undefined;
+  };
 
-interface PerformanceRouteParams {
+type PerformanceRouteParams = {
   Detail: {
     id: string;
   };
@@ -29,9 +26,9 @@ interface PerformanceRouteParams {
     signguCode?: AreaCodeKey;
   };
   Ticketing: undefined;
-}
+};
 
-interface CommunityRouteParams {
+type CommunityRouteParams = {
   CommunitySelectLayOut: undefined;
   CommunitySelect: undefined;
   CommunitySelectTwoStap: undefined;
@@ -42,14 +39,14 @@ interface CommunityRouteParams {
   CommunityDetail: {
     id: string;
   };
-}
+};
 
-interface ProfileRouteParams {
+type ProfileRouteParams = {
   ProfileEdit: undefined;
   Settings: undefined;
-}
+};
 
-interface AuthenticationRouteParams {
+type AuthenticationRouteParams = {
   AuthHome:
     | {code: string}
     | {
@@ -64,4 +61,4 @@ interface AuthenticationRouteParams {
     code: string;
   };
   FindPasswordPage: undefined;
-}
+};
