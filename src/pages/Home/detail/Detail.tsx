@@ -15,6 +15,7 @@ import CommonButton from '../../../atoms/buttons/CommonButton';
 import usePerformanceDetailApi from './hooks/usePerformanceDetailApi';
 import {RouteProp, useNavigation} from '@react-navigation/native';
 import {colors} from '@styles/color';
+import Loading from '../../../components/common/skeleton/Loading';
 
 type DetailRouteParams = {
   Detail: {
@@ -35,8 +36,8 @@ const Detail: React.FC<DetailProps> = ({route}: DetailProps) => {
   const HEADER_MAX_HEIGHT = 360;
   const HEADER_MIN_HEIGHT = 55;
   const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
-  if (loading)
-    return <ActivityIndicator size="large" color={colors.MAIN_COLOR} />;
+  if (loading) return <Loading />;
+  //<ActivityIndicator size="large" color={colors.MAIN_COLOR} />;
   if (error) return <Text style={styles.errorText}>{error}</Text>;
 
   const gotoTicketing = () => {
