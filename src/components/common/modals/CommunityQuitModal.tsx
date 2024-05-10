@@ -16,8 +16,8 @@ import CommunityWithdrawModal from '@components/common/modals/CommunityWithdrawM
 interface CommunityQuitModalProps {
   isVisible: boolean;
   setIsVisible: (isVisible: boolean) => void;
-  title: string;
-  isOwner: boolean;
+  title?: string;
+  isOwner?: boolean;
 }
 
 const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({

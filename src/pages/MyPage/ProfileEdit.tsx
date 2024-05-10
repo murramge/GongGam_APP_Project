@@ -1,4 +1,4 @@
-import MyPageHeader from '@components/common/header/MyPageHeader';
+import MyPageHeader from '@components/mypage/MyPageEditHeader';
 import React, {useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import CommonButton from '../../atoms/buttons/CommonButton';

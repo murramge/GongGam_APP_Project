@@ -41,25 +41,7 @@ const MyPageHeader = ({type}: MyPageHeaderProps) => {
           justifyContent: 'flex-end',
           padding: 10,
           paddingTop: 40,
-        }}>
-        {type == 'main' && (
-          <>
-            <TouchableOpacity onPress={() => navigate('ProfileEdit')}>
-              <FontAwesome
-                name="pen"
-                size={27}
-                color={colors.BLACK}
-                style={{marginHorizontal: 10}}></FontAwesome>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigate('Settings')}>
-              <Ionicons
-                name="settings-sharp"
-                size={27}
-                color={colors.BLACK}></Ionicons>
-            </TouchableOpacity>
-          </>
-        )}
-      </View>
+        }}></View>
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <ElevatedView
           style={{
@@ -80,31 +62,22 @@ const MyPageHeader = ({type}: MyPageHeaderProps) => {
               borderRadius: 100,
             }}></Image>
         </ElevatedView>
-        {type == 'main' ? (
-          <View style={{padding: 20}}>
-            <Text
-              style={{color: colors.GRAY_400, fontSize: 20, fontWeight: '700'}}>
-              Kangeunhwa
-            </Text>
-          </View>
-        ) : (
-          <View>
-            <TouchableOpacity
-              style={{
-                width: 50,
-                height: 50,
-                backgroundColor: colors.GRAY_100,
-                borderRadius: 100,
-                position: 'absolute',
-                bottom: 0,
-                left: 20,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <FontAwesome name="camera" size={25}></FontAwesome>
-            </TouchableOpacity>
-          </View>
-        )}
+        <View>
+          <TouchableOpacity
+            style={{
+              width: 50,
+              height: 50,
+              backgroundColor: colors.GRAY_100,
+              borderRadius: 100,
+              position: 'absolute',
+              bottom: 0,
+              left: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <FontAwesome name="camera" size={25}></FontAwesome>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -18,7 +18,7 @@ import dayjs from 'dayjs';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router.d';
-import Config from 'react-native-config';
+
 import {
   getJoinedMeetings,
   getMeeting,
@@ -29,6 +29,7 @@ import {getCurrentAuthUser} from '@apis/supabase/auth';
 import CommentView from '@components/common/modals/CommentView';
 import Loading from '../../components/common/skeleton/Loading';
 
+import Config from 'react-native-config';
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
 
