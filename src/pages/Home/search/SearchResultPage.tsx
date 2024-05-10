@@ -16,7 +16,7 @@ import {getPerformanceList} from '@apis/kopis';
 import moment from 'moment';
 import HorizontalCardList from '@components/common/cardlist/HorizontalCardList';
 import NotResult from '@components/common/cardlist/NotResult';
-
+import Loading from '../../../components/common/skeleton/Loading';
 interface SearchResultPageProps
   extends NativeStackScreenProps<
     RootStackParamList,
@@ -53,7 +53,7 @@ const SearchResultPage = ({route}: SearchResultPageProps) => {
     fetch();
   }, [route.params]);
 
-  if (loading) return <ActivityIndicator />;
+  if (loading) return <Loading />;
 
   if (error) return <Text>{error}</Text>;
 
