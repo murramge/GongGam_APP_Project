@@ -5,6 +5,7 @@ import CommunityItem from '@components/communitySelect/CommunityItem';
 
 import usePerformanceDate from '@hooks/usePerformanceDate';
 import usePerformanceApi from '@hooks/usePerformanceApi';
+import CommunityCardSkeleton from '../common/skeleton/CommunityCardSkeleton';
 export interface CommunityListProps {
   setValue?: any;
   watch?: any;
@@ -13,34 +14,52 @@ export interface CommunityListProps {
 const CommunityList = ({setValue, watch}: CommunityListProps) => {
   const performanceDate = usePerformanceDate();
 
-  const performanceData = usePerformanceApi(
+  // const performanceData = usePerformanceApi(
+  //   performanceDate.today,
+  //   performanceDate.stsType,
+
+  // );
+  //console.log('pdata', performanceData);
+  const {performances, isLoading} = usePerformanceApi(
     performanceDate.today,
     performanceDate.stsType,
   );
+  console.log('pdata', performances);
+  //console.log('pdata', performances);
+  console.log(isLoading);
 
   return (
     <View>
-      <View>
-        <FlatList
-          data={performanceData.performances}
-          renderItem={({item: art}) => {
-            return (
-              <CommunityItem
-                photoUrl={art.poster ?? undefined}
-                title={art.prfnm}
-                period={art.prfpd}
-                place={art.area}
-                cate={art.cate}
-                id={art.mt20id}
-                setValue={setValue}
-                watch={watch}
-              />
-            );
-          }}
-          keyExtractor={item => item?.mt20id ?? 'defaultKey'}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+      {isLoading ? (
+        <View style={{paddingTop: 10, alignItems: 'center', gap: 15}}>
+          <CommunityCardSkeleton />
+          <CommunityCardSkeleton />
+          <CommunityCardSkeleton />
+          <CommunityCardSkeleton />
+        </View>
+      ) : (
+        <View>
+          <FlatList
+            data={performances}
+            renderItem={({item: art}) => {
+              return (
+                <CommunityItem
+                  photoUrl={art.poster ?? undefined}
+                  title={art.prfnm}
+                  period={art.prfpd}
+                  place={art.area}
+                  cate={art.cate}
+                  id={art.mt20id}
+                  setValue={setValue}
+                  watch={watch}
+                />
+              );
+            }}
+            keyExtractor={item => item?.mt20id ?? 'defaultKey'}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      )}
     </View>
   );
 };
