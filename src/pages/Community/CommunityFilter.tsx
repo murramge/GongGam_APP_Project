@@ -10,13 +10,27 @@ import React, {useState} from 'react';
 import {ScrollView, Dimensions, StyleSheet, View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-interface CommunityFilterProps {}
+interface CommunityFilterProps {
+  perfName: string;
+  setPerfName: (text: string) => void;
+  perfGenre;
+  setPerfGenre;
+  meetingAt;
+  setMeetingAt;
+  maxOccupancy;
+  setMaxOccupancy;
+}
 
-const CommunityFilter = ({}: CommunityFilterProps) => {
-  const [perfName, setPerfName] = useState<string>('');
-  const [perfGenre, setPerfGenre] = useState<PerformanceGenreKey>();
-  const [meetingAt, setMeetingAt] = useState<Dayjs>();
-  const [maxOccupancy, setMaxOccupancy] = useState<number>();
+const CommunityFilter = ({
+  maxOccupancy,
+  meetingAt,
+  perfGenre,
+  perfName,
+  setMaxOccupancy,
+  setMeetingAt,
+  setPerfGenre,
+  setPerfName,
+}: CommunityFilterProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -106,6 +120,12 @@ const data = [
       value: index + value,
     })),
 ];
+export interface CommunityFilterType {
+  perfName: string;
+  perfGenre: PerformanceGenreKey;
+  meetingAt: string;
+  maxOccupancy: string;
+}
 
 const styles = StyleSheet.create({
   scroll: {

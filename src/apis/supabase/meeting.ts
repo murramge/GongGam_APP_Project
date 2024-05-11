@@ -4,12 +4,38 @@ import type {
   MeetingInfo,
   createMeetingParams,
 } from './meeting.d';
+import dayjs from 'dayjs';
+import {PerformanceGenreKey} from '@apis/kopis.d';
 
-export const getMeetings = async () => {
+export interface getMeetingsParams {
+  perfName?: string;
+  perfGenre?: PerformanceGenreKey;
+  meetingAt?: string;
+  maxOccupancy?: number;
+}
+
+export const getMeetings = async ({
+  maxOccupancy,
+  meetingAt,
+  perfGenre,
+  perfName,
+}: getMeetingsParams) => {
   try {
-    const {data, error} = await supabase
-      .from('meeting_with_current_occupancy')
-      .select('*');
+    const startOfDate = dayjs(meetingAt).hour(0).minute(0).toISOString();
+    const endOfDate = dayjs(meetingAt).hour(23).minute(59).toISOString();
+
+    console.log(startOfDate, endOfDate);
+
+    let query = supabase.from('meeting_with_current_occupancy').select('*');
+    if (perfName) query = query.contains('perf_name', perfName);
+    if (perfGenre) query = query.contains('perf_genre', perfGenre);
+    if (maxOccupancy) query = query.eq('max_occupancy', maxOccupancy);
+    if (meetingAt)
+      query = query
+        .rangeGte('meeting_at', startOfDate)
+        .rangeLte('meeting_at', endOfDate);
+
+    const {data, error} = await query;
 
     if (error) {
       throw new Error(error.message);

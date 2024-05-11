@@ -1,8 +1,6 @@
 import {useEffect, useState} from 'react';
-import {getMeetings} from '@apis/supabase/meeting';
 import {atom, useAtom} from 'jotai';
-import {supabase} from '@apis/supabase/supabase';
-
+import {getProfile} from '@apis/supabase/profile';
 import {UserProfile} from '@apis/supabase/profile.d';
 import {getCurrentAuthUser} from '@apis/supabase/auth';
 import {User} from '@supabase/supabase-js';
