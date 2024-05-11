@@ -3,6 +3,7 @@ import type {
   JoinedMeetingInfo,
   MeetingInfo,
   createMeetingParams,
+  updateMeetingParams,
 } from './meeting.d';
 import dayjs from 'dayjs';
 import {PerformanceGenreKey} from '@apis/kopis.d';
@@ -46,7 +47,7 @@ export const getMeetings = async ({
   }
 };
 
-export const getMeeting = async (id: string) => {
+export const getMeeting = async (id: number) => {
   try {
     const {data, error} = await supabase
       .from('meeting_with_current_occupancy')
@@ -80,6 +81,22 @@ export const getJoinedMeetings = async () => {
   }
 };
 
+export const updateMeeting = async (
+  meetingId: number,
+  params: updateMeetingParams,
+) => {
+  try {
+    const {error} = await supabase
+      .from('meeting')
+      .update([params])
+      .eq('id', meetingId);
+
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const createMeeting = async (params: createMeetingParams) => {
   try {
     const {data, error: meetingError} = await supabase
@@ -96,7 +113,7 @@ export const createMeeting = async (params: createMeetingParams) => {
       throw new Error(meetingError.message);
     }
 
-    return data.id;
+    return data.id as number;
   } catch (e) {
     console.error(e);
     throw e;

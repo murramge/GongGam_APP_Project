@@ -6,26 +6,9 @@ import BackHeader from '@components/common/header/BackHeader';
 import {useFormContext} from 'react-hook-form';
 import dayjs from 'dayjs';
 
-const CommunitySummary = ({setSelectedData}) => {
+const CommunitySummary = () => {
   const {watch} = useFormContext();
 
-  useEffect(() => {
-    const datas = watch();
-    console.log(datas);
-    const date = dayjs(`${datas.artDays} ${datas.artTime}`);
-    const artdateisoString = date.toISOString();
-    setSelectedData({
-      introduction: datas.communityContext,
-      max_occupancy: datas.communityParticipant,
-      title: datas.communityName,
-      perf_id: datas.artId,
-      perf_name: datas.artTitle,
-      perf_genre: datas.artGenre,
-      perf_image_url: datas.artPhotoUrl,
-      meeting_at: datas.communityDate,
-      perf_at: artdateisoString,
-    });
-  }, []);
   return (
     <View>
       <View

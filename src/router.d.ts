@@ -1,4 +1,5 @@
 import type {AreaCodeKey, PerformanceGenreKey} from '@apis/kopis.d';
+import {CommunityEditForm} from '@pages/CommunitySelect/CommunitySelectLayOut';
 
 export type MainBottomTabParamList = {
   Performance: undefined;
@@ -29,7 +30,12 @@ type PerformanceRouteParams = {
 };
 
 type CommunityRouteParams = {
-  CommunitySelectLayOut: undefined;
+  CommunitySelectLayOut:
+    | undefined
+    | {
+        artId: string;
+      }
+    | {meetingId: number};
   CommunitySelect: undefined;
   CommunitySelectTwoStap: undefined;
   CommunitySelectThreeStap: undefined;
@@ -37,7 +43,7 @@ type CommunityRouteParams = {
   CommunitySelectFiveStap: undefined;
   CommunitySelectLastStap: undefined;
   CommunityDetail: {
-    id: string;
+    id: number;
   };
 };
 

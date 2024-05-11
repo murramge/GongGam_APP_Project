@@ -3,21 +3,27 @@ import {View} from 'react-native';
 
 import CommonButton from '../../../atoms/buttons/CommonButton';
 import {colors} from '@styles/color';
+import {CommunityEditorMode} from '@pages/CommunitySelect/CommunitySelectLayOut';
 
 interface MultiStepFormBottomProps extends StepIndicatorProps {
   onPressNextButton?: () => void;
   onPressPrevButton?: () => void;
   disabled?: any;
+  mode: CommunityEditorMode;
+  currentStep: number;
+  maxStep: number;
 }
 const MultiStepFormBottom = ({
+  mode,
   currentStep,
   maxStep,
   onPressNextButton,
   onPressPrevButton,
   disabled,
 }: MultiStepFormBottomProps) => {
-  const isFirst = currentStep === 1;
+  const isFirst = mode === 'SAVE' ? currentStep === 1 : currentStep === 2;
   const isFinal = maxStep === currentStep;
+
   return (
     <View style={{padding: 16, gap: 8, backgroundColor: colors.WHITE}}>
       <StepIndicator currentStep={currentStep} maxStep={maxStep} />
@@ -33,7 +39,13 @@ const MultiStepFormBottom = ({
         )}
         <View style={{flex: 2}}>
           <CommonButton
-            label={isFinal ? '모임 만들기' : '다음'}
+            label={
+              isFinal
+                ? mode === 'EDIT'
+                  ? '모임 수정하기'
+                  : '모임 만들기'
+                : '다음'
+            }
             onPress={onPressNextButton}
             disabled={disabled}
           />

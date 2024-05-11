@@ -12,7 +12,7 @@ interface StepHeaderProps {
     labelColor?: string;
   };
   label: string | undefined;
-  icon?: ReactNode;
+  icon?: string;
   onPressCancel?: () => void;
 }
 
@@ -61,7 +61,9 @@ const StepHeader = ({
         </View>
         <View style={{width: '8%'}}>
           <TouchableOpacity>
-            <Icon name={icon} color={colors.GRAY_500} size={20}></Icon>
+            {icon && (
+              <Icon name={icon} color={colors.GRAY_500} size={20}></Icon>
+            )}
           </TouchableOpacity>
         </View>
       </View>

@@ -8,8 +8,11 @@ import {colors} from '@styles/color';
 import {useFormContext} from 'react-hook-form';
 
 const CommunityIntroduce = () => {
+  const {getValues, setValue, watch} = useFormContext();
   const [open, setOpen] = useState(false);
-  const [participant, setParticipant] = useState(null);
+  const [participant, setParticipant] = useState(
+    getValues('communityParticipant'),
+  );
   const [items, setItems] = useState([
     {label: '2', value: 2},
     {label: '3', value: 3},
@@ -21,10 +24,7 @@ const CommunityIntroduce = () => {
     {label: '9', value: 9},
   ]);
 
-  const {setValue, watch} = useFormContext();
-
   useEffect(() => {
-    watch();
     setValue('communityParticipant', participant, {
       shouldValidate: true,
       shouldDirty: true,
@@ -59,6 +59,7 @@ const CommunityIntroduce = () => {
             backgroundColor: colors.GRAY_100,
             borderRadius: 10,
           }}
+          value={watch('communityName')}
         />
       </View>
       <View style={{paddingBottom: 10}}>
@@ -89,6 +90,7 @@ const CommunityIntroduce = () => {
             borderRadius: 10,
             textAlignVertical: 'top',
           }}
+          value={watch('communityContext')}
         />
       </View>
       <View style={{paddingBottom: 10}}>
@@ -105,7 +107,7 @@ const CommunityIntroduce = () => {
         <View>
           <DropDownPicker
             open={open}
-            value={participant}
+            value={watch('communityParticipant')}
             items={items}
             setOpen={setOpen}
             setValue={number => {

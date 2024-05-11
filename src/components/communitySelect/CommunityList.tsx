@@ -17,7 +17,6 @@ const CommunityList = ({setValue, watch}: CommunityListProps) => {
     performanceDate.today,
     performanceDate.stsType,
   );
-  console.log('pdata', performanceData);
 
   return (
     <View>
