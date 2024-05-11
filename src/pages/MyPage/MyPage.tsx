@@ -14,12 +14,6 @@ interface MyPageProps extends NativeStackScreenProps<RootStackParamList> {}
 const MyPage = ({navigation: {navigate}}: MyPageProps) => {
   return (
     <View style={{flex: 1, backgroundColor: colors.WHITE}}>
-      {/* <TouchableOpacity onPress={() => navigate('AuthHome')}>
-        <Text style={{color: colors.MAIN_COLOR, fontSize: 16}}>auth</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={async () => await signOut()}>
-        <Text style={{color: colors.MAIN_COLOR, fontSize: 16}}>로그아웃</Text>
-      </TouchableOpacity> */}
       <View style={{height: 200, backgroundColor: colors.WHITE}}>
         <MyPageMainHeader></MyPageMainHeader>
       </View>
