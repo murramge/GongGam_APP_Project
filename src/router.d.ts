@@ -64,7 +64,8 @@ type AuthenticationRouteParams = {
   SignUp: undefined;
   Login: undefined;
   NewPasswordPage: {
-    code: string;
+    access_token: string;
+    refresh_token: string;
   };
   FindPasswordPage: undefined;
   OnBoarding: undefined;
