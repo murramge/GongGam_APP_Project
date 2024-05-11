@@ -7,14 +7,19 @@ import {
   PerformanceCategory,
   PerformanceStsType,
 } from '@apis/kopis.d';
+import {atom, useAtom} from 'jotai';
 
+export const boxofficeData = atom<PerformanceBoxOffice[]>([]);
+export const isLoadingData = atom(true);
 const usePerformanceApi = (
   date: string,
   stsType: PerformanceStsType[keyof PerformanceStsType],
   categoryCode?: keyof PerformanceCategory | string,
 ) => {
-  const [performances, setPerformances] = useState<PerformanceBoxOffice[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [performances, setPerformances] =
+    useAtom<PerformanceBoxOffice[]>(boxofficeData);
+  const [isLoading, setIsLoading] = useAtom(isLoadingData);
+
   useEffect(() => {
     const performanceApi = async () => {
       try {
