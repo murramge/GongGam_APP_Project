@@ -42,6 +42,7 @@
     "react-hook-form": "^7.51.3",
     "react-native": "0.73.7",
     "react-native-calendars": "^1.1304.1",
+    "react-native-date-picker": "^5.0.2",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-elevated-view": "^0.0.6",
     "react-native-fast-image": "^8.6.3",

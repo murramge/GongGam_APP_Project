@@ -2,12 +2,12 @@ import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
-import BackHeader from '@components/common/header/BackHeader';
 import {useFormContext} from 'react-hook-form';
 import dayjs from 'dayjs';
+import {CommunityEditForm} from '../CommunitySelectLayOut';
 
 const CommunitySummary = () => {
-  const {watch} = useFormContext();
+  const {watch} = useFormContext<CommunityEditForm>();
 
   return (
     <View>
@@ -77,7 +77,7 @@ const CommunitySummary = () => {
               color: colors.MAIN_COLOR,
               paddingLeft: 5,
             }}>
-            2024.05.04
+            {dayjs(watch('communityDate')).format(dateFormat)}
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -109,5 +109,7 @@ const CommunitySummary = () => {
     </View>
   );
 };
+
+const dateFormat = 'YYYY년 MM월 DD일 HH시 mm분';
 
 export default CommunitySummary;
