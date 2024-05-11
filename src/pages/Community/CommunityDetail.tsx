@@ -28,7 +28,7 @@ import {MeetingInfo} from '@apis/supabase/meeting.d';
 import {getCurrentAuthUser} from '@apis/supabase/auth';
 import CommentView from '@components/common/modals/CommentView';
 import Loading from '../../components/common/skeleton/Loading';
-
+import CommentsModal from '../../components/common/modals/CommentsModal';
 import Config from 'react-native-config';
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
@@ -42,6 +42,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isJoined, setIsJoined] = useState<boolean>(true);
   const [isOwner, setIsOwner] = useState<boolean>(false);
+  const [commentOpen, setCommentOpen] = useState(false);
 
   const onPressJoinCancel = () => {
     setIsJoinModalOpen(false);
@@ -217,8 +218,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           </View>
         )}
         {isJoined && (
-          <View>
-            <CommentView meetingId={meeting.id} />
+          // <View>
+          //   <CommentView meetingId={meeting.id} />
+          // </View>
+          <View style={styles.buttonContainer}>
+            <CommonButton label="댓글" onPress={() => setCommentOpen(true)} />
           </View>
         )}
 
@@ -226,6 +230,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           isVisible={isVisible}
           setIsVisible={setIsVisible}
           isOwner={isOwner}
+        />
+        <CommentsModal
+          isVisible={commentOpen}
+          setIsVisible={setCommentOpen}
+          meetingId={meeting.id}
         />
       </View>
     );
