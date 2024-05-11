@@ -1,5 +1,5 @@
 import {colors} from '@styles/color';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import StepHeader from '../../components/common/header/StepHeader';
 import MultiStepFormBottom from '../../components/common/multistepform/MultiStepFormBottom';
