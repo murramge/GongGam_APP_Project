@@ -230,6 +230,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           isVisible={isVisible}
           setIsVisible={setIsVisible}
           isOwner={isOwner}
+          id={route.params.id}
         />
         <CommentsModal
           isVisible={commentOpen}
