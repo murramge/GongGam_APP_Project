@@ -27,13 +27,11 @@ export const getMeetings = async ({
     console.log(startOfDate, endOfDate);
 
     let query = supabase.from('meeting_with_current_occupancy').select('*');
-    if (perfName) query = query.contains('perf_name', perfName);
-    if (perfGenre) query = query.contains('perf_genre', perfGenre);
+    if (perfName) query = query.like('perf_name', `%${perfName}%`);
+    if (perfGenre) query = query.like('perf_genre', `%${perfGenre}%`);
     if (maxOccupancy) query = query.eq('max_occupancy', maxOccupancy);
     if (meetingAt)
-      query = query
-        .rangeGte('meeting_at', startOfDate)
-        .rangeLte('meeting_at', endOfDate);
+      query = query.gte('meeting_at', startOfDate).lte('meeting_at', endOfDate);
 
     const {data, error} = await query;
 

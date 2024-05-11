@@ -5,20 +5,20 @@ import SignInput from '@components/common/input/SignInput';
 import InputLabel from '@components/common/label/InputLabel';
 import Grid from '@components/common/layout/Grid';
 import {colors} from '@styles/color';
-import dayjs, {Dayjs} from 'dayjs';
+import dayjs from 'dayjs';
 import React, {useState} from 'react';
 import {ScrollView, Dimensions, StyleSheet, View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 interface CommunityFilterProps {
-  perfName: string;
-  setPerfName: (text: string) => void;
-  perfGenre;
-  setPerfGenre;
-  meetingAt;
-  setMeetingAt;
-  maxOccupancy;
-  setMaxOccupancy;
+  perfName?: string;
+  setPerfName: (text: string | undefined) => void;
+  perfGenre?: PerformanceGenreKey;
+  setPerfGenre: (text: PerformanceGenreKey | undefined) => void;
+  meetingAt?: string;
+  setMeetingAt: (text: string | undefined) => void;
+  maxOccupancy?: number;
+  setMaxOccupancy: (text: number | undefined) => void;
 }
 
 const CommunityFilter = ({
@@ -44,7 +44,7 @@ const CommunityFilter = ({
           <SignInput
             label="공연이름을 입력해주세요."
             onChangeText={setPerfName}
-            value={perfName}
+            value={perfName ?? ''}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -52,14 +52,14 @@ const CommunityFilter = ({
           <CustomCalendar
             markedDates={
               meetingAt
-                ? {[meetingAt.format('YYYY-MM-DD')]: {selected: true}}
+                ? {[dayjs(meetingAt).format('YYYY-MM-DD')]: {selected: true}}
                 : {}
             }
             onDayPress={date => {
-              if (date.dateString === meetingAt?.format('YYYY-MM-DD')) {
+              if (date.dateString === dayjs(meetingAt)?.format('YYYY-MM-DD')) {
                 setMeetingAt(undefined);
               } else {
-                setMeetingAt(dayjs(date.dateString));
+                setMeetingAt(dayjs(date.dateString).toISOString());
               }
             }}
           />

@@ -4,7 +4,6 @@ import {getProfile} from '@apis/supabase/profile';
 import {UserProfile} from '@apis/supabase/profile.d';
 import {getCurrentAuthUser} from '@apis/supabase/auth';
 import {User} from '@supabase/supabase-js';
-import {getProfile} from '@apis/supabase/profile';
 
 //프로필 api 불러옴
 
