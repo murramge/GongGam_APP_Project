@@ -53,3 +53,19 @@ export const createMeetingComment = async ({
     throw e;
   }
 };
+
+export const updateMeetingComment = async (
+  meetingId: number,
+  params: {content: string},
+) => {
+  try {
+    const {error} = await supabase
+      .from('meeting_comment')
+      .update([params])
+      .eq('id', meetingId);
+
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw e;
+  }
+};
