@@ -24,6 +24,7 @@ interface CommunityQuitModalProps {
   title?: string;
   isOwner?: boolean;
   id?: any;
+  onPressEdit?: () => void;
 }
 
 const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
@@ -31,6 +32,7 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
   setIsVisible,
   title,
   isOwner,
+  onPressEdit,
   id,
 }) => {
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
@@ -96,7 +98,7 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
                 <Text style={styles.menuText}>모임 탈퇴</Text>
               </TouchableOpacity>
               {isOwner && (
-                <TouchableOpacity onPress={() => console.log()}>
+                <TouchableOpacity onPress={onPressEdit}>
                   <Text style={styles.menuText}>모임 수정</Text>
                 </TouchableOpacity>
               )}
