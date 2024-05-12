@@ -31,7 +31,6 @@ const CommunityCardItem = ({data}: CommonArtCardItemProps) => {
   let perfDay = dayjs(item.perf_at).format('YY년 MM월 DD일 HH시 mm분');
   let meetDay = dayjs(item.meeting_at).format('YY년 MM월 DD일 HH시 mm분');
 
-  console.log(item.perf_image_url);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   useEffect(() => {
     setIsLoading(false);
