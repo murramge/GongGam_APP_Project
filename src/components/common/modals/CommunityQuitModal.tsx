@@ -12,11 +12,6 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import CommunityWithdrawModal from '@components/common/modals/CommunityWithdrawModal';
-import {quitMeeting} from '@apis/supabase/meeting';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
-import {RootStackParamList} from '@router.d';
 
 interface CommunityQuitModalProps {
   isVisible: boolean;
@@ -36,13 +31,11 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
   id,
 }) => {
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
-  const {navigate} =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const [selectedMenuItem, setSelectedMenuItem] = useState<null | string>(null);
 
   const onPressWithdrawCancel = () => {
-    quitMeeting(id);
-    navigate('Community');
+    setIsWithdrawModalOpen(false);
   };
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
 
@@ -120,6 +113,7 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
         isWithdrawModalOpen={isWithdrawModalOpen}
         onPressWithdrawCancel={onPressWithdrawCancel}
         title={title}
+        id={id}
       />
     </View>
   );

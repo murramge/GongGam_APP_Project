@@ -3,16 +3,23 @@ import {View, Text, Modal, StyleSheet, Pressable} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
 import CommonButton from '../../../atoms/buttons/CommonButton';
-
+import {quitMeeting} from '@apis/supabase/meeting';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '@router.d';
 const CommunityWithdrawModal = ({
   isWithdrawModalOpen,
   onPressWithdrawCancel,
   title,
+  id,
 }: {
   isWithdrawModalOpen: boolean;
   onPressWithdrawCancel: () => void;
   title: string;
+  id?: any;
 }) => {
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View>
       <Modal
@@ -35,7 +42,8 @@ const CommunityWithdrawModal = ({
                 label="예"
                 borderRadius={32}
                 onPress={() => {
-                  console.log('모임탈퇴처리');
+                  quitMeeting(id);
+                  navigate('Community');
                   onPressWithdrawCancel();
                 }}
               />
