@@ -111,7 +111,7 @@ const Detail: React.FC<DetailProps> = ({
                 label="같이 볼 사람 모집하기"
                 borderRadius={0}
                 margin={0}
-                onPress={() => navigate('CommunitySelectLayOut')}
+                onPress={() => navigate('CommunitySelectLayOut', {artId: id})}
               />
             </View>
           )}

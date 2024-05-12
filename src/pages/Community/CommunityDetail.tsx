@@ -230,6 +230,12 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           isVisible={isVisible}
           setIsVisible={setIsVisible}
           isOwner={isOwner}
+          onPressEdit={() =>
+            navigation.navigate('CommunitySelectLayOut', {
+              meetingId: meeting.id,
+            })
+          }
+          id={route.params.id}
         />
         <CommentsModal
           isVisible={commentOpen}

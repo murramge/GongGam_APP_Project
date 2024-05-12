@@ -126,6 +126,22 @@ export const signInByPkceCode = async (code: string) => {
   }
 };
 
+export const signInByAccessToken = async (
+  accessToken: string,
+  refreshToken: string,
+) => {
+  try {
+    const {error} = await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    });
+
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const getCurrentAuthUser = async () => {
   try {
     const session = (await supabase.auth.getSession()).data.session;

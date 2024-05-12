@@ -30,6 +30,7 @@ import Detail from '@pages/Home/detail/Detail';
 import Community from '@pages/Community/Community';
 
 import {MainBottomTabParamList, RootStackParamList} from './router.d';
+import OnBoardingHome from '@pages/Onboarding/OnBoarding';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainBottomTabParamList>();
@@ -56,6 +57,7 @@ function Router() {
         options={{animation: 'fade_from_bottom'}}
       />
       <Stack.Screen name="MainTab" component={MainTab} />
+      <Stack.Screen name="OnBoarding" component={OnBoardingHome} />
       <Stack.Group navigationKey="Authentication">
         <Stack.Screen name="AuthHome" component={AuthHome} />
         <Stack.Screen name="Login" component={Login} />

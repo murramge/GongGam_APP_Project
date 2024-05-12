@@ -4,6 +4,8 @@ import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {RootStackParamList} from '@router.d';
 import {colors} from '@styles/color';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 interface StepHeaderProps {
   Color?: {
@@ -12,7 +14,7 @@ interface StepHeaderProps {
     labelColor?: string;
   };
   label: string | undefined;
-  icon?: ReactNode;
+  icon?: string;
   onPressCancel?: () => void;
 }
 
@@ -26,6 +28,8 @@ const StepHeader = ({
   icon = null,
   onPressCancel,
 }: StepHeaderProps) => {
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <SafeAreaView
       style={{
@@ -60,8 +64,13 @@ const StepHeader = ({
           </Text>
         </View>
         <View style={{width: '8%'}}>
-          <TouchableOpacity>
-            <Icon name={icon} color={colors.GRAY_500} size={20}></Icon>
+          <TouchableOpacity
+            onPress={() => {
+              navigate('Search', {id: 'step'});
+            }}>
+            {icon && (
+              <Icon name={icon} color={colors.GRAY_500} size={20}></Icon>
+            )}
           </TouchableOpacity>
         </View>
       </View>

@@ -5,9 +5,13 @@ import {RootStackParamList} from '@router.d';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
 
+import useCategorizedPerformances from '@pages/Home/main/hooks/useCategorizedPerformances';
+import usePerformanceDate from '@hooks/usePerformanceDate';
+import usePerformanceApi from '@hooks/usePerformanceApi';
+
 type SplashScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  'MainTab'
+  'OnBoarding'
 >;
 
 type Props = {
@@ -15,9 +19,18 @@ type Props = {
 };
 
 const Splash: React.FC<Props> = ({navigation}) => {
+  const code = useCategorizedPerformances();
+  const performanceDate = usePerformanceDate();
+
+  const {performances, isLoading} = usePerformanceApi(
+    performanceDate.today,
+    performanceDate.stsType,
+    code,
+  );
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('MainTab');
+      navigation.replace('OnBoarding');
     }, 3000);
 
     return () => clearTimeout(timer);

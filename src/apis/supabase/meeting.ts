@@ -3,13 +3,38 @@ import type {
   JoinedMeetingInfo,
   MeetingInfo,
   createMeetingParams,
+  updateMeetingParams,
 } from './meeting.d';
+import dayjs from 'dayjs';
+import {PerformanceGenreKey} from '@apis/kopis.d';
 
-export const getMeetings = async () => {
+export interface getMeetingsParams {
+  perfName?: string;
+  perfGenre?: PerformanceGenreKey;
+  meetingAt?: string;
+  maxOccupancy?: number;
+}
+
+export const getMeetings = async ({
+  maxOccupancy,
+  meetingAt,
+  perfGenre,
+  perfName,
+}: getMeetingsParams) => {
   try {
-    const {data, error} = await supabase
-      .from('meeting_with_current_occupancy')
-      .select('*');
+    const startOfDate = dayjs(meetingAt).hour(0).minute(0).toISOString();
+    const endOfDate = dayjs(meetingAt).hour(23).minute(59).toISOString();
+
+    console.log(startOfDate, endOfDate);
+
+    let query = supabase.from('meeting_with_current_occupancy').select('*');
+    if (perfName) query = query.like('perf_name', `%${perfName}%`);
+    if (perfGenre) query = query.like('perf_genre', `%${perfGenre}%`);
+    if (maxOccupancy) query = query.eq('max_occupancy', maxOccupancy);
+    if (meetingAt)
+      query = query.gte('meeting_at', startOfDate).lte('meeting_at', endOfDate);
+
+    const {data, error} = await query;
 
     if (error) {
       throw new Error(error.message);
@@ -22,7 +47,7 @@ export const getMeetings = async () => {
   }
 };
 
-export const getMeeting = async (id: string) => {
+export const getMeeting = async (id: number) => {
   try {
     const {data, error} = await supabase
       .from('meeting_with_current_occupancy')
@@ -56,6 +81,22 @@ export const getJoinedMeetings = async () => {
   }
 };
 
+export const updateMeeting = async (
+  meetingId: number,
+  params: updateMeetingParams,
+) => {
+  try {
+    const {error} = await supabase
+      .from('meeting')
+      .update([params])
+      .eq('id', meetingId);
+
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const createMeeting = async (params: createMeetingParams) => {
   try {
     const {data, error: meetingError} = await supabase
@@ -72,7 +113,7 @@ export const createMeeting = async (params: createMeetingParams) => {
       throw new Error(meetingError.message);
     }
 
-    return data.id;
+    return data.id as number;
   } catch (e) {
     console.error(e);
     throw e;
