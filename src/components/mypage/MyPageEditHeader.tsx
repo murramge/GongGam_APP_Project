@@ -16,6 +16,7 @@ import {getProfile} from '@apis/supabase/profile';
 import {useNavigation} from '@react-navigation/native';
 import useImage from '@hooks/useImage';
 import Config from 'react-native-config';
+import ProfileImage from '@components/common/image/ProfileImage';
 interface MyPageHeaderProps {
   type?: string;
   profileImageUrl?: string;
@@ -45,18 +46,21 @@ const MyPageHeader = ({
             backgroundColor: colors.WHITE,
           }}
           elevation={5}>
-          <Image
-            resizeMode="cover"
-            source={{
-              uri: profileImageUrl
-                ? profileImageUrl
-                : 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
-            }}
-            style={{
-              width: 150,
-              height: 150,
-              borderRadius: 100,
-            }}></Image>
+          {profileImageUrl ? (
+            <Image
+              resizeMode="cover"
+              source={{
+                uri: profileImageUrl,
+              }}
+              style={{
+                width: 150,
+                height: 150,
+                borderRadius: 100,
+              }}
+            />
+          ) : (
+            <ProfileImage size={150} />
+          )}
         </ElevatedView>
         <View>
           <TouchableOpacity
