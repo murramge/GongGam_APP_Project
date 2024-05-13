@@ -95,7 +95,7 @@ const ProfileEdit = ({}: ProfileEditProps) => {
               ? selectedImage.path
               : profile?.image_url
               ? `${Config.SUPABASE_PUBLIC_IMAGE_BASE_URL}/${profile?.image_url}`
-              : ''
+              : undefined
           }
           onPressCameraButton={() => openPicker()}
         />

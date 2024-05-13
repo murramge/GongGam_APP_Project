@@ -1,4 +1,5 @@
-import {PerformanceDetailInfo, getPerformanceDetail} from '@apis/kopis';
+import {getPerformanceDetail} from '@apis/kopis';
+import {PerformanceDetailInfo} from '@apis/kopis.d';
 import {atom, useAtom} from 'jotai';
 import {useEffect, useState} from 'react';
 

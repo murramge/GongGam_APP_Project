@@ -6,32 +6,25 @@ import InputLabel from '@components/common/label/InputLabel';
 import Grid from '@components/common/layout/Grid';
 import {colors} from '@styles/color';
 import dayjs from 'dayjs';
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {ScrollView, Dimensions, StyleSheet, View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import useMeetingApi from './hooks/useMeetingApi';
 
-interface CommunityFilterProps {
-  perfName?: string;
-  setPerfName: (text: string | undefined) => void;
-  perfGenre?: PerformanceGenreKey;
-  setPerfGenre: (text: PerformanceGenreKey | undefined) => void;
-  meetingAt?: string;
-  setMeetingAt: (text: string | undefined) => void;
-  maxOccupancy?: number;
-  setMaxOccupancy: (text: number | undefined) => void;
-}
+interface CommunityFilterProps {}
 
-const CommunityFilter = ({
-  maxOccupancy,
-  meetingAt,
-  perfGenre,
-  perfName,
-  setMaxOccupancy,
-  setMeetingAt,
-  setPerfGenre,
-  setPerfName,
-}: CommunityFilterProps) => {
+const CommunityFilter = ({}: CommunityFilterProps) => {
   const [open, setOpen] = useState(false);
+  const {
+    maxOccupancy,
+    meetingAt,
+    perfGenre,
+    perfName,
+    setMaxOccupancy,
+    setMeetingAt,
+    setPerfGenre,
+    setPerfName,
+  } = useMeetingApi({selectedType: 'All'});
 
   return (
     <>
@@ -138,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CommunityFilter;
+export default memo(CommunityFilter);

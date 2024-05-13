@@ -83,6 +83,12 @@ export interface PerformanceDetailInfo {
   };
   updatedate: string;
   visit: string;
+  relates: {
+    relate: {
+      relatenm: string;
+      relateurl: string;
+    }[];
+  };
 }
 
 export interface PerformanceInfo {

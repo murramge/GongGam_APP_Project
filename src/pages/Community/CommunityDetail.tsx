@@ -19,7 +19,6 @@ import dayjs from 'dayjs';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router.d';
-
 import {
   getJoinedMeetings,
   getMeeting,
@@ -27,10 +26,11 @@ import {
 } from '@apis/supabase/meeting';
 import {MeetingInfo} from '@apis/supabase/meeting.d';
 import {getCurrentAuthUser} from '@apis/supabase/auth';
-import CommentView from '@components/common/modals/CommentView';
 import Loading from '../../components/common/skeleton/Loading';
 import CommentsModal from '../../components/common/modals/CommentsModal';
 import Config from 'react-native-config';
+import Toast from 'react-native-toast-message';
+
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
 
@@ -84,17 +84,26 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
     try {
       if (await getCurrentAuthUser()) {
         setIsJoinModalOpen(true);
+
         //await joinMeeting(meeting.id);
         await fetch();
       } else {
         //TODO: 모임 참여 모달
         //navigation.navigate('Login');
+
+      } else {
+        navigation.navigate('AuthHome');
       }
     } catch (e) {
-      // TODO: 이미 가입한 모임이거나, 이미 꽉 찬 모임일 경우 에러 처리(Modal or Toast)
       console.warn(e);
-      ToastAndroid.show(e.toString(), ToastAndroid.SHORT);
+      Toast.show({text1: '가입 할 수 없는 모임입니다.'});
     }
+  };
+  const onPressJoinOnModal = async () => {
+    if (!meeting) return;
+
+    await joinMeeting(meeting.id);
+    await fetch();
   };
 
   if (error) {
@@ -121,58 +130,76 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
     } = meeting;
     console.log(meeting);
     return (
-      <View style={{flex: 1}}>
-        <BackHeader label={title} />
-        <View style={styles.mainVisual}>
-          <Image source={mainVisual} style={styles.mainImg} />
-        </View>
-        <View style={styles.profileImgArea}>
-          <TouchableOpacity
-            onPress={() => {
-              console.log(perf_id);
-              navigation.navigate('Detail', {id: perf_id});
-            }}>
-            <Image
-              source={{uri: `${Config.KOPIS_IMAGE_BASE_URL}/${perf_image_url}`}}
-              style={styles.profileImg}
-            />
-          </TouchableOpacity>
-          <View style={styles.iconArea}>
+      <>
+        <View style={{flex: 1}}>
+          <BackHeader label={title} />
+          <View style={styles.mainVisual}>
+            <Image source={mainVisual} style={styles.mainImg} />
+          </View>
+          <View style={styles.profileImgArea}>
             <TouchableOpacity
-              onPress={async () => {
-                await Share.share({message: `${perf_name} ${title}`});
+              onPress={() => {
+                console.log(perf_id);
+                navigation.navigate('Detail', {id: perf_id});
               }}>
-              <Image source={shareIcon} style={styles.icon} />
+              <Image
+                source={{
+                  uri: `${Config.KOPIS_IMAGE_BASE_URL}/${perf_image_url}`,
+                }}
+                style={styles.profileImg}
+              />
             </TouchableOpacity>
-            {isJoined && (
+            <View style={styles.iconArea}>
               <TouchableOpacity
-                onPress={() => {
-                  setIsVisible(!isVisible);
+                onPress={async () => {
+                  await Share.share({message: `${perf_name} ${title}`});
                 }}>
-                <Image source={moreIcon} style={styles.icon} />
+                <Image source={shareIcon} style={styles.icon} />
               </TouchableOpacity>
-            )}
+              {isJoined && (
+                <TouchableOpacity
+                  onPress={() => {
+                    setIsVisible(!isVisible);
+                  }}>
+                  <Image source={moreIcon} style={styles.icon} />
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
-        </View>
-        <View style={styles.mainContainer}>
-          <View style={styles.titleArea}>
-            <Text style={styles.title} ellipsizeMode="tail">
-              {perf_name}
-            </Text>
-            <Text style={styles.communityTitle}>{title}</Text>
-          </View>
-          <View style={styles.mainContentContainer}>
-            <View style={styles.scheduleContainer}>
-              <View style={styles.scheduleSection}>
-                <Text style={styles.scheduleLabel}>공연일정</Text>
-                <Text style={styles.scheduleDateTime}>
-                  {dayjs(perf_at).format('YYYY년 MM월 DD일 HH시 mm분')}
-                </Text>
+          <View style={styles.mainContainer}>
+            <View style={styles.titleArea}>
+              <Text style={styles.title} ellipsizeMode="tail">
+                {perf_name}
+              </Text>
+              <Text style={styles.communityTitle}>{title}</Text>
+            </View>
+            <View style={styles.mainContentContainer}>
+              <View style={styles.scheduleContainer}>
+                <View style={styles.scheduleSection}>
+                  <Text style={styles.scheduleLabel}>공연일정</Text>
+                  <Text style={styles.scheduleDateTime}>
+                    {dayjs(perf_at).format('YYYY년 MM월 DD일 HH시 mm분')}
+                  </Text>
+                </View>
+                <View style={styles.scheduleSection}>
+                  <Text style={styles.scheduleLabel}>모임일정</Text>
+                  <Text style={styles.scheduleDateTime}>
+                    {dayjs(meeting_at).format('YYYY년 MM월 DD일 HH시 mm분')}
+                  </Text>
+                </View>
+                <View style={styles.scheduleSection}>
+                  <IonIcon name="person" color={colors.GRAY_300} />
+                  <Text style={styles.peopleLabel}>인원</Text>
+                  <Text
+                    style={
+                      styles.peopleCount
+                    }>{`${current_occupancy}/${max_occupancy}`}</Text>
+                </View>
               </View>
-              <View style={styles.scheduleSection}>
-                <Text style={styles.scheduleLabel}>모임일정</Text>
-                <Text style={styles.scheduleDateTime}>
-                  {dayjs(meeting_at).format('YYYY년 MM월 DD일 HH시 mm분')}
+              <View style={styles.meetingDescriptionContainer}>
+                <Text style={styles.meetingDescriptionTitle}>모임소개</Text>
+                <Text style={styles.meetingDescriptionText}>
+                  {introduction}
                 </Text>
               </View>
               <View style={styles.scheduleSection}>
@@ -193,7 +220,31 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
               </ScrollView>
             </View>
           </View>
+          {!isJoined && (
+            <View>
+              {current_occupancy === max_occupancy ? (
+                <View style={styles.buttonContainer}>
+                  <CommonButton
+                    label="모집 완료"
+                    onPress={() => {}}
+                    disabled={true}
+                    bgColor={colors.GRAY_300}
+                  />
+                </View>
+              ) : (
+                <View style={styles.buttonContainer}>
+                  <CommonButton label="가입하기" onPress={onPressJoinButton} />
+                </View>
+              )}
+            </View>
+          )}
+          {isJoined && (
+            <View style={styles.buttonContainer}>
+              <CommonButton label="댓글" onPress={() => setCommentOpen(true)} />
+            </View>
+          )}
         </View>
+
         {!isJoined && (
           <View>
             {current_occupancy === max_occupancy ? (
@@ -219,36 +270,41 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
               perf_at={meeting.perf_at}
               current_occupancy={meeting.current_occupancy}
               max_occupancy={meeting.max_occupancy}
+
+        {isJoined ? (
+          <>
+            <CommentsModal
+              isVisible={commentOpen}
+              setIsVisible={setCommentOpen}
               meetingId={meeting.id}
             />
-          </View>
+            <CommunityQuitModal
+              isVisible={isVisible}
+              setIsVisible={setIsVisible}
+              isOwner={isOwner}
+              onPressEdit={() =>
+                navigation.navigate('CommunitySelectLayOut', {
+                  meetingId: meeting.id,
+                })
+              }
+              id={route.params.id}
+            />
+          </>
+        ) : (
+          <CommunityJoinModal
+            id={meeting.id}
+            isJoinModalOpen={isJoinModalOpen}
+            onPressJoinCancel={onPressJoinCancel}
+            onPressJoin={onPressJoinOnModal}
+            perf_image_url={meeting.perf_image_url}
+            perf_name={meeting.perf_name}
+            title={meeting.title}
+            perf_at={meeting.perf_at}
+            current_occupancy={meeting.current_occupancy}
+            max_occupancy={meeting.max_occupancy}
+          />
         )}
-        {isJoined && (
-          // <View>
-          //   <CommentView meetingId={meeting.id} />
-          // </View>
-          <View style={styles.buttonContainer}>
-            <CommonButton label="댓글" onPress={() => setCommentOpen(true)} />
-          </View>
-        )}
-
-        <CommunityQuitModal
-          isVisible={isVisible}
-          setIsVisible={setIsVisible}
-          isOwner={isOwner}
-          onPressEdit={() =>
-            navigation.navigate('CommunitySelectLayOut', {
-              meetingId: meeting.id,
-            })
-          }
-          id={route.params.id}
-        />
-        <CommentsModal
-          isVisible={commentOpen}
-          setIsVisible={setCommentOpen}
-          meetingId={meeting.id}
-        />
-      </View>
+      </>
     );
   }
 };
