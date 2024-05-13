@@ -1,4 +1,4 @@
-import {signOut} from '@apis/supabase/auth';
+import {deleteUser, signOut} from '@apis/supabase/auth';
 import SettingsItems from '@pages/MyPage/setting/SettingsItems';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -36,7 +36,19 @@ const SettingsList = ({}: SettingsListProps) => {
           title="로그아웃"
           icons="logout-variant"
           onPress={onPressSignOut}></SettingsItems>
-        <SettingsItems title="회원탈퇴" icons="account-cancel"></SettingsItems>
+        <SettingsItems
+          title="회원탈퇴"
+          icons="account-cancel"
+          onPress={async () => {
+            try {
+              await deleteUser();
+              dispatch(
+                CommonActions.reset({index: 0, routes: [{name: 'MainTab'}]}),
+              );
+            } catch (_) {
+              Toast.show({text1: '에러가 발생했습니다.', type: 'error'});
+            }
+          }}></SettingsItems>
         <SettingsItems
           title="문의하기"
           icons="card-account-phone"></SettingsItems>
