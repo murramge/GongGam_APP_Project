@@ -53,7 +53,6 @@ const CommunityWithdrawModal = ({
                 borderRadius={32}
                 onPress={() => {
                   isOwner ? deleteMeeting(id) : quitMeeting(id);
-                  getMeetings();
                   navigate('Community');
 
                   onPressWithdrawCancel();
