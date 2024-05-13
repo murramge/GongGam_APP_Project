@@ -13,6 +13,8 @@ export interface getMeetingsParams {
   perfGenre?: PerformanceGenreKey;
   meetingAt?: string;
   maxOccupancy?: number;
+  page?: number;
+  size?: number;
 }
 
 export const getMeetings = async ({
@@ -20,12 +22,12 @@ export const getMeetings = async ({
   meetingAt,
   perfGenre,
   perfName,
+  page = 1,
+  size = 10,
 }: getMeetingsParams) => {
   try {
     const startOfDate = dayjs(meetingAt).hour(0).minute(0).toISOString();
     const endOfDate = dayjs(meetingAt).hour(23).minute(59).toISOString();
-
-    console.log(startOfDate, endOfDate);
 
     let query = supabase.from('meeting_with_current_occupancy').select('*');
     if (perfName) query = query.like('perf_name', `%${perfName}%`);
@@ -34,11 +36,11 @@ export const getMeetings = async ({
     if (meetingAt)
       query = query.gte('meeting_at', startOfDate).lte('meeting_at', endOfDate);
 
-    const {data, error} = await query;
+    const {data, error} = await query
+      .range((page - 1) * size, page * size - 1)
+      .order('id', {ascending: false});
 
-    if (error) {
-      throw new Error(error.message);
-    }
+    if (error) throw new Error(error.message);
 
     return data as MeetingInfo[];
   } catch (e) {
@@ -126,9 +128,7 @@ export const joinMeeting = async (meetingId: number) => {
       param_meeting_id: meetingId,
     });
 
-    if (error) {
-      throw new Error(error.message);
-    }
+    if (error) throw new Error(error.message);
   } catch (e) {
     throw e;
   }
@@ -139,9 +139,17 @@ export const quitMeeting = async (meetingId: number) => {
     const {error} = await supabase.rpc('remove_user_from_meeting', {
       param_meeting_id: meetingId,
     });
-    if (error) {
-      throw new Error(error.message);
-    }
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const deleteMeeting = async (meetingId: number) => {
+  try {
+    const {error} = await supabase.from('meeting').delete().eq('id', meetingId);
+
+    if (error) throw new Error(error.message);
   } catch (e) {
     throw e;
   }

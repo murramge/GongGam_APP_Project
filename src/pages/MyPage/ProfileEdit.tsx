@@ -15,11 +15,18 @@ import {getCurrentAuthUser} from '@apis/supabase/auth';
 import {updateProfile} from '@apis/supabase/profile';
 import useProfileApi from './hooks/useProfileApi';
 import Config from 'react-native-config';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '@router.d';
 
 interface ProfileEditProps {}
 
 const ProfileEdit = ({}: ProfileEditProps) => {
   const {profile, user} = useProfileApi();
+  const {goBack} =
+    useNavigation<
+      NativeStackNavigationProp<RootStackParamList, 'ProfileEdit'>
+    >();
   const {
     error: imageSelectError,
     openPicker,
@@ -65,6 +72,7 @@ const ProfileEdit = ({}: ProfileEditProps) => {
         nickname: formData.nickname,
       });
       Toast.show({text1: '프로필이 수정되었습니다.', type: 'success'});
+      goBack();
     } catch (e) {
       Toast.show({
         text1: '프로필을 수정하는 도중 에러가 발생했습니다.',
