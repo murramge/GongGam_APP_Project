@@ -26,7 +26,7 @@ import {
 interface PerformanceSearchProps
   extends NativeStackScreenProps<RootStackParamList, 'Search'> {}
 
-const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
+const PerformanceSearch = ({route, navigation}: PerformanceSearchProps) => {
   const {
     recentSearchList,
     saveRecentSearch,
@@ -39,6 +39,7 @@ const PerformanceSearch = ({navigation}: PerformanceSearchProps) => {
   const [date, setDate] = useState<Moment>();
   const [selectedGenre, setSelectedGenre] = useState<PerformanceGenreKey>();
   const [selectedArea, setSelectedArea] = useState<AreaCodeKey>();
+  const id = route.params;
 
   const onPressSearch = async () => {
     // 날짜가 선택되지 않았을 경우 오늘 날짜로 설정

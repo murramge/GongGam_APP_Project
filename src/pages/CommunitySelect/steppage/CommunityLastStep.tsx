@@ -2,30 +2,13 @@ import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
-import BackHeader from '@components/common/header/BackHeader';
 import {useFormContext} from 'react-hook-form';
 import dayjs from 'dayjs';
+import {CommunityEditForm} from '../CommunitySelectLayOut';
 
-const CommunitySummary = ({setSelectedData}) => {
-  const {watch} = useFormContext();
+const CommunitySummary = () => {
+  const {watch} = useFormContext<CommunityEditForm>();
 
-  useEffect(() => {
-    const datas = watch();
-    console.log(datas);
-    const date = dayjs(`${datas.artDays} ${datas.artTime}`);
-    const artdateisoString = date.toISOString();
-    setSelectedData({
-      introduction: datas.communityContext,
-      max_occupancy: datas.communityParticipant,
-      title: datas.communityName,
-      perf_id: datas.artId,
-      perf_name: datas.artTitle,
-      perf_genre: datas.artGenre,
-      perf_image_url: datas.artPhotoUrl,
-      meeting_at: datas.communityDate,
-      perf_at: artdateisoString,
-    });
-  }, []);
   return (
     <View>
       <View
@@ -94,7 +77,7 @@ const CommunitySummary = ({setSelectedData}) => {
               color: colors.MAIN_COLOR,
               paddingLeft: 5,
             }}>
-            2024.05.04
+            {dayjs(watch('communityDate')).format(dateFormat)}
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -126,5 +109,7 @@ const CommunitySummary = ({setSelectedData}) => {
     </View>
   );
 };
+
+const dateFormat = 'YYYY년 MM월 DD일 HH시 mm분';
 
 export default CommunitySummary;

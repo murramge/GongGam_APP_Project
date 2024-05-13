@@ -34,3 +34,6 @@ export interface JoinedMeetingInfo {
 
 export interface createMeetingParams
   extends Omit<Meeting, 'id' | 'created_at' | 'perf_runtime'> {}
+
+export interface updateMeetingParams
+  extends Partial<Omit<createMeetingParams, ''>> {}

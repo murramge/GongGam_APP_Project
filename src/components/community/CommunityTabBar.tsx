@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import {colors} from '@styles/color';
-import useMettingApi from '../../pages/Community/hooks/useMettingApi';
+import useMettingApi from '../../pages/Community/hooks/useMeetingApi';
 import useTabSelection from '../../pages/Community/hooks/useTabSelection';
 
 const CommunityTabBar = () => {
   const [selectedTab, selectTab] = useTabSelection('All');
-  useMettingApi(selectedTab);
+  useMettingApi({selectedType: 'All'});
 
   return (
     <View style={{flexDirection: 'row', marginBottom: 10}}>

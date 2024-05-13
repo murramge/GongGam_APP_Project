@@ -48,6 +48,7 @@ const ArtTimesThreeStap = ({route}: any) => {
           artlist.map(item => {
             return (
               <TouchableOpacity
+                key={item}
                 onPress={() => onPress(artday, item)}
                 style={
                   watch('artTime') == item

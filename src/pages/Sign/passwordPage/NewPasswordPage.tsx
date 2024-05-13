@@ -16,7 +16,7 @@ import {
 } from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router.d';
-import {signInByPkceCode, updatePassword} from '@apis/supabase/auth';
+import {signInByAccessToken, updatePassword} from '@apis/supabase/auth';
 import Toast from 'react-native-toast-message';
 import useBackHandler from '@hooks/useBackHandler';
 import TitleHeader from '@components/common/header/TitleHeader';
@@ -39,7 +39,7 @@ const NewPassword = () => {
     initiate();
     async function initiate() {
       try {
-        await signInByPkceCode(params.code);
+        await signInByAccessToken(params.access_token, params.refresh_token);
       } catch (e) {
         Toast.show({
           text1: '링크가 만료되었습니다.',

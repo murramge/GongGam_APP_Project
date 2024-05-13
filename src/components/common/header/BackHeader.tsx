@@ -16,6 +16,7 @@ interface BackHeaderProps {
   label: string | undefined;
   icon?: string | null;
   showLeftIcon?: boolean | undefined;
+  onPressBack?: () => void;
 }
 
 const BackHeader = ({
@@ -26,7 +27,7 @@ const BackHeader = ({
   },
   label,
   icon = null,
-  ...props
+  onPressBack,
 }: BackHeaderProps) => {
   const navigate =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -40,7 +41,8 @@ const BackHeader = ({
         alignItems: 'center',
       }}>
       <View style={{width: '5%'}}>
-        <TouchableOpacity onPress={() => navigate.goBack()}>
+        <TouchableOpacity
+          onPress={onPressBack ? onPressBack : () => navigate.goBack()}>
           <Icon
             name="chevron-left"
             color={Color.leftIconsColor}

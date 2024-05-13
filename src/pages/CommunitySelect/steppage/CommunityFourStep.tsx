@@ -1,122 +1,98 @@
 import {colors} from '@styles/color';
-import dayjs from 'dayjs';
-import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Calendar, DateData} from 'react-native-calendars';
-import WheelPick from 'react-native-wheely';
+import dayjs, {Dayjs} from 'dayjs';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {DateData} from 'react-native-calendars';
 import {useFormContext} from 'react-hook-form';
+import DatePicker from 'react-native-date-picker';
+import InputLabel from '@components/common/label/InputLabel';
+import CalendarButton from '@atoms/buttons/CalendarButton';
+import CalendarModal from '@components/common/modals/CalendarModal';
+import {CommunityEditForm} from '../CommunitySelectLayOut';
 
 interface CommunityDateSelectProps {}
 
 const CommunityDateSelect = ({}: CommunityDateSelectProps) => {
-  const {setValue} = useFormContext();
-  const [selectedDate, setSelectedDate] = useState<string>(
-    dayjs(new Date()).format('YYYY-MM-DD'),
-  );
-  const [selectedTime, setSelectedTime] = useState<Time>({
-    hour: '01',
-    minute: '00',
-    ampm: '오전',
-  });
-  const handleTimeChange = useCallback(
-    (type: keyof Time) => (value: string) => {
-      setSelectedTime(prev => ({...prev, [type]: value}));
-    },
-    [],
-  );
-
-  const onPressDate = useCallback((date: DateData) => {
-    date && setSelectedDate(date.dateString);
-  }, []);
+  const {setValue, watch} = useFormContext<CommunityEditForm>();
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+  const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
+  const artDays = watch('artDays');
+  const artTime = watch('artTime');
+  const communityDate = watch('communityDate');
 
   useEffect(() => {
-    const hour24 =
-      selectedTime.ampm === '오전'
-        ? parseInt(selectedTime.hour) % 12
-        : (parseInt(selectedTime.hour) % 12) + 12;
+    if (communityDate) return;
 
-    const dateString = `${selectedDate}T${hour24.toString().padStart(2, '0')}:${
-      selectedTime.minute
-    }:00`;
-
-    setValue('communityDate', dayjs(dateString).toISOString(), {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-  }, [selectedDate, selectedTime, setValue]);
+    setValue('communityDate', dayjs(`${artDays} ${artTime}`).toISOString());
+  }, [artDays, artTime]);
 
   return (
-    <View style={{flex: 1}}>
-      <View>
-        <Text style={styles.labelText}>모임 날짜</Text>
-        <Calendar
-          onDayPress={onPressDate}
-          current={dayjs(new Date()).format('YYYY-MM-DD')}
-          markedDates={{
-            [selectedDate]: {selected: true},
-          }}
-        />
-      </View>
-      <View>
-        <Text style={styles.labelText}>모임 시간</Text>
-        <View style={styles.timeWheelsContainer}>
-          <View style={styles.timeWheels}>
-            <CustomWheelPick
-              data={ampmArray}
-              onChange={handleTimeChange('ampm')}
-            />
-            <CustomWheelPick
-              data={hourArray}
-              onChange={handleTimeChange('hour')}
-            />
-            <Text style={styles.timeSeperator}>:</Text>
-            <CustomWheelPick
-              data={minuteArray}
-              onChange={handleTimeChange('minute')}
-            />
-          </View>
+    <>
+      <View style={{flex: 1, margin: 16}}>
+        <View>
+          <InputLabel label="날짜" />
+          <CalendarButton
+            label={
+              communityDate
+                ? `${dayjs(communityDate).format('YYYY년 MM월 DD일')}`
+                : '날짜를 선택해주세요'
+            }
+            onPress={() => setIsDatePickerVisible(true)}
+          />
+        </View>
+        <View>
+          <InputLabel label="시간" />
+          <CalendarButton
+            label={
+              communityDate
+                ? `${dayjs(communityDate).format('HH시 mm분')}`
+                : '시간을 선택해주세요'
+            }
+            onPress={() => setIsTimePickerVisible(true)}
+          />
         </View>
       </View>
-    </View>
+      <CalendarModal
+        isVisible={isDatePickerVisible}
+        selected={dayjs(communityDate).format('YYYY-MM-DD')}
+        onDayPress={({year, month, day}: DateData) => {
+          setValue(
+            'communityDate',
+            dayjs(communityDate)
+              .year(year)
+              .month(month - 1)
+              .date(day)
+              .toISOString(),
+          );
+          setIsDatePickerVisible(false);
+        }}
+        onBackdropPress={() => setIsDatePickerVisible(false)}
+      />
+      {communityDate && (
+        <DatePicker
+          modal
+          open={isTimePickerVisible}
+          date={dayjs(communityDate).toDate()}
+          mode="time"
+          onConfirm={date => {
+            const dateDayjs = dayjs(date);
+            setValue(
+              'communityDate',
+              dayjs(communityDate)
+                .hour(dateDayjs.hour())
+                .minute(dateDayjs.minute())
+                .toISOString(),
+            );
+            setIsTimePickerVisible(false);
+          }}
+          onCancel={() => {
+            setIsTimePickerVisible(false);
+          }}
+        />
+      )}
+    </>
   );
 };
-
-const CustomWheelPick = ({
-  data,
-  onChange,
-}: {
-  data: string[];
-  onChange: (value: string) => void;
-}) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  return (
-    <WheelPick
-      containerStyle={{width: 'auto'}}
-      itemTextStyle={{color: colors.BLACK, fontWeight: 'bold', fontSize: 18}}
-      selectedIndicatorStyle={{backgroundColor: colors.WHITE}}
-      selectedIndex={currentIndex}
-      options={data}
-      onChange={index => {
-        setCurrentIndex(index);
-        onChange(data[index]);
-      }}
-    />
-  );
-};
-const ampmArray = ['오전', '오후'];
-const hourArray = Array.from(new Array(12), (_, index) =>
-  `${index + 1}`.padStart(2, '0'),
-);
-const minuteArray = Array.from(new Array(60), (_, index) =>
-  `${index}`.padStart(2, '0'),
-);
-
-interface Time {
-  hour: string;
-  minute: string;
-  ampm: '오전' | '오후';
-}
-
 const styles = StyleSheet.create({
   labelText: {
     fontSize: 16,
