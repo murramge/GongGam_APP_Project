@@ -21,6 +21,7 @@ test('공연 상세 조회', async () => {
   const data = await getPerformanceDetail({
     performanceId: 'PF238007',
   });
+  console.log(data.relates);
 
   expect(data?.genrenm).toBe('뮤지컬');
 });

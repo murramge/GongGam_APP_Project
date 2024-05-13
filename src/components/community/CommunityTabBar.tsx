@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import {colors} from '@styles/color';
-import useMettingApi from '../../pages/Community/hooks/useMeetingApi';
+import useMeetingApi from '../../pages/Community/hooks/useMeetingApi';
 import useTabSelection from '../../pages/Community/hooks/useTabSelection';
 
 const CommunityTabBar = () => {
   const [selectedTab, selectTab] = useTabSelection('All');
-  useMettingApi({selectedType: 'All'});
+  useMeetingApi({selectedType: 'All'});
 
   return (
-    <View style={{flexDirection: 'row', marginBottom: 10}}>
+    <View style={{flexDirection: 'row', marginBottom: 16}}>
       <TouchableOpacity
         style={{
           padding: 10,
@@ -50,4 +50,4 @@ const CommunityTabBar = () => {
   );
 };
 
-export default CommunityTabBar;
+export default memo(CommunityTabBar);
