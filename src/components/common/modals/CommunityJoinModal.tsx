@@ -96,7 +96,6 @@ const CommunityJoinModal = ({
                 label="공연함께 보기 참가"
                 borderRadius={32}
                 onPress={onPressJoin}
-                // TODO: 모임 참여 처리
               />
             </View>
             <Pressable

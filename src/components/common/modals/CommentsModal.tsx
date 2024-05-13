@@ -19,6 +19,7 @@ import useProfileApi from '../../../pages/MyPage/hooks/useProfileApi';
 import Modal from 'react-native-modal';
 import dayjs from 'dayjs';
 import {getMeetingComments, createMeetingComment} from '@apis/supabase/comment';
+import ProfileImage from '../image/ProfileImage';
 
 export interface CommentItemProps {
   id: number;
@@ -51,13 +52,8 @@ const CommentItem: React.FC<CommentItemProps> = ({
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <View style={{flexDirection: 'row'}}>
-          <Image
-            source={{
-              uri: profile.image_url || 'https://avatar.iran.liara.run/public',
-            }}
-            style={{width: 32, height: 32, borderRadius: 25, marginRight: 8}}
-          />
+        <View style={{flexDirection: 'row', gap: 8, alignItems: 'center'}}>
+          <ProfileImage size={40} uri={profile?.image_url} />
           <View style={{flex: 1, rowGap: 3}}>
             <View style={{flexDirection: 'row', gap: 8, alignItems: 'center'}}>
               <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>
@@ -217,15 +213,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
               position: 'absolute',
               bottom: 0,
             }}>
-            <Image
-              source={{
-                uri: profile?.image_url
-                  ? `${Config.SUPABASE_PUBLIC_IMAGE_BASE_URL}/${profile?.image_url}`
-                  : 'https://avatar.iran.liara.run/public',
-              }}
-              //
-              style={{width: 32, height: 32}}
-            />
+            <ProfileImage size={32} uri={profile?.image_url} />
             <View
               style={{
                 flexDirection: 'row',
