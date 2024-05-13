@@ -8,6 +8,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '@router.d';
+import {joinMeeting} from '@apis/supabase/meeting';
+import Config from 'react-native-config';
 
 interface CommunityJoinModalProps {
   isJoinModalOpen: boolean;
@@ -20,6 +22,7 @@ interface CommunityJoinModalProps {
   current_occupancy: number;
   max_occupancy: string;
   id: string;
+  meetingId: number;
   //navigation: NativeStackNavigationProp<RootStackParamList>;
 }
 
@@ -34,6 +37,7 @@ const CommunityJoinModal = ({
   meeting_at,
   current_occupancy,
   max_occupancy,
+  meetingId,
 }: CommunityJoinModalProps) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -43,7 +47,12 @@ const CommunityJoinModal = ({
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={{flexDirection: 'row'}}>
-              <Image source={{uri: perf_image_url}} style={styles.profileImg} />
+              <Image
+                source={{
+                  uri: `${Config.KOPIS_IMAGE_BASE_URL}/${perf_image_url}`,
+                }}
+                style={styles.profileImg}
+              />
               <View style={{paddingLeft: 16}}>
                 <View style={styles.titleArea}>
                   <Text
@@ -96,11 +105,10 @@ const CommunityJoinModal = ({
                 label="공연함께 보기 참가"
                 borderRadius={32}
                 onPress={() => {
-                  console.log('모임참가');
                   onPressJoinCancel();
-                  navigate('AuthHome');
+                  joinMeeting(meetingId);
+                  //navigate('AuthHome');
                 }}
-                // TODO: 모임 참여 처리
               />
             </View>
             <Pressable

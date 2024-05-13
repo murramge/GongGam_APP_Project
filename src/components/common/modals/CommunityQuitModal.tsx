@@ -79,17 +79,34 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
               borderTopStartRadius: 16,
             }}>
             <View style={styles.menuContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  setSelectedMenuItem('leave');
-                  setIsWithdrawModalOpen(true);
-                }}
-                style={[
-                  styles.menuItem,
-                  //selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
-                ]}>
-                <Text style={styles.menuText}>모임 탈퇴</Text>
-              </TouchableOpacity>
+              {isOwner ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedMenuItem('leave');
+                    setIsWithdrawModalOpen(true);
+                    setIsVisible(!isVisible);
+                  }}
+                  style={[
+                    styles.menuItem,
+                    //selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
+                  ]}>
+                  <Text style={styles.menuText}>모임 삭제</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedMenuItem('leave');
+                    setIsWithdrawModalOpen(true);
+                    setIsVisible(!isVisible);
+                  }}
+                  style={[
+                    styles.menuItem,
+                    //selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
+                  ]}>
+                  <Text style={styles.menuText}>모임 탈퇴</Text>
+                </TouchableOpacity>
+              )}
+
               {isOwner && (
                 <TouchableOpacity onPress={onPressEdit}>
                   <Text style={styles.menuText}>모임 수정</Text>
@@ -114,6 +131,7 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
         onPressWithdrawCancel={onPressWithdrawCancel}
         title={title}
         id={id}
+        isOwner={isOwner}
       />
     </View>
   );

@@ -83,11 +83,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
     }
     try {
       if (await getCurrentAuthUser()) {
-        await joinMeeting(meeting.id);
+        setIsJoinModalOpen(true);
+        //await joinMeeting(meeting.id);
         await fetch();
       } else {
         //TODO: 모임 참여 모달
-        setIsJoinModalOpen(true);
         //navigation.navigate('Login');
       }
     } catch (e) {
@@ -219,6 +219,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
               perf_at={meeting.perf_at}
               current_occupancy={meeting.current_occupancy}
               max_occupancy={meeting.max_occupancy}
+              meetingId={meeting.id}
             />
           </View>
         )}
