@@ -1,11 +1,11 @@
 import {colors} from '@styles/color';
-import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import React, {memo, useEffect, useState} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 
 import SearchCardItem from '@components/search/SearchCardItem';
 import CommunityCardItem from '@components/community/CommunityCardItem';
 import {BOTTOM_TAB_HEIGHT} from '@styles/common';
-import useMettingApi from '@pages/Community/hooks/useMeetingApi';
+import useMeetingApi from '@pages/Community/hooks/useMeetingApi';
 import {MeetingInfo} from '@apis/supabase/meeting.d';
 
 export interface CommonArtCardListProps {
@@ -15,38 +15,44 @@ export interface CommonArtCardListProps {
 
 const HorizontalCardList = ({data, type}: CommonArtCardListProps) => {
   const [refreshing, setRefreshing] = useState(false);
-  const {fetchMeetings, refreshMeetings} = useMettingApi({selectedType: 'All'});
+  const {fetchMeetings, refreshMeetings} = useMeetingApi({selectedType: 'All'});
 
   useEffect(() => {
     fetchMeetings();
   }, []);
 
   return (
-    data.length !== 0 && (
-      <FlatList
-        onEndReached={async () => {
-          await fetchMeetings();
-        }}
-        onRefresh={async () => {
-          setRefreshing(true);
-          await refreshMeetings();
-          setRefreshing(false);
-        }}
-        refreshing={refreshing}
-        contentContainerStyle={{paddingBottom: BOTTOM_TAB_HEIGHT, flexGrow: 1}}
-        data={data}
-        renderItem={item =>
-          type == 'search' ? (
-            <SearchCardItem data={item} />
-          ) : (
-            <CommunityCardItem data={item} />
-          )
-        }
-        keyExtractor={item => `${item.id}`}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        showsHorizontalScrollIndicator={false}
-      />
-    )
+    <View style={{flex: 1}}>
+      {data.length !== 0 ? (
+        <FlatList
+          onEndReached={async () => {
+            await fetchMeetings();
+          }}
+          onRefresh={async () => {
+            setRefreshing(true);
+            await refreshMeetings();
+            setRefreshing(false);
+          }}
+          refreshing={refreshing}
+          contentContainerStyle={{
+            paddingBottom: BOTTOM_TAB_HEIGHT,
+          }}
+          data={data}
+          renderItem={item =>
+            type == 'search' ? (
+              <SearchCardItem data={item} />
+            ) : (
+              <CommunityCardItem data={item} />
+            )
+          }
+          keyExtractor={item => `${item.id}`}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          showsHorizontalScrollIndicator={false}
+        />
+      ) : (
+        <Text>결과가 없습니다.</Text>
+      )}
+    </View>
   );
 };
 
@@ -63,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HorizontalCardList;
+export default memo(HorizontalCardList);

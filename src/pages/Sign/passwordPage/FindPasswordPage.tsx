@@ -23,7 +23,6 @@ const FindPassword = () => {
 
   const onSubmit = async ({email}: PasswordResetEmailType) => {
     try {
-      // TODO: 로딩
       await sendPasswordResetLink(email);
 
       Toast.show({

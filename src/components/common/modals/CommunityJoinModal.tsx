@@ -4,46 +4,46 @@ import {colors} from '@styles/color';
 import CommonButton from '../../../atoms/buttons/CommonButton';
 import dayjs from 'dayjs';
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '@router.d';
+import Config from 'react-native-config';
 
 interface CommunityJoinModalProps {
   isJoinModalOpen: boolean;
   onPressJoinCancel: () => void;
-  perf_image_url: string;
+  onPressJoin: () => void;
+  perf_image_url?: string;
   title: string;
   perf_name: string;
   perf_at: string;
   meeting_at: string;
   current_occupancy: number;
   max_occupancy: string;
-  id: string;
-  //navigation: NativeStackNavigationProp<RootStackParamList>;
+  id: number;
 }
 
 const CommunityJoinModal = ({
   isJoinModalOpen,
   onPressJoinCancel,
+  onPressJoin,
   perf_image_url,
   perf_name,
   title,
-  id,
   perf_at,
   meeting_at,
   current_occupancy,
   max_occupancy,
 }: CommunityJoinModalProps) => {
-  const {navigate} =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={isJoinModalOpen}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={{flexDirection: 'row'}}>
-              <Image source={{uri: perf_image_url}} style={styles.profileImg} />
+              <Image
+                source={{
+                  uri: `${Config.KOPIS_IMAGE_BASE_URL}/${perf_image_url}`,
+                }}
+                style={styles.profileImg}
+              />
               <View style={{paddingLeft: 16}}>
                 <View style={styles.titleArea}>
                   <Text
@@ -95,12 +95,7 @@ const CommunityJoinModal = ({
               <CommonButton
                 label="공연함께 보기 참가"
                 borderRadius={32}
-                onPress={() => {
-                  console.log('모임참가');
-                  onPressJoinCancel();
-                  navigate('AuthHome');
-                }}
-                // TODO: 모임 참여 처리
+                onPress={onPressJoin}
               />
             </View>
             <Pressable
