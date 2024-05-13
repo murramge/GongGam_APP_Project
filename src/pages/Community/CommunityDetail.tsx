@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   View,
   Share,
+  Button,
+  ToastAndroid,
+  ScrollView,
 } from 'react-native';
 import BackHeader from '@components/common/header/BackHeader';
 import CommunityQuitModal from '@components/common/modals/CommunityQuitModal';
@@ -81,6 +84,13 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
     try {
       if (await getCurrentAuthUser()) {
         setIsJoinModalOpen(true);
+
+        //await joinMeeting(meeting.id);
+        await fetch();
+      } else {
+        //TODO: 모임 참여 모달
+        //navigation.navigate('Login');
+
       } else {
         navigation.navigate('AuthHome');
       }
@@ -192,6 +202,22 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
                   {introduction}
                 </Text>
               </View>
+              <View style={styles.scheduleSection}>
+                <IonIcon name="person" color={colors.GRAY_300} />
+                <Text style={styles.peopleLabel}>인원</Text>
+                <Text
+                  style={
+                    styles.peopleCount
+                  }>{`${current_occupancy}/${max_occupancy}`}</Text>
+              </View>
+            </View>
+            <View style={styles.meetingDescriptionContainer}>
+              <Text style={styles.meetingDescriptionTitle}>모임소개</Text>
+              <ScrollView>
+                <Text style={styles.meetingDescriptionText}>
+                  {introduction}
+                </Text>
+              </ScrollView>
             </View>
           </View>
           {!isJoined && (
@@ -218,6 +244,32 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
             </View>
           )}
         </View>
+
+        {!isJoined && (
+          <View>
+            {current_occupancy === max_occupancy ? (
+              <View style={styles.buttonContainer}>
+                <CommonButton
+                  label="모집 완료"
+                  onPress={() => {}}
+                  disabled={true}
+                  bgColor={colors.GRAY_300}
+                />
+              </View>
+            ) : (
+              <View style={styles.buttonContainer}>
+                <CommonButton label="가입하기" onPress={onPressJoinButton} />
+              </View>
+            )}
+            <CommunityJoinModal
+              isJoinModalOpen={isJoinModalOpen}
+              onPressJoinCancel={onPressJoinCancel}
+              perf_image_url={meeting.perf_image_url}
+              perf_name={meeting.perf_name}
+              title={meeting.title}
+              perf_at={meeting.perf_at}
+              current_occupancy={meeting.current_occupancy}
+              max_occupancy={meeting.max_occupancy}
 
         {isJoined ? (
           <>

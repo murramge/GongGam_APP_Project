@@ -3,16 +3,26 @@ import {View, Text, Modal, StyleSheet, Pressable} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {colors} from '@styles/color';
 import CommonButton from '../../../atoms/buttons/CommonButton';
-
+import {quitMeeting, deleteMeeting} from '@apis/supabase/meeting';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '@router.d';
+import {getMeetings} from '@apis/supabase/meeting';
 const CommunityWithdrawModal = ({
   isWithdrawModalOpen,
   onPressWithdrawCancel,
   title,
+  id,
+  isOwner,
 }: {
   isWithdrawModalOpen: boolean;
   onPressWithdrawCancel: () => void;
   title: string;
+  id?: any;
+  isOwner?: boolean;
 }) => {
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View>
       <Modal
@@ -28,14 +38,24 @@ const CommunityWithdrawModal = ({
               loop
             />
             <Text style={styles.communityName}>{title}</Text>
-
-            <Text style={styles.modalText}>모임을{'\n'}탈퇴하시겠습니까?</Text>
+            {isOwner ? (
+              <Text style={styles.modalText}>
+                모임을{'\n'}삭제하시겠습니까?
+              </Text>
+            ) : (
+              <Text style={styles.modalText}>
+                모임을{'\n'}탈퇴하시겠습니까?
+              </Text>
+            )}
             <View style={{paddingBottom: 10, width: 300}}>
               <CommonButton
                 label="예"
                 borderRadius={32}
                 onPress={() => {
-                  console.log('모임탈퇴처리');
+                  isOwner ? deleteMeeting(id) : quitMeeting(id);
+                  getMeetings();
+                  navigate('Community');
+
                   onPressWithdrawCancel();
                 }}
               />
