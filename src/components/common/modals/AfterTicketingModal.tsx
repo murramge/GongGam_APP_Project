@@ -30,12 +30,12 @@ const AfterTicketingModal = () => {
                 paddingBottom: 24,
               }}>
               예매를 완료하셨습니까?{'\n'}
-              완료하셨다면 정보를{'\n'}
-              등록해주세요
+              {/* 완료하셨다면 정보를{'\n'}
+              등록해주세요 */}
             </Text>
             <View style={{paddingBottom: 10, width: 300}}>
               <CommonButton
-                label="등록하러 가기"
+                label="네"
                 onPress={() => console.log('등록페이지로 이동')}
               />
             </View>
