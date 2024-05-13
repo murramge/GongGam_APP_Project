@@ -3,7 +3,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {colors} from '@styles/color';
 import CommunityTabBar from '@components/community/CommunityTabBar';
 import {useAtom, useAtomValue} from 'jotai';
-import {CommunityDataAtom} from './hooks/useMettingApi';
+import {CommunityDataAtom} from './hooks/useMeetingApi';
 import HorizontalCardList from '@components/common/cardlist/HorizontalCardList';
 import CommunityCreate from '../../components/community/CommunityCreate';
 import TitleHeader from '@components/common/header/TitleHeader';
@@ -38,12 +38,7 @@ const Community = ({}: CommunityProps) => {
         <View>
           <CommunityCreate></CommunityCreate>
         </View>
-        <HorizontalCardList
-          data={results.map(item => {
-            return item;
-          })}
-          type="community"
-        />
+        <HorizontalCardList data={results} type="community" />
       </View>
       <FilterModal
         isVisible={isFilterModalVisible}
