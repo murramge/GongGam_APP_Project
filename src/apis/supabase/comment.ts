@@ -55,14 +55,27 @@ export const createMeetingComment = async ({
 };
 
 export const updateMeetingComment = async (
-  meetingId: number,
+  commentId: number,
   params: {content: string},
 ) => {
   try {
     const {error} = await supabase
       .from('meeting_comment')
       .update([params])
-      .eq('id', meetingId);
+      .eq('id', commentId);
+
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const deleteMeetingComment = async (commentId: number) => {
+  try {
+    const {error} = await supabase
+      .from('meeting_comment')
+      .delete()
+      .eq('id', commentId);
 
     if (error) throw new Error(error.message);
   } catch (e) {
