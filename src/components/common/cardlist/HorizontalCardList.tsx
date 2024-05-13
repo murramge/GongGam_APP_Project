@@ -20,8 +20,7 @@ const HorizontalCardList = ({data, type}: CommonArtCardListProps) => {
   useEffect(() => {
     fetchMeetings();
   }, []);
-  data.map(item => console.log(item.id));
-  //console.log('data.id:', data.id);
+
   return (
     <View style={{flex: 1}}>
       {data.length !== 0 ? (
