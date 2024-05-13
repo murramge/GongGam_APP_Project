@@ -147,7 +147,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
       }}
       hideModalContentWhileAnimating>
       <KeyboardAvoidingView
-        behavior="height"
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} //os별로 다르게 준다
         keyboardVerticalOffset={8}
         style={{width: '100%'}}>
         <View

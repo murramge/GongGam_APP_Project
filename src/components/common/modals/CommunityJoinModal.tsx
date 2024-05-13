@@ -4,13 +4,6 @@ import {colors} from '@styles/color';
 import CommonButton from '../../../atoms/buttons/CommonButton';
 import dayjs from 'dayjs';
 import IonIcon from 'react-native-vector-icons/Ionicons';
-
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '@router.d';
-import {joinMeeting} from '@apis/supabase/meeting';
-
 import Config from 'react-native-config';
 
 interface CommunityJoinModalProps {
@@ -24,8 +17,6 @@ interface CommunityJoinModalProps {
   meeting_at: string;
   current_occupancy: number;
   max_occupancy: string;
-  meetingId: number;
-  //navigation: NativeStackNavigationProp<RootStackParamList>;
   id: number;
 }
 
@@ -40,7 +31,6 @@ const CommunityJoinModal = ({
   meeting_at,
   current_occupancy,
   max_occupancy,
-  meetingId,
 }: CommunityJoinModalProps) => {
   return (
     <View>
@@ -105,13 +95,7 @@ const CommunityJoinModal = ({
               <CommonButton
                 label="공연함께 보기 참가"
                 borderRadius={32}
-
-                onPress={() => {
-                  onPressJoinCancel();
-                  joinMeeting(meetingId);
-                  //navigate('AuthHome');
-                }}
-
+                onPress={onPressJoin}
               />
             </View>
             <Pressable
