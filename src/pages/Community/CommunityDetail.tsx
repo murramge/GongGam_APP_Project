@@ -8,6 +8,7 @@ import {
   Share,
   Button,
   ToastAndroid,
+  ScrollView,
 } from 'react-native';
 import BackHeader from '@components/common/header/BackHeader';
 import CommunityQuitModal from '@components/common/modals/CommunityQuitModal';
@@ -185,7 +186,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
             </View>
             <View style={styles.meetingDescriptionContainer}>
               <Text style={styles.meetingDescriptionTitle}>모임소개</Text>
-              <Text style={styles.meetingDescriptionText}>{introduction}</Text>
+              <ScrollView>
+                <Text style={styles.meetingDescriptionText}>
+                  {introduction}
+                </Text>
+              </ScrollView>
             </View>
           </View>
         </View>
