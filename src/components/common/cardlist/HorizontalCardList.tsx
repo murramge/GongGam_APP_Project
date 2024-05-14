@@ -45,7 +45,9 @@ const HorizontalCardList = ({data, type}: CommonArtCardListProps) => {
               <CommunityCardItem data={item} />
             )
           }
-          keyExtractor={item => `${item.id}`}
+          keyExtractor={item =>
+            type === 'search' ? `${item.mt20id}` : `${item.id}`
+          }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           showsHorizontalScrollIndicator={false}
         />
