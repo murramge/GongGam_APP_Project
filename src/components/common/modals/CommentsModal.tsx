@@ -48,9 +48,10 @@ const CommentItem: React.FC<CommentItemProps> = ({
 
   const onDeleteComment = () => {
     setIsConfirmModalVisible(true);
+    //const myId=getProfile
     //fetchData();
   };
-  const userId = profile.user_id;
+  //const userId = profile.user_id;
 
   return (
     <View
@@ -100,7 +101,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
               message={'댓글을 삭제하시겠습니까?'}
               isVisible={isConfirmModalVisible}
               onConfirm={() => {
-                console.log(id);
                 deleteMeetingComment(id);
                 setIsConfirmModalVisible(false);
               }}
@@ -268,17 +268,17 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
               paddingHorizontal: 20,
               width: screenWidth,
               paddingVertical: 20,
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              //justifyContent: 'space-between',
+
               bottom: 0,
             }}>
             <View
               style={{
                 flexDirection: 'row',
-                alignItems: 'flex-end',
+                alignItems: 'center',
                 backgroundColor: colors.WHITE,
                 borderRadius: 4,
-                width: 270,
+                width: SCREEN_WIDTH - 40,
                 height: 36,
               }}>
               <TextInput
@@ -286,6 +286,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                   minHeight: 23,
                   maxHeight: 80,
                   paddingVertical: 0,
+                  paddingRight: 70,
                   lineHeight: 18,
                   fontSize: 15,
                   padding: 16,
@@ -303,18 +304,28 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 value={textValue}
                 onChangeText={text => setTextValue(text)}
               />
+              {textValue && (
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: colors.MAIN_COLOR,
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                    borderRadius: 8,
+                    position: 'absolute',
+                    right: 16,
+                  }}
+                  onPress={submitComment}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: '700',
+                      color: colors.WHITE,
+                    }}>
+                    등록
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
-
-            <TouchableOpacity onPress={submitComment}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '700',
-                  color: colors.BLACK,
-                }}>
-                등록
-              </Text>
-            </TouchableOpacity>
           </View>
           {/* 댓글 입력 끝*/}
         </View>
