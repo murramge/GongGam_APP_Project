@@ -12,12 +12,6 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import CommunityWithdrawModal from '@components/common/modals/CommunityWithdrawModal';
-import {quitMeeting} from '@apis/supabase/meeting';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
-import {RootStackParamList} from '@router.d';
-
 interface CommunityQuitModalProps {
   isVisible: boolean;
   setIsVisible: (isVisible: boolean) => void;
@@ -26,7 +20,6 @@ interface CommunityQuitModalProps {
   id?: any;
   onPressEdit?: () => void;
 }
-
 const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
   isVisible,
   setIsVisible,
@@ -36,16 +29,11 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
   id,
 }) => {
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
-  const {navigate} =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [selectedMenuItem, setSelectedMenuItem] = useState<null | string>(null);
-
   const onPressWithdrawCancel = () => {
-    quitMeeting(id);
-    navigate('Community');
+    setIsWithdrawModalOpen(false);
   };
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
-
   return (
     <View>
       <Modal
@@ -86,17 +74,34 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
               borderTopStartRadius: 16,
             }}>
             <View style={styles.menuContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  setSelectedMenuItem('leave');
-                  setIsWithdrawModalOpen(true);
-                }}
-                style={[
-                  styles.menuItem,
-                  //selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
-                ]}>
-                <Text style={styles.menuText}>모임 탈퇴</Text>
-              </TouchableOpacity>
+              {isOwner ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedMenuItem('leave');
+                    setIsWithdrawModalOpen(true);
+                    setIsVisible(!isVisible);
+                  }}
+                  style={[
+                    styles.menuItem,
+                    //selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
+                  ]}>
+                  <Text style={styles.menuText}>모임 삭제</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedMenuItem('leave');
+                    setIsWithdrawModalOpen(true);
+                    setIsVisible(!isVisible);
+                  }}
+                  style={[
+                    styles.menuItem,
+                    //selectedMenuItem === 'leave' ? styles.selectedMenuItem : null,
+                  ]}>
+                  <Text style={styles.menuText}>모임 탈퇴</Text>
+                </TouchableOpacity>
+              )}
+
               {isOwner && (
                 <TouchableOpacity onPress={onPressEdit}>
                   <Text style={styles.menuText}>모임 수정</Text>
@@ -120,13 +125,13 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
         isWithdrawModalOpen={isWithdrawModalOpen}
         onPressWithdrawCancel={onPressWithdrawCancel}
         title={title}
+        id={id}
+        isOwner={isOwner}
       />
     </View>
   );
 };
-
 export default CommunityQuitModal;
-
 const styles = StyleSheet.create({
   menuContainer: {
     flex: 1,

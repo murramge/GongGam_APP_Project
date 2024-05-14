@@ -4,34 +4,43 @@ import {colors} from '@styles/color';
 import CommonButton from '../../../atoms/buttons/CommonButton';
 import dayjs from 'dayjs';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '@router.d';
+import {joinMeeting} from '@apis/supabase/meeting';
 import Config from 'react-native-config';
 
 interface CommunityJoinModalProps {
   isJoinModalOpen: boolean;
   onPressJoinCancel: () => void;
-  onPressJoin: () => void;
-  perf_image_url?: string;
+  perf_image_url: string;
   title: string;
   perf_name: string;
   perf_at: string;
   meeting_at: string;
   current_occupancy: number;
   max_occupancy: string;
-  id: number;
+  id: string;
+  meetingId: number;
+  //navigation: NativeStackNavigationProp<RootStackParamList>;
 }
 
 const CommunityJoinModal = ({
   isJoinModalOpen,
   onPressJoinCancel,
-  onPressJoin,
   perf_image_url,
   perf_name,
   title,
+  id,
   perf_at,
   meeting_at,
   current_occupancy,
   max_occupancy,
+  meetingId,
 }: CommunityJoinModalProps) => {
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={isJoinModalOpen}>
@@ -95,7 +104,11 @@ const CommunityJoinModal = ({
               <CommonButton
                 label="공연함께 보기 참가"
                 borderRadius={32}
-                onPress={onPressJoin}
+                onPress={() => {
+                  onPressJoinCancel();
+                  joinMeeting(meetingId);
+                  //navigate('AuthHome');
+                }}
               />
             </View>
             <Pressable
@@ -116,7 +129,6 @@ const CommunityJoinModal = ({
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
@@ -148,7 +160,6 @@ const styles = StyleSheet.create({
   buttonOpen: {
     backgroundColor: '#F194FF',
   },
-
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
@@ -175,10 +186,8 @@ const styles = StyleSheet.create({
   },
   titleArea: {
     marginTop: 16,
-
     gap: 4,
   },
-
   title: {
     maxWidth: '60%',
     color: colors.WHITE,
@@ -190,7 +199,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-
   communityTitle: {
     color: colors.GRAY_500,
     fontSize: 16,
@@ -205,5 +213,4 @@ const styles = StyleSheet.create({
     height: 120 * 1.1,
   },
 });
-
 export default CommunityJoinModal;
