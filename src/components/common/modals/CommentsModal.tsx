@@ -12,9 +12,9 @@ import {
   Dimensions,
 } from 'react-native';
 import {colors} from '@styles/color';
-import Config from 'react-native-config';
 import useProfileApi from '../../../pages/MyPage/hooks/useProfileApi';
 import Modal from 'react-native-modal';
+import Config from 'react-native-config';
 import dayjs from 'dayjs';
 import {getMeetingComments, createMeetingComment} from '@apis/supabase/comment';
 
@@ -106,7 +106,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
 
   const commentFlatListRef = useRef<FlatList>(null);
   const renderItem = useCallback(
-    ({item}: {item: Comment}) => (
+    ({item}: {item: any}) => (
       <CommentItem
         id={item.id}
         content={item.content}
@@ -142,7 +142,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
-  console.log('comment:', comments);
 
   return (
     <Modal
@@ -226,7 +225,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             />
           </View>
 
-          {/*댓글입력 시작 */}
           <View
             style={{
               backgroundColor: colors.GRAY_200,

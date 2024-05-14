@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   View,
   Share,
+  Button,
+  ToastAndroid,
+  ScrollView,
 } from 'react-native';
 import BackHeader from '@components/common/header/BackHeader';
 import CommunityQuitModal from '@components/common/modals/CommunityQuitModal';
@@ -111,7 +114,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
       perf_image_url,
       perf_id,
     } = meeting;
-    console.log(meeting);
+
     return (
       <View style={{flex: 1}}>
         <BackHeader label={title} />
@@ -178,7 +181,11 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
             </View>
             <View style={styles.meetingDescriptionContainer}>
               <Text style={styles.meetingDescriptionTitle}>모임소개</Text>
-              <Text style={styles.meetingDescriptionText}>{introduction}</Text>
+              <ScrollView>
+                <Text style={styles.meetingDescriptionText}>
+                  {introduction}
+                </Text>
+              </ScrollView>
             </View>
           </View>
         </View>
