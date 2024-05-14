@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     color: colors.GRAY_500,
     fontSize: 16,
     fontWeight: '600',
-    width: 200,
+    width: 100,
     marginLeft: 5,
   },
   mainContentContainer: {flex: 1},
