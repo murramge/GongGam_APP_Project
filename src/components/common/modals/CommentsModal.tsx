@@ -231,6 +231,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                   lineHeight: 18,
                   fontSize: 15,
                   textAlignVertical: 'center',
+                  color: colors.BLACK,
                 }}
                 multiline
                 maxLength={200}
