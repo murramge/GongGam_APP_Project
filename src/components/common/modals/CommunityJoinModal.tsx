@@ -129,7 +129,6 @@ const CommunityJoinModal = ({
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
@@ -161,7 +160,6 @@ const styles = StyleSheet.create({
   buttonOpen: {
     backgroundColor: '#F194FF',
   },
-
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
@@ -188,10 +186,8 @@ const styles = StyleSheet.create({
   },
   titleArea: {
     marginTop: 16,
-
     gap: 4,
   },
-
   title: {
     maxWidth: '60%',
     color: colors.WHITE,
@@ -203,7 +199,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-
   communityTitle: {
     color: colors.GRAY_500,
     fontSize: 16,
@@ -218,5 +213,4 @@ const styles = StyleSheet.create({
     height: 120 * 1.1,
   },
 });
-
 export default CommunityJoinModal;

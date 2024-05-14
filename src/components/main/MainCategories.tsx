@@ -6,7 +6,7 @@ import {PerformanceCategory} from '@apis/kopis.d';
 import {colors} from '@styles/color';
 interface MainCategoriesProps {}
 
-export const selectAtom = atom('All');
+export const selectAtom = atom('');
 
 const MainCategories = ({}: MainCategoriesProps) => {
   const [selectItem, setSelectItem] = useAtom(selectAtom);

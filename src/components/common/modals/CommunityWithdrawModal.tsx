@@ -119,5 +119,4 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
 });
-
 export default CommunityWithdrawModal;

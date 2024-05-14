@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useRef} from 'react';
 
 import {
   View,
@@ -6,9 +6,7 @@ import {
   Image,
   FlatList,
   TextInput,
-  KeyboardAvoidingView,
   TouchableOpacity,
-  Platform,
   useWindowDimensions,
   Keyboard,
   Dimensions,
@@ -44,6 +42,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
         justifyContent: 'space-between',
         width: '100%',
         columnGap: 6,
+        paddingLeft: 10,
       }}>
       <View
         style={{
@@ -54,9 +53,17 @@ const CommentItem: React.FC<CommentItemProps> = ({
         <View style={{flexDirection: 'row'}}>
           <Image
             source={{
-              uri: profile.image_url || 'https://avatar.iran.liara.run/public',
+              uri: profile?.image_url
+                ? `${Config.SUPABASE_PUBLIC_IMAGE_BASE_URL}/${profile?.image_url}`
+                : 'https://avatar.iran.liara.run/public',
             }}
-            style={{width: 32, height: 32, borderRadius: 25, marginRight: 8}}
+            //
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: 100,
+              marginHorizontal: 10,
+            }}
           />
           <View style={{flex: 1, rowGap: 3}}>
             <View style={{flexDirection: 'row', gap: 8, alignItems: 'center'}}>
@@ -85,8 +92,19 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   meetingId,
 }) => {
   const [textValue, setTextValue] = useState<string>('');
+  const [keyboardHeight, setKeyboardHeight] = useState<number>(0);
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', e => {
+      setKeyboardHeight(e.endCoordinates.height);
+    });
+    return () => Keyboard.removeAllListeners('keyboardDidShow');
+  });
+
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
   const screenWidth = Dimensions.get('window').width;
+
+  const commentFlatListRef = useRef<FlatList>(null);
   const renderItem = useCallback(
     ({item}: {item: Comment}) => (
       <CommentItem
@@ -99,19 +117,19 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     [],
   );
   const [comments, setComments] = useState<Comment[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getMeetingComments(meetingId);
-        console.log(data);
-        console.log(data[0].profile.nickname);
-        if (data) {
-          setComments(data);
-        }
-      } catch (error) {
-        console.log(error);
+  const fetchData = async () => {
+    try {
+      const data = await getMeetingComments(meetingId);
+      console.log(data);
+      console.log(data[0].profile.nickname);
+      if (data) {
+        setComments(data);
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
     fetchData();
   }, [meetingId]);
 
@@ -122,6 +140,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
       ? await createMeetingComment({meetingId, content: textValue})
       : console.log('댓글을 입력해주세요');
     setTextValue('');
+    fetchData();
   };
   console.log('comment:', comments);
 
@@ -150,16 +169,14 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         setIsVisible(!isVisible);
       }}
       hideModalContentWhileAnimating>
-      <KeyboardAvoidingView
-        behavior="height"
-        keyboardVerticalOffset={8}
-        style={{width: '100%'}}>
+      <View style={{width: '100%'}}>
         <View
           style={{
             paddingTop: 20,
-            paddingHorizontal: 16,
             width: SCREEN_WIDTH,
-            height: SCREEN_HEIGHT / 1.5,
+            height: keyboardHeight
+              ? SCREEN_HEIGHT - keyboardHeight
+              : SCREEN_HEIGHT / 1.5,
             backgroundColor: '#FFF',
             borderTopEndRadius: 16,
             borderTopStartRadius: 16,
@@ -183,7 +200,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             />
           </View>
           <View style={{flex: 1}}>
-            <View style={{height: 30, justifyContent: 'center'}}>
+            <View
+              style={{
+                height: 50,
+                justifyContent: 'center',
+              }}>
               <Text
                 style={{
                   color: '#333',
@@ -195,6 +216,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
               </Text>
             </View>
             <FlatList
+              ref={commentFlatListRef}
               data={comments}
               renderItem={renderItem}
               keyExtractor={item => item.id.toString()}
@@ -214,18 +236,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
               paddingVertical: 20,
               justifyContent: 'space-between',
               alignItems: 'center',
-              position: 'absolute',
               bottom: 0,
             }}>
-            <Image
-              source={{
-                uri: profile?.image_url
-                  ? `${Config.SUPABASE_PUBLIC_IMAGE_BASE_URL}/${profile?.image_url}`
-                  : 'https://avatar.iran.liara.run/public',
-              }}
-              //
-              style={{width: 32, height: 32}}
-            />
             <View
               style={{
                 flexDirection: 'row',
@@ -242,8 +254,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                   paddingVertical: 0,
                   lineHeight: 18,
                   fontSize: 15,
+                  padding: 16,
                   textAlignVertical: 'center',
+                  color: colors.BLACK,
                 }}
+                onFocus={() => commentFlatListRef.current?.scrollToEnd()}
                 multiline
                 maxLength={200}
                 placeholder="댓글을 입력해주세요."
@@ -269,7 +284,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
           </View>
           {/* 댓글 입력 끝*/}
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </Modal>
   );
 };

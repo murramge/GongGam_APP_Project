@@ -8,6 +8,7 @@ import {colors} from '@styles/color';
 import useCategorizedPerformances from '@pages/Home/main/hooks/useCategorizedPerformances';
 import usePerformanceDate from '@hooks/usePerformanceDate';
 import usePerformanceApi from '@hooks/usePerformanceApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -19,18 +20,31 @@ type Props = {
 };
 
 const Splash: React.FC<Props> = ({navigation}) => {
-  const code = useCategorizedPerformances();
   const performanceDate = usePerformanceDate();
 
   const {performances, isLoading} = usePerformanceApi(
     performanceDate.today,
     performanceDate.stsType,
-    code,
   );
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('OnBoarding');
+      const checkFirstLaunch = async () => {
+        try {
+          const alreadyLaunched = await AsyncStorage.getItem('alreadyLaunched');
+          if (alreadyLaunched === null) {
+            await AsyncStorage.setItem('alreadyLaunched', 'true');
+            // 첫 실행이면 'OnBoarding' 화면으로 이동
+            navigation.replace('OnBoarding');
+          } else {
+            // 첫 실행이 아니면 'Main' 화면으로 이동
+            navigation.replace('MainTab');
+          }
+        } catch (error) {
+          console.log('AsyncStorage error: ', error);
+        }
+      };
+      checkFirstLaunch();
     }, 3000);
 
     return () => clearTimeout(timer);

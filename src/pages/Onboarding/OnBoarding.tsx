@@ -1,9 +1,17 @@
 import CommonButton from '@atoms/buttons/CommonButton';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
+import {useFocusEffect} from '@react-navigation/native';
 
 import {colors} from '@styles/color';
-import React, {useRef, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  BackHandler,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+} from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 
 interface OnBoardingProps extends BottomTabBarProps {
@@ -22,19 +30,37 @@ const OnBoardingHome = ({navigation, selected}: OnBoardingProps) => {
     return <View style={[styles.square, {backgroundColor}]}></View>;
   };
 
+  const navigateToMainTab = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'MainTab'}],
+    });
+  };
+
   const Done = () => {
     return (
       <View style={styles.buttonSize}>
         <CommonButton
           label="시작하기"
-          onPress={() => navigation.navigate('MainTab')}></CommonButton>
+          onPress={navigateToMainTab}></CommonButton>
       </View>
     );
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => true;
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
+
   return (
     <Onboarding
-      onSkip={() => navigation.navigate('MainTab')}
+      onSkip={navigateToMainTab}
       bottomBarColor="white"
       DotComponent={({selected}) => (
         <Square pageIndex={selected ? currentPageIndex : null} />

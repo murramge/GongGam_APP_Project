@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import CommunityWithdrawModal from '@components/common/modals/CommunityWithdrawModal';
-
 interface CommunityQuitModalProps {
   isVisible: boolean;
   setIsVisible: (isVisible: boolean) => void;
@@ -21,7 +20,6 @@ interface CommunityQuitModalProps {
   id?: any;
   onPressEdit?: () => void;
 }
-
 const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
   isVisible,
   setIsVisible,
@@ -31,14 +29,11 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
   id,
 }) => {
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
-
   const [selectedMenuItem, setSelectedMenuItem] = useState<null | string>(null);
-
   const onPressWithdrawCancel = () => {
     setIsWithdrawModalOpen(false);
   };
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
-
   return (
     <View>
       <Modal
@@ -136,9 +131,7 @@ const CommunityQuitModal: React.FC<CommunityQuitModalProps> = ({
     </View>
   );
 };
-
 export default CommunityQuitModal;
-
 const styles = StyleSheet.create({
   menuContainer: {
     flex: 1,

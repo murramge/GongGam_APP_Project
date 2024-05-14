@@ -1,17 +1,14 @@
 import {RouteProp} from '@react-navigation/native';
 import {colors} from '@styles/color';
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Image, ScrollView, Linking} from 'react-native';
+import React, {useCallback} from 'react';
+import {ActivityIndicator, ScrollView, Linking} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
-import CommonButton from '../../../atoms/buttons/CommonButton';
-import AfterTicketingModal from '@components/common/modals/AfterTicketingModal';
 
 import {modalVisibleAtom} from '@components/common/modals/AfterTicketingModal';
-import {useAtomValue, useSetAtom} from 'jotai';
+import {useSetAtom} from 'jotai';
 import usePerformanceDetailApi from '@pages/Home/detail/hooks/usePerformanceDetailApi';
 import DetailBookingHeader from '@components/common/header/DetailBookingHeader';
 import SmallButton from '../../../atoms/buttons/SmallButton';
-import {number} from 'zod';
 
 type TicketingPageRouteParams = {
   Ticketing: {
@@ -23,22 +20,20 @@ interface TicketingPageProps {
   route: RouteProp<TicketingPageRouteParams, 'Ticketing'>;
 }
 
-const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
-  const {id} = route.params;
-
+const TicketingPage: React.FC<TicketingPageProps> = ({
+  route: {
+    params: {id},
+  },
+}) => {
   const setModalVisible = useSetAtom(modalVisibleAtom);
 
   const {detailInfo, loading, error} = usePerformanceDetailApi(id);
 
-  if (loading) return <ActivityIndicator />;
-  if (error) return <Text>{error}</Text>;
-
-  const priceArray = detailInfo?.pcseguidance.split(', ');
-
-  const TicketingListItem: React.FC<{price: string; index: number}> = ({
-    price,
-    index,
-  }) => {
+  const TicketingListItem: React.FC<{
+    name: string;
+    url: string;
+    index: number;
+  }> = useCallback(({name, url, index}) => {
     return (
       <View style={styles.container}>
         <View>
@@ -47,39 +42,47 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
             <Text style={{zIndex: 2}}>{index + 1}</Text>
           </View>
         </View>
-        <Text style={styles.priceText}>{price}</Text>
+        <Text style={styles.priceText}>{name}</Text>
 
         <SmallButton
           label="예매하기"
           onPress={async () => {
-            const searchQuery = `${encodeURIComponent(
-              detailInfo?.genrenm || '',
-            )}${encodeURIComponent(detailInfo?.prfnm || '')}티켓`;
-            const url = `https://search.shopping.naver.com/search/all?query=${searchQuery}`;
             await Linking.openURL(url);
             setModalVisible(true);
           }}
         />
       </View>
     );
-  };
+  }, []);
+
+  if (loading) return <ActivityIndicator />;
+  if (error) return <Text>{error}</Text>;
 
   return (
     <ScrollView style={styles.infoContainer}>
-      <DetailBookingHeader detailInfo={detailInfo}></DetailBookingHeader>
+      <DetailBookingHeader detailInfo={detailInfo} />
       <View style={styles.infoWrapper}>
         <Text style={styles.infoTitle}>예매정보 </Text>
-        <Text style={styles.booking}>({priceArray?.length})건</Text>
+        <Text style={styles.booking}>
+          ({detailInfo?.relates.relate.length ?? 0})건
+        </Text>
       </View>
       {/* pcseguidance이 여러개면 map돌리기 */}
       <View>
-        {detailInfo?.pcseguidance.length === 0 && (
+        {detailInfo?.relates.relate.length === 0 && (
           <Text> 예매 정보가 없습니다.</Text>
         )}
-        {detailInfo?.pcseguidance.length >= 1 &&
-          priceArray.map((item: string, index: number) => (
-            <TicketingListItem key={index} price={item} index={index} />
-          ))}
+        {detailInfo!.relates.relate.length >= 1 &&
+          detailInfo!.relates.relate.map(
+            ({relatenm, relateurl}, index: number) => (
+              <TicketingListItem
+                key={index}
+                name={relatenm}
+                index={index}
+                url={relateurl}
+              />
+            ),
+          )}
       </View>
 
       <View style={{paddingHorizontal: 20, paddingVertical: 20}}>
@@ -93,7 +96,6 @@ const TicketingPage: React.FC<TicketingPageProps> = ({route}) => {
           목록의 공연장을 포함, 조건을 꼭! 확인해주세요.
         </Text>
       </View>
-      {modalVisibleAtom && <AfterTicketingModal />}
     </ScrollView>
   );
 };

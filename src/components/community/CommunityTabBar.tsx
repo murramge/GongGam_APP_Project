@@ -1,15 +1,36 @@
-import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, {memo, useEffect, useState} from 'react';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  PermissionsAndroid,
+  Platform,
+} from 'react-native';
 import {colors} from '@styles/color';
-import useMettingApi from '../../pages/Community/hooks/useMeetingApi';
+import useMeetingApi from '../../pages/Community/hooks/useMeetingApi';
 import useTabSelection from '../../pages/Community/hooks/useTabSelection';
+import Geolocation from '@react-native-community/geolocation';
 
 const CommunityTabBar = () => {
   const [selectedTab, selectTab] = useTabSelection('All');
-  useMettingApi({selectedType: 'All'});
+  const [location, setLocation] = useState();
+
+  useMeetingApi({selectedType: 'All'});
+
+  const onRecommend = () => {
+    Geolocation.getCurrentPosition(info =>
+      setLocation({
+        latitude: info.coords.latitude,
+        longitude: info.coords.longitude,
+      }),
+    );
+    selectTab('추천');
+  };
+
+  console.log(location);
 
   return (
-    <View style={{flexDirection: 'row', marginBottom: 10}}>
+    <View style={{flexDirection: 'row', marginBottom: 16}}>
       <TouchableOpacity
         style={{
           padding: 10,
@@ -37,7 +58,7 @@ const CommunityTabBar = () => {
           backgroundColor:
             selectedTab === '추천' ? colors.MAIN_COLOR : colors.GRAY_200,
         }}
-        onPress={() => selectTab('추천')}>
+        onPress={onRecommend}>
         <Text
           style={{
             color: selectedTab === '추천' ? colors.WHITE : colors.BLACK,
@@ -50,4 +71,4 @@ const CommunityTabBar = () => {
   );
 };
 
-export default CommunityTabBar;
+export default memo(CommunityTabBar);

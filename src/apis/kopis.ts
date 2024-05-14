@@ -90,9 +90,12 @@ export const getPerformanceDetail = async ({
   try {
     const res = await kopisInstance.get(`/pblprfr/${performanceId}`);
 
-    const data = parser.parse(res.data).dbs.db;
-    if (typeof data.styurls.styurl === 'string') {
+    const data = parser.parse(res.data).dbs.db as PerformanceDetailInfo;
+    if (!Array.isArray(data.styurls.styurl)) {
       data.styurls.styurl = [data.styurls.styurl];
+    }
+    if (!Array.isArray(data.relates.relate)) {
+      data.relates.relate = [data.relates.relate];
     }
 
     return data as PerformanceDetailInfo;

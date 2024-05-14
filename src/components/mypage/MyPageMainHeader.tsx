@@ -10,12 +10,14 @@ import useProfileApi from '@pages/MyPage/hooks/useProfileApi';
 import Config from 'react-native-config';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router';
+import ProfileImage from '@components/common/image/ProfileImage';
 
 interface MyPageMainHeaderProps {}
 
 const MyPageMainHeader = ({}: MyPageMainHeaderProps) => {
   const isFocused = useIsFocused();
   const {profile, user, fetchProfiles} = useProfileApi();
+  console.log(profile, user, fetchProfiles);
 
   useEffect(() => {
     fetchProfiles();
@@ -34,19 +36,7 @@ const MyPageMainHeader = ({}: MyPageMainHeaderProps) => {
           alignItems: 'center',
         }}>
         <View style={{flexDirection: 'row'}}>
-          <Image
-            resizeMode="cover"
-            source={{
-              uri: profile?.image_url
-                ? `${Config.SUPABASE_PUBLIC_IMAGE_BASE_URL}/${profile?.image_url}`
-                : 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
-            }}
-            style={{
-              width: 80,
-              height: 80,
-              borderRadius: 100,
-            }}
-          />
+          <ProfileImage size={80} uri={profile?.image_url} />
           <View>
             <TouchableOpacity
               onPress={() => navigate('ProfileEdit')}

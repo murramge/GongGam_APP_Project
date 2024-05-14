@@ -8,7 +8,6 @@ import {
   Share,
   Button,
   ToastAndroid,
-  ScrollView,
 } from 'react-native';
 import BackHeader from '@components/common/header/BackHeader';
 import CommunityQuitModal from '@components/common/modals/CommunityQuitModal';
@@ -19,7 +18,6 @@ import dayjs from 'dayjs';
 import CommonButton from '../../atoms/buttons/CommonButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router.d';
-
 import {
   getJoinedMeetings,
   getMeeting,
@@ -33,10 +31,8 @@ import CommentsModal from '../../components/common/modals/CommentsModal';
 import Config from 'react-native-config';
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
-
 interface CommunityDetailProps
   extends NativeStackScreenProps<RootStackParamList, 'CommunityDetail'> {}
-
 const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   const [meeting, setMeeting] = useState<MeetingInfo>();
   const [error, setError] = useState<string>();
@@ -44,7 +40,6 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   const [isJoined, setIsJoined] = useState<boolean>(true);
   const [isOwner, setIsOwner] = useState<boolean>(false);
   const [commentOpen, setCommentOpen] = useState(false);
-
   const onPressJoinCancel = () => {
     setIsJoinModalOpen(false);
   };
@@ -60,11 +55,9 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
         getMeeting(route.params.id),
         getJoinedMeetings(),
       ]);
-
       const foundMeeting = joinedMeetings.find(
         joinedMeeting => fetchedMeeting.id === joinedMeeting.id,
       );
-
       if (foundMeeting) {
         setIsJoined(true);
         foundMeeting.is_owner && setIsOwner(true);
@@ -76,18 +69,17 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
       setError('에러가 발생했습니다.');
     }
   };
-
   const onPressJoinButton = async () => {
     if (!meeting) {
       return;
     }
     try {
       if (await getCurrentAuthUser()) {
-        setIsJoinModalOpen(true);
-        //await joinMeeting(meeting.id);
+        await joinMeeting(meeting.id);
         await fetch();
       } else {
         //TODO: 모임 참여 모달
+        setIsJoinModalOpen(true);
         //navigation.navigate('Login');
       }
     } catch (e) {
@@ -96,17 +88,14 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
       ToastAndroid.show(e.toString(), ToastAndroid.SHORT);
     }
   };
-
   if (error) {
     // TODO: 에러 화면
     return <View />;
   }
-
   if (!meeting) {
     // TODO: 로딩 화면
     return <Loading />;
   }
-
   if (meeting) {
     const {
       title,
@@ -186,11 +175,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
             </View>
             <View style={styles.meetingDescriptionContainer}>
               <Text style={styles.meetingDescriptionTitle}>모임소개</Text>
-              <ScrollView>
-                <Text style={styles.meetingDescriptionText}>
-                  {introduction}
-                </Text>
-              </ScrollView>
+              <Text style={styles.meetingDescriptionText}>{introduction}</Text>
             </View>
           </View>
         </View>
@@ -219,7 +204,6 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
               perf_at={meeting.perf_at}
               current_occupancy={meeting.current_occupancy}
               max_occupancy={meeting.max_occupancy}
-              meetingId={meeting.id}
             />
           </View>
         )}
@@ -228,10 +212,42 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           //   <CommentView meetingId={meeting.id} />
           // </View>
           <View style={styles.buttonContainer}>
-            <CommonButton label="댓글" onPress={() => setCommentOpen(true)} />
+            {/* <CommonButton label="댓글" onPress={() => setCommentOpen(true)} /> */}
+            <TouchableOpacity
+              onPress={() => setCommentOpen(true)}
+              style={{
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+                backgroundColor: colors.GRAY_200,
+              }}>
+              <View
+                style={{
+                  height: 50,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    width: 30,
+                    height: 4,
+                    borderRadius: 4,
+                    marginBottom: 10,
+                    backgroundColor: colors.GRAY_300,
+                  }}
+                />
+                <Text
+                  style={{
+                    color: '#333',
+                    textAlign: 'center',
+                    fontSize: 16,
+                    fontWeight: '400',
+                  }}>
+                  댓글
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         )}
-
         <CommunityQuitModal
           isVisible={isVisible}
           setIsVisible={setIsVisible}
@@ -252,7 +268,6 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
     );
   }
 };
-
 const styles = StyleSheet.create({
   mainVisual: {
     width: '100%',
@@ -307,7 +322,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-
   communityTitle: {
     color: colors.GRAY_500,
     fontSize: 16,
@@ -346,11 +360,8 @@ const styles = StyleSheet.create({
   meetingDescriptionText: {
     color: colors.GRAY_500,
   },
-  buttonContainer: {padding: 16},
 });
-
 export default CommunityDetail;
-
 const mainVisual = require('../../assets/images/community/community_img.png');
 const shareIcon = require('../../assets/icons/share_icon.png');
 const moreIcon = require('../../assets/icons/more_icon.png');
