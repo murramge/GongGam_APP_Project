@@ -1,12 +1,11 @@
 import {useEffect, useState} from 'react';
 import {getJoinedMeetings} from '@apis/supabase/meeting';
 import {atom, useAtom} from 'jotai';
-
-import {JoinedMeetingInfo} from '@apis/supabase/meeting';
+import {JoinedMeetingInfo} from '@apis/supabase/meeting.d';
 
 //프로필 api 불러옴
 
-export const ProfileDataAtom = atom<JoinedMeetingInfo | undefined>(undefined);
+export const ProfileDataAtom = atom<JoinedMeetingInfo[] | undefined>(undefined);
 
 const useUserMettingsApi = () => {
   const [mymeetings, setMyMeetings] = useAtom(ProfileDataAtom);

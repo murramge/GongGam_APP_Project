@@ -122,7 +122,8 @@ const ProfileEdit = ({}: ProfileEditProps) => {
           label="(기존이메일)"
           value={user?.email ?? ''}
           onChangeText={text => console.log(text)}
-          type="editable"></SignInput>
+          type="editable"
+        />
       </View>
       <View>
         <CommonButton label="완료" onPress={handleSubmit(onSubmit)} />

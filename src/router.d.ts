@@ -54,7 +54,7 @@ type ProfileRouteParams = {
 
 type AuthenticationRouteParams = {
   AuthHome:
-    | {code: string}
+    | {type: 'signup'}
     | {
         error: string;
         error_code: string[];
