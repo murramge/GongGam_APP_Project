@@ -109,7 +109,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
       perf_image_url,
       perf_id,
     } = meeting;
-    console.log(meeting);
+
     return (
       <View style={{flex: 1}}>
         <BackHeader label={title} />
