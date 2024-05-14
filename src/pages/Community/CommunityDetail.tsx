@@ -8,6 +8,7 @@ import {
   Share,
   Button,
   ToastAndroid,
+  ScrollView,
 } from 'react-native';
 import BackHeader from '@components/common/header/BackHeader';
 import CommunityQuitModal from '@components/common/modals/CommunityQuitModal';
@@ -25,10 +26,11 @@ import {
 } from '@apis/supabase/meeting';
 import {MeetingInfo} from '@apis/supabase/meeting.d';
 import {getCurrentAuthUser} from '@apis/supabase/auth';
-import CommentView from '@components/common/modals/CommentView';
 import Loading from '../../components/common/skeleton/Loading';
 import CommentsModal from '../../components/common/modals/CommentsModal';
 import Config from 'react-native-config';
+import Toast from 'react-native-toast-message';
+
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
 interface CommunityDetailProps
@@ -75,19 +77,23 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
     }
     try {
       if (await getCurrentAuthUser()) {
-        await joinMeeting(meeting.id);
-        await fetch();
-      } else {
-        //TODO: 모임 참여 모달
         setIsJoinModalOpen(true);
-        //navigation.navigate('Login');
+      } else {
+        Toast.show({text1: '로그인이 필요합니다.', type: 'info'});
+        navigation.navigate('AuthHome');
       }
     } catch (e) {
-      // TODO: 이미 가입한 모임이거나, 이미 꽉 찬 모임일 경우 에러 처리(Modal or Toast)
-      console.warn(e);
-      ToastAndroid.show(e.toString(), ToastAndroid.SHORT);
+      Toast.show({text1: '에러가 발생했습니다', type: 'error'});
     }
   };
+
+  const onPressJoinConfirm = async () => {
+    if (!meeting) return;
+    await joinMeeting(meeting?.id);
+    await fetch();
+    setIsJoinModalOpen(false);
+  };
+
   if (error) {
     // TODO: 에러 화면
     return <View />;
@@ -108,7 +114,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
       perf_image_url,
       perf_id,
     } = meeting;
-    console.log(meeting);
+
     return (
       <View style={{flex: 1}}>
         <BackHeader label={title} />
@@ -175,35 +181,37 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
             </View>
             <View style={styles.meetingDescriptionContainer}>
               <Text style={styles.meetingDescriptionTitle}>모임소개</Text>
-              <Text style={styles.meetingDescriptionText}>{introduction}</Text>
+              <ScrollView>
+                <Text style={styles.meetingDescriptionText}>
+                  {introduction}
+                </Text>
+              </ScrollView>
             </View>
           </View>
         </View>
         {!isJoined && (
           <View>
             {current_occupancy === max_occupancy ? (
-              <View style={styles.buttonContainer}>
-                <CommonButton
-                  label="모집 완료"
-                  onPress={() => {}}
-                  disabled={true}
-                  bgColor={colors.GRAY_300}
-                />
-              </View>
+              <CommonButton
+                label="모집 완료"
+                onPress={() => {}}
+                disabled={true}
+                bgColor={colors.GRAY_300}
+              />
             ) : (
-              <View style={styles.buttonContainer}>
-                <CommonButton label="가입하기" onPress={onPressJoinButton} />
-              </View>
+              <CommonButton label="가입하기" onPress={onPressJoinButton} />
             )}
             <CommunityJoinModal
               isJoinModalOpen={isJoinModalOpen}
               onPressJoinCancel={onPressJoinCancel}
+              onPressJoinConfirm={onPressJoinConfirm}
               perf_image_url={meeting.perf_image_url}
               perf_name={meeting.perf_name}
               title={meeting.title}
               perf_at={meeting.perf_at}
               current_occupancy={meeting.current_occupancy}
               max_occupancy={meeting.max_occupancy}
+              meeting_at={meeting.meeting_at}
             />
           </View>
         )}
@@ -211,7 +219,7 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
           // <View>
           //   <CommentView meetingId={meeting.id} />
           // </View>
-          <View style={styles.buttonContainer}>
+          <>
             {/* <CommonButton label="댓글" onPress={() => setCommentOpen(true)} /> */}
             <TouchableOpacity
               onPress={() => setCommentOpen(true)}
@@ -246,24 +254,24 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>
+            <CommunityQuitModal
+              isVisible={isVisible}
+              setIsVisible={setIsVisible}
+              isOwner={isOwner}
+              onPressEdit={() =>
+                navigation.navigate('CommunitySelectLayOut', {
+                  meetingId: meeting.id,
+                })
+              }
+              id={route.params.id}
+            />
+            <CommentsModal
+              isVisible={commentOpen}
+              setIsVisible={setCommentOpen}
+              meetingId={meeting.id}
+            />
+          </>
         )}
-        <CommunityQuitModal
-          isVisible={isVisible}
-          setIsVisible={setIsVisible}
-          isOwner={isOwner}
-          onPressEdit={() =>
-            navigation.navigate('CommunitySelectLayOut', {
-              meetingId: meeting.id,
-            })
-          }
-          id={route.params.id}
-        />
-        <CommentsModal
-          isVisible={commentOpen}
-          setIsVisible={setCommentOpen}
-          meetingId={meeting.id}
-        />
       </View>
     );
   }

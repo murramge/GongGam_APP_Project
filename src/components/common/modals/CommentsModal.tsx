@@ -14,9 +14,15 @@ import {
 import {colors} from '@styles/color';
 import Config from 'react-native-config';
 import useProfileApi from '../../../pages/MyPage/hooks/useProfileApi';
+import ConfirmModal from './ConfirmModal';
 import Modal from 'react-native-modal';
 import dayjs from 'dayjs';
-import {getMeetingComments, createMeetingComment} from '@apis/supabase/comment';
+import {
+  getMeetingComments,
+  createMeetingComment,
+  deleteMeetingComment,
+} from '@apis/supabase/comment';
+import {getProfile} from '@react-native-seoul/kakao-login';
 
 export interface CommentItemProps {
   id: number;
@@ -26,7 +32,9 @@ export interface CommentItemProps {
   profile: {
     nickname: string;
     image_url?: string;
+    user_id: string;
   };
+  isMycomment: boolean;
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({
@@ -34,7 +42,16 @@ const CommentItem: React.FC<CommentItemProps> = ({
   content,
   created_at,
   profile,
+  isMycomment,
 }) => {
+  const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
+
+  const onDeleteComment = () => {
+    setIsConfirmModalVisible(true);
+    //fetchData();
+  };
+  const userId = profile.user_id;
+
   return (
     <View
       style={{
@@ -74,6 +91,22 @@ const CommentItem: React.FC<CommentItemProps> = ({
             </View>
             <Text style={{color: '#000', fontSize: 15}}>{content}</Text>
           </View>
+          {/* isMycomment&& */}
+          <TouchableOpacity
+            style={{paddingHorizontal: 20}}
+            onPress={onDeleteComment}>
+            <Text style={{color: colors.GRAY_300}}>삭제</Text>
+            <ConfirmModal
+              message={'댓글을 삭제하시겠습니까?'}
+              isVisible={isConfirmModalVisible}
+              onConfirm={() => {
+                console.log(id);
+                deleteMeetingComment(id);
+                setIsConfirmModalVisible(false);
+              }}
+              onCancel={() => setIsConfirmModalVisible(false)}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -112,6 +145,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         content={item.content}
         created_at={dayjs(item.created_at).format('YY년 MM월 DD일 HH시 mm분')}
         profile={item.profile}
+        //TODO: 내 댓글만 삭제되게
+        // isMycomment={item.}
       />
     ),
     [],
@@ -120,8 +155,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const fetchData = async () => {
     try {
       const data = await getMeetingComments(meetingId);
-      console.log(data);
-      console.log(data[0].profile.nickname);
+
       if (data) {
         setComments(data);
       }

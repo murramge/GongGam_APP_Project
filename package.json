@@ -70,6 +70,7 @@
     "react-native-vector-icons": "^10.0.3",
     "react-native-wheely": "^0.6.0",
     "recoil": "^0.7.7",
+    "rollbar-react-native": "^1.0.0-beta.2",
     "uuid": "^9.0.1",
     "zod": "^3.23.5"
   },
