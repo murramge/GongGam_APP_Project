@@ -50,7 +50,7 @@ function App(): React.JSX.Element {
   );
 }
 
-const parseUrl = url => {
+const parseUrl = (url: string) => {
   let parsedUrl = url;
   if (url.includes('#')) {
     parsedUrl = url.replace('#', '?');

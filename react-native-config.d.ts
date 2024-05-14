@@ -6,6 +6,7 @@ declare module 'react-native-config' {
     KOPIS_IMAGE_BASE_URL: string;
     GOOGLE_OAUTH_CLIENT_ID: string;
     SUPABASE_PUBLIC_IMAGE_BASE_URL: string;
+    ROLLBAR_ACCESS_TOKEN: string;
   }
 
   export const Config: NativeConfig;

@@ -7,6 +7,7 @@ import {StyleSheet, View, Linking} from 'react-native';
 import Toast from 'react-native-toast-message';
 import {RootStackParamList} from '@router.d';
 import ConfirmModal from '@components/common/modals/ConfirmModal';
+import {rollbar} from '@apis/rollbar';
 
 interface SettingsListProps {}
 
@@ -23,7 +24,8 @@ const SettingsList = ({}: SettingsListProps) => {
       dispatch(CommonActions.reset({index: 0, routes: [{name: 'MainTab'}]}));
 
       Toast.show({text1: '로그아웃 성공', type: 'success'});
-    } catch (e) {
+    } catch (e: any) {
+      rollbar.log(e);
       Toast.show({text1: '에러가 발생했습니다.', type: 'error'});
     }
   };
@@ -31,7 +33,8 @@ const SettingsList = ({}: SettingsListProps) => {
     try {
       await deleteUser();
       dispatch(CommonActions.reset({index: 0, routes: [{name: 'MainTab'}]}));
-    } catch (_) {
+    } catch (e: any) {
+      rollbar.log(e);
       Toast.show({text1: '에러가 발생했습니다.', type: 'error'});
     }
   };
