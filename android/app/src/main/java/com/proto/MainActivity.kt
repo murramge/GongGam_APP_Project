@@ -1,4 +1,4 @@
-package com.proto
+package com.gonggamapply
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
