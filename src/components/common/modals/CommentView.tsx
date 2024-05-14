@@ -136,8 +136,7 @@ const CommentView = ({meetingId}: {meetingId: number}) => {
     const fetchData = async () => {
       try {
         const data = await getMeetingComments(meetingId);
-        console.log(data);
-        console.log(data[0].profile.nickname);
+
         if (data) {
           setComments(data);
         }

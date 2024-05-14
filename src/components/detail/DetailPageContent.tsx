@@ -13,7 +13,6 @@ import FastImage from 'react-native-fast-image';
 const DetailPageContent = ({detailImgUrls}) => {
   const windowWidth = Dimensions.get('window').width;
 
-  console.log('url : ', detailImgUrls);
   return (
     detailImgUrls && (
       <ScrollView

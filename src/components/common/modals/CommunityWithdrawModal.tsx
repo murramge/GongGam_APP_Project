@@ -7,7 +7,11 @@ import {quitMeeting, deleteMeeting} from '@apis/supabase/meeting';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router.d';
-import {getMeetings} from '@apis/supabase/meeting';
+
+import useMeetingApi from '@pages/Community/hooks/useMeetingApi';
+import {atom, useAtom} from 'jotai';
+import {MeetingInfo} from '@apis/supabase/meeting.d';
+export const CommunityDataAtom = atom<MeetingInfo[]>([]);
 const CommunityWithdrawModal = ({
   isWithdrawModalOpen,
   onPressWithdrawCancel,
@@ -23,6 +27,7 @@ const CommunityWithdrawModal = ({
 }) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const {refreshMeetings} = useMeetingApi({selectedType: 'All'});
   return (
     <View>
       <Modal
@@ -51,10 +56,11 @@ const CommunityWithdrawModal = ({
               <CommonButton
                 label="예"
                 borderRadius={32}
-                onPress={() => {
-                  isOwner ? deleteMeeting(id) : quitMeeting(id);
-                  navigate('Community');
+                onPress={async () => {
+                  isOwner ? await deleteMeeting(id) : quitMeeting(id);
+                  await refreshMeetings();
                   onPressWithdrawCancel();
+                  navigate('Community');
                 }}
               />
             </View>

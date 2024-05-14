@@ -7,19 +7,21 @@ import CommunityCardItem from '@components/community/CommunityCardItem';
 import {BOTTOM_TAB_HEIGHT} from '@styles/common';
 import useMeetingApi from '@pages/Community/hooks/useMeetingApi';
 import {MeetingInfo} from '@apis/supabase/meeting.d';
+import NotResult from './NotResult';
 
 export interface CommonArtCardListProps {
   data: MeetingInfo[];
   type: string;
+  id: number;
 }
 
-const HorizontalCardList = ({data, type}: CommonArtCardListProps) => {
+const HorizontalCardList = ({data, type, id}: CommonArtCardListProps) => {
   const [refreshing, setRefreshing] = useState(false);
   const {fetchMeetings, refreshMeetings} = useMeetingApi({selectedType: 'All'});
 
   useEffect(() => {
     fetchMeetings();
-  }, []);
+  }, [id]);
 
   return (
     <View style={{flex: 1}}>
@@ -50,7 +52,7 @@ const HorizontalCardList = ({data, type}: CommonArtCardListProps) => {
           showsHorizontalScrollIndicator={false}
         />
       ) : (
-        <Text>결과가 없습니다.</Text>
+        <NotResult></NotResult>
       )}
     </View>
   );

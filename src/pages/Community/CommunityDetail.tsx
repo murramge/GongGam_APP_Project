@@ -48,7 +48,6 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   useEffect(() => {
     fetch();
-    console.log(route.params.id);
   }, [route.params.id]);
 
   const fetch = async () => {
@@ -124,7 +123,6 @@ const CommunityDetail = ({navigation, route}: CommunityDetailProps) => {
         <View style={styles.profileImgArea}>
           <TouchableOpacity
             onPress={() => {
-              console.log(perf_id);
               navigation.navigate('Detail', {id: perf_id});
             }}>
             <Image
@@ -300,7 +298,7 @@ const styles = StyleSheet.create({
   },
   iconArea: {
     position: 'absolute',
-    top: -16,
+    top: -30,
     right: 13,
     flexDirection: 'row',
     gap: 8,

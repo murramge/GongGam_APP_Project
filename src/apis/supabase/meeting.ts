@@ -7,6 +7,8 @@ import type {
 } from './meeting.d';
 import dayjs from 'dayjs';
 import {PerformanceGenreKey} from '@apis/kopis.d';
+import useMeetingApi from '@pages/Community/hooks/useMeetingApi';
+import {useNavigation} from '@react-navigation/native';
 
 export interface getMeetingsParams {
   perfName?: string;
@@ -148,8 +150,10 @@ export const quitMeeting = async (meetingId: number) => {
 export const deleteMeeting = async (meetingId: number) => {
   try {
     const {error} = await supabase.from('meeting').delete().eq('id', meetingId);
-
     if (error) throw new Error(error.message);
+    await getMeetings({
+      page: 1,
+    });
   } catch (e) {
     throw e;
   }
