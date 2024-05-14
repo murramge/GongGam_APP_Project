@@ -24,6 +24,8 @@ const DetailPageMap = ({id}: MainDetailsMapProps) => {
     theater: null,
     address: null,
   });
+
+  console.log(location);
   useEffect(() => {
     const getMapLocationData = async () => {
       try {

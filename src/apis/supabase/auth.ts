@@ -144,8 +144,29 @@ export const signInByAccessToken = async (
 
 export const getCurrentAuthUser = async () => {
   try {
-    const session = (await supabase.auth.getSession()).data.session;
+    const {
+      data: {session},
+      error,
+    } = await supabase.auth.getSession();
+
+    if (error) throw new Error(error.message);
+
     return session?.user;
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const getCurrentAuthUserByServer = async () => {
+  try {
+    const {
+      data: {user},
+      error,
+    } = await supabase.auth.getUser();
+
+    if (error) throw new Error(error.message);
+
+    return user;
   } catch (e) {
     throw e;
   }
@@ -160,6 +181,16 @@ export const resendVerificationEmail = async (email: string) => {
         emailRedirectTo: 'gonggam://auth?from=emailConfirm',
       },
     });
+
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const deleteUser = async () => {
+  try {
+    const {error} = await supabase.functions.invoke('delete-user-self');
 
     if (error) throw new Error(error.message);
   } catch (e) {

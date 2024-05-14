@@ -7,7 +7,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import 'react-native-get-random-values';
 import {v4} from 'uuid';
-import {getCurrentAuthUser} from '@apis/supabase/auth';
+import {getCurrentAuthUserByServer} from '@apis/supabase/auth';
 import {BOTTOM_TAB_HEIGHT} from '@styles/common';
 
 interface CustomBottomTabBarProps extends BottomTabBarProps {}
@@ -73,12 +73,15 @@ const CustomBottomTabBar = ({navigation, state}: CustomBottomTabBarProps) => {
               name: routeInfo[routeName]?.iconName ?? 'alert-circle',
               isFocused: currentRouteName === routeName,
               onPress: async () => {
-                const user = await getCurrentAuthUser();
-                if (!user && routeName === 'Profile') {
+                try {
+                  if (routeName === 'Profile') {
+                    const user = await getCurrentAuthUserByServer();
+                    if (!user) throw new Error();
+                  }
+                  navigation.navigate(routeName);
+                } catch (_) {
                   navigation.navigate('AuthHome');
-                  return;
                 }
-                navigation.navigate(routeName);
               },
             }),
           )}
