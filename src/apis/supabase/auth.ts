@@ -53,8 +53,6 @@ export const kakaoSignIn = async () => {
     });
 
     if (error) throw new Error(error.message);
-
-    console.log(data);
   } catch (e) {
     console.log(e);
   }

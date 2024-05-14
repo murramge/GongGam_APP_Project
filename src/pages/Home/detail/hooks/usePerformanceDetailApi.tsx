@@ -16,7 +16,7 @@ const usePerformanceDetailApi = id => {
     const fetchDetail = async () => {
       try {
         const data = await getPerformanceDetail({performanceId: id});
-        console.log(data);
+
         setDetailInfo(data);
       } catch (e) {
         console.error(e);

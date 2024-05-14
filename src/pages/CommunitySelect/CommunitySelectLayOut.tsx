@@ -18,6 +18,7 @@ import useBackHandler from '@hooks/useBackHandler';
 import {getPerformanceDetail} from '@apis/kopis';
 import Config from 'react-native-config';
 import dayjs from 'dayjs';
+import useMeetingApi from '@pages/Community/hooks/useMeetingApi';
 
 interface CommunitySelectLayOutProps
   extends NativeStackScreenProps<RootStackParamList, 'CommunitySelectLayOut'> {}
@@ -38,6 +39,7 @@ const CommunitySelectLayOut = ({
   const [currentStep, setCurrentStep] = useState(1);
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
   const totalStep = 6;
+  const {fetchMeetings, refreshMeetings} = useMeetingApi({selectedType: 'All'});
 
   useEffect(() => {
     if (!params) return;
@@ -126,6 +128,7 @@ const CommunitySelectLayOut = ({
           meetingId = params.meetingId;
           await updateMeeting(params.meetingId, meetingParams);
         }
+        await refreshMeetings();
         replace('CommunityDetail', {id: meetingId!});
       } catch (error) {
         console.log(error);
@@ -156,9 +159,9 @@ const CommunitySelectLayOut = ({
       case 3:
         return !values.artTime;
       case 5:
-        return !values.communityContext;
+        return !values.communityParticipant;
       case 6:
-        return !values.communityContext;
+        return !values.communityParticipant;
       default:
         return false;
     }

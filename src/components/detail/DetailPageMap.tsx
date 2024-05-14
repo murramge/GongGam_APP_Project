@@ -25,12 +25,11 @@ const DetailPageMap = ({id}: MainDetailsMapProps) => {
     address: null,
   });
 
-  console.log(location);
   useEffect(() => {
     const getMapLocationData = async () => {
       try {
         const data = await getPerformanceFacilityDetail(id);
-        console.log('data: ', data);
+
         data &&
           setLocation({
             lat: parseFloat(data.la),
