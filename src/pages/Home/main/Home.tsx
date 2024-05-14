@@ -23,7 +23,7 @@ const Home = () => {
   const isLoading = useAtomValue(isLoadingData);
 
   const [datas, setDatas] = useState([]);
-  const [codeDatas, setCodeDatas] = useState([]);
+  const [codeDatas, setCodeDatas] = useState(null);
   const performances = useAtomValue(boxofficeData);
 
   const code = useCategorizedPerformances();
