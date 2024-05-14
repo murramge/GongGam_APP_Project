@@ -1,4 +1,4 @@
-package com.proto
+package com.gonggamapply
 
 import android.app.Application
 import com.facebook.react.PackageList
