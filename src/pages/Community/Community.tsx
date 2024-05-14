@@ -1,7 +1,6 @@
 import React, {createContext, memo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {colors} from '@styles/color';
-import CommunityTabBar from '@components/community/CommunityTabBar';
 import {useAtomValue} from 'jotai';
 import useMeetingApi, {CommunityDataAtom} from './hooks/useMeetingApi';
 import HorizontalCardList from '@components/common/cardlist/HorizontalCardList';
@@ -28,7 +27,6 @@ const Community = ({}: CommunityProps) => {
           title="모임"
           onPressSearch={() => setIsFilterModalVisible(true)}
         />
-        <CommunityTabBar />
         <CommunityFilterBar />
         <CommunityCreate />
         <HorizontalCardList data={results} type="community" />
