@@ -27,11 +27,12 @@ const AuthHome = ({route}: AuthHomeProps) => {
       return;
     }
 
-    if ('code' in route.params) {
+    if ('type' in route.params && route.params.type === 'signup') {
       Toast.show({
         text1: '이메일 인증이 완료되었습니다!',
         type: 'success',
       });
+      navigate('Login');
     } else if ('error' in route.params) {
       setIsEmailConfirmModalVisible(true);
     }
