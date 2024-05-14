@@ -29,6 +29,7 @@ const usePerformanceApi = (
           stsType: stsType,
           categoryCode: categoryCode,
         });
+        console.log(data);
         setPerformances(data);
       } catch (error) {
         console.log(error);
@@ -37,7 +38,6 @@ const usePerformanceApi = (
       }
     };
     performanceApi();
-    console.log(isLoading);
   }, [date, stsType, categoryCode]);
 
   return {performances, isLoading};
