@@ -2,8 +2,6 @@ import React from 'react';
 import {Image, StyleSheet, Text, View, Animated} from 'react-native';
 import BackHeader from './BackHeader';
 import {colors} from '@styles/color';
-import {useAtomValue} from 'jotai';
-import {detailDataAtom} from '../../template/home/DetailPage';
 
 const DetailBookingHeader = ({detailInfo, headerHeight}) => {
   return (

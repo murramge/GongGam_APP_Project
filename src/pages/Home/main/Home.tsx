@@ -1,6 +1,6 @@
 import MainCategories from '@components/main/MainCategories';
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Dimensions} from 'react-native';
 
 import SearchHeaderButton from '../../../components/common/button/SearchHeaderButton';
@@ -17,10 +17,37 @@ import {
   MainPageTopCardSkeleton,
 } from '../../../components/common/skeleton/MainPageBottomCardSkeleton';
 import {useAtomValue} from 'jotai';
+import {getPerformanceBoxOffice} from '@apis/kopis';
 
 const Home = () => {
   const isLoading = useAtomValue(isLoadingData);
+
+  const [datas, setDatas] = useState([]);
+  const [codeDatas, setCodeDatas] = useState([]);
   const performances = useAtomValue(boxofficeData);
+
+  const code = useCategorizedPerformances();
+  const performanceDate = usePerformanceDate();
+
+  useEffect(() => {
+    setDatas(performances);
+  }, []);
+
+  useEffect(() => {
+    const codeApi = async () => {
+      try {
+        const data = await getPerformanceBoxOffice({
+          date: performanceDate.today,
+          stsType: performanceDate.stsType,
+          categoryCode: code,
+        });
+        setCodeDatas(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    codeApi();
+  }, [code]);
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -33,10 +60,12 @@ const Home = () => {
         </>
       ) : (
         <>
-          <MainPageTopCard performanceData={performances}></MainPageTopCard>
+          <MainPageTopCard performanceData={datas}></MainPageTopCard>
           <MainCategories></MainCategories>
           <MainPageBottomCard
-            performanceData={performances}></MainPageBottomCard>
+            performanceData={
+              codeDatas ? codeDatas : datas
+            }></MainPageBottomCard>
         </>
       )}
     </View>
