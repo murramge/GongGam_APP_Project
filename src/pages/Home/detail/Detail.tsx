@@ -18,6 +18,7 @@ import {colors} from '@styles/color';
 import Loading from '../../../components/common/skeleton/Loading';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router.d';
+import {getCurrentAuthUser} from '@apis/supabase/auth';
 
 type DetailRouteParams = {
   Detail: {
@@ -111,7 +112,13 @@ const Detail: React.FC<DetailProps> = ({
                 label="같이 볼 사람 모집하기"
                 borderRadius={0}
                 margin={0}
-                onPress={() => navigate('CommunitySelectLayOut', {artId: id})}
+                onPress={async () => {
+                  if (!(await getCurrentAuthUser())) {
+                    navigate('AuthHome');
+                    return;
+                  }
+                  navigate('CommunitySelectLayOut', {artId: id});
+                }}
               />
             </View>
           )}
