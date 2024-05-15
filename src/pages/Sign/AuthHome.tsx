@@ -12,6 +12,7 @@ import {RootStackParamList} from '@router.d';
 import {kakaoSignIn} from '@apis/supabase/auth';
 import Toast from 'react-native-toast-message';
 import Modal from 'react-native-modal';
+import {rollbar} from '@apis/rollbar';
 
 interface AuthHomeProps
   extends NativeStackScreenProps<RootStackParamList, 'AuthHome'> {}
@@ -43,7 +44,9 @@ const AuthHome = ({route}: AuthHomeProps) => {
       await kakaoSignIn();
 
       goBack();
-    } catch (e) {}
+    } catch (e: any) {
+      rollbar.error(e);
+    }
   };
 
   return (
