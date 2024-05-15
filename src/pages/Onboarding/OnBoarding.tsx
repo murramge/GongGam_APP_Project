@@ -1,4 +1,8 @@
 import CommonButton from '@atoms/buttons/CommonButton';
+import {
+  NextButtonComponent,
+  SkipButtonComponent,
+} from '@components/common/button/OnboardingButton';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import {useFocusEffect} from '@react-navigation/native';
 
@@ -58,9 +62,25 @@ const OnBoardingHome = ({navigation, selected}: OnBoardingProps) => {
     }, []),
   );
 
+  const totalPages = 4;
+
+  const handleNextPress = () => {
+    if (currentPageIndex < totalPages - 1) {
+      setCurrentPageIndex(currentPageIndex + 1);
+    } else {
+      navigateToMainTab();
+    }
+  };
+
   return (
     <Onboarding
-      onSkip={navigateToMainTab}
+      SkipButtonComponent={() => (
+        <SkipButtonComponent skipLabel="skip" onPress={navigateToMainTab} />
+      )}
+      NextButtonComponent={() => (
+        <NextButtonComponent nextLabel="Next" onPress={handleNextPress} />
+      )}
+      // onSkip={navigateToMainTab}
       bottomBarColor="white"
       DotComponent={({selected}) => (
         <Square pageIndex={selected ? currentPageIndex : null} />

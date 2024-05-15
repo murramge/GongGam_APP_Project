@@ -1,3 +1,4 @@
+import {getCurrentAuthUser} from '@apis/supabase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@router.d';
@@ -18,7 +19,15 @@ const CommunityCreate = () => {
         flexDirection: 'row',
         width: '100%',
       }}>
-      <TouchableOpacity onPress={() => navigate('CommunitySelectLayOut')}>
+      <TouchableOpacity
+        onPress={async () => {
+          if (!(await getCurrentAuthUser())) {
+            navigate('AuthHome');
+            return;
+          }
+
+          navigate('CommunitySelectLayOut');
+        }}>
         <View
           style={{
             width: '100%',

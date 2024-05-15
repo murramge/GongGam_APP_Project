@@ -85,12 +85,7 @@ const SearchResultPage = ({route}: SearchResultPageProps) => {
           {results.length === 0 ? (
             <NotResult />
           ) : (
-            <HorizontalCardList
-              data={results.map(item => {
-                return item;
-              })}
-              type="search"
-            />
+            <HorizontalCardList data={results} type="search" />
           )}
         </View>
       </View>

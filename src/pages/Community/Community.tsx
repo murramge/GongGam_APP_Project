@@ -1,4 +1,4 @@
-import React, {createContext, memo, useState} from 'react';
+import React, {createContext, memo, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {colors} from '@styles/color';
 import {useAtomValue} from 'jotai';
@@ -16,9 +16,12 @@ import CommunityFilterBar from '@components/community/CommunityFilterBar';
 
 interface CommunityProps extends NativeStackScreenProps<RootStackParamList> {}
 
-const Community = ({}: CommunityProps) => {
+const Community = ({route}: CommunityProps) => {
   const results = useAtomValue(CommunityDataAtom);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
+  useEffect(() => {
+    console.log('refresh');
+  }, [results]);
 
   return (
     <>
@@ -29,7 +32,11 @@ const Community = ({}: CommunityProps) => {
         />
         <CommunityFilterBar />
         <CommunityCreate />
-        <HorizontalCardList data={results} type="community" />
+        <HorizontalCardList
+          data={results}
+          id={route?.params?.id}
+          type="community"
+        />
       </View>
       <FilterModal
         isVisible={isFilterModalVisible}

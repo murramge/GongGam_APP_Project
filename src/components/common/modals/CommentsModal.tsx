@@ -119,6 +119,21 @@ const CommentItem: React.FC<CommentItemProps> = ({
             </TouchableOpacity>
           )}
           {/* isMycomment 조건 끝 */}
+          {/* isMycomment&& */}
+          <TouchableOpacity
+            style={{paddingHorizontal: 20}}
+            onPress={onDeleteComment}>
+            <Text style={{color: colors.GRAY_300}}>삭제</Text>
+            <ConfirmModal
+              message={'댓글을 삭제하시겠습니까?'}
+              isVisible={isConfirmModalVisible}
+              onConfirm={() => {
+                deleteMeetingComment(id);
+                setIsConfirmModalVisible(false);
+              }}
+              onCancel={() => setIsConfirmModalVisible(false)}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -188,7 +203,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
-  //console.log('comment:', comments);
+
 
   return (
     <Modal
