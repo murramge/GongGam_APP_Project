@@ -12,10 +12,12 @@ import {
   Dimensions,
 } from 'react-native';
 import {colors} from '@styles/color';
+import Config from 'react-native-config';
 import useProfileApi from '../../../pages/MyPage/hooks/useProfileApi';
 import ConfirmModal from './ConfirmModal';
 import Modal from 'react-native-modal';
 import dayjs from 'dayjs';
+
 import {
   getMeetingComments,
   createMeetingComment,
@@ -47,7 +49,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
   const fetchMyProfile = async () => {
     try {
       const myProfile = await getProfile();
-      profile.user_id === myProfile?.user_id
+      profile.user_id === myProfile.user_id
         ? setIsMyComment(true)
         : setIsMyComment(false);
     } catch (error) {
@@ -84,7 +86,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
                 ? `${Config.SUPABASE_PUBLIC_IMAGE_BASE_URL}/${profile?.image_url}`
                 : 'https://avatar.iran.liara.run/public',
             }}
-            //
             style={{
               width: 32,
               height: 32,
@@ -118,7 +119,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
             </TouchableOpacity>
           )}
           {/* isMycomment 조건 끝 */}
-          {/* isMycomment&& */}
         </View>
       </View>
     </View>
@@ -152,7 +152,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const commentFlatListRef = useRef<FlatList>(null);
 
   const renderItem = useCallback(
-    ({item}: {item: any}) => (
+    ({item}: {item: Comment}) => (
       <CommentItem
         id={item.id}
         content={item.content}
@@ -167,8 +167,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const fetchData = async () => {
     try {
       const data = await getMeetingComments(meetingId);
-      console.log(data);
-      console.log(data[0].profile.nickname);
+
       if (data) {
         setComments(data);
       }
@@ -189,6 +188,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
+  //console.log('comment:', comments);
 
   return (
     <Modal
@@ -261,17 +261,24 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 댓글
               </Text>
             </View>
-            <FlatList
-              ref={commentFlatListRef}
-              data={comments}
-              renderItem={renderItem}
-              keyExtractor={item => item.id.toString()}
-              showsVerticalScrollIndicator={false}
-              ItemSeparatorComponent={() => <View style={{height: 32}} />}
-              style={{flex: 1}}
-            />
+            {comments.length === 0 ? (
+              <Text style={{padding: 16}}>
+                등록된 댓글이 없습니다. 첫 번째 댓글을 남겨보세요.
+              </Text>
+            ) : (
+              <FlatList
+                ref={commentFlatListRef}
+                data={comments}
+                renderItem={renderItem}
+                keyExtractor={item => item.id.toString()}
+                showsVerticalScrollIndicator={false}
+                ItemSeparatorComponent={() => <View style={{height: 32}} />}
+                style={{flex: 1}}
+              />
+            )}
           </View>
 
+          {/*댓글입력 시작 */}
           <View
             style={{
               backgroundColor: colors.GRAY_200,
