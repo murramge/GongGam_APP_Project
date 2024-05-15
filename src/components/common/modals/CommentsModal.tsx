@@ -22,7 +22,7 @@ import {
   createMeetingComment,
   deleteMeetingComment,
 } from '@apis/supabase/comment';
-import {getProfile} from '@react-native-seoul/kakao-login';
+import {getProfile} from '@apis/supabase/profile';
 
 export interface CommentItemProps {
   id: number;
@@ -34,7 +34,6 @@ export interface CommentItemProps {
     image_url?: string;
     user_id: string;
   };
-  isMycomment: boolean;
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({
@@ -42,16 +41,27 @@ const CommentItem: React.FC<CommentItemProps> = ({
   content,
   created_at,
   profile,
-  isMycomment,
 }) => {
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
+  const [isMycomment, setIsMyComment] = useState(false);
+
+  const fetchMyProfile = async () => {
+    try {
+      const myProfile = await getProfile();
+      profile.user_id === myProfile.user_id
+        ? setIsMyComment(true)
+        : setIsMyComment(false);
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  };
+  fetchMyProfile();
 
   const onDeleteComment = () => {
     setIsConfirmModalVisible(true);
-    //const myId=getProfile
+
     //fetchData();
   };
-  //const userId = profile.user_id;
 
   return (
     <View
@@ -92,21 +102,23 @@ const CommentItem: React.FC<CommentItemProps> = ({
             </View>
             <Text style={{color: '#000', fontSize: 15}}>{content}</Text>
           </View>
-          {/* isMycomment&& */}
-          <TouchableOpacity
-            style={{paddingHorizontal: 20}}
-            onPress={onDeleteComment}>
-            <Text style={{color: colors.GRAY_300}}>삭제</Text>
-            <ConfirmModal
-              message={'댓글을 삭제하시겠습니까?'}
-              isVisible={isConfirmModalVisible}
-              onConfirm={() => {
-                deleteMeetingComment(id);
-                setIsConfirmModalVisible(false);
-              }}
-              onCancel={() => setIsConfirmModalVisible(false)}
-            />
-          </TouchableOpacity>
+          {isMycomment && (
+            <TouchableOpacity
+              style={{paddingHorizontal: 20}}
+              onPress={onDeleteComment}>
+              <Text style={{color: colors.GRAY_300}}>삭제</Text>
+              <ConfirmModal
+                message={'댓글을 삭제하시겠습니까?'}
+                isVisible={isConfirmModalVisible}
+                onConfirm={() => {
+                  deleteMeetingComment(id);
+                  setIsConfirmModalVisible(false);
+                }}
+                onCancel={() => setIsConfirmModalVisible(false)}
+              />
+            </TouchableOpacity>
+          )}
+          {/* isMycomment 조건 끝 */}
         </View>
       </View>
     </View>
@@ -138,6 +150,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const screenWidth = Dimensions.get('window').width;
 
   const commentFlatListRef = useRef<FlatList>(null);
+
   const renderItem = useCallback(
     ({item}: {item: Comment}) => (
       <CommentItem
@@ -145,12 +158,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         content={item.content}
         created_at={dayjs(item.created_at).format('YY년 MM월 DD일 HH시 mm분')}
         profile={item.profile}
-        //TODO: 내 댓글만 삭제되게
-        // isMycomment={item.}
       />
     ),
     [],
   );
+
   const [comments, setComments] = useState<Comment[]>([]);
   const fetchData = async () => {
     try {
@@ -176,7 +188,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
-  console.log('comment:', comments);
+  //console.log('comment:', comments);
 
   return (
     <Modal
