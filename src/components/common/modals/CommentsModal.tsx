@@ -22,7 +22,7 @@ import {
   createMeetingComment,
   deleteMeetingComment,
 } from '@apis/supabase/comment';
-import {getProfile} from '@react-native-seoul/kakao-login';
+import {getProfile} from '@apis/supabase/profile';
 
 export interface CommentItemProps {
   id: number;
@@ -34,7 +34,6 @@ export interface CommentItemProps {
     image_url?: string;
     user_id: string;
   };
-  isMycomment: boolean;
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({
@@ -42,15 +41,27 @@ const CommentItem: React.FC<CommentItemProps> = ({
   content,
   created_at,
   profile,
-  isMycomment,
 }) => {
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
+  const [isMycomment, setIsMyComment] = useState(false);
+
+  const fetchMyProfile = async () => {
+    try {
+      const myProfile = await getProfile();
+      profile.user_id === myProfile.user_id
+        ? setIsMyComment(true)
+        : setIsMyComment(false);
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  };
+  fetchMyProfile();
 
   const onDeleteComment = () => {
     setIsConfirmModalVisible(true);
+
     //fetchData();
   };
-  const userId = profile.user_id;
 
   return (
     <View
@@ -91,6 +102,23 @@ const CommentItem: React.FC<CommentItemProps> = ({
             </View>
             <Text style={{color: '#000', fontSize: 15}}>{content}</Text>
           </View>
+          {isMycomment && (
+            <TouchableOpacity
+              style={{paddingHorizontal: 20}}
+              onPress={onDeleteComment}>
+              <Text style={{color: colors.GRAY_300}}>삭제</Text>
+              <ConfirmModal
+                message={'댓글을 삭제하시겠습니까?'}
+                isVisible={isConfirmModalVisible}
+                onConfirm={() => {
+                  deleteMeetingComment(id);
+                  setIsConfirmModalVisible(false);
+                }}
+                onCancel={() => setIsConfirmModalVisible(false)}
+              />
+            </TouchableOpacity>
+          )}
+          {/* isMycomment 조건 끝 */}
           {/* isMycomment&& */}
           <TouchableOpacity
             style={{paddingHorizontal: 20}}
@@ -137,6 +165,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const screenWidth = Dimensions.get('window').width;
 
   const commentFlatListRef = useRef<FlatList>(null);
+
   const renderItem = useCallback(
     ({item}: {item: Comment}) => (
       <CommentItem
@@ -144,12 +173,11 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         content={item.content}
         created_at={dayjs(item.created_at).format('YY년 MM월 DD일 HH시 mm분')}
         profile={item.profile}
-        //TODO: 내 댓글만 삭제되게
-        // isMycomment={item.}
       />
     ),
     [],
   );
+
   const [comments, setComments] = useState<Comment[]>([]);
   const fetchData = async () => {
     try {
@@ -175,6 +203,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
+
 
   return (
     <Modal
@@ -266,17 +295,17 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
               paddingHorizontal: 20,
               width: screenWidth,
               paddingVertical: 20,
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              //justifyContent: 'space-between',
+
               bottom: 0,
             }}>
             <View
               style={{
                 flexDirection: 'row',
-                alignItems: 'flex-end',
+                alignItems: 'center',
                 backgroundColor: colors.WHITE,
                 borderRadius: 4,
-                width: 270,
+                width: SCREEN_WIDTH - 40,
                 height: 36,
               }}>
               <TextInput
@@ -284,6 +313,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                   minHeight: 23,
                   maxHeight: 80,
                   paddingVertical: 0,
+                  paddingRight: 70,
                   lineHeight: 18,
                   fontSize: 15,
                   padding: 16,
@@ -301,18 +331,28 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 value={textValue}
                 onChangeText={text => setTextValue(text)}
               />
+              {textValue && (
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: colors.MAIN_COLOR,
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                    borderRadius: 8,
+                    position: 'absolute',
+                    right: 16,
+                  }}
+                  onPress={submitComment}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: '700',
+                      color: colors.WHITE,
+                    }}>
+                    등록
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
-
-            <TouchableOpacity onPress={submitComment}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '700',
-                  color: colors.BLACK,
-                }}>
-                등록
-              </Text>
-            </TouchableOpacity>
           </View>
           {/* 댓글 입력 끝*/}
         </View>
