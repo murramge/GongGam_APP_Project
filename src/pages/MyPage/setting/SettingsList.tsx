@@ -33,6 +33,7 @@ const SettingsList = ({}: SettingsListProps) => {
     try {
       await deleteUser();
       dispatch(CommonActions.reset({index: 0, routes: [{name: 'MainTab'}]}));
+      Toast.show({text1: '회원탈퇴 되었습니다.', type: 'info'});
     } catch (e: any) {
       rollbar.log(e);
       Toast.show({text1: '에러가 발생했습니다.', type: 'error'});
@@ -55,7 +56,7 @@ const SettingsList = ({}: SettingsListProps) => {
           <SettingsItems
             title="회원탈퇴"
             icons="account-cancel"
-            onPress={onPressConfirmUserDelete}
+            onPress={() => setIsDeleteUserConfirmModalVisible(true)}
           />
           <SettingsItems
             title="문의하기"
