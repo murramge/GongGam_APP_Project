@@ -56,7 +56,7 @@ KOPIS에서 제공하는 API를 사용하여 공연 정보를 제공하고, 함�
 
 <details>
 <summary>👋 영상 확인</summary>
-<!-- <img src="https://github.com/Floney-2023/Floney-Server/assets/70848762/159cb204-a8ff-4c0e-8a05-dfbdcc6a6b8e" width="30%"> -->
+<!-- <img src="https://github.com/" width="30%"> -->
 </details>
 
 ### 메인, 디테일
