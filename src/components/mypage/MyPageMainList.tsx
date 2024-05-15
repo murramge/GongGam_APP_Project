@@ -14,7 +14,7 @@ interface MyPageMainListProps {}
 const MyPageMainList = ({}: MyPageMainListProps) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -66,13 +66,22 @@ const MyPageMainList = ({}: MyPageMainListProps) => {
       }}>
       <Text style={{fontSize: 15, color: colors.BLACK}}>내 모임</Text>
       <View>
-        {data && (
+        {data.length ? (
           <FlatList
             data={data}
             renderItem={renderItem}
             horizontal={true}
             keyExtractor={item => `${item.id}`}
           />
+        ) : (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingTop: 30,
+            }}>
+            <Text>가입한 모임이 없습니다.</Text>
+          </View>
         )}
       </View>
     </View>
