@@ -60,7 +60,8 @@ const Home = () => {
         </>
       ) : (
         <>
-          <MainPageTopCard performanceData={datas}></MainPageTopCard>
+          <MainPageTopCard
+            performanceData={codeDatas ? datas : datas}></MainPageTopCard>
           <MainCategories></MainCategories>
           <MainPageBottomCard
             performanceData={
