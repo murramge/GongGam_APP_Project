@@ -14,7 +14,7 @@ interface MyPageMainListProps {}
 const MyPageMainList = ({}: MyPageMainListProps) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<null | JoinedMeetingInfo[]>(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -66,7 +66,7 @@ const MyPageMainList = ({}: MyPageMainListProps) => {
       }}>
       <Text style={{fontSize: 15, color: colors.BLACK}}>내 모임</Text>
       <View>
-        {data.length ? (
+        {data?.length ? (
           <FlatList
             data={data}
             renderItem={renderItem}
@@ -80,7 +80,7 @@ const MyPageMainList = ({}: MyPageMainListProps) => {
               alignItems: 'center',
               paddingTop: 30,
             }}>
-            <Text>가입한 모임이 없습니다.</Text>
+            <Text style={{color: colors.BLACK}}>가입한 모임이 없습니다.</Text>
           </View>
         )}
       </View>
