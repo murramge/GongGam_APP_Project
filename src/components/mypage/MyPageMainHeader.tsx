@@ -17,6 +17,7 @@ interface MyPageMainHeaderProps {}
 const MyPageMainHeader = ({}: MyPageMainHeaderProps) => {
   const isFocused = useIsFocused();
   const {profile, user, fetchProfiles} = useProfileApi();
+  console.log(profile, user, fetchProfiles);
 
   useEffect(() => {
     fetchProfiles();

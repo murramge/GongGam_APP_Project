@@ -17,6 +17,7 @@ import useProfileApi from '../../../pages/MyPage/hooks/useProfileApi';
 import ConfirmModal from './ConfirmModal';
 import Modal from 'react-native-modal';
 import dayjs from 'dayjs';
+
 import {
   getMeetingComments,
   createMeetingComment,
@@ -85,7 +86,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
                 ? `${Config.SUPABASE_PUBLIC_IMAGE_BASE_URL}/${profile?.image_url}`
                 : 'https://avatar.iran.liara.run/public',
             }}
-            //
             style={{
               width: 32,
               height: 32,
@@ -119,21 +119,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
             </TouchableOpacity>
           )}
           {/* isMycomment 조건 끝 */}
-          {/* isMycomment&& */}
-          <TouchableOpacity
-            style={{paddingHorizontal: 20}}
-            onPress={onDeleteComment}>
-            <Text style={{color: colors.GRAY_300}}>삭제</Text>
-            <ConfirmModal
-              message={'댓글을 삭제하시겠습니까?'}
-              isVisible={isConfirmModalVisible}
-              onConfirm={() => {
-                deleteMeetingComment(id);
-                setIsConfirmModalVisible(false);
-              }}
-              onCancel={() => setIsConfirmModalVisible(false)}
-            />
-          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -203,7 +188,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
-
+  //console.log('comment:', comments);
 
   return (
     <Modal
@@ -276,15 +261,21 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
                 댓글
               </Text>
             </View>
-            <FlatList
-              ref={commentFlatListRef}
-              data={comments}
-              renderItem={renderItem}
-              keyExtractor={item => item.id.toString()}
-              showsVerticalScrollIndicator={false}
-              ItemSeparatorComponent={() => <View style={{height: 32}} />}
-              style={{flex: 1}}
-            />
+            {comments.length === 0 ? (
+              <Text style={{padding: 16}}>
+                등록된 댓글이 없습니다. 첫 번째 댓글을 남겨보세요.
+              </Text>
+            ) : (
+              <FlatList
+                ref={commentFlatListRef}
+                data={comments}
+                renderItem={renderItem}
+                keyExtractor={item => item.id.toString()}
+                showsVerticalScrollIndicator={false}
+                ItemSeparatorComponent={() => <View style={{height: 32}} />}
+                style={{flex: 1}}
+              />
+            )}
           </View>
 
           {/*댓글입력 시작 */}
