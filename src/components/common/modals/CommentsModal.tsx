@@ -12,7 +12,6 @@ import {
   Dimensions,
 } from 'react-native';
 import {colors} from '@styles/color';
-import Config from 'react-native-config';
 import useProfileApi from '../../../pages/MyPage/hooks/useProfileApi';
 import ConfirmModal from './ConfirmModal';
 import Modal from 'react-native-modal';
@@ -48,7 +47,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
   const fetchMyProfile = async () => {
     try {
       const myProfile = await getProfile();
-      profile.user_id === myProfile.user_id
+      profile.user_id === myProfile?.user_id
         ? setIsMyComment(true)
         : setIsMyComment(false);
     } catch (error) {
@@ -120,20 +119,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
           )}
           {/* isMycomment 조건 끝 */}
           {/* isMycomment&& */}
-          <TouchableOpacity
-            style={{paddingHorizontal: 20}}
-            onPress={onDeleteComment}>
-            <Text style={{color: colors.GRAY_300}}>삭제</Text>
-            <ConfirmModal
-              message={'댓글을 삭제하시겠습니까?'}
-              isVisible={isConfirmModalVisible}
-              onConfirm={() => {
-                deleteMeetingComment(id);
-                setIsConfirmModalVisible(false);
-              }}
-              onCancel={() => setIsConfirmModalVisible(false)}
-            />
-          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -167,7 +152,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const commentFlatListRef = useRef<FlatList>(null);
 
   const renderItem = useCallback(
-    ({item}: {item: Comment}) => (
+    ({item}: {item: any}) => (
       <CommentItem
         id={item.id}
         content={item.content}
@@ -182,7 +167,8 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
   const fetchData = async () => {
     try {
       const data = await getMeetingComments(meetingId);
-
+      console.log(data);
+      console.log(data[0].profile.nickname);
       if (data) {
         setComments(data);
       }
@@ -203,7 +189,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
-
 
   return (
     <Modal
@@ -287,7 +272,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
             />
           </View>
 
-          {/*댓글입력 시작 */}
           <View
             style={{
               backgroundColor: colors.GRAY_200,
