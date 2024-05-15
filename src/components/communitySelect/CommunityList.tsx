@@ -19,14 +19,11 @@ const CommunityList = ({setValue, watch}: CommunityListProps) => {
   //   performanceDate.stsType,
 
   // );
-  //console.log('pdata', performanceData);
+
   const {performances, isLoading} = usePerformanceApi(
     performanceDate.today,
     performanceDate.stsType,
   );
-  console.log('pdata', performances);
-  //console.log('pdata', performances);
-  console.log(isLoading);
 
   return (
     <View>

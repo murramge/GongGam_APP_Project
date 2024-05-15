@@ -68,8 +68,6 @@ export const PasswordResetSchema = z
     passwordCheck: z.string(),
   })
   .superRefine(({passwordCheck, password}, ctx) => {
-    console.log('password', password);
-    console.log('passwordCheck', passwordCheck);
     if (passwordCheck !== password) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

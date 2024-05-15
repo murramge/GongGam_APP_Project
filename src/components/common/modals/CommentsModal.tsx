@@ -100,7 +100,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
               message={'댓글을 삭제하시겠습니까?'}
               isVisible={isConfirmModalVisible}
               onConfirm={() => {
-                console.log(id);
                 deleteMeetingComment(id);
                 setIsConfirmModalVisible(false);
               }}
@@ -176,7 +175,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
-  console.log('comment:', comments);
 
   return (
     <Modal
