@@ -46,7 +46,7 @@ export const kakaoSignIn = async () => {
     if (!idToken || !accessToken)
       throw new Error('토큰을 가져오지 못했습니다.');
 
-    const {data, error} = await supabase.auth.signInWithIdToken({
+    const {error} = await supabase.auth.signInWithIdToken({
       provider: 'kakao',
       token: idToken,
       access_token: accessToken,
@@ -54,7 +54,7 @@ export const kakaoSignIn = async () => {
 
     if (error) throw new Error(error.message);
   } catch (e) {
-    console.log(e);
+    throw e;
   }
 };
 
