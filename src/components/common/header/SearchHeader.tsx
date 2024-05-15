@@ -20,7 +20,7 @@ const SearchHeader = ({title, onPressSearch}: SearchHeaderProps) => {
       <Text style={{color: colors.BLACK, fontSize: 16}}>{title}</Text>
       <View style={{position: 'absolute', right: 16}}>
         <TouchableOpacity onPress={onPressSearch}>
-          <Icon name="search" size={24} />
+          <Icon name="search" size={24} color={colors.BLACK} />
         </TouchableOpacity>
       </View>
     </View>

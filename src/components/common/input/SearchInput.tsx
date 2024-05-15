@@ -31,13 +31,11 @@ const SearchInput = ({
         )}
       </View>
       <View style={styles.SearchInput}>
-        <View>
-          <CommonInput
-            value={value}
-            label="검색어를 입력해주세요"
-            onChangeText={onChangeText}
-          />
-        </View>
+        <CommonInput
+          value={value}
+          label="검색어를 입력해주세요"
+          onChangeText={onChangeText}
+        />
         <TouchableOpacity style={styles.IconsCenter} onPress={onPressSearch}>
           <Icon name="search" size={20} color="black" />
         </TouchableOpacity>
@@ -48,8 +46,8 @@ const SearchInput = ({
 
 const styles = StyleSheet.create({
   searchContainer: {
+    paddingVertical: 16,
     flexDirection: 'row',
-    paddingTop: 10,
     backgroundColor: colors.SEARCH_BG,
   },
   searchBackIcon: {
@@ -59,12 +57,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   SearchInput: {
-    width: '82%',
+    flex: 1,
     backgroundColor: 'white',
-    margin: 10,
     borderRadius: 10,
-    paddingHorizontal: 20,
-    padding: 10,
+    paddingHorizontal: 16,
+    marginRight: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

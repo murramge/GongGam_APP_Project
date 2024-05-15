@@ -91,6 +91,7 @@ const CommunityIntroduce = () => {
             textAlignVertical: 'top',
           }}
           value={watch('communityContext')}
+          multiline
         />
       </View>
       <View style={{paddingBottom: 10}}>
