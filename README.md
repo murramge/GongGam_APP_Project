@@ -75,22 +75,13 @@ KOPIS에서 제공하는 API를 사용하여 공연 정보를 제공하고, 함�
 
 ## API 명세서 📝
 
-🔗 [API 명세서 바로가기]
-
-<br/>
-
-## 시스템 아키텍처 🏗
-
-<!-- <img src="system_architecture.png" width="70%"> -->
+<!-- ![image](./src/assets/images/result/erd.png) -->
 
 <br/>
 
 ## ERD 📊
 
-<details>
-<summary>👋 ERD 확인</summary>
-<!-- <img src="erd.png"> -->
-</details>
+![image](./src/assets/images/result/erd.png)
 
 <br/>
 
