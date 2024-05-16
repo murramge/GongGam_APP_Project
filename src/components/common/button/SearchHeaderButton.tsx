@@ -26,7 +26,7 @@ const SearchHeaderButton = ({}: SearchHeaderButtonProps) => {
         }}>
         <View style={styles.SearchInput}>
           <View style={{padding: 10, paddingBottom: 15}}>
-            <Text>검색어를 입력해주세요.</Text>
+            <Text style={{color: colors.GRAY_300}}>검색어를 입력해주세요.</Text>
           </View>
           <View style={styles.IconsCenter}>
             <Icon name="search" size={15} color="black"></Icon>
