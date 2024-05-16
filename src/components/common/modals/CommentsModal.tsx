@@ -35,6 +35,7 @@ export interface CommentItemProps {
     image_url?: string;
     user_id: string;
   };
+  fetchData: () => void;
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({
@@ -42,6 +43,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
   content,
   created_at,
   profile,
+  fetchData,
 }) => {
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
   const [isMycomment, setIsMyComment] = useState(false);
@@ -60,10 +62,13 @@ const CommentItem: React.FC<CommentItemProps> = ({
 
   const onDeleteComment = () => {
     setIsConfirmModalVisible(true);
-
-    //fetchData();
   };
 
+  const onConfirmDelete = async () => {
+    deleteMeetingComment(id);
+    setIsConfirmModalVisible(false);
+    await fetchData();
+  };
   return (
     <View
       style={{
@@ -110,10 +115,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
               <ConfirmModal
                 message={'댓글을 삭제하시겠습니까?'}
                 isVisible={isConfirmModalVisible}
-                onConfirm={() => {
-                  deleteMeetingComment(id);
-                  setIsConfirmModalVisible(false);
-                }}
+                onConfirm={onConfirmDelete}
                 onCancel={() => setIsConfirmModalVisible(false)}
               />
             </TouchableOpacity>
@@ -158,6 +160,7 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         content={item.content}
         created_at={dayjs(item.created_at).format('YY년 MM월 DD일 HH시 mm분')}
         profile={item.profile}
+        fetchData={fetchData}
       />
     ),
     [],
@@ -188,7 +191,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
-  //console.log('comment:', comments);
 
   return (
     <Modal
