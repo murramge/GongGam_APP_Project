@@ -48,9 +48,8 @@ KOPIS에서 제공하는 API를 사용하여 공연 정보를 제공하고, 함�
 
 <br/>
 
-# 시연 영상 🎥
-
-[시연영상](https://youtu.be/KYwfAjVl6mY)
+# 시연 영상 🎥 
+🔗 [시연영상](https://youtu.be/KYwfAjVl6mY)
 
 
 <br/>
