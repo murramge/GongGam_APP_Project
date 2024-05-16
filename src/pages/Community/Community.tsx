@@ -42,6 +42,7 @@ const Community = ({route}: CommunityProps) => {
         isVisible={isFilterModalVisible}
         onPressApply={() => setIsFilterModalVisible(false)}
         onPressBack={() => setIsFilterModalVisible(false)}
+        onBackButtonPress={() => setIsFilterModalVisible(false)}
       />
     </>
   );
@@ -52,15 +53,18 @@ const FilterModal = memo(
     isVisible,
     onPressBack,
     onPressApply,
+    onBackButtonPress,
   }: {
     isVisible: boolean;
     onPressBack: () => void;
     onPressApply: () => void;
+    onBackButtonPress: () => void;
   }) => {
     const {refreshFilteredMeetings} = useMeetingApi({selectedType: 'All'});
 
     return (
       <Modal
+        onBackButtonPress={onBackButtonPress}
         style={{margin: 0, backgroundColor: colors.WHITE}}
         isVisible={isVisible}>
         <BackHeader label="모임 검색" onPressBack={onPressBack} />

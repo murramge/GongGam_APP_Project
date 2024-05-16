@@ -26,7 +26,7 @@ const CommonInput = ({
   editable,
 }: CommonInputProps) => {
   return (
-    <View style={{width: '100%', flex: 1}}>
+    <View style={{width: '100%', flex: 1, height: 44}}>
       <TextInput
         value={value}
         placeholderTextColor="#92929D"
@@ -34,7 +34,7 @@ const CommonInput = ({
         onChangeText={onChangeText}
         onBlur={onBlur}
         secureTextEntry={visiable}
-        style={{color: colors.GRAY_500, width: '100%'}}
+        style={{color: colors.BLACK, width: '100%', height: '100%'}}
         editable={editable}
       />
     </View>

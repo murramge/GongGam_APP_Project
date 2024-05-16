@@ -30,7 +30,6 @@ import Loading from '../../components/common/skeleton/Loading';
 import CommentsModal from '../../components/common/modals/CommentsModal';
 import Config from 'react-native-config';
 import Toast from 'react-native-toast-message';
-import useUserMettingsApi from '@pages/MyPage/hooks/useUserMettingsApi';
 
 const PosterImageWidth = 110;
 const PosterImageHeight = PosterImageWidth * 1.1;
