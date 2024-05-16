@@ -62,10 +62,13 @@ const CommentItem: React.FC<CommentItemProps> = ({
 
   const onDeleteComment = () => {
     setIsConfirmModalVisible(true);
-
-    //fetchData();
   };
 
+  const onConfirmDelete = async () => {
+    deleteMeetingComment(id);
+    setIsConfirmModalVisible(false);
+    await fetchData();
+  };
   return (
     <View
       style={{
@@ -194,7 +197,6 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
     setTextValue('');
     fetchData();
   };
-  //console.log('comment:', comments);
 
   return (
     <Modal
