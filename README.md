@@ -48,28 +48,10 @@ KOPIS에서 제공하는 API를 사용하여 공연 정보를 제공하고, 함�
 
 <br/>
 
-# 시연 영상(gif) 🎥
+# 시연 영상 🎥
 
-### 로그인,회원가입
+[시연영상](https://youtu.be/KYwfAjVl6mY)
 
-<details>
-<summary>👋 영상 확인</summary>
-<!-- <img src="https://github.com/" width="30%"> -->
-</details>
-
-### 메인, 디테일
-
-<details>
-<summary>👋 영상 확인</summary>
-
-</details>
-
-### 커뮤니티
-
-<details>
-<summary>👋 영상 확인</summary>
-
-</details>
 
 <br/>
 
@@ -107,5 +89,3 @@ KOPIS에서 제공하는 API를 사용하여 공연 정보를 제공하고, 함�
 
 다양한 테스트를 추가해 서비스의 안정성을 최우선으로 생각한다.
 
-## 시연영상
-[시연영상](https://youtu.be/KYwfAjVl6mY)
