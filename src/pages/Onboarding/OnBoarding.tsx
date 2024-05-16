@@ -8,6 +8,7 @@ import {useFocusEffect} from '@react-navigation/native';
 
 import {colors} from '@styles/color';
 import React, {useEffect, useRef, useState} from 'react';
+import {TouchableOpacity} from 'react-native';
 import {
   BackHandler,
   Image,
@@ -62,14 +63,12 @@ const OnBoardingHome = ({navigation, selected}: OnBoardingProps) => {
     }, []),
   );
 
-  const totalPages = 4;
-
-  const handleNextPress = () => {
-    if (currentPageIndex < totalPages - 1) {
-      setCurrentPageIndex(currentPageIndex + 1);
-    } else {
-      navigateToMainTab();
-    }
+  const NextButton = ({...props}) => {
+    return (
+      <TouchableOpacity style={{padding: 20}} {...props}>
+        <Text style={styles.nextText}>Next</Text>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -77,10 +76,7 @@ const OnBoardingHome = ({navigation, selected}: OnBoardingProps) => {
       SkipButtonComponent={() => (
         <SkipButtonComponent skipLabel="skip" onPress={navigateToMainTab} />
       )}
-      NextButtonComponent={() => (
-        <NextButtonComponent nextLabel="Next" onPress={handleNextPress} />
-      )}
-      // onSkip={navigateToMainTab}
+      NextButtonComponent={NextButton}
       bottomBarColor="white"
       DotComponent={({selected}) => (
         <Square pageIndex={selected ? currentPageIndex : null} />
@@ -145,6 +141,11 @@ const styles = StyleSheet.create({
   },
   buttonSize: {width: 300, marginHorizontal: 40},
   imageSize: {width: 390, height: 812, marginTop: 120},
+  nextText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: colors.MAIN_COLOR,
+  },
 });
 
 export default OnBoardingHome;
