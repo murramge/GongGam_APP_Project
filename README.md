@@ -1,127 +1,108 @@
-# Project Setup
+# Gonggam
 
-> [공식 문서](https://reactnative.dev/docs/environment-setup?os=macos&platform=android)
+### 프로젝트 개요
 
-## 01. Environment‐Setup
+KOPIS에서 제공하는 API를 사용하여 공연 정보를 제공하고, 함께 공연을 볼 사람들을 모을 수 있는 커뮤니티 어플
+
+![image](./src/assets/images/result/frame1.png)
+
+- 🔗 안드로이드 다운: [앱스토어 링크]()
+- 🔗 iOS 다운: 출시 예정
+- 📅 개발 기간: 2024.04 ~ _current_
+
+### 프로젝트 주제
+
+공연 함께 보기, 공연 정보 안내, 공연 예매 안내 등을 통해 사용자들에게
+편리한 공연 경험을 제공하고, 공연의 감동을 함께 나눌 수 있는 커뮤니티
+</br>
+
+### 프로젝트 선정배경
+
+🤔 공연은 보고 싶은데 혼자 보기는 싫은데 어떻게하지? </br>
+🤔 공연 예매 일정에 맞춰서 모임도 만들어 보고 싶다..?</br>
+🤔 관심공연에 대해 의견 나눠보고 싶은데 어떻게 하지?</br>
+</br>
+
+### 👩‍💻 팀원 목록
+
+<table>
+   <tr>
+    <td align="center"><b><a href="https://github.com/murramge">강은화</a></b></td>
+    <td align="center"><b><a href="https://github.com/SSH8560">송승훈</a></b></td>
+    <td align="center"><b><a href="https://github.com/newsks">신수경</a></b></td>
+    <td align="center"><b><a href="https://github.com/espoiryoung">전진영</a></b></td>
+  </tr>
+  <tr>
+  <td align="center"><a href="https://github.com/murramge"><img src="https://avatars.githubusercontent.com/u/60298173?v=4" width="100px" /></a></td>
+    <td align="center"><a href="https://github.com/SSH8560"><img src="https://avatars.githubusercontent.com/u/74501208?v=4" width="100px" /></a></td>  
+    <td align="center"><a href="https://github.com/newsks"><img src="https://avatars.githubusercontent.com/u/129296269?v=4" width="100px" /></a></td>  
+    <td align="center"><a href="https://github.com/espoiryoung"><img src="https://avatars.githubusercontent.com/u/80727081?v=4" width="100px" /></a></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Frontend</b></td>
+    <td align="center"><b>Frontend</b></td>
+    <td align="center"><b>Frontend</b></td>
+    <td align="center"><b>Frontend</b></td>
+  </tr>
+</table>
+
+<br/>
+
+# 시연 영상(gif) 🎥
+
+### 로그인,회원가입
 
 <details>
-<summary>Mac</summary>
-
-### 공통
-- Node.js 설치
-  - `brew install node`
-- watchman 설치
-  - `brew install watchman`
-
-### Android
-- OpenJDK 설치
-  - `brew tap homebrew/cask-versions && brew install --cask zulu17`
-- JAVA_HOME 환경변수 설정
-
-```
-echo 'export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home' >> ~/.zshrc
-source ~/.zshrc
-```
-
-### iOS
-- CocoaPods 설치
-  - `sudo gem install cocoapods`
- 
----
-
+<summary>👋 영상 확인</summary>
+<!-- <img src="https://github.com/" width="30%"> -->
 </details>
+
+### 메인, 디테일
+
 <details>
-<summary>Windwos</summary>
-
-### 공통
-- Chocolaty 설치
-  - 관리자 권한으로 Powershell을 실행하고 다음의 커맨드 실행하여 설치
-```
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-```
-
-- Node.js 설치
-  - `choco install node`
-- watchman 설치
-  - `choco install watchman`
-
-### Android
-- OpenJDK 설치
-  - `choco install -y nodejs-lts microsoft-openjdk17`
-- JAVA_HOME 환경변수 설정
-  - `Chocolaty`로 설치한 경우 자동 설정
-
-</details>
-
-## 02. Simulator-Setup
-
-### Android
-
-[안드로이드 스튜디오](https://developer.android.com/studio) 설치
-- SDK 설치
-  - 설치과정에서 다음의 Item 반드시 모두 체크
-    - `Android SDK`
-    - `Android SDK Platform`
-    - `Android Virtual Device`
-    - `Performance (Intel ® HAXM)`
-  - More Actions → SDK Manager
-  - **Android 14 (UpsideDownCake)** 설치
-    - _Show Package Details를 클릭해 세부 정보를 표시해 모두 설치_
-  - SDK Tools 탭
-    - Android SDK Build-Tools에서 **v34.0.0** 설치
-- emulator 생성
-  - More Actions → Virtual Device Manager
-  - Create Device를 눌러 새 애뮬레이터를 생성
-  - System Image : UpsideDownCake 34
-  - Device: 원하는 디바이스 선택
-    - Device 스토리지 용량을 2048mb 이상으로 설정
-- 환경변수 설정
-<details>
-<summary>Mac</summary>
-
-- ANDROID_HOME 환경 변수 설정
-
-```
-vi ~/.zshrc
-```
-
-```
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-```
-
-```
-source ~/.zshrc
-```
-
-</details>
-<details>
-<summary>Windwos</summary>
-
-- ANDROID_HOME 환경 변수 설정
-  - 환경변수에 다음과 같이 추가
-    - 이름 : `ANDROID_HOME`
-    - 값 : `C:\Users\사용자명\AppData\Local\Android\Sdk`
-- Path에 platform-tools 추가
-  - Path 변수에 다음과 같은 값 추가
-  - `C:\Users\사용자명\AppData\Local\Android\Sdk\platform-tools`
+<summary>👋 영상 확인</summary>
 
 </details>
 
+### 커뮤니티
 
-### iOS
+<details>
+<summary>👋 영상 확인</summary>
 
-[Xcode](https://developer.apple.com/xcode) 설치
+</details>
 
-- 설치 후 Xcode의 경로를 지정하도록 커맨드 입력
-  - `xcode-select --switch /Applications/Xcode.app`
-- Xcode → Preferences → Locations → **Command Line Tools**가 선택되어 있는지 확인
+<br/>
 
-## 03. Project-Setup
+## 폴더구조 📝
 
-### 공통
-- env 파일 세팅
-  - .env, .env.development, .env.production 파일 다운로드 
-  - .env, .env.development, .env.production 파일을 프로젝트 루트 폴더에 위치시킴
-- git clone 후 npm install 실행
+<details>
+<summary>👋 폴더구조</summary>
+<img src="./src/assets/images/result/folder.png" width="30%">
+</details>
+
+<br/>
+
+## ERD 📊
+
+![image](./src/assets/images/result/erd.png)
+
+<br/>
+
+## 팀 컨벤션 👭
+
+### 💫 그냥 작성한 코드는 없다
+
+내가 작성한 모든 코드에 대해 왜 그렇게 작성했는지 얘기할 수 있어야 한다.
+
+### 💫 머지하는 순간 모두의 코드가 된다
+
+남의 코드에서 오류가 발생했다면, 리뷰를 제대로 하지 않은 나의 책임도 있다. <br>
+남의 코드에서 오류가 발생했다면, 함께 원인을 찾고 해결한다.
+
+### 💫 남는 건 기록뿐이다
+
+협업하며 발생한 모든 로그는 프로젝트 레포지토리 및 노션에 기록한다.
+
+### 💫 사람은 실수하지만 테스트 코드는 실수하지 않는다
+
+다양한 테스트를 추가해 서비스의 안정성을 최우선으로 생각한다.
