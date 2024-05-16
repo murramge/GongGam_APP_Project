@@ -73,9 +73,12 @@ KOPIS에서 제공하는 API를 사용하여 공연 정보를 제공하고, 함�
 
 <br/>
 
-## API 명세서 📝
+## 폴더구조 📝
 
-<!-- ![image](./src/assets/images/result/erd.png) -->
+<details>
+<summary>👋 폴더구조</summary>
+<img src="./src/assets/images/result/folder.png" width="30%">
+</details>
 
 <br/>
 
