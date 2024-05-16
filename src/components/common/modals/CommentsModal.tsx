@@ -24,7 +24,7 @@ import {
   deleteMeetingComment,
 } from '@apis/supabase/comment';
 import {getProfile} from '@apis/supabase/profile';
-
+import Icon from 'react-native-vector-icons/Octicons';
 export interface CommentItemProps {
   id: number;
   content: string;
@@ -85,19 +85,35 @@ const CommentItem: React.FC<CommentItemProps> = ({
           alignItems: 'center',
         }}>
         <View style={{flexDirection: 'row'}}>
-          <Image
-            source={{
-              uri: profile?.image_url
-                ? `${Config.SUPABASE_PUBLIC_IMAGE_BASE_URL}/${profile?.image_url}`
-                : 'https://avatar.iran.liara.run/public',
-            }}
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: 100,
-              marginHorizontal: 10,
-            }}
-          />
+          {profile?.image_url ? (
+            <Image
+              source={{
+                uri: `${Config.SUPABASE_PUBLIC_IMAGE_BASE_URL}/${profile?.image_url}`,
+              }}
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 100,
+                marginHorizontal: 10,
+              }}
+            />
+          ) : (
+            <Icon
+              style={{
+                transform: [{translateY: 20 / 5}],
+                paddingVertical: 7,
+                margin: 5,
+                marginHorizontal: 10,
+                paddingHorizontal: 10,
+                backgroundColor: colors.GRAY_100,
+                borderRadius: 50,
+              }}
+              size={20}
+              name="person-fill"
+              color={colors.GRAY_400}
+            />
+          )}
+
           <View style={{flex: 1, rowGap: 3}}>
             <View style={{flexDirection: 'row', gap: 8, alignItems: 'center'}}>
               <Text style={{color: '#000', fontSize: 16, fontWeight: '600'}}>

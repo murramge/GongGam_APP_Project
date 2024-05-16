@@ -10,12 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import ElevatedView from 'react-native-elevated-view';
-import {getProfile} from '@apis/supabase/profile';
-import {useNavigation} from '@react-navigation/native';
-import useImage from '@hooks/useImage';
-import Config from 'react-native-config';
 import ProfileImage from '@components/common/image/ProfileImage';
 interface MyPageHeaderProps {
   type?: string;
