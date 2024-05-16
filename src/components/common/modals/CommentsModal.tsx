@@ -35,6 +35,7 @@ export interface CommentItemProps {
     image_url?: string;
     user_id: string;
   };
+  onPressDelete: () => void;
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({
@@ -42,6 +43,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
   content,
   created_at,
   profile,
+  onPressDelete,
 }) => {
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
   const [isMycomment, setIsMyComment] = useState(false);
@@ -110,8 +112,8 @@ const CommentItem: React.FC<CommentItemProps> = ({
               <ConfirmModal
                 message={'댓글을 삭제하시겠습니까?'}
                 isVisible={isConfirmModalVisible}
-                onConfirm={() => {
-                  deleteMeetingComment(id);
+                onConfirm={async () => {
+                  onPressDelete();
                   setIsConfirmModalVisible(false);
                 }}
                 onCancel={() => setIsConfirmModalVisible(false)}
@@ -158,6 +160,10 @@ const CommentsModal: React.FC<CommentsModalProps> = ({
         content={item.content}
         created_at={dayjs(item.created_at).format('YY년 MM월 DD일 HH시 mm분')}
         profile={item.profile}
+        onPressDelete={async () => {
+          await deleteMeetingComment(item.id);
+          fetchData();
+        }}
       />
     ),
     [],

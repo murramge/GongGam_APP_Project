@@ -54,7 +54,7 @@ const HorizontalCardList = ({data, type, id}: CommonArtCardListProps) => {
           showsHorizontalScrollIndicator={false}
         />
       ) : (
-        <NotResult></NotResult>
+        <></>
       )}
     </View>
   );

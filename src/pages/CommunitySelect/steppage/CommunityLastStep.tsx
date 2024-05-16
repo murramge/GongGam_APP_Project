@@ -14,7 +14,7 @@ const CommunitySummary = () => {
       <View
         style={{
           width: '100%',
-          paddingLeft: 20,
+          paddingHorizontal: 16,
           paddingTop: 200,
           paddingBottom: 70,
         }}>
@@ -29,12 +29,13 @@ const CommunitySummary = () => {
           </Text>
           <Text
             style={{
+              flex: 1,
               fontSize: 18,
               fontWeight: '700',
               color: colors.MAIN_COLOR,
               paddingLeft: 5,
-            }}
-            numberOfLines={2}>
+              width: '100%',
+            }}>
             {watch('artTitle')}
           </Text>
         </View>
@@ -49,7 +50,7 @@ const CommunitySummary = () => {
               color: colors.MAIN_COLOR,
               paddingLeft: 5,
             }}>
-            {watch('artDays')}
+            {dayjs(watch('artDays')).format(dateFormat)}
           </Text>
         </View>
         <View style={{flexDirection: 'row', paddingBottom: 4}}>
@@ -91,7 +92,7 @@ const CommunitySummary = () => {
               color: colors.MAIN_COLOR,
               paddingLeft: 5,
             }}>
-            PM 12:00
+            {dayjs(watch('communityDate')).format(timeFormat)}
           </Text>
         </View>
       </View>
@@ -110,6 +111,7 @@ const CommunitySummary = () => {
   );
 };
 
-const dateFormat = 'YYYY년 MM월 DD일 HH시 mm분';
+const dateFormat = 'YYYY년 MM월 DD일';
+const timeFormat = 'HH:mm';
 
 export default CommunitySummary;
