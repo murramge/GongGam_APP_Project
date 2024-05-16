@@ -48,7 +48,7 @@ const CommunityCreate = () => {
               <Text style={{fontWeight: '700'}}>함께 볼 사람</Text>을
               구해보세요!
             </Text>
-            <Text style={{fontSize: 11}}>
+            <Text style={{fontSize: 11, color: colors.GRAY_300}}>
               공연의 감동을 함께 나눌 사람을 찾아봐요
             </Text>
           </View>

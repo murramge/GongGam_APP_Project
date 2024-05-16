@@ -191,7 +191,9 @@ const ArtDaysTwoStap = ({route}: any) => {
             <Text style={{color: colors.MAIN_COLOR}}> {watch('artDays')} </Text>
             입니다.
           </Text>
-          <Text>멋진 공연을 기대하며 일정을 확인하세요!</Text>
+          <Text style={{color: colors.GRAY_300}}>
+            멋진 공연을 기대하며 일정을 확인하세요!
+          </Text>
         </View>
       )}
     </View>
