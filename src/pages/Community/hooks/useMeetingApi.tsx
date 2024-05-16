@@ -62,7 +62,6 @@ const useMeetingApi = ({
 
   const refreshFilteredMeetings = async () => {
     try {
-      console.log(maxOccupancy, meetingAt, perfGenre, perfName);
       const firstPage = 1;
       const data = await getMeetings({
         maxOccupancy,

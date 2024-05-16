@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Image} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {colors} from '@styles/color';
 import {getPerformanceFacilityDetail} from '@apis/kopis';
@@ -66,8 +66,8 @@ const DetailPageMap = ({id}: MainDetailsMapProps) => {
               initialRegion={{
                 latitude: location.lat,
                 longitude: location.lng,
-                latitudeDelta: 0.001,
-                longitudeDelta: 0.001,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
               }}>
               {location.theater && location.address && (
                 <Marker
@@ -75,9 +75,15 @@ const DetailPageMap = ({id}: MainDetailsMapProps) => {
                     latitude: location.lat,
                     longitude: location.lng,
                   }}
-                  image={theaterPin}
                   title={location.theater}
-                  description={location.address}></Marker>
+                  description={location.address}>
+                  <Image
+                    source={theaterPin}
+                    style={{width: 52, height: 52}}
+                    resizeMode="center"
+                    resizeMethod="resize"
+                  />
+                </Marker>
               )}
             </MapView>
           )}

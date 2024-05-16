@@ -72,9 +72,7 @@ const SettingsList = ({}: SettingsListProps) => {
             title="개인정보처리방침"
             icons="shield-check"
             onPress={() =>
-              Linking.openURL(
-                'https://drive.google.com/file/d/1hQaxERsM1lN4q-er80E-d9xKxV5kI3RC/view',
-              )
+              Linking.openURL('https://sites.google.com/view/gonggamprivate/홈')
             }
           />
           {/* <SettingsItems

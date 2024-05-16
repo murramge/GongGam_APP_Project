@@ -186,7 +186,7 @@ const ArtDaysTwoStap = ({route}: any) => {
             alignItems: 'center',
             paddingTop: 30,
           }}>
-          <Text style={{fontSize: 16, fontWeight: '700'}}>
+          <Text style={{fontSize: 16, fontWeight: '700', color: colors.BLACK}}>
             선택하신 공연 날짜는
             <Text style={{color: colors.MAIN_COLOR}}> {watch('artDays')} </Text>
             입니다.

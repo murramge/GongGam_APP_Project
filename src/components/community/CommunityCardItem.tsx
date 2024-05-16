@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {colors} from '@styles/color';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList} from '@router.d';
 import dayjs from 'dayjs';
@@ -37,65 +37,69 @@ const CommunityCardItem = ({data}: CommonArtCardItemProps) => {
   }, []);
 
   return (
-    <View>
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() => {
-          navigate('CommunityDetail', {id: item.id});
-        }}>
-        {isLoading ? (
-          <CommunityCardSkeleton />
-        ) : (
-          <>
-            <View style={styles.photo}>
-              {item.perf_image_url && (
-                <Image
-                  style={styles.photo}
-                  source={{
-                    uri: `${Config.KOPIS_IMAGE_BASE_URL}/${item.perf_image_url}`,
-                  }}
-                />
-              )}
-            </View>
-            <View style={styles.right}>
-              <View style={styles.cateArea}>
-                <Text
-                  style={styles.cateText}
-                  numberOfLines={1}
-                  ellipsizeMode="tail">
-                  {item.perf_name}
-                </Text>
-              </View>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigate('CommunityDetail', {id: item.id});
+      }}>
+      {isLoading ? (
+        <CommunityCardSkeleton />
+      ) : (
+        <>
+          <View style={styles.photo}>
+            {item.perf_image_url && (
+              <Image
+                style={styles.photo}
+                source={{
+                  uri: `${Config.KOPIS_IMAGE_BASE_URL}/${item.perf_image_url}`,
+                }}
+              />
+            )}
+          </View>
+          <View style={styles.right}>
+            <View style={styles.cateArea}>
               <Text
-                style={styles.nameText}
+                style={styles.cateText}
                 numberOfLines={1}
                 ellipsizeMode="tail">
-                {item.title}
+                {item.perf_name}
               </Text>
-              <Text style={styles.descriptionText}>
-                <Text style={{color: colors.MAIN_COLOR}}>공연일정 </Text>{' '}
-                {perfDay}
-              </Text>
-              <Text style={styles.descriptionText}>
-                <Text style={{color: colors.MAIN_COLOR}}>모임일정 </Text>{' '}
-                {meetDay}
-              </Text>
-              <View style={{flexDirection: 'row'}}>
-                <Icon name="person" size={10} style={{padding: 4}}></Icon>
-                <Text style={styles.descriptionText}>
-                  인원 {item.current_occupancy}/{item.max_occupancy}
-                </Text>
-              </View>
             </View>
-          </>
-        )}
-      </TouchableOpacity>
-    </View>
+            <Text
+              style={styles.nameText}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {item.title}
+            </Text>
+            <Text style={styles.descriptionText}>
+              <Text style={{color: colors.MAIN_COLOR}}>공연일정 </Text>{' '}
+              {perfDay}
+            </Text>
+            <Text style={styles.descriptionText}>
+              <Text style={{color: colors.MAIN_COLOR}}>모임일정 </Text>{' '}
+              {meetDay}
+            </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Icon
+                name="person"
+                size={10}
+                style={{padding: 4}}
+                color={colors.GRAY_300}
+              />
+              <Text style={styles.descriptionText}>
+                인원 {item.current_occupancy}/{item.max_occupancy}
+              </Text>
+            </View>
+          </View>
+        </>
+      )}
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: colors.LINE_COLOR,
@@ -121,6 +125,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
   },
   right: {
+    flex: 1,
     marginTop: 13,
     marginLeft: 20,
     gap: 3,
@@ -131,10 +136,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.LINE_COLOR,
   },
   nameText: {
+    flex: 1,
     color: colors.GRAY_500,
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 4,
+    width: '100%',
   },
   descriptionText: {
     color: colors.GRAY_300,
@@ -146,7 +153,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: colors.GRAY_200,
     backgroundColor: colors.MAIN_COLOR,
-    width: 200,
+    width: '100%',
     borderRadius: 4,
     height: 25,
     justifyContent: 'center',

@@ -36,7 +36,10 @@ const SearchInput = ({
           label="검색어를 입력해주세요"
           onChangeText={onChangeText}
         />
-        <TouchableOpacity style={styles.IconsCenter} onPress={onPressSearch}>
+        <TouchableOpacity
+          style={styles.IconsCenter}
+          onPress={onPressSearch}
+          hitSlop={20}>
           <Icon name="search" size={20} color="black" />
         </TouchableOpacity>
       </View>

@@ -19,9 +19,6 @@ interface CommunityProps extends NativeStackScreenProps<RootStackParamList> {}
 const Community = ({route}: CommunityProps) => {
   const results = useAtomValue(CommunityDataAtom);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
-  useEffect(() => {
-    console.log('refresh');
-  }, [results]);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {colors} from '@styles/color';
-import {StyleSheet, Text, View} from 'react-native';
+import {Keyboard, StyleSheet, Text, View} from 'react-native';
 import CommonButton from '../../../atoms/buttons/CommonButton';
 import SignInput from '@components/common/input/SignInput';
 import {PasswordResetSchema, PasswordResetType} from '@utils/validation';
@@ -60,11 +60,16 @@ const NewPassword = () => {
     try {
       await updatePassword(password);
 
-      navigation.dispatch(
-        CommonActions.reset({
-          routes: [{name: 'MainTab'}, {name: 'AuthHome'}, {name: 'Login'}],
-        }),
-      );
+      Keyboard.dismiss();
+      // 키보드 닫할 때 까지 지연
+      setTimeout(() => {
+        navigation.dispatch(
+          CommonActions.reset({
+            routes: [{name: 'MainTab'}, {name: 'AuthHome'}, {name: 'Login'}],
+          }),
+        );
+      }, 100);
+
       Toast.show({text1: '비밀번호가 재설정되었습니다.', type: 'success'});
     } catch (error) {
       Toast.show({
