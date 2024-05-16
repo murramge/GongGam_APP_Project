@@ -62,10 +62,9 @@ const SettingsList = ({}: SettingsListProps) => {
             title="문의하기"
             icons="card-account-phone"
             onPress={() =>
-              Toast.show({
-                text1: '문의사항 : murramge@gmail.com',
-                type: 'success',
-              })
+              Linking.openURL(
+                'https://docs.google.com/forms/d/1Dj4h9gN8abSyEFGx4GHrC5ldQfWP8pprqDj4xKuicnE/edit',
+              )
             }
           />
           <SettingsItems
