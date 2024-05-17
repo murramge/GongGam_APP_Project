@@ -26,7 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     setDatas(performances);
-  }, []);
+  }, [performances]);
 
   useEffect(() => {
     const codeApi = async () => {
@@ -42,7 +42,7 @@ const Home = () => {
       }
     };
     codeApi();
-  }, [code]);
+  }, [code, codeDatas]);
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
