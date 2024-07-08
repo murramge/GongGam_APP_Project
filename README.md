@@ -5,7 +5,7 @@
 KOPIS에서 제공하는 API를 사용하여 공연 정보를 제공하고, 함께 공연을 볼 사람들을 모을 수 있는 커뮤니티 어플
 
 ![스크린샷 2024-07-09 03 06 37](https://github.com/murramge/camping_app_project/assets/60298173/9387c9ad-e95e-47e3-8f0b-1fdb46cacd6e)
-mping_app_project/assets/60298173/b08ada7a-e402-4511-800e-1e09926473e6)
+
 
 - 🔗 안드로이드 다운: [앱스토어 링크](https://play.google.com/store/apps/details?id=com.gonggamapply&hl=ko)
 - 🔗 iOS 다운: 출시 예정
