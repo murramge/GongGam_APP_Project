@@ -4,7 +4,7 @@
 
 KOPIS에서 제공하는 API를 사용하여 공연 정보를 제공하고, 함께 공연을 볼 사람들을 모을 수 있는 커뮤니티 어플
 
-![image](./src/assets/images/result/frame1.png)
+![image](https://play.google.com/store/apps/details?id=com.gonggamapply&hl=ko)
 
 - 🔗 안드로이드 다운: [앱스토어 링크]()
 - 🔗 iOS 다운: 출시 예정
